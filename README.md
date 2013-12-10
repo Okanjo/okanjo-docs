@@ -19,12 +19,15 @@ To build the Okanjo docs, you'll need:
 * mdoc (referenced as git submodule)
 
 In a command prompt / terminal, change into the okanjo-docs project directory:
->   `cd okanjo-docs`
+```bash
+cd okanjo-docs
+```
 
 Then init the git submodules:
->   `git submodule init`
-
->   `git submodule update`
+```bash
+git submodule init
+git submodule update
+```
 
 And that should get mdoc checked out into the right spot.
 
@@ -32,9 +35,13 @@ And that should get mdoc checked out into the right spot.
 # Build the Docs
 
 In a command prompt / terminal, change into the okanjo-docs project directory:
->   `cd okanjo-docs`
+```bash
+cd okanjo-docs
+```
 
 Then run the build script:
->   `node gen-docs.js`
+```bash
+node gen-docs.js
+```
 
 And the build directory will contain the generated html documentation.
