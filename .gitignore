@@ -1,0 +1,5 @@
+#JetBrains metadata
+.idea
+
+# Mdoc dir - let it be managed as a git submodule
+mdoc
