@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Stores : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="stores">Stores</h1>
+
+<p>The base organizational unit which sells products and receives funds.</p>
+
+<p>Stores own products, and may inherit products as well.</p>
+
+<blockquote>
+  <p><em>* Note: Stores are currently being refactored and will be released soon. Their direct link to users has been eliminated, and are now standalone.  *</em></p>
+</blockquote>
+
+<h1 id="objects">Objects</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#Store">Store</a></li>
+<li><a href="#GET /stores">GET /stores</a></li>
+<li><a href="#GET /stores/{id}">GET /stores/{id}</a></li>
+<li><a href="#PUT /stores/{id}">PUT /stores/{id}</a></li>
+</ul>
+
+<h2 id="storeahrefstoreidstoreclassdeeplinka">Store <a href="#Store" id="Store" class="deep-link">#</a></h2>
+
+<p>A storefront which offers items for sale on Okanjo.</p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the store.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int enum</code>  Status of the store. See (<code>StoreStatus</code>)[Constants.html#StoreStatus]</p></dd><dt><p><code>created</code></p></dt><dd><p><code>date time</code>  When the store was created.</p></dd><dt><p><code>updated</code></p></dt><dd><p><code>date time</code>  When the store was last modified.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>int enum</code>  Type of the store.  See (<code>StoreType</code>)[Constants.html#StoreType]</p></dd><dt><p><code>name</code></p></dt><dd><p><code>string</code>  The display name of the store. By default is the name of the user who owns the store.</p></dd><dt><p><code>user_id</code></p></dt><dd><p><code>int</code>  The ID of the user who owns the store.</p></dd><dt><p><code>about</code></p></dt><dd><p><code>string (512)</code> Nullable. Store description.</p></dd><dt><p><code>location</code></p></dt><dd><p><code>string (10)</code> Nullable. Store zip code location.</p></dd><dt><p><code>location_name</code></p></dt><dd><p><code>string (180)</code> Nullable. Store city/locality name.</p></dd><dt><p><code>location_state</code></p></dt><dd><p><code>string (2)</code> Nullable. Store state code abbreviation.</p></dd><dt><p><code>website_url</code></p></dt><dd><p><code>string (255)</code> Nullable. Store website URL.</p></dd><dt><p><code>facebook_url</code></p></dt><dd><p><code>string (255)</code> Nullable. Store facebook URL.</p></dd><dt><p><code>twitter_url</code></p></dt><dd><p><code>string (255)</code> Nullable. Store twitter URL.</p></dd><dt><p><code>avatar_media_id</code></p></dt><dd><p><code>int</code> Nullable. The media image ID to display as the store logo/avatar.</p></dd><dt><p><code>banner_media_id</code></p></dt><dd><p><code>int</code> Nullable. The media image ID to display as the store banner.</p></dd><dt><p><code>rating_avg</code></p></dt><dd><p><code>decimal (1,2)</code> Nullable. The store's average rating, from 1 to 5.</p></dd><dt><p><code>review_count</code></p></dt><dd><p><code>int</code> Nullable. The number of reviews the store received.</p></dd><dt><p><code>product_count</code></p></dt><dd><p><code>int</code>  Number of products available for sale in the store.</p></dd><dt><p><code>okanjo_url</code></p></dt><dd><p><code>string (20)</code> Nullable. Okanjo URL associated with the store.</p></dd><dt><p><code>media</code></p></dt><dd><p><code>MediaEmbeds</code>  Embeddable. Media associated with the store and other related objects.</p></dd><dt><p><code>addresses</code></p></dt><dd><p><code>Address[]</code>  Embeddable. Array of physical store locations.</p></dd><dt><p><code>products:n</code></p></dt><dd><p><code>Product[]</code>  Embeddable. Array of <code>n</code> number of products from the store. Used for a quick glance of the store’s items.</p></dd><dt><p><code>causes</code></p></dt><dd><p>(<code>Cause[]</code>)[Causes.html#Cause] Embeddable. Array of associated causes with the store.</p></dd></dl>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="getstoresahrefgetstoresidgetstoresclassdeeplinka">GET /stores <a href="#GET /stores" id="GET /stores" class="deep-link">#</a></h2>
+
+<p>Collection. By default, it returns all stores alphabetically. This collection accepts search filters and pagination options.</p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>All fields are optional. Accepts the standard pagination parameters as well.</p>
+
+<p><em>Filtering</em></p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int csv</code> Returns stores with the given store id or list of store id’s. e.g. <code>id=1</code> or <code>id=1,2,3,4,5</code></p></dd><dt><p><code>search</code></p></dt><dd><p><code>string</code> Returns stores that match the search query. Use this for user-given search strings.</p></dd><dt><p><code>seller_id</code></p></dt><dd><p><code>int</code> Returns stores that belong to the given user id.</p></dd><dt><p><code>has_products</code></p></dt><dd><p><code>bit</code> Returns stores that have products available when set to <code>1</code>.</p></dd></dl>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When given, only returns the given fields. Can also can specify fields on embedded objects.</p></dd><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional resources. Accepts: <code>causes, media, addresses, products:n</code>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Array of <a href="Stores.html#Store"><code>Store</code></a> objects.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to retrieve stores.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="getstoresidahrefgetstoresididgetstoresidclassdeeplinka">GET /stores/{id} <a href="#GET /stores/{id}" id="GET /stores/{id}" class="deep-link">#</a></h2>
+
+<p>Resource. Gets a specific store resource by its unique identifier.</p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When given, only returns the given fields. Can also can specify fields on embedded objects.</p></dd><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional resources. Accepts: <code>causes, media, addresses, products:n</code>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Stores.html#Store"><code>Store</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Store not found.</code> Occurs when the given store was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to retrieve store.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="putstoresidahrefputstoresididputstoresidclassdeeplinka">PUT /stores/{id} <a href="#PUT /stores/{id}" id="PUT /stores/{id}" class="deep-link">#</a></h2>
+
+<p>Resource. Updates a store by its unique identifier. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>Only send the fields that should be updated. Send them all if you’d really like.</p>
+
+<dl class="inline-def"><dt><p><code>name</code></p></dt><dd><p><code>string (6-32)</code> The pretty store name, which may contain letters, numbers and the following characters: space, apostrophe, hyphen, and ampersand.</p></dd><dt><p><code>about</code></p></dt><dd><p><code>string (512)</code> Information about the seller’s store. Can contain no more than 3 line breaks before they’re stripped.</p></dd><dt><p><code>avatar_media_id</code></p></dt><dd><p><code>int</code> Media image ID to use for the store logo/avatar. Target media image must belong to the seller.</p></dd><dt><p><code>banner_media_id</code></p></dt><dd><p><code>int</code> Media image ID to use for the store banner image. Target media image must belong to the seller.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> The zip code the store is located in.</p></dd><dt><p><code>website_url</code></p></dt><dd><p><code>string (255)</code> The URL of the store’s web presence. Protocol must be HTTP or HTTPS.</p></dd><dt><p><code>facebook_url</code></p></dt><dd><p><code>string (255)</code> The URL of the store’s Facebook presence. Protocol must be HTTP or HTTPS and domain must end in facebook.com.</p></dd><dt><p><code>twitter_url</code></p></dt><dd><p><code>string (255)</code> The URL of the store’s twitter presence. Protocol must be HTTP or HTTPS and domain must end in twitter.com.</p></dd><dt><p><code>okanjo_url</code></p></dt><dd><p><code>string (20)</code> The requested Okanjo vanity URL.</p></dd><dt><p><code>contact_email</code></p></dt><dd><p><code>string (255)</code> The email in which to send store email notifications.</p></dd><dt><p><code>payout_preference</code></p></dt><dd><p><code>string enum</code> Nullable. The store’s payout preference. See <a href="Constants.html#PayoutPreference">PayoutPreference</a>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Updated <a href="Stores.html#Store"><code>Store</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid {field}</code> Occurs when the given field was invalid.</p></dd><dd><p><code>{field} too long.</code> Occurs when the given field was too long.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Store not found.</code> Occurs when the given store was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to update store.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a href="https://github.com/millermedeiros/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+

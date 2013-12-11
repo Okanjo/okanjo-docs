@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>User and Store Addresses : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="userandstoreaddresses">User and Store Addresses</h1>
+
+<p>Generic physical mailing or permanent street address.</p>
+
+<p>Users can store many addresses of different types.</p>
+
+<p>Stores can use addresses to list physical storefronts.</p>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#Address">Address</a></li>
+<li><a href="#GET /users/{id}/addresses">GET /users/{id}/addresses</a></li>
+<li><a href="#GET /users/{id}/addresses/{address_id}">GET /users/{id}/addresses/{address_id}</a></li>
+<li><a href="#POST /users/{id}/addresses">POST /users/{id}/addresses</a></li>
+<li><a href="#PUT /users/{id}/addresses/{address_id}">PUT /users/{id}/addresses/{address_id}</a></li>
+<li><a href="#DELETE /users/{id}/addresses/{address_id}">DELETE /users/{id}/addresses/{address_id}</a></li>
+</ul>
+
+<h2 id="addressahrefaddressidaddressclassdeeplinka">Address <a href="#Address" id="Address" class="deep-link">#</a></h2>
+
+<p>Generic physical or permanent street address.</p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the address.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int (enum)</code>  The status of the address. See [<code>AddressStatus</code>](Constants.html#AddressStatus].</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string (enum)</code>  The type of the address. See [<code>AddressType</code>](Constants.html#AddressType].</p></dd><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code>  Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code>  Addressee’s last name.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code>  Address line one.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Nullable. Optional, address line 2.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code>  Locality</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code>  State code (e.g. WI)</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code>  Postal code</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code>  Country code (e.g. US)</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code>  Addressee’s phone number.</p></dd><dt><p><code>created</code></p></dt><dd><p><code>date time</code>  When the address was created.</p></dd><dt><p><code>updated</code></p></dt><dd><p><code>date time</code>  When the address was last updated.</p></dd></dl>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="getusersidaddressesahrefgetusersidaddressesidgetusersidaddressesclassdeeplinka">GET /users/{id}/addresses <a href="#GET /users/{id}/addresses" id="GET /users/{id}/addresses" class="deep-link">#</a></h2>
+
+<p>Collection. Gets the addresses on file for the given user. Can only retrieve own addresses. Attempts to retrieve another user’s addresses will be denied. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Array of <a href="User Addresses.html#Address"><code>Address</code></a> objects.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given user does not match the currently logged-in user.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>User not found.</code> Occurs when the given user was not found. Perhaps deleted?</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+
+<h2 id="getusersidaddressesaddress_idahrefgetusersidaddressesaddress_ididgetusersidaddressesaddress_idclassdeeplinka">GET /users/{id}/addresses/{address_id} <a href="#GET /users/{id}/addresses/{address_id}" id="GET /users/{id}/addresses/{address_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Gets the specific address for the given user. Can only retrieve own addresses. Attempts to retrieve another user’s addresses will be denied. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="User Addresses.html#UserAddress"><code>Address</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid address.</code> Occurs when the given address_id is not a valid address.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given user does not match the currently logged-in user.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Address not found.</code> Occurs when the given address_id was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+
+<h2 id="postusersidaddressesahrefpostusersidaddressesidpostusersidaddressesclassdeeplinka">POST /users/{id}/addresses <a href="#POST /users/{id}/addresses" id="POST /users/{id}/addresses" class="deep-link">#</a></h2>
+
+<p>Resource. Adds a new address to the address collection. Limit 20 addresses per user. New address will be created with active status. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code.</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> Address type. Valid options are: shipping billing cause payout store</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="User Addresses.html#UserAddress"><code>Address</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid address.</code> Occurs when a parameter is missing or invalid.</p></dd><dd><p><code>{field} too long.</code> Occurs when the given parameter exceeded the maximum length.</p></dd><dd><p><code>{field} is invalid.</code> Occurs when the given parameter sent an invalid value.</p></dd><dd><p><code>Too many addresses.</code> Occurs when the user has exceeded the maximum number of addresses that may be stored on the platform.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given user does not match the currently logged-in user.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+
+<h2 id="putusersidaddressesaddress_idahrefputusersidaddressesaddress_ididputusersidaddressesaddress_idclassdeeplinka">PUT /users/{id}/addresses/{address_id} <a href="#PUT /users/{id}/addresses/{address_id}" id="PUT /users/{id}/addresses/{address_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Modifies an existing address in the user’s address collection. Give only the fields needed to update. Returns the updated address object. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.  (e.g. WI)</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code. (e.g. US)</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> Address type. See [<code>AddressType</code>](Constants.html#AddressType].</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int enum</code> Address status. See [<code>AddressStatus</code>](Constants.html#AddressStatus].</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Updated <a href="User Addresses.html#UserAddress"><code>Address</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid address.</code> Occurs when the given address_id is not a valid address.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given user does not match the currently logged-in user.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+
+<h2 id="deleteusersidaddressesaddress_idahrefdeleteusersidaddressesaddress_ididdeleteusersidaddressesaddress_idclassdeeplinka">DELETE /users/{id}/addresses/{address_id} <a href="#DELETE /users/{id}/addresses/{address_id}" id="DELETE /users/{id}/addresses/{address_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Deletes an existing address in the user’s address collection. Only addresses that are not in use by other users and causes may be deleted. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Globals.html#Default Response Object"><code>Success</code></a> response when successful.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid address.</code> Occurs when the given <code>address_id</code> is not a valid address.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given user does not match the currently logged-in user.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Address is still in use.</code> Occurs when the address is still in use by another user or cause.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a href="https://github.com/millermedeiros/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+

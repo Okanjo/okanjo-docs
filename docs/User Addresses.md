@@ -1,0 +1,209 @@
+
+# User and Store Addresses
+
+Generic physical mailing or permanent street address.
+
+Users can store many addresses of different types.
+
+Stores can use addresses to list physical storefronts.
+
+## Address
+
+Generic physical or permanent street address.
+
+`id`
+:   `int`  The unique ID of the address.
+`status`
+:   `int (enum)`  The status of the address. See [`AddressStatus`](Constants.html#AddressStatus].
+`type`
+:   `string (enum)`  The type of the address. See [`AddressType`](Constants.html#AddressType].
+`first_name`
+:   `string (255)`  Addressee’s first name.
+`last_name`
+:   `string (255)`  Addressee’s last name.
+`address_1`
+:   `string (255)`  Address line one.
+`address_2`
+:   `string (255)` Nullable. Optional, address line 2.
+`city`
+:   `string (255)`  Locality
+`state`
+:   `string (2)`  State code (e.g. WI)
+`zip`
+:   `string (10)`  Postal code
+`country`
+:   `string (2)`  Country code (e.g. US)
+`phone`
+:   `string (20)`  Addressee’s phone number.
+`created`
+:   `date time`  When the address was created.
+`updated`
+:   `date time`  When the address was last updated.
+
+
+# Routes
+
+
+## GET /users/{id}/addresses
+
+Collection. Gets the addresses on file for the given user. Can only retrieve own addresses. Attempts to retrieve another user’s addresses will be denied. **Requires user level authentication.**
+
+### Query Parameters
+
+None.
+
+### Returns
+
+Array of [`Address`](User Addresses.html#Address) objects.
+
+### Errors
+
+**403 Forbidden**
+:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+**404 Not Found**
+:   `User not found.` Occurs when the given user was not found. Perhaps deleted?
+**500 Internal Server Error**
+:   `System error.` Occurs when an exception occurs.
+
+
+
+## GET /users/{id}/addresses/{address_id}
+
+Resource. Gets the specific address for the given user. Can only retrieve own addresses. Attempts to retrieve another user’s addresses will be denied. **Requires user level authentication.**
+
+### Query Parameters
+
+None.
+
+### Returns
+
+[`Address`](User Addresses.html#UserAddress) object.
+
+### Errors
+
+**400 Bad Request**
+:   `Invalid address.` Occurs when the given address_id is not a valid address.
+**403 Forbidden**
+:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+**404 Not Found**
+:   `Address not found.` Occurs when the given address_id was not found.
+**500 Internal Server Error**
+:   `System error.` Occurs when an exception occurs.
+
+
+
+## POST /users/{id}/addresses
+
+Resource. Adds a new address to the address collection. Limit 20 addresses per user. New address will be created with active status. **Requires user level authentication.**
+
+### Entity NVP Parameters
+
+`first_name`
+:   `string (255)` Addressee’s first name.
+`last_name`
+:   `string (255)` Addressee’s last name.
+`address1`
+:   `string (255)` Street address.
+`address2`
+:   `string (255)` Optional. Street address line two.
+`city`
+:   `string (255)` Locality.
+`state`
+:   `string (2)` State code.
+`zip`
+:   `string (10)` Postal code.
+`country`
+:   `string (2)` Country code.
+`phone`
+:   `string (20)` Contact phone number.
+`type`
+:   `string enum` Address type. Valid options are: shipping billing cause payout store
+
+
+
+### Returns
+
+[`Address`](User Addresses.html#UserAddress) object.
+
+### Errors
+
+**400 Bad Request**
+:   `Invalid address.` Occurs when a parameter is missing or invalid.
+:   `{field} too long.` Occurs when the given parameter exceeded the maximum length.
+:   `{field} is invalid.` Occurs when the given parameter sent an invalid value.
+:   `Too many addresses.` Occurs when the user has exceeded the maximum number of addresses that may be stored on the platform.
+**403 Forbidden**
+:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+**500 Internal Server Error**
+:   `System error.` Occurs when an exception occurs.
+
+
+## PUT /users/{id}/addresses/{address_id}
+
+Resource. Modifies an existing address in the user’s address collection. Give only the fields needed to update. Returns the updated address object. **Requires user level authentication.**
+
+### Entity NVP Parameters
+
+`first_name`
+:   `string (255)` Addressee’s first name.
+`last_name`
+:   `string (255)` Addressee’s last name.
+`address1`
+:   `string (255)` Street address.
+`address2`
+:   `string (255)` Optional. Street address line two.
+`city`
+:   `string (255)` Locality.
+`state`
+:   `string (2)` State code.  (e.g. WI)
+`zip`
+:   `string (10)` Postal code.
+`country`
+:   `string (2)` Country code. (e.g. US)
+`phone`
+:   `string (20)` Contact phone number.
+`type`
+:   `string enum` Address type. See [`AddressType`](Constants.html#AddressType].
+`status`
+:   `int enum` Address status. See [`AddressStatus`](Constants.html#AddressStatus].
+
+
+### Returns
+
+Updated [`Address`](User Addresses.html#UserAddress) object.
+
+### Errors
+
+**400 Bad Request**
+:   `Invalid address.` Occurs when the given address_id is not a valid address.
+**403 Forbidden**
+:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+**500 Internal Server Error**
+:   `System error.` Occurs when an exception occurs.
+
+
+
+## DELETE /users/{id}/addresses/{address_id}
+
+Resource. Deletes an existing address in the user’s address collection. Only addresses that are not in use by other users and causes may be deleted. **Requires user level authentication.**
+
+### Entity NVP Parameters
+
+None.
+
+### Returns
+
+[`Success`](Globals.html#Default Response Object) response when successful.
+
+### Errors
+
+**400 Bad Request**
+:   `Invalid address.` Occurs when the given `address_id` is not a valid address.
+**403 Forbidden**
+:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+**409 Conflict**
+:   `Address is still in use.` Occurs when the address is still in use by another user or cause.
+**500 Internal Server Error**
+:   `System error.` Occurs when an exception occurs.
+
+

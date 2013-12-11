@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Feedback : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="feedback">Feedback</h1>
+
+<p>Represents feedback about a sale of an item.</p>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#UserFeedback">UserFeedback</a></li>
+<li><a href="#UserFeedbackEntity">UserFeedbackEntity</a></li>
+<li><a href="#GET /users/{id}/feedback">GET /users/{id}/feedback</a></li>
+<li><a href="#GET /users/{id}/feedback/{order_item_id}">GET /users/{id}/feedback/{order<em>item</em>id}</a></li>
+<li><a href="#PUT /users/{id}/feedback/{order_item_id}">PUT /users/{id}/feedback/{order<em>item</em>id}</a></li>
+</ul>
+
+<h2 id="userfeedbackahrefuserfeedbackiduserfeedbackclassdeeplinka">UserFeedback <a href="#UserFeedback" id="UserFeedback" class="deep-link">#</a></h2>
+
+<p>Review of purchase experience.</p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the user feedback.</p></dd><dt><p><code>created</code></p></dt><dd><p><code>date time</code>  When the feedback was received.</p></dd><dt><p><code>reviewee_id</code></p></dt><dd><p><code>int</code>  The unique ID of the buyer who left the feedback.</p></dd><dt><p><code>reviewer_id</code></p></dt><dd><p><code>int</code>  The unique ID of the seller who received the feedback.</p></dd><dt><p><code>order_item_id</code></p></dt><dd><p><code>int</code>  The order item the feedback is in regards to.</p></dd><dt><p><code>value</code></p></dt><dd><p><code>int (1-5)</code>  The rating the buyer gave the seller between 1 and 5 where 1 is worst and 5 is best.</p></dd><dt><p><code>feedback</code></p></dt><dd><p><code>string</code> Nullable. Optional. A message the buyer included about the transaction.</p></dd><dt><p><code>reviewer</code></p></dt><dd><p><a href="User Feedback.html#UserFeedbackEntity"><code>UserFeedbackEntity</code></a>  Embedded information about the user who left the feedback.</p></dd><dt><p><code>reviewee</code></p></dt><dd><p><a href="User Feedback.html#UserFeedbackEntity"><code>UserFeedbackEntity</code></a>  Embedded information about hte user who received the feedback.</p></dd></dl>
+
+<h2 id="userfeedbackentityahrefuserfeedbackentityiduserfeedbackentityclassdeeplinka">UserFeedbackEntity <a href="#UserFeedbackEntity" id="UserFeedbackEntity" class="deep-link">#</a></h2>
+
+<p>Embedded information about a user who participated in feedback giving or receiving.</p>
+
+<dl class="inline-def"><dt><p><code>user_name</code></p></dt><dd><p><code>string</code>  The username of the user to who left/received the feedback.</p></dd></dl>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="getusersidfeedbackahrefgetusersidfeedbackidgetusersidfeedbackclassdeeplinka">GET /users/{id}/feedback <a href="#GET /users/{id}/feedback" id="GET /users/{id}/feedback" class="deep-link">#</a></h2>
+
+<p>Collection. Returns feedback received for the given user.</p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Filtering</em></p>
+
+<dl class="inline-def"><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> . Required. Returns feedback of a specific to being given or received. Accepts: <code>got, gave</code> </p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Array of <a href="User Feedback.html#UserFeedback"><code>UserFeedback</code></a> messages.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Missing required field: type</code> Occurs when the type field was not given.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+
+<h2 id="getusersidfeedbackorder_item_idahrefgetusersidfeedbackorder_item_ididgetusersidfeedbackorder_item_idclassdeeplinka">GET /users/{id}/feedback/{order<em>item</em>id} <a href="#GET /users/{id}/feedback/{order_item_id}" id="GET /users/{id}/feedback/{order_item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Returns a specific feedback message.</p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="User Feedback.html#UserFeedback"><code>UserFeedback</code></a> message.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>404 Bad Request</strong></p></dt><dd><p><code>Feedback not found.</code> Occurs when the specific feedback was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+
+<h2 id="putusersidfeedbackorder_item_idahrefputusersidfeedbackorder_item_ididputusersidfeedbackorder_item_idclassdeeplinka">PUT /users/{id}/feedback/{order<em>item</em>id} <a href="#PUT /users/{id}/feedback/{order_item_id}" id="PUT /users/{id}/feedback/{order_item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Leaves feedback regarding a specific sale. Reviewer is the given <code>user_id, reviewee_id</code> is implicitly derived by the <code>order_item_id</code>. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>rating</code></p></dt><dd><p><code>int</code> Required. The quantitative score given to the transaction. Accepts <code>1, 2, 3, 4</code> or <code>5</code>.</p></dd><dt><p><code>feedback</code></p></dt><dd><p><code>string (140)</code> Optional. The message the reviewer is leaving regarding the transaction.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> response.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Require {field}.</code> Occurs when the field was required but was not given in the request.</p></dd><dd><p><code>Cannot leave Feedback for this product again</code> Occurs when the user attempts to leave feedback on an item after feedback has already been left.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the request credentials were not sufficient to perform the action. Providing different credentials could solve the issue.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>{object} not found.</code> Occurs when the specific target order/item/product/seller was not found or valid.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to save Feedback. Try again later</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a href="https://github.com/millermedeiros/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+

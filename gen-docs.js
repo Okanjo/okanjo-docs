@@ -3,7 +3,7 @@ var fs       = require('fs'),
 	path     = require('path');
 
 var paths = {
-	'docs' : path.normalize(process.cwd() + '/docs/api'),
+	'docs' : path.normalize(process.cwd() + '/docs'),
     'mdoc_root': path.normalize(process.cwd() + '/mdoc'),
 	'node_modules' : path.normalize(process.cwd() + '/mdoc/node_modules'),
 	"path_to_docs" : path.normalize(process.cwd() + '/build'),
