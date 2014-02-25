@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Order Items : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="orderitems">Order Items</h1>
+
+<p>Order items represent copies of products that were purchased within an <a href="Objects.html#Order"><code>Order</code></a>.</p>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#OrderItem"><code>OrderItem</code></a> – Snapshot of a product.</li>
+<li><a href="Objects.html#OrderItem"><code>OrderItemStatus</code></a> – History state of an order item.</li>
+<li><a href="Objects.html#OrderItem"><code>Payout</code></a> – Breakdown record of earnings, commissions, and donations.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#GET /order-items">GET /order-items</a></li>
+<li><a href="#GET /order-items/{item_id}">GET /order-items/{item_id}</a></li>
+<li><a href="#PUT /order-items/{item_id}">PUT /order-items/{item_id}</a></li>
+</ul>
+
+<h2 id="getorderitemsahrefgetorderitemsidgetorderitemsclassdeeplinka">GET /order-items <a href="#GET /order-items" id="GET /order-items" class="deep-link">#</a></h2>
+
+<p>Collection. By default, it returns all order items, most recent first, <strong>purchased by the current user</strong>. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Filtering</em></p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int csv</code> Return only order items with the given ID or ID’s.</p></dd><dt><p><code>order_id</code></p></dt><dd><p><code>int csv</code> Return only order items that were purchased in the given order id or ids.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int csv</code> Return only order items in the given status(es). See <a href="Constants.html#OrderStatus">OrderStatus</a>.</p></dd><dt><p><code>!status</code></p></dt><dd><p><code>int csv</code> Return order items not in the given status(es). See <a href="Constants.html#OrderStatus">OrderStatus</a>.</p></dd><dt><p><code>product_seller_store_id</code></p></dt><dd><p><code>int</code> Return only order items sold by the given store id.</p></dd><dt><p><code>product_cause_id</code></p></dt><dd><p><code>int</code> Return only order items that were pledged to the given cause id.</p></dd><dt><p><code>order_status</code></p></dt><dd><p><code>int csv</code> Return only order items that belong to an order with the given status(es). See <a href="Constants.html#OrderStatus">OrderStatus</a>.</p></dd><dt><p><code>!order_status</code></p></dt><dd><p><code>int csv</code> Return only order items that that do not belong to orders with the given status(es). See <a href="Constants.html#OrderStatus">OrderStatus</a>.</p></dd><dt><p><code>product_type</code></p></dt><dd><p><code>int csv</code> Return only order items of a specific product type or types. See <a href="Constants.html#ProductType">ProductType</a>.</p></dd><dt><p><code>product_id</code></p></dt><dd><p><code>int csv</code> Return only order items of a specific product.</p></dd></dl>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>string csv</code> When given, only returns the given fields. Can also can specify fields on embedded objects.</p></dd><dt><p><code>embed</code></p></dt><dd><p><code>string csv</code> When given, includes additional related data. Accepts: <code>order</code>, <code>media</code>, <code>store</code>, <code>buyer</code>, <code>cause</code>, <code>feedback</code>, <code>history</code>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<ul>
+<li>Array of <a href="Objects.html#OrderItem"><code>OrderItem</code></a> objects.</li>
+<li><code>X-COLLECTION-COUNT</code> header set to the total number of order items that match the given query. Used for pagination.</li>
+</ul>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to retrieve order items.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="getorderitemsitem_idahrefgetorderitemsitem_ididgetorderitemsitem_idclassdeeplinka">GET /order-items/{item_id} <a href="#GET /order-items/{item_id}" id="GET /order-items/{item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Returns a specific order item given its unique identifier bought by the current user. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>string csv</code> When given, only returns the given fields. Can also can specify fields on embedded objects.</p></dd><dt><p><code>embed</code></p></dt><dd><p><code>string csv</code> When given, includes additional related data. Accepts: <code>order</code>, <code>media</code>, <code>store</code>, <code>buyer</code>, <code>cause</code>, <code>feedback</code>, <code>history</code>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#OrderItem"><code>OrderItem</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Order item not found.</code> Occurs when the given order item was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to retrieve order item.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="putorderitemsitem_idahrefputorderitemsitem_ididputorderitemsitem_idclassdeeplinka">PUT /order-items/{item_id} <a href="#PUT /order-items/{item_id}" id="PUT /order-items/{item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Updates the status of the order item. Used by buyers to indicate an item was received. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>status</code></p></dt><dd><p><code>int enum</code> The status to set the order item to. Must be <code>4</code> (Complete) when item status is currently <code>3</code> (Pending acquisition) OR if currently <code>2</code> (Pending fulfilment and shipping description was <code>Local Pickup</code>). See <a href="Constants.html#OrderStatus">OrderStatus</a> and <a href="Constants.html#ShippingDescription">ShippingDescription</a>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Order status change prohibited.</code> Occurs when the status cannot be changed to the given value due to the current state of the order item.</p></dd><dd><p><code>Invalid status.</code> Occurs when the given status is not a valid status code that can be applied.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the current user does not have access to the given order item.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Order item not found.</code> Occurs when the given order item was not found or is invalid.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a href="https://github.com/millermedeiros/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+
