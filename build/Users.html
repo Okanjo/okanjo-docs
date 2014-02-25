@@ -22,59 +22,23 @@
 
 <h1 id="objects">Objects</h1>
 
+<ul>
+<li><a href="Objects.html#LoginContext"><code>LoginContext</code></a> – Login context given upon successfully authenticating a user.</li>
+<li><a href="Objects.html#User"><code>User</code></a> – Private user object.</li>
+<li><a href="Objects.html#UserProfile"><code>UserProfile</code></a> – Public user object.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#BankAccount">BankAccount</a></li>
-<li><a href="#BankAccountInfo">BankAccountInfo</a></li>
-<li><a href="#SessionUser">SessionUser</a></li>
-<li><a href="#LoginContext">LoginContext</a></li>
-<li><a href="#User">User</a></li>
-<li><a href="#UserProfile">UserProfile</a></li>
 <li><a href="#POST /users/login">POST /users/login</a></li>
 <li><a href="#POST /users/forgot-password">POST /users/forgot-password</a></li>
 <li><a href="#GET /users/{id}">GET /users/{id}</a></li>
 <li><a href="#PUT /users/{id}">PUT /users/{id}</a></li>
 <li><a href="#POST /users/{id}/set-password">POST /users/{id}/set-password</a></li>
 </ul>
-
-<h2 id="bankaccountahrefbankaccountidbankaccountclassdeeplinka">BankAccount <a href="#BankAccount" id="BankAccount" class="deep-link">#</a></h2>
-
-<p>Tokenized bank account, stored by Balanced.</p>
-
-<dl class="inline-def"><dt><p><code>uri</code></p></dt><dd><p><code>int</code>  The canonical URI of the tokenized bank account stored at Balanced.</p></dd><dt><p><code>nickname</code></p></dt><dd><p><code>string</code>  The nickname of the bank account.</p></dd><dt><p><code>info</code></p></dt><dd><p><a href="Users.html#BankAccountInfo"><code>BankAccountInfo</code></a> Nullable. The underwriting information for US financial laws and Balanced ToS compliance. Required to have in order to be used for payouts.</p></dd></dl>
-
-<h2 id="bankaccountinfoahrefbankaccountinfoidbankaccountinfoclassdeeplinka">BankAccountInfo <a href="#BankAccountInfo" id="BankAccountInfo" class="deep-link">#</a></h2>
-
-<p>Information used for compliance with the Know Your Customer <a href="http://en.wikipedia.org/wiki/Know_your_customer">(KYC)</a>, and anti-money laundering laws.</p>
-
-<dl class="inline-def"><dt><p><code>type</code></p></dt><dd><p><code>string enum</code>  The bank account owner type. Can be one of <code>bank_business</code> or <code>bank_personal</code>.</p></dd><dt><p><code>business_name</code></p></dt><dd><p><code>string (255)</code> Nullable. The name of the business associated with the bank account. Required for <code>bank_business</code> type.</p></dd><dt><p><code>business_ein</code></p></dt><dd><p><code>string (32)</code> Nullable. The IRS EIN number of the business associated with the bank account. Required for <code>bank_business</code> type.</p></dd><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code>  The first name of the person associated with the bank account.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code>  The last name of the person associated with the bank account.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code>  The street address of the business or person associated with the bank account.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Nullable. Optional building, unit, apartment number or secondary address component.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code>  The city of the business or person associated with the bank account.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code>  The state code of the business or person associated with the bank account.</p></dd><dt><p><code>postal</code></p></dt><dd><p><code>string (10)</code>  The postal code of the business or person associated with the bank account.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code>  The country code of the business or person associated with the bank account.</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code>  The phone number of the business or person associated with the bank account.</p></dd></dl>
-
-<h2 id="sessionuserahrefsessionuseridsessionuserclassdeeplinka">SessionUser <a href="#SessionUser" id="SessionUser" class="deep-link">#</a></h2>
-
-<p>Login context obtained from logging in or registering an account.</p>
-
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the user.</p></dd><dt><p><code>first_name</code></p></dt><dd><p><code>string</code>  The user’s first name</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string</code>  The user’s last name</p></dd><dt><p><code>user_name</code></p></dt><dd><p><code>string (5-20)</code>  The login name and public display name of the user.</p></dd><dt><p><code>gender</code></p></dt><dd><p><code>string enum</code>  The user’s gender. One of: <code>Male, Female, Other</code>.</p></dd><dt><p><code>rating_avg</code></p></dt><dd><p><code>decimal</code> Nullable. The user’s percentage of positive feedback received.</p></dd><dt><p><code>contact_email</code></p></dt><dd><p><code>string (255)</code>  The user’s email address.</p></dd><dt><p><del><code>paypal_email</code></del></p></dt><dd><p><del><code>string (255)</code> Nullable. The user’s paypal email address.</del> Deprecated</p></dd><dt><p><code>current_zip</code></p></dt><dd><p><code>int</code>  Where the user is geographically located.</p></dd><dt><p><code>birthday</code></p></dt><dd><p><code>date time</code>  When the user was born.</p></dd><dt><p><code>twitter_handle</code></p></dt><dd><p><code>string</code> Nullable. The user’s Twitter handle. Not currently used.</p></dd><dt><p><code>facebook_id</code></p></dt><dd><p><code>int</code> Nullable. The user’s Facebook numeric ID. (if account is associated)</p></dd><dt><p><code>avatar_media_id</code></p></dt><dd><p><code>int</code> Nullable. The user’s avatar media image id.</p></dd><dt><p><code>auth_level</code></p></dt><dd><p><code>bitwise flags</code>  The user’s bitwise authentication flags. See <a href="Constants.html#AuthLevel"><code>AuthLevel</code></a>.</p></dd><dt><p><code>bank_account_uri</code></p></dt><dd><p><code>string</code> Nullable. The tokenized Balanced URI of the default bank account in which to use for payouts.</p></dd><dt><p><code>card_uri</code></p></dt><dd><p><code>string</code> Nullable. The tokenized Balanced URI of the default credit card in which to use for purchases.</p></dd><dt><p><code>bank_account_nickname</code></p></dt><dd><p><code>string</code> Nullable. The nickname of the default bank account used for payouts.</p></dd><dt><p><code>card_nickname</code></p></dt><dd><p><code>string</code> Nullable. The nickname of the default credit card used for purchases.</p></dd><dt><p><code>notifications</code></p></dt><dd><p><a href="User Notifications.html#Notification"><code>Notification []</code></a>  Array of notifications to display to the user.</p></dd></dl>
-
-<h2 id="logincontextahreflogincontextidlogincontextclassdeeplinka">LoginContext <a href="#LoginContext" id="LoginContext" class="deep-link">#</a></h2>
-
-<p>The basic data structure obtained when starting a session.</p>
-
-<dl class="inline-def"><dt><p><code>user</code></p></dt><dd><p><a href="Users.html#SessionUser"><code>SessionUser</code></a>  The associated user object.</p></dd><dt><p><code>user_token</code></p></dt><dd><p><code>string</code>  The user’s API session token.</p></dd></dl>
-
-<h2 id="userahrefuseriduserclassdeeplinka">User <a href="#User" id="User" class="deep-link">#</a></h2>
-
-<p>Private user object, used for managing own user profile.</p>
-
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the user.</p></dd><dt><p><code>first_name</code></p></dt><dd><p><code>string</code>  The user’s first name</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string</code>  The user’s last name</p></dd><dt><p><code>user_name</code></p></dt><dd><p><code>string (5-20)</code>  The login name and public display name of the user.</p></dd><dt><p><code>gender</code></p></dt><dd><p><code>string enum</code>  The user’s gender. One of: <code>Male, Female, Other</code>.</p></dd><dt><p><code>rating_avg</code></p></dt><dd><p><code>decimal</code> Nullable. The user’s percentage of positive feedback received.</p></dd><dt><p><code>contact_email</code></p></dt><dd><p><code>string (255)</code>  The user’s email address.</p></dd><dt><p><del><code>paypal_email</code></del></p></dt><dd><p><del><code>string (255)</code> Nullable.</del> Deprecated. <del>The user’s paypal email address. </del></p></dd><dt><p><code>current_zip</code></p></dt><dd><p><code>int</code>  Where the user is geographically located.</p></dd><dt><p><code>birthday</code></p></dt><dd><p><code>date time</code>  When the user was born.</p></dd><dt><p><code>twitter_handle</code></p></dt><dd><p><code>string</code> Nullable. The user’s Twitter handle. Not currently used.</p></dd><dt><p><code>facebook_id</code></p></dt><dd><p><code>int</code> Nullable. The user’s Facebook numeric ID. (if account is associated)</p></dd><dt><p><code>avatar_media_id</code></p></dt><dd><p><code>int</code> Nullable. The user’s avatar media image id.</p></dd><dt><p><code>payout_preference</code></p></dt><dd><p><code>string enum</code> Nullable. The user’s payout preference. Currently only <code>balanced</code> is allowed, PayPal has been deprecated.</p></dd><dt><p><code>auth_level</code></p></dt><dd><p><code>bitwise flags</code>  The user’s bitwise authentication flags. See <a href="Constants.html#AuthLevel"><code>AuthLevel</code></a>.</p></dd><dt><p><code>bank_account_uri</code></p></dt><dd><p><code>string</code> Nullable. The tokenized Balanced URI of the default bank account in which to use for payouts.</p></dd><dt><p><code>card_uri</code></p></dt><dd><p><code>string</code> Nullable. The tokenized Balanced URI of the default credit card in which to use for purchases.</p></dd><dt><p><code>bank_account_nickname</code></p></dt><dd><p><code>string</code> Nullable. The nickname of the default bank account used for payouts.</p></dd><dt><p><code>card_nickname</code></p></dt><dd><p><code>string</code> Nullable. The nickname of the default credit card used for purchases.</p></dd><dt><p><code>media</code></p></dt><dd><p><a href="Media.html#Media Embeds"><code>Media Embeds</code></a>  Embeddable. Associated avatar media image.</p></dd><dt><p><code>cards</code></p></dt><dd><p><a href="Checkout.html#Card"><code>Card []</code></a>  Embeddable. Tokenized credit cards used for purchasing items.</p></dd><dt><p><code>bank_accounts</code></p></dt><dd><p><a href="Users.html#BankAccount"><code>BankAccount []</code></a>  Embeddable. Tokenized bank accounts used for payouts.</p></dd><dt><p><code>return_policy</code></p></dt><dd><p><a href="User Return Policies.html#ReturnPolicy"><code>ReturnPolicy []</code></a>   Embeddable. Return policies managed by the user.</p></dd></dl>
-
-<h2 id="userprofileahrefuserprofileiduserprofileclassdeeplinka">UserProfile <a href="#UserProfile" id="UserProfile" class="deep-link">#</a></h2>
-
-<p>Public display information about a buyer or seller.</p>
-
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the user.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int (enum)</code>  Deprecated. The status of the user.  See <a href="Constants.html#UserStatus"><code>UserStatus</code></a>.</p></dd><dt><p><code>user_name</code></p></dt><dd><p><code>string</code>  The login name or public display name of the user.</p></dd><dt><p><code>rating_avg</code></p></dt><dd><p><code>decimal</code> Nullable The user’s positive feedback percentage.</p></dd><dt><p><code>avatar_media_id</code></p></dt><dd><p><code>int</code> Nullable The user’s profile image id.</p></dd></dl>
-
-<h1 id="routes">Routes</h1>
 
 <h2 id="postusersloginahrefpostusersloginidpostusersloginclassdeeplinka">POST /users/login <a href="#POST /users/login" id="POST /users/login" class="deep-link">#</a></h2>
 
@@ -86,7 +50,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Users.html#LoginContext"><code>LoginContext</code></a> object.</p>
+<p><a href="Objects.html#LoginContext"><code>LoginContext</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -124,7 +88,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Users.html#UserProfile"><code>UserProfile</code></a> if requesting another user or <a href="Users.html#User"><code>User</code></a> if requesting user is the same as the requesting <code>user_token</code> user.</p>
+<p><a href="Objects.html#UserProfile"><code>UserProfile</code></a> if requesting another user or <a href="Objects.html#User"><code>User</code></a> if requesting user is the same as the requesting <code>user_token</code> user.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -136,7 +100,7 @@
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
-<dl class="inline-def"><dt><p><code>payout_preference</code></p></dt><dd><p><code>string enum</code> The type of payout source to use. See <a href="Constants.html#PayoutPreference"><code>PayoutPreference</code></a>.</p></dd><dt><p><code>balanced_account_uri</code></p></dt><dd><p><code>string</code> The URI of the tokenized Balanced bank account to associate with the account and use as the default payout preference.</p></dd><dt><p><code>payout_type</code></p></dt><dd><p><code>string enum</code> The type of bank account information being attached. One of <code>bank_business</code> or <code>bank_personal</code></p></dd><dt><p><code>payout_business_name</code></p></dt><dd><p><code>string (255)</code> The name of the business associated with the bank account. Required for <code>bank_business</code> type.</p></dd><dt><p><code>payout_business_ein</code></p></dt><dd><p><code>string (32)</code> The IRS EIN number of the business associated with the bank account. Required for <code>bank_business</code> type.</p></dd><dt><p><code>payout_first_name</code></p></dt><dd><p><code>string (255)</code> The first name of the person associated with the bank account.</p></dd><dt><p><code>payout_last_name</code></p></dt><dd><p><code>string (255)</code> The last name of the person associated with the bank account.</p></dd><dt><p><code>payout_address1</code></p></dt><dd><p><code>string (255)</code> The street address of the business or person associated with the bank account.</p></dd><dt><p><code>payout_address2</code></p></dt><dd><p><code>string (255)</code> Optional building, unit, apartment number or secondary address component.</p></dd><dt><p><code>payout_city</code></p></dt><dd><p><code>string (255)</code> The city of the business or person associated with the bank account.</p></dd><dt><p><code>payout_state</code></p></dt><dd><p><code>string (2)</code> The state code of the business or person associated with the bank account.</p></dd><dt><p><code>payout_postal</code></p></dt><dd><p><code>string (10)</code> The postal code of the business or person associated with the bank account.</p></dd><dt><p><code>payout_country</code></p></dt><dd><p><code>string (2)</code> The country code of the business or person associated with the bank account.</p></dd><dt><p><code>payout_phone</code></p></dt><dd><p><code>string (20)</code> The phone number of the business or person associated with the bank account.</p></dd><dt><p><code>avatar_media_id</code></p></dt><dd><p><code>int</code> ID of the media image to use for the user avatar.</p></dd><dt><p><code>birthday</code></p></dt><dd><p><code>date time</code> The date in which the user was born.</p></dd><dt><p><code>email</code></p></dt><dd><p><code>string (255)</code> The email address in which to contact the user.</p></dd><dt><p><code>facebook_id</code></p></dt><dd><p><code>int</code> The user’s Facebook ID number.</p></dd><dt><p><code>facebook_token</code></p></dt><dd><p><code>string (255)</code> The user’s Facebook OAuth token.</p></dd><dt><p><code>gender</code></p></dt><dd><p><code>string enum</code> The user’s gender preference.</p></dd><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> The user’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> The user’s last name.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> The user’s default location (postal code).</p></dd></dl>
+<dl class="inline-def"><dt><p><code>avatar_media_id</code></p></dt><dd><p><code>int</code> ID of the media image to use for the user avatar.</p></dd><dt><p><code>birthday</code></p></dt><dd><p><code>date time</code> The date in which the user was born.</p></dd><dt><p><code>email</code></p></dt><dd><p><code>string (255)</code> The email address in which to contact the user.</p></dd><dt><p><code>facebook_id</code></p></dt><dd><p><code>int</code> The user’s Facebook ID number.</p></dd><dt><p><code>facebook_token</code></p></dt><dd><p><code>string (255)</code> The user’s Facebook OAuth token.</p></dd><dt><p><code>gender</code></p></dt><dd><p><code>string enum</code> The user’s gender preference.</p></dd><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> The user’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> The user’s last name.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> The user’s default location (postal code).</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 

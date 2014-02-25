@@ -5,26 +5,9 @@ Event notification system. When anything happens, like an item is sold or auctio
 
 Notifications store related objects in the state they were at the time of the event.
 
-## Notification
+# Objects
 
-Notification of an event.
-
-`id`
-:   `int`  The unique ID of the notification.
-`created`
-:   `date time`  When the notification was created.
-`updated`
-:   `date time`  When the notification was last updated (e.g. flags changed to mark as read)
-`flags`
-:   `bitwise flags`  Bitwise flags. Handles storing flagged events. See [`NotificationFlags`](Constants.html#NotificationFlags).
-`type`
-:   `string enum`  Type of event notification. See [`NotificationType`](Constants.html#NotificationType).
-`recipient_id`
-:   `int`  Nullable. The user ID who is the primary recipient of the notification.
-`recipient_store_id`
-:   `int`  Nullable. The store ID who received the message.
-`data`
-:   `mixed` Nullable. The embedded event data at the time of the event.
+* [`Notification`](Objects.html#Notification) – A notification of an event.
 
 
 # Routes
@@ -52,7 +35,7 @@ Collection. Gets notifications for the given user. **Requires user level authent
 
 ### Response
 
-Array of [`Notification`](User Notifications.html#Notification) objects.
+Array of [`Notification`](Objects.html#Notification) objects.
 
 ### Errors
 
@@ -76,7 +59,7 @@ Resource. Gets a specific notification for the given user. **Requires user level
 
 ### Response
 
-[`Notification`](User Notifications.html#Notification) object.
+[`Notification`](Objects.html#Notification) object.
 
 ### Errors
 

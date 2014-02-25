@@ -18,29 +18,32 @@
 </ul>
 <h1 id="tags">Tags</h1>
 
-<p>Tags are used to classify non-contextual attributes on products.</p>
+<p>Tags are used to classify non-contextual descriptors on products.</p>
 
 <h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Tag"><code>Tag</code></a> – Product descriptor.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
 
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#Tag">Tag</a></li>
 <li><a href="#GET /tags">GET /tags</a></li>
 <li><a href="#GET /tags/{name}">GET /tags/{name}</a></li>
 </ul>
 
-<h2 id="tagahreftagidtagclassdeeplinka">Tag <a href="#Tag" id="Tag" class="deep-link">#</a></h2>
-
-<p>A non-contextual product attribute.</p>
-
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the tag.</p></dd><dt><p><code>auth_level</code></p></dt><dd><p><code>int</code>  The authentication level of the tag. For internal use only, or client-side filtering. See <a href="Constants.html#AuthLevel"><code>AuthLevel</code></a>.</p></dd><dt><p><code>name</code></p></dt><dd><p><code>string (64)</code>  The tag name.</p></dd></dl>
-
-<h1 id="routes">Routes</h1>
-
 <h2 id="gettagsahrefgettagsidgettagsclassdeeplinka">GET /tags <a href="#GET /tags" id="GET /tags" class="deep-link">#</a></h2>
 
 <p>Collection. Searches for tags that match or partially match the search parameter. <strong>Requires no authentication.</strong></p>
+
+<blockquote>
+  <ul>
+  <li>Note: This route is incomplete, as it only supports searching. Future expansion of this route for pagination is pending. *</li>
+  </ul>
+</blockquote>
 
 <h3 id="queryparameters">Query Parameters</h3>
 
@@ -50,7 +53,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p>Array of <a href="Tags.html#Tag"><code>Tag</code></a> objects, or an empty array if no matches are found.</p>
+<p>Array of <a href="Objects.html#Tag"><code>Tag</code></a> objects, or an empty array if no matches are found.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -66,7 +69,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Tags.html#Tag"><code>Tag</code></a> object.</p>
+<p><a href="Objects.html#Tag"><code>Tag</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 

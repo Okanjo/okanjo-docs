@@ -11,23 +11,24 @@ For example:
 
 # Routes
 
-## GET /vanity-url/{url}
+## GET /vanity-uris/{uri}
 
-Resource. Gets the resource belonging to that URL. Right now, can be either a Cause or a Store
+Resource. Gets the resource belonging to that URL. Could result in one of: `Category`, `Cause` or `Store`.
 
 ### Query Parameters
 
-Anything passed to it will be transferred to the [`Cause`](Causes.html#Cause) or [`Store`](Stores.html#Store) that is found
+Anything passed to it will be transferred to the `Category`, `Cause`, or `Store` that is found.
 
 ### Returns
 
-* [`Cause`](Causes.html#Cause)
-* [`Store`](Stores.html#Store)
+* [`Category`](Objects.html#Category) or
+* [`Cause`](Objects.html#Cause) or
+* [`Store`](Objects.html#Store)
 
 ### Errors
 
 **404 Not Found**
-:   `Vanity URL not found.` Occurs when no resource belongs to a given URL.
+:   `Vanity URI not found.` Occurs when no resource belongs to a given URI.
 **500 Internal Server Error**
 :   `Unable to handle request.` Occurs when an exception occurs.
 

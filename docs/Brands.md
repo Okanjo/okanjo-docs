@@ -7,14 +7,7 @@ the two are the brands associated with the API and client implementation.
 
 # Objects
 
-## Brand
-
-Brands are currently a key-value store of configuration properties that apply to the brand.
-
-> *Note: The format of this object may change in the future*
-
-`{name}`
-:   `string` Key-value pairs
+* [`Brand`](Objects.html#Brand) – Brand configuration
 
 
 # Routes
@@ -31,7 +24,7 @@ None.
 
 ### Returns
 
-Associative set of [`Brand`](Brands.html#Brand) configurations. For example:
+Associative set of [`Brand`](Objects.html#Brand) configurations. For example:
 
 ```js
 {
@@ -69,7 +62,7 @@ None.
 
 ### Returns
 
-[`Brand`](Brands.html#Brand) configuration. e.g.
+[`Brand`](Objects.html#Brand) configuration. e.g.
 
 ```js
 {

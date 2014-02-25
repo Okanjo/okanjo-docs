@@ -1,9 +1,9 @@
 
 # Messages
 
-Facilitates platform buyer to store and store to buyer messaging.
+Facilitates platform user to store and store to user messaging.
 
-Messages are sent to via email to the buyer or store representatives. Those emails can be directly replied-to to respond.
+Messages are sent via email to the buyer or store representatives. Those emails can be directly replied-to to respond.
 They are also viewable through [User Notifications](UserNotifications.html) and existing messages can be replied to
 via [POST /messages/reply](Messages.html#POST /messages/reply).
 
@@ -16,13 +16,13 @@ Controller. Sends a message in regards to a product to its seller. **Requires us
 ### Entity NVP Parameters
 
 `product_id`
-:   `int` Only necessary if context is “buyer-to-seller” - The product to talk about.
+:   `int` Only necessary if context is `buyer-to-seller` - The product to talk about.
 `order_item_id`
-:   `int` Only necessary if context is “seller-to-buyer” - The order item to talk about.
+:   `int` Only necessary if context is `seller-to-buyer` - The order item (sale) to talk about.
 `message`
 :   `string` Message to send the seller in the context of the product.
 `context`
-:   `string` “buyer-to-seller” or “seller-to-buyer”
+:   `string enum` `buyer-to-seller` or `seller-to-buyer`. See [MessageContext](Constants.html#MessageContext).
 
 
 ### Returns
@@ -44,7 +44,7 @@ Generic [`Success`](Globals.html#Default Response Object) object.
 
 ## POST /messages/reply
 
-Controller. Sends a message in response to an existing message. Can be used as an alternative to reply via email. **Requires user level authentication**.
+Controller. Sends a message in response to an existing message. Can be used as an in-client alternative to reply via email. **Requires user level authentication**.
 
 ### Entity NVP Parameters
 

@@ -20,49 +20,32 @@
 
 <p>The checkout system facilitates purchasing products listed Okanjo.</p>
 
-<p>Checkout currently supports payments using PayPal or Balanced for credit-card processing.</p>
+<p>Checkout currently supports payments using PayPal or Balanced Payments for credit-card processing.</p>
 
 <blockquote>
-  <p><strong>Credit card information should never pass through or be collected by your application.</strong> Balanced enables PCI compliance
-  by routing user payment card data directly to Balanced's API, who then returns a tokenized card URI, which is used by
-  Okanjo for checkout transactions.</p>
+  <p><strong>Credit card information must never pass through or be collected by your application.</strong> <a href="http://balancedpayments.com">Balanced Payments™</a> enables PCI
+  compliance by routing user payment card data directly to Balanced's API, who then returns a tokenized card URI, which
+  is used by Okanjo for checkout transactions.</p>
 </blockquote>
 
 <h1 id="objects">Objects</h1>
 
+<ul>
+<li><a href="Objects.html#Card"><code>Card</code></a> – Tokenized payment card</li>
+<li><a href="Objects.html#CheckoutOrder"><code>CheckoutOrder</code></a> – Unconfirmed order</li>
+<li><a href="Objects.html#CheckoutConfirmation"><code>CheckoutConfirmation</code></a> – Order confirmation</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#Card">Card</a></li>
-<li><a href="#CheckoutOrder">CheckoutOrder</a></li>
-<li><a href="#CheckoutConfirmation">CheckoutConfirmation</a></li>
 <li><a href="#POST /checkout">POST /checkout</a></li>
 <li><a href="#POST /checkout/confirm">POST /checkout/confirm</a></li>
 <li><a href="#POST /checkout/donations">POST /checkout/donations</a></li>
 <li><a href="#POST /checkout/donations/confirm">POST /checkout/donations/confirm</a></li>
 </ul>
-
-<h2 id="cardahrefcardidcardclassdeeplinka">Card <a href="#Card" id="Card" class="deep-link">#</a></h2>
-
-<p>Represents a tokenized Balanced payment card.</p>
-
-<dl class="inline-def"><dt><p><code>uri</code></p></dt><dd><p><code>string</code>  The unique Balanced URI for the card. Used for confirming the order.</p></dd><dt><p><code>nickname</code></p></dt><dd><p><code>string</code>  The display name for the card. E.g. Visa x4002.</p></dd><dt><p><code>brand</code></p></dt><dd><p><code>string</code>  The brand of the card issuer. E.g. Visa, MasterCard, Discover, etc...</p></dd><dt><p><code>last_four</code></p></dt><dd><p><code>string</code>  The last four digits of the card number.</p></dd></dl>
-
-<h2 id="checkoutorderahrefcheckoutorderidcheckoutorderclassdeeplinka">CheckoutOrder <a href="#CheckoutOrder" id="CheckoutOrder" class="deep-link">#</a></h2>
-
-<p>A CheckoutOrder object is returned as the response to initially creating the order. Contain the information needed
-for your application to to allow the buyer to complete the transaction.</p>
-
-<dl class="inline-def"><dt><p><code>token</code></p></dt><dd><p><code>string</code>  The unique order identifier.</p></dd><dt><p><code>paypal_url</code></p></dt><dd><p><code>string</code>  The PayPal URL to redirect the client to complete the transaction using PayPal.</p></dd><dt><p><code>cards</code></p></dt><dd><p><code>Card []</code>  Array of stored cards. Always returns empty on guest checkout sessions.</p></dd><dt><p><code>subscriptions</code></p></dt><dd><p><a href="Globals.html#Default Response Object"><code>Success KVP</code></a>  Associative set of subscription results, where the key is the store id being subscribed to and the value is the result of the subscription attempt.</p></dd></dl>
-
-<h2 id="checkoutconfirmationahrefcheckoutconfirmationidcheckoutconfirmationclassdeeplinka">CheckoutConfirmation <a href="#CheckoutConfirmation" id="CheckoutConfirmation" class="deep-link">#</a></h2>
-
-<p>CheckoutConfirmation objects are returned after an order was processed and completed. They contain sufficient data that
-may be used for Google Analytics to track e-commerce traffic.</p>
-
-<dl class="inline-def"><dt><p><code>city</code></p></dt><dd><p><code>string</code>  Buyer’s city / locality.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string</code>  Buyer’s country.</p></dd><dt><p><code>items[]</code></p></dt><dd><p><code>Array</code>  Array of items that was purchased.</p></dd><dt><p><code>items[n][price]</code></p></dt><dd><p><code>int</code>  Item’s price.</p></dd><dt><p><code>items[n][qty]</code></p></dt><dd><p><code>int</code>  How many of the item was purchased.</p></dd><dt><p><code>items[n][sku]</code></p></dt><dd><p><code>int</code>  Order item id number.</p></dd><dt><p><code>items[n][title]</code></p></dt><dd><p><code>string</code>  Item’s title.</p></dd><dt><p><code>items[n][txnId]</code></p></dt><dd><p><code>int</code>  Order id number.</p></dd><dt><p><code>shipping</code></p></dt><dd><p><code>string</code>  Shipping total price.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code>  Buyer’s state.</p></dd><dt><p><code>storeName</code></p></dt><dd><p><code>string</code>  Affiliation / store name (currently only returns Okanjo).</p></dd><dt><p><code>total</code></p></dt><dd><p><code>string</code>  Order item total.</p></dd><dt><p><code>txnId</code></p></dt><dd><p><code>int</code>  Order id number.</p></dd></dl>
-
-<h1 id="routes">Routes</h1>
 
 <h2 id="postcheckoutahrefpostcheckoutidpostcheckoutclassdeeplinka">POST /checkout <a href="#POST /checkout" id="POST /checkout" class="deep-link">#</a></h2>
 
@@ -70,11 +53,11 @@ may be used for Google Analytics to track e-commerce traffic.</p>
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
-<dl class="inline-def"><dt><p><code>cart</code></p></dt><dd><p><code>json string</code> JSON-encoded cart string in the format of <code>{ "20": { "quantity: 1, "shipping_type": "xxx" }, ...}</code>, where <code>20</code> = product id and shipping type is, <code>"free"</code>, <code>“local”</code> or the ID number of the shipping option attached to the product.</p></dd><dt><p><code>return_url</code></p></dt><dd><p><code>string (1024)</code> Where to tell PayPal to redirect to after the buyer confirms the payment.</p></dd><dt><p><code>cancel_url</code></p></dt><dd><p><code>string (1024)</code> Where to tell PayPal to redirect to when the buyer cancels the payment process.</p></dd><dt><p><code>shipping_first_name</code></p></dt><dd><p><code>string (16)</code> The buyer’s shipping first name.</p></dd><dt><p><code>shipping_last_name</code></p></dt><dd><p><code>string (16)</code> The buyer’s shipping last name.</p></dd><dt><p><code>shipping_address_1</code></p></dt><dd><p><code>string (100)</code> The buyer’s shipping address line 1.</p></dd><dt><p><code>shipping_address_2</code></p></dt><dd><p><code>string (100)</code> Optional. The buyer’s shipping address line 2.</p></dd><dt><p><code>shipping_city</code></p></dt><dd><p><code>string (40)</code> The buyer’s shipping city.</p></dd><dt><p><code>shipping_state</code></p></dt><dd><p><code>string (2)</code> The buyer’s shipping state code. (e.g. WI)</p></dd><dt><p><code>shipping_zip</code></p></dt><dd><p><code>string (10)</code> The buyer’s shipping zip code.</p></dd><dt><p><code>shipping_country</code></p></dt><dd><p><code>string (2)</code> The buyer’s shipping country code. (e.g. US)</p></dd><dt><p><code>shipping_phone</code></p></dt><dd><p><code>string (20)</code> The buyer’s phone number.</p></dd><dt><p><code>subscribe_to</code></p></dt><dd><p><code>int csv</code>  Optional. CSV of store ID's in which to subscribe to. (e.g. mailing list, updates, etc)</p></dd></dl>
+<dl class="inline-def"><dt><p><code>cart</code></p></dt><dd><p><code>json string</code> JSON-encoded cart string in the format of <code>{ "20": { "quantity: 1, "shipping_type": "xxx" }, ...}</code>, where <code>20</code> = product id and shipping type is, <code>"free"</code>, <code>“local”</code> or the ID number of the shipping option attached to the product.</p></dd><dt><p><code>return_url</code></p></dt><dd><p><code>string (1024)</code> Where to tell PayPal to redirect to after the buyer confirms the payment.</p></dd><dt><p><code>cancel_url</code></p></dt><dd><p><code>string (1024)</code> Where to tell PayPal to redirect to when the buyer cancels the payment process.</p></dd><dt><p><code>shipping_first_name</code></p></dt><dd><p><code>string (16)</code> The buyer’s shipping first name.</p></dd><dt><p><code>shipping_last_name</code></p></dt><dd><p><code>string (16)</code> The buyer’s shipping last name.</p></dd><dt><p><code>shipping_address_1</code></p></dt><dd><p><code>string (100)</code> The buyer’s shipping address line 1.</p></dd><dt><p><code>shipping_address_2</code></p></dt><dd><p><code>string (100)</code> Optional. The buyer’s shipping address line 2.</p></dd><dt><p><code>shipping_city</code></p></dt><dd><p><code>string (40)</code> The buyer’s shipping city.</p></dd><dt><p><code>shipping_state</code></p></dt><dd><p><code>string (2)</code> The buyer’s shipping state code. (e.g. WI)</p></dd><dt><p><code>shipping_zip</code></p></dt><dd><p><code>string (10)</code> The buyer’s shipping zip code.</p></dd><dt><p><code>shipping_country</code></p></dt><dd><p><code>string (2)</code> The buyer’s shipping country code. (e.g. US)</p></dd><dt><p><code>shipping_phone</code></p></dt><dd><p><code>string (20)</code> The buyer’s phone number.</p></dd><dt><p><code>subscribe_to</code></p></dt><dd><p><code>int csv</code>  Optional. CSV of store ID's in which to subscribe to. (e.g. For future use for mailing list, updates, etc)</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Checkout.html#CheckoutOrder"><code>CheckoutOrder</code></a> object.</p>
+<p><a href="Objects.html#CheckoutOrder"><code>CheckoutOrder</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -92,7 +75,7 @@ may be used for Google Analytics to track e-commerce traffic.</p>
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Checkout.html#CheckoutConfirmation">CheckoutConfirmation</a> object.</p>
+<p><a href="Objects.html#CheckoutConfirmation"><code>CheckoutConfirmation</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -113,7 +96,7 @@ may be used for Google Analytics to track e-commerce traffic.</p>
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Checkout.html#CheckoutOrder"><code>CheckoutOrder</code></a> object.</p>
+<p><a href="Objects.html#CheckoutOrder"><code>CheckoutOrder</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -166,7 +149,7 @@ Cache-Control: no-cache`
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Checkout.html#CheckoutConfirmation">CheckoutConfirmation</a> object.</p>
+<p><a href="Objects.html#CheckoutConfirmation"><code>CheckoutConfirmation</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 

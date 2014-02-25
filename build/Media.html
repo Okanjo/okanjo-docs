@@ -27,20 +27,17 @@ user-uploaded media for management and re-use.</p>
 
 <h1 id="objects">Objects</h1>
 
+<ul>
+<li><a href="Objects.html#Media"><code>Media</code></a> – Media object</li>
+</ul>
+
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#Media">Media</a></li>
 <li><a href="#Media Embeds">Media Embeds</a></li>
 <li><a href="#POST /media">POST /media</a></li>
 <li><a href="#GET /media/generate">GET /media/generate</a></li>
 </ul>
-
-<h2 id="mediaahrefmediaidmediaclassdeeplinka">Media <a href="#Media" id="Media" class="deep-link">#</a></h2>
-
-<p>Media image object. Currently, the only way to obtain this object is after a successful upload.</p>
-
-<dl class="inline-def"><dt><p><code>created</code></p></dt><dd><p><code>date time</code>  When the image was created.</p></dd><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the media image.</p></dd><dt><p><code>is_vertical</code></p></dt><dd><p><code>bit</code>  Whether the image uploaded is more vertical in proportion than it is wide.</p></dd><dt><p><code>original</code></p></dt><dd><p><code>string url</code>  The URI of the original image as uploaded by the owner. The image may be scaled down.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int</code>  The status of the media image. Options are 0. It’s meaningless, for right now.</p></dd><dt><p><code>uploader_id</code></p></dt><dd><p><code>int</code>  The ID of the user who uploaded the image.</p></dd><dt><p><code>size_format</code></p></dt><dd><p><code>string url</code> One or more The relevant size / format URLs. See below for more information on sizes and formats.</p></dd></dl>
 
 <h2 id="mediaembedsahrefmediaembedsidmediaembedsclassdeeplinka">Media Embeds <a href="#Media Embeds" id="Media Embeds" class="deep-link">#</a></h2>
 
@@ -65,9 +62,9 @@ user-uploaded media for management and re-use.</p>
 
 <dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the media image.</p></dd><dt><p><code>original</code></p></dt><dd><p><code>string</code>  The URI of the original image as uploaded by the owner. The image may be scaled down.</p></dd><dt><p><code>size</code></p></dt><dd><p><code>string</code>  The platform the image is sized/cropped for. Returned options depend on purpose. See <a href="Constants.html#MediaImageConstants">MediaImageConstants</a>.</p></dd><dt><p><code>format</code></p></dt><dd><p><code>string</code>  The formatting of the image. See <a href="Constants.html#MediaImageConstants">MediaImageConstants</a>.</p></dd><dt><p><code>width</code></p></dt><dd><p><code>int</code> Nullable. The width of the image. Populated after the image is generated.</p></dd><dt><p><code>height</code></p></dt><dd><p><code>int</code> Nullable. The height of the image. Populated after the image is generated.</p></dd></dl>
 
-<p>Only the relevant size<em>format keys will be returned when embedded on resources. For example, on a <a href="Causes.html#Cause"><code>Cause</code></a> object, cart</em>desktop would not be included.</p>
+<p>Only the relevant size<em>format keys will be returned when embedded on resources. For example, on a <a href="Objects.html#Cause"><code>Cause</code></a> object, cart</em>desktop would not be included.</p>
 
-<p>An example of media embedded on a <a href="Causes.html#Cause"><code>Cause</code></a> object:</p>
+<p>An example of media embedded on a <a href="Objects.html#Cause"><code>Cause</code></a> object:</p>
 
 <pre class="brush:js">
 
@@ -127,7 +124,7 @@ user-uploaded media for management and re-use.</p>
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Media.html#Media"><code>Media</code></a> object.</p>
+<p><a href="Objects.html#Media"><code>Media</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 

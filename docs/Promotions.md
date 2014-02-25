@@ -7,14 +7,9 @@ Promotions have been used to discount or entirely-remove commission rates on sol
 
 > ** Stub. Promotions implementation is light and may be expanded in the future **
 
-## Promotion
+# Objects
 
-Coupons and promotional object.
-
-`code`
-:   `string (32)`  The original promo code.
-`description`
-:   `string (256)`  Information about the promotion.
+* [`Promotion`](Objects.html#Promotion) – Sale-based promotion.
 
 
 # Routes
@@ -29,7 +24,7 @@ None.
 
 ### Returns
 
-[Promotion](Promotions.html#Promotion) object when valid.
+[`Promotion`](Objects.html#Promotion) object when valid.
 
 ### Errors
 

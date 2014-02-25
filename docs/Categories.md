@@ -13,32 +13,12 @@ All categories refer to a tag, however, not all tags refer to a category.
 Categories may only have a one parent. They may have zero or more children. A tag referenced by a category may also be
 referenced by a different category.
 
+## Caching
+Okanjo rarely makes changes to it's category taxonomy. We recommend caching the responses for your application.
+
 # Objects
 
-## Category
-
-Categories are used to create a hierarchical structure (taxonomy) for organizing products.
-
-`id`
-:   `int` The unique ID of the category.
-`parent_id`
-:   `int` The unique ID of the category’s parent.
-`tag_id`
-:   `int` The associated category’s original Tag id.
-`name`
-:   `string (255)` Name of the category.
-`port`
-:   `int` The heretical left-side value of the category.
-`starboard`
-:   `int` The heretical right-side value of the category.
-`depth`
-:   `int` How deep the category is in the taxonomy.
-`okanjo_url`
-:   `string (255)` Nullable. An optional landing page URL (e.g. vanity url)
-`children`
-:   [`Category []`](Categories.html#Category) Nullable. Embeddable. Array of sub-categories.
-`parent`
-:   [`Category`](Categories.html#Category) Nullable. Embeddable. The parent category object.
+* [`Category`](Objects.html#Category) – Okanjo Category
 
 
 # Routes
@@ -68,17 +48,16 @@ All fields are optional. Accepts the standard pagination parameters.
 `embed`
 :   `csv` When given, includes the additional resources. Accepts: `children`, `parent`, or `all_children`. Please note that `all_children` is not compatible with `children` or `parent` embeds, and is not compatible with the `id` filter.
 
-> An important note is that the `all_children` embed returns the entire category taxonomy. This can be very useful and a time saver.
+> An important note is that the `all_children` embed returns the entire category taxonomy. This can be very useful, especially for caching.
 
 ### Returns
 
-Array of [`Category`](Categories.html#Category) objects. Can be an empty array if no categories match the given filtering criteria.
+Array of [`Category`](Objects.html#Category) objects. Can be an empty array if no categories match the given filtering criteria.
 
 ### Errors
 
 **500 Internal Server Error**
 :   `Failed to retrieve category.` Occurs when the request failed to be fulfilled.
-
 
 
 ## GET /categories/{id}
@@ -96,7 +75,7 @@ Resource. Gets a specific category by its unique identifier.
 
 ### Returns
 
-[Category](Categories.html#Category) object.
+[Category](Objects.html#Category) object.
 
 ### Errors
 

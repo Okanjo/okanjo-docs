@@ -10,25 +10,7 @@ user-uploaded media for management and re-use.
 
 # Objects
 
-## Media
-
-Media image object. Currently, the only way to obtain this object is after a successful upload.
-
-`created`
-:   `date time`  When the image was created.
-`id`
-:   `int`  The unique ID of the media image.
-`is_vertical`
-:   `bit`  Whether the image uploaded is more vertical in proportion than it is wide.
-`original`
-:   `string url`  The URI of the original image as uploaded by the owner. The image may be scaled down.
-`status`
-:   `int`  The status of the media image. Options are 0. It’s meaningless, for right now.
-`uploader_id`
-:   `int`  The ID of the user who uploaded the image.
-`size_format`
-:   `string url` One or more The relevant size / format URLs. See below for more information on sizes and formats.
-
+* [`Media`](Objects.html#Media) – Media object
 
 
 ## Media Embeds
@@ -65,9 +47,9 @@ Embedded Media format on resources by attaching media elements as associative ob
 :   `int` Nullable. The height of the image. Populated after the image is generated.
 
 
-Only the relevant size_format keys will be returned when embedded on resources. For example, on a [`Cause`](Causes.html#Cause) object, cart_desktop would not be included.
+Only the relevant size_format keys will be returned when embedded on resources. For example, on a [`Cause`](Objects.html#Cause) object, cart_desktop would not be included.
 
-An example of media embedded on a [`Cause`](Causes.html#Cause) object:
+An example of media embedded on a [`Cause`](Objects.html#Cause) object:
 
 ```js
 "media": {
@@ -148,7 +130,7 @@ Only one media image may be uploaded per request.
 
 ### Returns
 
-[`Media`](Media.html#Media) object.
+[`Media`](Objects.html#Media) object.
 
 ### Errors
 

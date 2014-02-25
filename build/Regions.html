@@ -24,21 +24,20 @@
 
 <p>Okanjo uses region id <code>0</code> to represent the Everywhere region, referring to all possible regions. It may also be used when no region can be derived.</p>
 
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Region"><code>Region</code></a> – Region information</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#Region">Region</a></li>
 <li><a href="#GET /regions">GET /regions</a></li>
 <li><a href="#GET /regions/{id}">GET /regions/{id}</a></li>
 </ul>
-
-<h2 id="regionahrefregionidregionclassdeeplinka">Region <a href="#Region" id="Region" class="deep-link">#</a></h2>
-
-<p>DMA-based region information.</p>
-
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The DMA code this locality belongs to.</p></dd><dt><p><code>name</code></p></dt><dd><p><code>string</code>  City/locality name and state.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>string</code>  Status code. See <a href="Constants.html#RegionStatus">RegionStatus</a>.</p></dd><dt><p><code>postal_codes</code></p></dt><dd><p><code>string []</code>  Embeddable. Array of postal codes in the region.</p></dd></dl>
-
-<h1 id="routes">Routes</h1>
 
 <h2 id="getregionsahrefgetregionsidgetregionsclassdeeplinka">GET /regions <a href="#GET /regions" id="GET /regions" class="deep-link">#</a></h2>
 
@@ -48,7 +47,7 @@
 
 <p><em>Filtering</em></p>
 
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int, string (csv)</code> Gets region information for the given DMA code.</p></dd><dt><p><code>postal_code</code></p></dt><dd><p><code>string</code> Gets region information for the DMA that contains the given postal code.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int</code> Gets regions by the given status. See <a href="Constants.html#RegionStatus">RegionStatus</a>.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int csv</code> Gets region information for the given DMA code.</p></dd><dt><p><code>postal_code</code></p></dt><dd><p><code>string</code> Gets region information for the DMA that contains the given postal code.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int</code> Gets regions by the given status. See <a href="Constants.html#RegionStatus"><code>RegionStatus</code></a>.</p></dd></dl>
 
 <p><em>Fields &amp; Includes</em></p>
 
@@ -56,7 +55,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Regions.html#Region"><code>Region</code></a> object, or empty array if nothing matches search criteria. If no criteria are given, the Everywhere (0) region may appear.</p>
+<p><a href="Objects.html#Region"><code>Region</code></a> object, or empty array if nothing matches search criteria. If no criteria are given, the Everywhere (<code>0</code>) region may appear.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -74,7 +73,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Regions.html#Region"><code>Region</code></a> object.</p>
+<p><a href="Objects.html#Region"><code>Region</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 

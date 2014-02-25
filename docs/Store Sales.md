@@ -1,12 +1,12 @@
 # Sales
 
-Represent API routes that stores and sellers can use to interact with purchased [OrderItems](OrderItems.html).
+Represent API routes that stores and sellers can use to interact with purchased [`OrderItem`s](User Order Items.html).
 
 > ** Order item routes have been refactored and changes will be reflected soon **
 
 # Routes
 
-## GET /sales
+## GET /stores/{store_id}/sales
 
 Collection. By default, it returns all order items, most recent first, **sold by the current user**. This collection accepts search filters and pagination options. **Requires user level authentication.**
 
@@ -20,19 +20,19 @@ Collection. By default, it returns all order items, most recent first, **sold by
 `order_id`
 :   `int csv` Return only order items that were purchased in the given order id or ids.
 `buyer_id`
-:   `int` Return only order items that were purchased by the given buyer.
+:   `int` Return only order items that were purchased by the given user id.
 `status`
-:   `int csv` Return only order items in the given status(es). See [OrderStatus](Constants.html#OrderStatus).
+:   `int csv` Return only order items in the given status(es). See [`OrderStatus`](Constants.html#OrderStatus).
 `!status`
-:   `int csv` Return order items not in the given status(es). See [OrderStatus](Constants.html#OrderStatus).
+:   `int csv` Return order items not in the given status(es). See [`OrderStatus`](Constants.html#OrderStatus).
 `product_cause_id`
 :   `int` Return only order items that were pledged to the given cause id.
 `order_status`
-:   `int csv` Return only order items that belong to an order with the given status(es). See [OrderStatus](Constants.html#OrderStatus).
+:   `int csv` Return only order items that belong to an order with the given status(es). See [`OrderStatus`](Constants.html#OrderStatus).
 `!order_status`
-:   `int csv` Return only order items that that do not belong to orders with the given status(es). See [OrderStatus](Constants.html#OrderStatus).
+:   `int csv` Return only order items that that do not belong to orders with the given status(es). See [`OrderStatus`](Constants.html#OrderStatus).
 `product_type`
-:   `int csv` Return only order items of a specific product type or types. See [ProductType](Constants.html#ProductType).
+:   `int csv` Return only order items of a specific product type or types. See [`ProductType`](Constants.html#ProductType).
 `product_id`
 :   `int csv` Return only order items of a specific product.
 *Fields & Includes*
@@ -45,7 +45,7 @@ Collection. By default, it returns all order items, most recent first, **sold by
 
 ### Returns
 
-* Array of [`OrderItem`](OrderItems.html#OrderItem) objects.
+* Array of [`OrderItem`](Objects.html#OrderItem) objects.
 * `X-COLLECTION-COUNT` header set to the total number of order items that match the given query. Used for pagination.
 
 ### Errors
@@ -54,7 +54,7 @@ Collection. By default, it returns all order items, most recent first, **sold by
 :   `Failed to retrieve sale items.` Occurs when the request failed to be fulfilled.
 
 
-## GET /sales/{item_id}
+## GET /stores/{store_id}/sales/{item_id}
 
 Resource. Returns a specific sale item given its unique identifier sold by the current user. **Requires user level authentication.**
 
@@ -73,7 +73,7 @@ Resource. Returns a specific sale item given its unique identifier sold by the c
 
 ### Returns
 
-[`OrderItem`](OrderItems.html#OrderItem) object.
+[`OrderItem`](Objects.html#OrderItem) object.
 
 ### Errors
 
@@ -83,7 +83,7 @@ Resource. Returns a specific sale item given its unique identifier sold by the c
 :   `Failed to retrieve sale item.` Occurs when the request failed to be fulfilled.
 
 
-## PUT /sales/{item_id}
+## PUT /stores/{store_id}/sales/{item_id}
 
 Resource. Updates the status of the order item. Used by sellers to indicate an item was shipped. **Requires user level authentication.**
 

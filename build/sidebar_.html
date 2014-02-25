@@ -39,11 +39,6 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Brands.html">Brands</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Brands.html#Brand">
-                    <h4>Brand</h4>
-                    <span class="desc">Brands are currently a key-value store of configuration properties that apply to the brand.</span>
-                </a>
-                
                 <a class="toc-item" href="Brands.html#GET /brands">
                     <h4>GET /brands</h4>
                     <span class="desc">Collection. Gets all brands accessible by the API key or user token.</span>
@@ -59,9 +54,9 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Categories.html">Categories</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Categories.html#Category">
-                    <h4>Category</h4>
-                    <span class="desc">Categories are used to create a hierarchical structure (taxonomy) for organizing products.</span>
+                <a class="toc-item" href="Categories.html#Caching">
+                    <h4>Caching</h4>
+                    <span class="desc">Okanjo rarely makes changes to it's category taxonomy. We recommend caching the responses for your application.</span>
                 </a>
                 
                 <a class="toc-item" href="Categories.html#GET /categories">
@@ -78,11 +73,6 @@ user token attached will reset its timeout period.</span>
         
             <h3 class="toc-mod-title"><a href="Causes.html">Causes</a></h3>
             <div class="toc-list">
-                
-                <a class="toc-item" href="Causes.html#Cause">
-                    <h4>Cause</h4>
-                    <span class="desc">A cause represents a non-profit, 501(c)-class organization.</span>
-                </a>
                 
                 <a class="toc-item" href="Causes.html#GET /causes">
                     <h4>GET /causes</h4>
@@ -103,21 +93,6 @@ user token attached will reset its timeout period.</span>
         
             <h3 class="toc-mod-title"><a href="Checkout.html">Checkout</a></h3>
             <div class="toc-list">
-                
-                <a class="toc-item" href="Checkout.html#Card">
-                    <h4>Card</h4>
-                    <span class="desc">Represents a tokenized Balanced payment card.</span>
-                </a>
-                
-                <a class="toc-item" href="Checkout.html#CheckoutOrder">
-                    <h4>CheckoutOrder</h4>
-                    <span class="desc">A CheckoutOrder object is returned as the response to initially creating the order. Contain the information needed for your application to to allow the buyer to complete the transaction.</span>
-                </a>
-                
-                <a class="toc-item" href="Checkout.html#CheckoutConfirmation">
-                    <h4>CheckoutConfirmation</h4>
-                    <span class="desc">CheckoutConfirmation objects are returned after an order was processed and completed. They contain sufficient data that may be used for Google Analytics to track e-commerce traffic.</span>
-                </a>
                 
                 <a class="toc-item" href="Checkout.html#POST /checkout">
                     <h4>POST /checkout</h4>
@@ -174,6 +149,11 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Status codes of an auction winner object.</span>
                 </a>
                 
+                <a class="toc-item" href="Constants.html#AuthLevel">
+                    <h4>AuthLevel</h4>
+                    <span class="desc">Bitwise user authentication level flags.</span>
+                </a>
+                
                 <a class="toc-item" href="Constants.html#BidFlag">
                     <h4>BidFlag</h4>
                     <span class="desc">Bitwise auction bid flags. Metadata information for bidding history on an auction.</span>
@@ -219,14 +199,19 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Media image object status codes.</span>
                 </a>
                 
-                <a class="toc-item" href="Constants.html#NotificationFlags">
-                    <h4>NotificationFlags</h4>
+                <a class="toc-item" href="Constants.html#MessageContext">
+                    <h4>MessageContext</h4>
+                    <span class="desc">Message object context type.</span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#NotificationFlag">
+                    <h4>NotificationFlag</h4>
                     <span class="desc">Bitwise notification flags.</span>
                 </a>
                 
                 <a class="toc-item" href="Constants.html#NotificationType">
                     <h4>NotificationType</h4>
-                    <span class="desc">Types of event notifications.</span>
+                    <span class="desc">Types of event notifications. Sellers are synonymous with stores.</span>
                 </a>
                 
                 <a class="toc-item" href="Constants.html#OrderStatus">
@@ -239,16 +224,6 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Order object types.</span>
                 </a>
                 
-                <a class="toc-item" href="Constants.html#OrgUnitStatus">
-                    <h4>OrgUnitStatus</h4>
-                    <span class="desc">Store object status codes.</span>
-                </a>
-                
-                <a class="toc-item" href="Constants.html#OrgUnitType">
-                    <h4>OrgUnitType</h4>
-                    <span class="desc">Store object types.</span>
-                </a>
-                
                 <a class="toc-item" href="Constants.html#PayoutPreference">
                     <h4>PayoutPreference</h4>
                     <span class="desc">Store payout preference types. Currently only Balanced is supported.</span>
@@ -259,6 +234,20 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Payout object status codes.</span>
                 </a>
                 
+                <a class="toc-item" href="Constants.html#PayoutType">
+                    <h4>PayoutType</h4>
+                    <span class="desc"><code>UNCLASSIFIED</code> :   <code>0</code> Automatic Okanjo commission
+
+<dl class="inline-def"><dt><code>STORE_COMMISSION</code></dt><dd><code>1</code> Store earnings for a sale</dd><dt><code>CAUSE_DONATION</code></dt><dd><code>2</code> Cause donation</dd><dt><code>OKANJO_COMMISSION</code></dt><dd><code>3</code> Okanjo transaction fee commission</dd></dl></span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#PlanStatus">
+                    <h4>PlanStatus</h4>
+                    <span class="desc"><code>DISABLED</code> :   <code>0</code> Plan is disabled.
+
+<dl class="inline-def"><dt><code>ACTIVE</code></dt><dd><code>1</code> Plan is active.</dd></dl></span>
+                </a>
+                
                 <a class="toc-item" href="Constants.html#ProductCondition">
                     <h4>ProductCondition</h4>
                     <span class="desc">Product object condition enumeration.</span>
@@ -267,6 +256,11 @@ user token attached will reset its timeout period.</span>
                 <a class="toc-item" href="Constants.html#ProductStatus">
                     <h4>ProductStatus</h4>
                     <span class="desc">Product object status codes.</span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#ProductStoreType">
+                    <h4>ProductStoreType</h4>
+                    <span class="desc">How a product is associated with a cause store.</span>
                 </a>
                 
                 <a class="toc-item" href="Constants.html#ProductType">
@@ -294,18 +288,23 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Reserved product shipping names.</span>
                 </a>
                 
+                <a class="toc-item" href="Constants.html#StoreFlag">
+                    <h4>StoreFlag</h4>
+                    <span class="desc">Store object permission bitwise flags.</span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#SubscriptionStatus">
+                    <h4>SubscriptionStatus</h4>
+                    <span class="desc">Storefront subscription object status codes.</span>
+                </a>
+                
                 <a class="toc-item" href="Constants.html#UserStatus">
                     <h4>UserStatus</h4>
                     <span class="desc">User object status codes.</span>
                 </a>
                 
-                <a class="toc-item" href="Constants.html#VanityURLStatus">
-                    <h4>VanityURLStatus</h4>
-                    <span class="desc">Okanjo vanity object status codes.</span>
-                </a>
-                
-                <a class="toc-item" href="Constants.html#VanityURLTypes">
-                    <h4>VanityURLTypes</h4>
+                <a class="toc-item" href="Constants.html#VanityURLType">
+                    <h4>VanityURLType</h4>
                     <span class="desc">Okanjo vanity object types.</span>
                 </a>
                 
@@ -334,11 +333,6 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Media.html">Media</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Media.html#Media">
-                    <h4>Media</h4>
-                    <span class="desc">Media image object. Currently, the only way to obtain this object is after a successful upload.</span>
-                </a>
-                
                 <a class="toc-item" href="Media.html#Media Embeds">
                     <h4>Media Embeds</h4>
                     <span class="desc">Embedded Media format on resources by attaching media elements as associative objects. For example:</span>
@@ -366,66 +360,184 @@ user token attached will reset its timeout period.</span>
                 
                 <a class="toc-item" href="Messages.html#POST /messages/reply">
                     <h4>POST /messages/reply</h4>
-                    <span class="desc">Controller. Sends a message in response to an existing message. Can be used as an alternative to reply via email. <strong>Requires user level authentication</strong>.</span>
+                    <span class="desc">Controller. Sends a message in response to an existing message. Can be used as an in-client alternative to reply via email. <strong>Requires user level authentication</strong>.</span>
                 </a>
                 
             </div>
         
-            <h3 class="toc-mod-title"><a href="OrderItems.html">OrderItems</a></h3>
+            <h3 class="toc-mod-title"><a href="Objects.html">Objects</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="OrderItems.html#OrderItem">
-                    <h4>OrderItem</h4>
-                    <span class="desc">Represents a snapshot of a product that was purchased.</span>
+                <a class="toc-item" href="Objects.html#Address">
+                    <h4>Address</h4>
+                    <span class="desc">Generic mailing or permanent street address.</span>
                 </a>
                 
-                <a class="toc-item" href="OrderItems.html#OrderItemStatus">
-                    <h4>OrderItemStatus</h4>
-                    <span class="desc"><blockquote>
-  <em>* Order item routes have been refactored and changes will be reflected soon *</em>
-</blockquote></span>
+                <a class="toc-item" href="Objects.html#BankAccount">
+                    <h4>BankAccount</h4>
+                    <span class="desc">Represents a tokenized Balanced Payments™ bank account.</span>
                 </a>
                 
-                <a class="toc-item" href="OrderItems.html#Payout">
-                    <h4>Payout</h4>
-                    <span class="desc"><code>id</code> :   <code>int</code>  The unique ID of the payout.
-
-<dl class="inline-def"><dt><code>status</code></dt><dd><code>int enum</code>  The status of the item. Options are: See PayoutStatus.</dd><dt><code>user_id</code></dt><dd><code>int</code> Nullable. Optional. The unique ID of the seller being paid.</dd><dt><code>cause_id</code></dt><dd><code>int</code> Nullable. Optional. The unique ID of the cause being paid.status</dd><dt><code>is_okanjo_commission</code></dt><dd><code>bit</code>  Whether the payout is Okanjo’s commission for brokering the transaction.</dd><dt><code>amount</code></dt><dd><code>decimal (10)</code>  The amount of the payout, after processing fees and commission, before disbursement fees.</dd><dt><code>estimated_fee</code></dt><dd><code>decimal (10)</code>  The estimated disbursement fee. Is subject to change depending on payout groupings or payout method changes.</dd><dt><code>fee</code></dt><dd><code>decimal (10)</code>  The final disbursement fee. May not match estimated fee due to grouping or payout method change.</dd></dl></span>
+                <a class="toc-item" href="Objects.html#BankAccountInfo">
+                    <h4>BankAccountInfo</h4>
+                    <span class="desc">Information used for compliance with the Know Your Customer (KYC), and anti-money laundering laws.</span>
                 </a>
                 
-                <a class="toc-item" href="OrderItems.html#GET /order-items">
-                    <h4>GET /order-items</h4>
-                    <span class="desc">Collection. By default, it returns all order items, most recent first, <strong>purchased by the current user</strong>. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="Objects.html#Bid">
+                    <h4>Bid</h4>
+                    <span class="desc">A bid placed on an auction-type product.</span>
                 </a>
                 
-                <a class="toc-item" href="OrderItems.html#GET /order-items/{item_id}">
-                    <h4>GET /order-items/{item_id}</h4>
-                    <span class="desc">Resource. Returns a specific order item given its unique identifier bought by the current user. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="Objects.html#Brand">
+                    <h4>Brand</h4>
+                    <span class="desc">Brands are currently a key-value store of configuration properties that apply to the brand.</span>
                 </a>
                 
-                <a class="toc-item" href="OrderItems.html#PUT /order-items/{item_id}">
-                    <h4>PUT /order-items/{item_id}</h4>
-                    <span class="desc">Resource. Updates the status of the order item. Used by buyers to indicate an item was received. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="Objects.html#Card">
+                    <h4>Card</h4>
+                    <span class="desc">Represents a tokenized Balanced Payments™ payment card.</span>
                 </a>
                 
-            </div>
-        
-            <h3 class="toc-mod-title"><a href="Orders.html">Orders</a></h3>
-            <div class="toc-list">
+                <a class="toc-item" href="Objects.html#Category">
+                    <h4>Category</h4>
+                    <span class="desc">Categories are used to create a hierarchical structure (taxonomy) for organizing products.</span>
+                </a>
                 
-                <a class="toc-item" href="Orders.html#Order">
+                <a class="toc-item" href="Objects.html#Cause">
+                    <h4>Cause</h4>
+                    <span class="desc">A cause represents a non-profit, 501(c)-class organization.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#CheckoutConfirmation">
+                    <h4>CheckoutConfirmation</h4>
+                    <span class="desc">CheckoutConfirmation objects are returned after an order was processed and completed. They contain sufficient data that may be used for Google Analytics to track e-commerce traffic.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#CheckoutOrder">
+                    <h4>CheckoutOrder</h4>
+                    <span class="desc">A CheckoutOrder object is returned as the response to initially creating the order. Contain the information needed for your application to to allow the buyer to complete the transaction.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Default Response Object">
+                    <h4>Default Response Object</h4>
+                    <span class="desc">Basic response object for many controller routes. See <code>Default Response Object</code>.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Feedback">
+                    <h4>Feedback</h4>
+                    <span class="desc">Review of a purchase experience.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#FeedbackEntity">
+                    <h4>FeedbackEntity</h4>
+                    <span class="desc">Embedded information about a user who participated in feedback giving or receiving. Only one of the following fields will return.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#LoginContext">
+                    <h4>LoginContext</h4>
+                    <span class="desc">The basic data structure received when starting a session.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Media">
+                    <h4>Media</h4>
+                    <span class="desc">Media image object. Currently, the only way to obtain this object is after a successful upload.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Media Embeds">
+                    <h4>Media Embeds</h4>
+                    <span class="desc">Embedded media image references. See <code>Media Embeds</code>.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Notification">
+                    <h4>Notification</h4>
+                    <span class="desc">Notification of an event.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Order">
                     <h4>Order</h4>
                     <span class="desc">Complete buyer purchase transaction. Contains buyer information and purchased items.</span>
                 </a>
                 
-                <a class="toc-item" href="Orders.html#GET /orders">
-                    <h4>GET /orders</h4>
-                    <span class="desc">Collection. By default, it returns all orders, most recent first, placed by the current user. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="Objects.html#OrderItem">
+                    <h4>OrderItem</h4>
+                    <span class="desc">Represents a snapshot of a product that was purchased.</span>
                 </a>
                 
-                <a class="toc-item" href="Orders.html#GET /orders/{id}">
-                    <h4>GET /orders/{id}</h4>
-                    <span class="desc">Resource. Returns a specific order given its unique identifier. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="Objects.html#OrderItemStatus">
+                    <h4>OrderItemStatus</h4>
+                    <span class="desc">Record when an item changed state.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Payout">
+                    <h4>Payout</h4>
+                    <span class="desc"><code>id</code> :   <code>int</code>  The unique ID of the payout.
+
+<dl class="inline-def"><dt><code>status</code></dt><dd><code>int enum</code>  The status of the item. Options are: See <code>PayoutStatus</code>.</dd><dt><code>user_id</code></dt><dd><code>int</code> Nullable. Optional. The unique ID of the seller being paid.</dd><dt><code>cause_id</code></dt><dd><code>int</code> Nullable. Optional. The unique ID of the cause being paid.status</dd><dt><code>is_okanjo_commission</code></dt><dd><code>bit</code>  Whether the payout is Okanjo’s commission for brokering the transaction.</dd><dt><code>amount</code></dt><dd><code>decimal (10)</code>  The amount of the payout, after processing fees and commission, before disbursement fees.</dd><dt><code>estimated_fee</code></dt><dd><code>decimal (10)</code>  The estimated disbursement fee. Is subject to change depending on payout groupings or payout method changes.</dd><dt><code>fee</code></dt><dd><code>decimal (10)</code>  The final disbursement fee. May not match estimated fee due to grouping or payout method change.</dd><dt><code>associated_payment_fee</code></dt><dd><code>decimal (10)</code>  The 3rd-party payment processing fee associated with the payment made on the order.</dd></dl></span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#PlaceBidResult">
+                    <h4>PlaceBidResult</h4>
+                    <span class="desc">The result of placing a bid on an action-type product.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Plan">
+                    <h4>Plan</h4>
+                    <span class="desc">A feature set a store may subscribe to.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#PlanPromotion">
+                    <h4>PlanPromotion</h4>
+                    <span class="desc">A promotional modifier to the plan used to reduce the plan's cost.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Product">
+                    <h4>Product</h4>
+                    <span class="desc">An item that can be purchased on Okanjo.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Promotion">
+                    <h4>Promotion</h4>
+                    <span class="desc">Sales-based coupon/promotion that affects the earnings of as sale.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Region">
+                    <h4>Region</h4>
+                    <span class="desc">DMA-based region information.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#ReturnPolicy">
+                    <h4>ReturnPolicy</h4>
+                    <span class="desc">Represents the return policy of the sale of an item, issued by the seller.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#ShippingOption">
+                    <h4>ShippingOption</h4>
+                    <span class="desc">A method the seller offers the buyer to acquire a product.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Store">
+                    <h4>Store</h4>
+                    <span class="desc">A storefront which offers items for sale on Okanjo.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Subscription">
+                    <h4>Subscription</h4>
+                    <span class="desc">The subscription state of a store which has subscribed to a plan.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Tag">
+                    <h4>Tag</h4>
+                    <span class="desc">A non-contextual product descriptor.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#User">
+                    <h4>User</h4>
+                    <span class="desc">Private user object, used for managing own user profile.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#UserProfile">
+                    <h4>UserProfile</h4>
+                    <span class="desc">Public information about a user.</span>
                 </a>
                 
             </div>
@@ -433,29 +545,9 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Products.html">Products</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Products.html#Product">
-                    <h4>Product</h4>
-                    <span class="desc">An item that can be purchased on Okanjo.</span>
-                </a>
-                
-                <a class="toc-item" href="Products.html#ShippingOption">
-                    <h4>ShippingOption</h4>
-                    <span class="desc">A method the seller offers the buyer to acquire a product.</span>
-                </a>
-                
-                <a class="toc-item" href="Products.html#Bid">
-                    <h4>Bid</h4>
-                    <span class="desc">A bid placed on an auction-type product.</span>
-                </a>
-                
-                <a class="toc-item" href="Products.html#PlaceBidResult">
-                    <h4>PlaceBidResult</h4>
-                    <span class="desc"><dl><dt>The result of placing a bid on an action-type product. <code>type</code></dt><dd><code>string</code>  "Success"</dd><dt><code>is_new_high_bid</code></dt><dd><code>bool</code>  <code>true</code> if the bidder is current highest bidder or <code>false</code> if they do not.</dd><dt><code>bid_id</code></dt><dd><code>int</code>  The ID of the bid that was placed, which can be used to derive which bidder number the user is.</dd></dl></span>
-                </a>
-                
                 <a class="toc-item" href="Products.html#GET /products">
                     <h4>GET /products</h4>
-                    <span class="desc">Collection. By default, it returns all products ordered by being curated, then by most recently published, with a default page size of 20 records per page. This collection accepts search filters and pagination options.</span>
+                    <span class="desc">Collection. By default, it returns all products ordered by curated date, then by most recently published. This collection accepts search filters and pagination options.</span>
                 </a>
                 
                 <a class="toc-item" href="Products.html#GET /products/{id}">
@@ -483,11 +575,6 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Promotions.html">Promotions</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Promotions.html#Promotion">
-                    <h4>Promotion</h4>
-                    <span class="desc">Coupons and promotional object.</span>
-                </a>
-                
                 <a class="toc-item" href="Promotions.html#GET /promotions/{code}">
                     <h4>GET /promotions/{code}</h4>
                     <span class="desc">Resource. Returns information about the given promotion code. <strong>Requires user level authentication.</strong></span>
@@ -497,11 +584,6 @@ user token attached will reset its timeout period.</span>
         
             <h3 class="toc-mod-title"><a href="Regions.html">Regions</a></h3>
             <div class="toc-list">
-                
-                <a class="toc-item" href="Regions.html#Region">
-                    <h4>Region</h4>
-                    <span class="desc">DMA-based region information.</span>
-                </a>
                 
                 <a class="toc-item" href="Regions.html#GET /regions">
                     <h4>GET /regions</h4>
@@ -515,33 +597,73 @@ user token attached will reset its timeout period.</span>
                 
             </div>
         
-            <h3 class="toc-mod-title"><a href="Sales.html">Sales</a></h3>
+            <h3 class="toc-mod-title"><a href="Store Feedback.html">Store Feedback</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Sales.html#GET /sales">
-                    <h4>GET /sales</h4>
+                <a class="toc-item" href="Store Feedback.html#GET /stores/{id}/feedback">
+                    <h4>GET /stores/{id}/feedback</h4>
+                    <span class="desc">Collection. Returns feedback the store received.</span>
+                </a>
+                
+                <a class="toc-item" href="Store Feedback.html#GET /stores/{id}/feedback/{order_item_id}">
+                    <h4>GET /stores/{id}/feedback/{order_item_id}</h4>
+                    <span class="desc">Resource. Returns a specific feedback message received by the store.</span>
+                </a>
+                
+            </div>
+        
+            <h3 class="toc-mod-title"><a href="Store Return Policies.html">Store Return Policies</a></h3>
+            <div class="toc-list">
+                
+                <a class="toc-item" href="Store Return Policies.html#GET /stores/{id}/return-policies">
+                    <h4>GET /stores/{id}/return-policies</h4>
+                    <span class="desc">Collection. Gets all return policies managed by the given store. <strong>Requires no authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Return Policies.html#GET /stores/{id}/return-policies/{return_policy_id}">
+                    <h4>GET /stores/{id}/return-policies/{return_policy_id}</h4>
+                    <span class="desc">Collection. Gets a specific return policy managed by the given store. <strong>Requires no authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Return Policies.html#POST /stores/{id}/return-policies/validate">
+                    <h4>POST /stores/{id}/return-policies/validate</h4>
+                    <span class="desc">Controller. Checks whether the given return policy is valid to post. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Return Policies.html#POST /stores/{id}/return-policies">
+                    <h4>POST /stores/{id}/return-policies</h4>
+                    <span class="desc">Resource. Creates a new return policy. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+            </div>
+        
+            <h3 class="toc-mod-title"><a href="Store Sales.html">Store Sales</a></h3>
+            <div class="toc-list">
+                
+                <a class="toc-item" href="Store Sales.html#GET /stores/{store_id}/sales">
+                    <h4>GET /stores/{store_id}/sales</h4>
                     <span class="desc">Collection. By default, it returns all order items, most recent first, <strong>sold by the current user</strong>. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
-                <a class="toc-item" href="Sales.html#GET /sales/{item_id}">
-                    <h4>GET /sales/{item_id}</h4>
+                <a class="toc-item" href="Store Sales.html#GET /stores/{store_id}/sales/{item_id}">
+                    <h4>GET /stores/{store_id}/sales/{item_id}</h4>
                     <span class="desc">Resource. Returns a specific sale item given its unique identifier sold by the current user. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
-                <a class="toc-item" href="Sales.html#PUT /sales/{item_id}">
-                    <h4>PUT /sales/{item_id}</h4>
+                <a class="toc-item" href="Store Sales.html#PUT /stores/{store_id}/sales/{item_id}">
+                    <h4>PUT /stores/{store_id}/sales/{item_id}</h4>
                     <span class="desc">Resource. Updates the status of the order item. Used by sellers to indicate an item was shipped. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
             </div>
         
-            <h3 class="toc-mod-title"><a href="Stores.html">Stores</a></h3>
+            <h3 class="toc-mod-title"><a href="Store Subscriptions.html">Store Subscriptions</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Stores.html#Store">
-                    <h4>Store</h4>
-                    <span class="desc">A storefront which offers items for sale on Okanjo.</span>
-                </a>
+            </div>
+        
+            <h3 class="toc-mod-title"><a href="Stores.html">Stores</a></h3>
+            <div class="toc-list">
                 
                 <a class="toc-item" href="Stores.html#GET /stores">
                     <h4>GET /stores</h4>
@@ -563,11 +685,6 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Tags.html">Tags</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Tags.html#Tag">
-                    <h4>Tag</h4>
-                    <span class="desc">A non-contextual product attribute.</span>
-                </a>
-                
                 <a class="toc-item" href="Tags.html#GET /tags">
                     <h4>GET /tags</h4>
                     <span class="desc">Collection. Searches for tags that match or partially match the search parameter. <strong>Requires no authentication.</strong></span>
@@ -582,11 +699,6 @@ user token attached will reset its timeout period.</span>
         
             <h3 class="toc-mod-title"><a href="User Addresses.html">User Addresses</a></h3>
             <div class="toc-list">
-                
-                <a class="toc-item" href="User Addresses.html#Address">
-                    <h4>Address</h4>
-                    <span class="desc">Generic physical or permanent street address.</span>
-                </a>
                 
                 <a class="toc-item" href="User Addresses.html#GET /users/{id}/addresses">
                     <h4>GET /users/{id}/addresses</h4>
@@ -643,40 +755,25 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="User Feedback.html">User Feedback</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="User Feedback.html#UserFeedback">
-                    <h4>UserFeedback</h4>
-                    <span class="desc">Review of purchase experience.</span>
-                </a>
-                
-                <a class="toc-item" href="User Feedback.html#UserFeedbackEntity">
-                    <h4>UserFeedbackEntity</h4>
-                    <span class="desc">Embedded information about a user who participated in feedback giving or receiving.</span>
-                </a>
-                
                 <a class="toc-item" href="User Feedback.html#GET /users/{id}/feedback">
                     <h4>GET /users/{id}/feedback</h4>
-                    <span class="desc">Collection. Returns feedback received for the given user.</span>
+                    <span class="desc">Collection. Returns feedback given by the user.</span>
                 </a>
                 
                 <a class="toc-item" href="User Feedback.html#GET /users/{id}/feedback/{order_item_id}">
                     <h4>GET /users/{id}/feedback/{order_item_id}</h4>
-                    <span class="desc">Resource. Returns a specific feedback message.</span>
+                    <span class="desc">Resource. Returns a specific feedback message left by the user.</span>
                 </a>
                 
                 <a class="toc-item" href="User Feedback.html#PUT /users/{id}/feedback/{order_item_id}">
                     <h4>PUT /users/{id}/feedback/{order_item_id}</h4>
-                    <span class="desc">Resource. Leaves feedback regarding a specific sale. Reviewer is the given <code>user_id, reviewee_id</code> is implicitly derived by the <code>order_item_id</code>. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Resource. Leaves feedback regarding a specific purchase. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
             </div>
         
             <h3 class="toc-mod-title"><a href="User Notifications.html">User Notifications</a></h3>
             <div class="toc-list">
-                
-                <a class="toc-item" href="User Notifications.html#Notification">
-                    <h4>Notification</h4>
-                    <span class="desc">Notification of an event.</span>
-                </a>
                 
                 <a class="toc-item" href="User Notifications.html#GET /users/{user_id}/notifications">
                     <h4>GET /users/{user_id}/notifications</h4>
@@ -700,63 +797,43 @@ user token attached will reset its timeout period.</span>
                 
             </div>
         
-            <h3 class="toc-mod-title"><a href="User Return Policies.html">User Return Policies</a></h3>
+            <h3 class="toc-mod-title"><a href="User Order Items.html">User Order Items</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="User Return Policies.html#ReturnPolicy">
-                    <h4>ReturnPolicy</h4>
-                    <span class="desc">Represents the return policy of the sale of an item, issued by the seller.</span>
+                <a class="toc-item" href="User Order Items.html#GET /order-items">
+                    <h4>GET /order-items</h4>
+                    <span class="desc">Collection. By default, it returns all order items, most recent first, <strong>purchased by the current user</strong>. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
-                <a class="toc-item" href="User Return Policies.html#GET /users/{user_id}/return-policies">
-                    <h4>GET /users/{user_id}/return-policies</h4>
-                    <span class="desc">Collection. Gets all return policies created by the given user. <strong>Requires no authentication.</strong></span>
+                <a class="toc-item" href="User Order Items.html#GET /order-items/{item_id}">
+                    <h4>GET /order-items/{item_id}</h4>
+                    <span class="desc">Resource. Returns a specific order item given its unique identifier bought by the current user. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
-                <a class="toc-item" href="User Return Policies.html#POST /users/{user_id}/return-policies/validate">
-                    <h4>POST /users/{user_id}/return-policies/validate</h4>
-                    <span class="desc">Controller. Checks whether the given return policy is valid to post. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="User Order Items.html#PUT /order-items/{item_id}">
+                    <h4>PUT /order-items/{item_id}</h4>
+                    <span class="desc">Resource. Updates the status of the order item. Used by buyers to indicate an item was received. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
-                <a class="toc-item" href="User Return Policies.html#POST /users/{user_id}/return-policies">
-                    <h4>POST /users/{user_id}/return-policies</h4>
-                    <span class="desc">Resource. Creates a new return policy. <strong>Requires user level authentication.</strong></span>
+            </div>
+        
+            <h3 class="toc-mod-title"><a href="User Orders.html">User Orders</a></h3>
+            <div class="toc-list">
+                
+                <a class="toc-item" href="User Orders.html#GET /orders">
+                    <h4>GET /orders</h4>
+                    <span class="desc">Collection. By default, it returns all orders, most recent first, placed by the current user. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="User Orders.html#GET /orders/{id}">
+                    <h4>GET /orders/{id}</h4>
+                    <span class="desc">Resource. Returns a specific order given its unique identifier. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
             </div>
         
             <h3 class="toc-mod-title"><a href="Users.html">Users</a></h3>
             <div class="toc-list">
-                
-                <a class="toc-item" href="Users.html#BankAccount">
-                    <h4>BankAccount</h4>
-                    <span class="desc">Tokenized bank account, stored by Balanced.</span>
-                </a>
-                
-                <a class="toc-item" href="Users.html#BankAccountInfo">
-                    <h4>BankAccountInfo</h4>
-                    <span class="desc">Information used for compliance with the Know Your Customer (KYC), and anti-money laundering laws.</span>
-                </a>
-                
-                <a class="toc-item" href="Users.html#SessionUser">
-                    <h4>SessionUser</h4>
-                    <span class="desc">Login context obtained from logging in or registering an account.</span>
-                </a>
-                
-                <a class="toc-item" href="Users.html#LoginContext">
-                    <h4>LoginContext</h4>
-                    <span class="desc">The basic data structure obtained when starting a session.</span>
-                </a>
-                
-                <a class="toc-item" href="Users.html#User">
-                    <h4>User</h4>
-                    <span class="desc">Private user object, used for managing own user profile.</span>
-                </a>
-                
-                <a class="toc-item" href="Users.html#UserProfile">
-                    <h4>UserProfile</h4>
-                    <span class="desc">Public display information about a buyer or seller.</span>
-                </a>
                 
                 <a class="toc-item" href="Users.html#POST /users/login">
                     <h4>POST /users/login</h4>
@@ -788,9 +865,9 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Vanity URIs.html">Vanity URIs</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Vanity URIs.html#GET /vanity-url/{url}">
-                    <h4>GET /vanity-url/{url}</h4>
-                    <span class="desc">Resource. Gets the resource belonging to that URL. Right now, can be either a Cause or a Store</span>
+                <a class="toc-item" href="Vanity URIs.html#GET /vanity-uris/{uri}">
+                    <h4>GET /vanity-uris/{uri}</h4>
+                    <span class="desc">Resource. Gets the resource belonging to that URL. Could result in one of: <code>Category</code>, <code>Cause</code> or <code>Store</code>.</span>
                 </a>
                 
             </div>

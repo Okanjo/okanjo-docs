@@ -3,74 +3,18 @@
 
 The checkout system facilitates purchasing products listed Okanjo.
 
-Checkout currently supports payments using PayPal or Balanced for credit-card processing.
+Checkout currently supports payments using PayPal or Balanced Payments for credit-card processing.
 
-> **Credit card information should never pass through or be collected by your application.** Balanced enables PCI compliance
-> by routing user payment card data directly to Balanced's API, who then returns a tokenized card URI, which is used by
-> Okanjo for checkout transactions.
+> **Credit card information must never pass through or be collected by your application.** [Balanced Payments™](http://balancedpayments.com) enables PCI
+> compliance by routing user payment card data directly to Balanced's API, who then returns a tokenized card URI, which
+> is used by Okanjo for checkout transactions.
+
 
 # Objects
 
-## Card
-
-Represents a tokenized Balanced payment card.
-
-`uri`
-:   `string`  The unique Balanced URI for the card. Used for confirming the order.
-`nickname`
-:   `string`  The display name for the card. E.g. Visa x4002.
-`brand`
-:   `string`  The brand of the card issuer. E.g. Visa, MasterCard, Discover, etc...
-`last_four`
-:   `string`  The last four digits of the card number.
-
-
-## CheckoutOrder
-
-A CheckoutOrder object is returned as the response to initially creating the order. Contain the information needed
-for your application to to allow the buyer to complete the transaction.
-
-`token`
-:   `string`  The unique order identifier.
-`paypal_url`
-:   `string`  The PayPal URL to redirect the client to complete the transaction using PayPal.
-`cards`
-:   `Card []`  Array of stored cards. Always returns empty on guest checkout sessions.
-`subscriptions`
-:   [`Success KVP`](Globals.html#Default Response Object)  Associative set of subscription results, where the key is the store id being subscribed to and the value is the result of the subscription attempt.
-
-
-## CheckoutConfirmation
-
-CheckoutConfirmation objects are returned after an order was processed and completed. They contain sufficient data that
-may be used for Google Analytics to track e-commerce traffic.
-
-`city`
-:   `string`  Buyer’s city / locality.
-`country`
-:   `string`  Buyer’s country.
-`items[]`
-:   `Array`  Array of items that was purchased.
-`items[n][price]`
-:   `int`  Item’s price.
-`items[n][qty]`
-:   `int`  How many of the item was purchased.
-`items[n][sku]`
-:   `int`  Order item id number.
-`items[n][title]`
-:   `string`  Item’s title.
-`items[n][txnId]`
-:   `int`  Order id number.
-`shipping`
-:   `string`  Shipping total price.
-`state`
-:   `string (2)`  Buyer’s state.
-`storeName`
-:   `string`  Affiliation / store name (currently only returns Okanjo).
-`total`
-:   `string`  Order item total.
-`txnId`
-:   `int`  Order id number.
+* [`Card`](Objects.html#Card) – Tokenized payment card
+* [`CheckoutOrder`](Objects.html#CheckoutOrder) – Unconfirmed order
+* [`CheckoutConfirmation`](Objects.html#CheckoutConfirmation) – Order confirmation
 
 
 # Routes
@@ -106,13 +50,13 @@ Controller. Initializes the checkout process. Creates the order. For use with or
 `shipping_phone`
 :   `string (20)` The buyer’s phone number.
 `subscribe_to`
-:   `int csv`  Optional. CSV of store ID's in which to subscribe to. (e.g. mailing list, updates, etc)
+:   `int csv`  Optional. CSV of store ID's in which to subscribe to. (e.g. For future use for mailing list, updates, etc)
 
 
 
 ### Returns
 
-[`CheckoutOrder`](Checkout.html#CheckoutOrder) object.
+[`CheckoutOrder`](Objects.html#CheckoutOrder) object.
 
 ### Errors
 
@@ -151,7 +95,7 @@ When paying using PayPal, `payer_id` is required, otherwise when paying using a 
 
 ### Returns
 
-[CheckoutConfirmation](Checkout.html#CheckoutConfirmation) object.
+[`CheckoutConfirmation`](Objects.html#CheckoutConfirmation) object.
 
 ### Errors
 
@@ -213,7 +157,7 @@ The main differences between [POST /checkout](Checkout.html#POST /checkout) are:
 
 ### Returns
 
-[`CheckoutOrder`](Checkout.html#CheckoutOrder) object.
+[`CheckoutOrder`](Objects.html#CheckoutOrder) object.
 
 ### Errors
 
@@ -286,7 +230,7 @@ When paying using PayPal, `payer_id` is required, otherwise when paying using a 
 
 ### Returns
 
-[CheckoutConfirmation](Checkout.html#CheckoutConfirmation) object.
+[`CheckoutConfirmation`](Objects.html#CheckoutConfirmation) object.
 
 ### Errors
 

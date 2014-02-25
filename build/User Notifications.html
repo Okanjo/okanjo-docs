@@ -22,23 +22,22 @@
 
 <p>Notifications store related objects in the state they were at the time of the event.</p>
 
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Notification"><code>Notification</code></a> – A notification of an event.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#Notification">Notification</a></li>
 <li><a href="#GET /users/{user_id}/notifications">GET /users/{user_id}/notifications</a></li>
 <li><a href="#GET /users/{user_id}/notifications/{id}">GET /users/{user_id}/notifications/{id}</a></li>
 <li><a href="#PUT /users/{user_id}/notifications/{id}">PUT /users/{user_id}/notifications/{id}</a></li>
 <li><a href="#POST /users/{user_id}/notifications/toggle-flag">POST /users/{user_id}/notifications/toggle-flag</a></li>
 </ul>
-
-<h2 id="notificationahrefnotificationidnotificationclassdeeplinka">Notification <a href="#Notification" id="Notification" class="deep-link">#</a></h2>
-
-<p>Notification of an event.</p>
-
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the notification.</p></dd><dt><p><code>created</code></p></dt><dd><p><code>date time</code>  When the notification was created.</p></dd><dt><p><code>updated</code></p></dt><dd><p><code>date time</code>  When the notification was last updated (e.g. flags changed to mark as read)</p></dd><dt><p><code>flags</code></p></dt><dd><p><code>bitwise flags</code>  Bitwise flags. Handles storing flagged events. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code>  Type of event notification. See <a href="Constants.html#NotificationType"><code>NotificationType</code></a>.</p></dd><dt><p><code>recipient_id</code></p></dt><dd><p><code>int</code>  Nullable. The user ID who is the primary recipient of the notification.</p></dd><dt><p><code>recipient_store_id</code></p></dt><dd><p><code>int</code>  Nullable. The store ID who received the message.</p></dd><dt><p><code>data</code></p></dt><dd><p><code>mixed</code> Nullable. The embedded event data at the time of the event.</p></dd></dl>
-
-<h1 id="routes">Routes</h1>
 
 <h2 id="getusersuser_idnotificationsahrefgetusersuser_idnotificationsidgetusersuser_idnotificationsclassdeeplinka">GET /users/{user_id}/notifications <a href="#GET /users/{user_id}/notifications" id="GET /users/{user_id}/notifications" class="deep-link">#</a></h2>
 
@@ -56,7 +55,7 @@
 
 <h3 id="response">Response</h3>
 
-<p>Array of <a href="User Notifications.html#Notification"><code>Notification</code></a> objects.</p>
+<p>Array of <a href="Objects.html#Notification"><code>Notification</code></a> objects.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -74,7 +73,7 @@
 
 <h3 id="response">Response</h3>
 
-<p><a href="User Notifications.html#Notification"><code>Notification</code></a> object.</p>
+<p><a href="Objects.html#Notification"><code>Notification</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 

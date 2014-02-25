@@ -18,9 +18,9 @@
 </ul>
 <h1 id="messages">Messages</h1>
 
-<p>Facilitates platform buyer to store and store to buyer messaging.</p>
+<p>Facilitates platform user to store and store to user messaging.</p>
 
-<p>Messages are sent to via email to the buyer or store representatives. Those emails can be directly replied-to to respond.
+<p>Messages are sent via email to the buyer or store representatives. Those emails can be directly replied-to to respond.
 They are also viewable through <a href="UserNotifications.html">User Notifications</a> and existing messages can be replied to
 via <a href="Messages.html#POST /messages/reply">POST /messages/reply</a>.</p>
 
@@ -39,7 +39,7 @@ via <a href="Messages.html#POST /messages/reply">POST /messages/reply</a>.</p>
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
-<dl class="inline-def"><dt><p><code>product_id</code></p></dt><dd><p><code>int</code> Only necessary if context is “buyer-to-seller” - The product to talk about.</p></dd><dt><p><code>order_item_id</code></p></dt><dd><p><code>int</code> Only necessary if context is “seller-to-buyer” - The order item to talk about.</p></dd><dt><p><code>message</code></p></dt><dd><p><code>string</code> Message to send the seller in the context of the product.</p></dd><dt><p><code>context</code></p></dt><dd><p><code>string</code> “buyer-to-seller” or “seller-to-buyer”</p></dd></dl>
+<dl class="inline-def"><dt><p><code>product_id</code></p></dt><dd><p><code>int</code> Only necessary if context is <code>buyer-to-seller</code> - The product to talk about.</p></dd><dt><p><code>order_item_id</code></p></dt><dd><p><code>int</code> Only necessary if context is <code>seller-to-buyer</code> - The order item (sale) to talk about.</p></dd><dt><p><code>message</code></p></dt><dd><p><code>string</code> Message to send the seller in the context of the product.</p></dd><dt><p><code>context</code></p></dt><dd><p><code>string enum</code> <code>buyer-to-seller</code> or <code>seller-to-buyer</code>. See <a href="Constants.html#MessageContext">MessageContext</a>.</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 
@@ -51,7 +51,7 @@ via <a href="Messages.html#POST /messages/reply">POST /messages/reply</a>.</p>
 
 <h2 id="postmessagesreplyahrefpostmessagesreplyidpostmessagesreplyclassdeeplinka">POST /messages/reply <a href="#POST /messages/reply" id="POST /messages/reply" class="deep-link">#</a></h2>
 
-<p>Controller. Sends a message in response to an existing message. Can be used as an alternative to reply via email. <strong>Requires user level authentication</strong>.</p>
+<p>Controller. Sends a message in response to an existing message. Can be used as an in-client alternative to reply via email. <strong>Requires user level authentication</strong>.</p>
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 

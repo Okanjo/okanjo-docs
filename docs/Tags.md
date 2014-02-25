@@ -1,19 +1,10 @@
 # Tags
 
-Tags are used to classify non-contextual attributes on products.
+Tags are used to classify non-contextual descriptors on products.
 
 # Objects
 
-## Tag
-
-A non-contextual product attribute.
-
-`id`
-:   `int`  The unique ID of the tag.
-`auth_level`
-:   `int`  The authentication level of the tag. For internal use only, or client-side filtering. See [`AuthLevel`](Constants.html#AuthLevel).
-`name`
-:   `string (64)`  The tag name.
+* [`Tag`](Objects.html#Tag) – Product descriptor.
 
 
 # Routes
@@ -21,6 +12,8 @@ A non-contextual product attribute.
 ## GET /tags
 
 Collection. Searches for tags that match or partially match the search parameter. **Requires no authentication.**
+
+> * Note: This route is incomplete, as it only supports searching. Future expansion of this route for pagination is pending. *
 
 ### Query Parameters
 
@@ -32,7 +25,7 @@ Required or it blows up.
 
 ### Returns
 
-Array of [`Tag`](Tags.html#Tag) objects, or an empty array if no matches are found.
+Array of [`Tag`](Objects.html#Tag) objects, or an empty array if no matches are found.
 
 ### Errors
 
@@ -53,7 +46,7 @@ None.
 
 ### Returns
 
-[`Tag`](Tags.html#Tag) object.
+[`Tag`](Objects.html#Tag) object.
 
 ### Errors
 

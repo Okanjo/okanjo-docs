@@ -56,7 +56,7 @@ Status codes of an auction winner object.
 :   `2` Winner has purchased the item.
 
 
-    ## AuthLevel
+## AuthLevel
 
 Bitwise user authentication level flags.
 
@@ -66,8 +66,6 @@ Bitwise user authentication level flags.
 :   `2` Staff administrator or site moderator.
 `GUEST`
 :   `4` Unregistered guest account that can be used for purchases.
-`VENDOR`
-:   `8` Verified store with ability to create and manage deals.
 
 
 ## BidFlag
@@ -112,7 +110,7 @@ Cause object status codes.
 :   `0` Cause is no longer available or has been disabled.
 `UNCONFIRMED`
 :   `1` Cause has been searched for or added to Okanjo, and its identity has not been verified.
-`BIZ_DEV_NOTIFIED`
+`SUGGESTED`
 :   `2` A seller has pledged an item to the cause and is queued for Okanjo verification.
 `CONFIRMED`
 :   `3` Cause has been verified by Okanjo.
@@ -192,10 +190,8 @@ Purposes define how the media image is intended to be used.
 :   `user_profile` Media association for user profile images.
 `PURPOSE_STORE_BANNER`
 :   `store_banner` Media association for store banners.
-`PURPOSE_CAUSE_PROFILE`
-:   `cause_profile` Media association for cause profile images.
-`PURPOSE_CAUSE_BANNER`
-:   `cause_banner` Media association for cause banners.
+`PURPOSE_STORE_PROFILE`
+:   `store_profile` Media association for store profile images.
 
 
 ## MediaImageStatus
@@ -208,7 +204,17 @@ Media image object status codes.
 :   `1` Media image is available for use.
 
 
-## NotificationFlags
+## MessageContext
+
+Message object context type.
+
+`SELLER`
+:   `seller-to-buyer` Message originated from the seller (e.g. message buyer in regards to a sale)
+`BUYER`
+:   `buyer-to-seller` Message originated from a buyer (e.g. message seller in regards to a product)
+
+
+## NotificationFlag
 
 Bitwise notification flags.
 
@@ -220,9 +226,62 @@ Bitwise notification flags.
 
 ## NotificationType
 
-Types of event notifications.
+Types of event notifications. Sellers are synonymous with stores.
 
-*TODO*
+`BuyerAuctionCancelled`
+:   Notification to buyer that the auction they were watching was cancelled.
+`BuyerAuctionEnded`
+:   Notification to buyer that the auction they were watching has ended.
+`BuyerAuctionHasBegun`
+:   Notification to buyer that the auction they are watching has started.
+`BuyerAuctionOutBid`
+:   Notification to buyer that they have been outbid on the given auction.
+`BuyerAuctionWinner`
+:   Notification to buyer that they have won the auction they were bidding on.
+`BuyerItemInsistedReceived`
+:   Notification to buyer that the seller marked the item they purchased as picked-up.
+`BuyerItemPurchase`
+:   Notification to buyer that they successfully a purchase.
+`BuyerItemShipped`
+:   Notification to buyer that the item they bought has been marked as shipped by the seller.
+`ForgotPassword`
+:   Notification to buyer that a forgotten password request was made on their user account.
+`PrivateMessageProduct`
+:   Notification to a user or store in regards to a product.
+`SellerAuctionCancelled`
+:   Notification to seller that their auction was cancelled.
+`SellerAuctionCancelledBuyOut`
+:   Notification to seller that their auction was cancelled because it was bought-out.
+`SellerAuctionFailed`
+:   Notification to seller that their auction ended and no bids were made.
+`SellerAuctionHasBegun`
+:   Notification to seller that their auction has started.
+`SellerAuctionWon`
+:   Notification to seller that their auction has ended and was won buy a bidder.
+`SellerFeedback`
+:   Notification to seller that a buyer left feedback on one of their sales.
+`SellerFundsDisbursed`
+:   Notification to seller that they Okanjo has released their funds for the sale of an item.
+`SellerFundsDisbursementFailed`
+:   Notification to seller that they could not be paid.
+`SellerItemPosted`
+:   Notification to seller that they have successfully listed an item for sale.
+`SellerItemPurchase`
+:   Notification to seller that they have sold an item.
+`SellerSubscriptionBillingFailed`
+:   Notification to seller that their subscription failed to be purchased or renewed.
+`SellerSubscriptionDelinquent`
+:   Notification to seller that their subscription has been suspended due to non-payment.
+`SellerSubscriptionFreeTrialStart`
+:   Notification to seller that their subscription free-trial has begun.
+`SellerSubscriptionInvoice`
+:   Notification to seller that their subscription has been purchased or renewed.
+`SellerSubscriptionStart`
+:   Notification to seller that their subscription has begun.
+`SellerSubscriptionTrialEnd`
+:   Notification to seller that their subscription free-trial has ended.
+`Welcome`
+:   Notification to a user welcoming them to the platform after signing up for a new account.
 
 ## OrderStatus
 
@@ -256,33 +315,15 @@ Order object types.
 
 `PHYSICAL`
 :   `1` - Standard order type for regular items, auctions, and deals. May not contain virtual items.
-`VIRTUAL`
+`DONATION`
 :   `2` - Order type that may only include virtual items.
-
-
-## OrgUnitStatus
-
-Store object status codes.
-
-`DISABLED`
-:   `0` Org unit (Store) is no longer available.
-`ACTIVE`
-:   `1` Org unit (Store) is available.
-
-
-## OrgUnitType
-
-Store object types.
-
-`STORE`
-:   `1` Store
 
 
 ## PayoutPreference
 
 Store payout preference types. Currently only Balanced is supported.
 
-`BALANCED`
+`BANK_ACCOUNT`
 :   `balanced` Disburse funds via direct deposit.
 
 
@@ -304,15 +345,35 @@ Payout object status codes.
 :   `5` Payout has been stopped by Okanjo staff.
 
 
+## PayoutType
+
+`UNCLASSIFIED`
+:   `0` Automatic Okanjo commission
+`STORE_COMMISSION`
+:   `1` Store earnings for a sale
+`CAUSE_DONATION`
+:   `2` Cause donation
+`OKANJO_COMMISSION`
+:   `3` Okanjo transaction fee commission
+
+
+## PlanStatus
+
+`DISABLED`
+:   `0` Plan is disabled.
+`ACTIVE`
+:   `1` Plan is active.
+
+
 ## ProductCondition
 
 Product object condition enumeration.
 
-`CONDITION_NEW`
+`BRAND_NEW`
 :   `New` Item is brand new, mint condition.
-`CONDITION_USED`
+`USED`
 :   `Used` Item has been used or opened.
-`CONDITION_OTHER`
+`OTHER`
 :   `Other` Item condition is unknown or not applicable. (e.g. imported)
 
 
@@ -323,7 +384,7 @@ Product object status codes.
 `DISABLED`
 :   `0` Item has been de-listed.
 `ACTIVE`
-:   `1` Item is available for sale (provided other conditions are met.)
+:   `1` Item is available for sale (provided other conditions are met).
 `PENDING`
 :   `2` Intermediary stage where imported items are created as stubs.
 `DRAFT`
@@ -338,9 +399,16 @@ Product object status codes.
 :   `8` Item has been suspended until the seller is available.
 `PENDING_ACTIVATION`
 :   `9` Deal item is waiting for start date to become accessible.
-`REMOVED_BY_ADMIN`
-:   `16` Item has been removed by Okanjo and is no longer accessible.
 
+
+## ProductStoreType
+
+How a product is associated with a cause store.
+
+`OWNED`
+:   `1` Item is owned and was listed by the store.
+`INHERITED`
+:   `2` Item was listed by another store and donates to the associated cause store.
 
 ## ProductType
 
@@ -351,9 +419,9 @@ Product object type.
 `AUCTION`
 :   `1` Auction item, single quantity. One-time use.
 `DEAL`
-:   `2` Deal item (e.g. get $40 for $20). Reserved for use by [`Vendors`](Constants.html#AuthLevel) only.
+:   `2` Deal item (e.g. get $40 for $20). Reserved for use by [`Vendors`](Constants.html#StoreFlags) only.
 `DONATION`
-:   `3` Donation item (e.g. donation item drive). Reserved for use by [`Administrators`](Constants.html#AuthLevel) only.
+:   `3` Donation item (e.g. donation item drive). Reserved for use by [`Causes`](Constants.html#StoreType) only.
 
 
 ## PurchaseRequirements
@@ -372,7 +440,8 @@ Okanjo platform order requirements.
 :   `0` Minimum item sale price, in USD.
 `MAX_SHIPPING_PRICE`
 :   `1000` Maximum item sale price, in USD.
-
+`MAX_AUCTION_BUY_NOW_RATIO`
+:   `0.15` The maximum ratio of current-bid price to buy-out price to allow buy-out
 
 ## RegionStatus
 
@@ -400,6 +469,20 @@ Reserved product shipping names.
 :   `Local Pickup` Reserved shipping description for Local Pickup item acquisition.
 
 
+## StoreFlag
+
+Store object permission bitwise flags.
+
+`IS_VENDOR`
+:   `1` The store has vendor level permissions.
+`STOREFRONT_ENABLED`
+:   `2` The store's storefront properties may be used on their storefront page.
+`STOREFRONT_EMBED_ENABLED`
+:   `4` The store may use the embedded storefront widget.
+`HOMEPAGE_PROMOTION_ENABLED`
+:   `8` The store may be included in the store rotation widget.
+
+
 # StoreStatus
 
 Store object status codes.
@@ -409,14 +492,37 @@ Store object status codes.
 `ACTIVE`
 :   `1` Store is available and visible.
 
+
 # StoreType
 
 Store object types.
 
 `STORE`
-:   `1` Regular store front
+:   `1` Regular store front.
 `CAUSE`
-:   `2` Non-profit cause store front
+:   `2` Non-profit cause store front.
+
+
+## SubscriptionStatus
+
+Storefront subscription object status codes.
+
+`TRIAL`
+   `0` Subscription is active and in trial-mode.
+`CREATED`
+   `1` Subscription is brand new.
+`REQUIRE_PAYMENT`
+   `2` Subscription will require payment.
+`PENDING_PAYMENT`
+   `3` Subscription is waiting on a payment to clear.
+`ACTIVE`
+   `4` Subscription is active.
+`DELINQUENT`
+   `5` Subscription is delinquent or will become delinquent because it could not be renewed.
+`PENDING_CANCELLATION`
+   `6` Subscription has been cancelled and will be deactivated when the subscription expires.
+`CANCELLED`
+   `7` Subscription has ended.
 
 
 ## UserStatus
@@ -431,17 +537,7 @@ User object status codes.
 :   `2` User is a guest and has not completed user registration.
 
 
-## VanityURLStatus
-
-Okanjo vanity object status codes.
-
-`INACTIVE`
-:   `0` Vanity URI is reserved but not in use.
-`ACTIVE`
-:   `1` Vanity URI is reserved and in use.
-
-
-## VanityURLTypes
+## VanityURLType
 
 Okanjo vanity object types.
 

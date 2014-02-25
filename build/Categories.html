@@ -30,21 +30,23 @@ in multiple contexts, Categories provide contextual meaning of tags.</p>
 <p>Categories may only have a one parent. They may have zero or more children. A tag referenced by a category may also be
 referenced by a different category.</p>
 
-<h1 id="objects">Objects</h1>
-
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#Category">Category</a></li>
+<li><a href="#Caching">Caching</a></li>
 <li><a href="#GET /categories">GET /categories</a></li>
 <li><a href="#GET /categories/{id}">GET /categories/{id}</a></li>
 </ul>
 
-<h2 id="categoryahrefcategoryidcategoryclassdeeplinka">Category <a href="#Category" id="Category" class="deep-link">#</a></h2>
+<h2 id="cachingahrefcachingidcachingclassdeeplinka">Caching <a href="#Caching" id="Caching" class="deep-link">#</a></h2>
 
-<p>Categories are used to create a hierarchical structure (taxonomy) for organizing products.</p>
+<p>Okanjo rarely makes changes to it's category taxonomy. We recommend caching the responses for your application.</p>
 
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code> The unique ID of the category.</p></dd><dt><p><code>parent_id</code></p></dt><dd><p><code>int</code> The unique ID of the category’s parent.</p></dd><dt><p><code>tag_id</code></p></dt><dd><p><code>int</code> The associated category’s original Tag id.</p></dd><dt><p><code>name</code></p></dt><dd><p><code>string (255)</code> Name of the category.</p></dd><dt><p><code>port</code></p></dt><dd><p><code>int</code> The heretical left-side value of the category.</p></dd><dt><p><code>starboard</code></p></dt><dd><p><code>int</code> The heretical right-side value of the category.</p></dd><dt><p><code>depth</code></p></dt><dd><p><code>int</code> How deep the category is in the taxonomy.</p></dd><dt><p><code>okanjo_url</code></p></dt><dd><p><code>string (255)</code> Nullable. An optional landing page URL (e.g. vanity url)</p></dd><dt><p><code>children</code></p></dt><dd><p><a href="Categories.html#Category"><code>Category []</code></a> Nullable. Embeddable. Array of sub-categories.</p></dd><dt><p><code>parent</code></p></dt><dd><p><a href="Categories.html#Category"><code>Category</code></a> Nullable. Embeddable. The parent category object.</p></dd></dl>
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Category"><code>Category</code></a> – Okanjo Category</li>
+</ul>
 
 <h1 id="routes">Routes</h1>
 
@@ -65,12 +67,12 @@ referenced by a different category.</p>
 <dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When given, only returns the given fields. Field <code>id</code> will be included even if not specified.</p></dd><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional resources. Accepts: <code>children</code>, <code>parent</code>, or <code>all_children</code>. Please note that <code>all_children</code> is not compatible with <code>children</code> or <code>parent</code> embeds, and is not compatible with the <code>id</code> filter.</p></dd></dl>
 
 <blockquote>
-  <p>An important note is that the <code>all_children</code> embed returns the entire category taxonomy. This can be very useful and a time saver.</p>
+  <p>An important note is that the <code>all_children</code> embed returns the entire category taxonomy. This can be very useful, especially for caching.</p>
 </blockquote>
 
 <h3 id="returns">Returns</h3>
 
-<p>Array of <a href="Categories.html#Category"><code>Category</code></a> objects. Can be an empty array if no categories match the given filtering criteria.</p>
+<p>Array of <a href="Objects.html#Category"><code>Category</code></a> objects. Can be an empty array if no categories match the given filtering criteria.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -88,7 +90,7 @@ referenced by a different category.</p>
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="Categories.html#Category">Category</a> object.</p>
+<p><a href="Objects.html#Category">Category</a> object.</p>
 
 <h3 id="errors">Errors</h3>
 

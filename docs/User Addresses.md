@@ -1,44 +1,16 @@
 
 # User and Store Addresses
 
-Generic physical mailing or permanent street address.
+Generic mailing or permanent street address.
 
 Users can store many addresses of different types.
 
-Stores can use addresses to list physical storefronts.
+Stores can use addresses to list physical storefront locations.
 
-## Address
 
-Generic physical or permanent street address.
+# Objects
 
-`id`
-:   `int`  The unique ID of the address.
-`status`
-:   `int (enum)`  The status of the address. See [`AddressStatus`](Constants.html#AddressStatus].
-`type`
-:   `string (enum)`  The type of the address. See [`AddressType`](Constants.html#AddressType].
-`first_name`
-:   `string (255)`  Addressee’s first name.
-`last_name`
-:   `string (255)`  Addressee’s last name.
-`address_1`
-:   `string (255)`  Address line one.
-`address_2`
-:   `string (255)` Nullable. Optional, address line 2.
-`city`
-:   `string (255)`  Locality
-`state`
-:   `string (2)`  State code (e.g. WI)
-`zip`
-:   `string (10)`  Postal code
-`country`
-:   `string (2)`  Country code (e.g. US)
-`phone`
-:   `string (20)`  Addressee’s phone number.
-`created`
-:   `date time`  When the address was created.
-`updated`
-:   `date time`  When the address was last updated.
+* [`Address`](Objects.html#Address) – Physical mailing or permanent street address.
 
 
 # Routes
@@ -54,7 +26,7 @@ None.
 
 ### Returns
 
-Array of [`Address`](User Addresses.html#Address) objects.
+Array of [`Address`](Objects.html#Address) objects.
 
 ### Errors
 
@@ -77,7 +49,7 @@ None.
 
 ### Returns
 
-[`Address`](User Addresses.html#UserAddress) object.
+[`Address`](Objects.html#Address) object.
 
 ### Errors
 
@@ -123,7 +95,7 @@ Resource. Adds a new address to the address collection. Limit 20 addresses per u
 
 ### Returns
 
-[`Address`](User Addresses.html#UserAddress) object.
+[`Address`](Objects.html#Address) object.
 
 ### Errors
 
@@ -170,7 +142,7 @@ Resource. Modifies an existing address in the user’s address collection. Give 
 
 ### Returns
 
-Updated [`Address`](User Addresses.html#UserAddress) object.
+Updated [`Address`](Objects.html#Address) object.
 
 ### Errors
 

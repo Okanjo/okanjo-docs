@@ -15,13 +15,13 @@ Store Collection. Gets auction-type products being watched by the given user. Pa
 `fields`
 :   `csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `csv` When given, includes the additional resources. Accepts all [`Product`](Products.html#Product) embeds.
+:   `csv` When given, includes the additional resources. Accepts all [`Product`](Objects.html#Product) embeds.
 
 
 
 ### Response
 
-Array of [`Product`](Products.html#Product) objects.
+Array of [`Product`](Objects.html#Product) objects.
 `X-COLLECTION-COUNT` header is set to the total number of results available.
 
 ### Errors
@@ -48,7 +48,7 @@ Resource. Gets an auction item being watched by the given user. **Requires user 
 
 ### Response
 
-[`Product`](Products.html#Product) object.
+[`Product`](Objects.html#Product) object.
 
 ### Errors
 

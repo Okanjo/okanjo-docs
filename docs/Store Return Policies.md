@@ -2,25 +2,16 @@
 
 An agreement stores create for buyers regarding item returns.
 
-## ReturnPolicy
+# Objects
 
-Represents the return policy of the sale of an item, issued by the seller.
-
-`id`
-:   `int`  The unique ID of the return policy.
-`user_id`
-:   `int`  The unique ID of the seller who created the return policy. ID of 0 is a default/global Okanjo policy.
-`name`
-:   `string`  The name of the return policy, given by the seller.
-`policy`
-:   `string`  The terms and conditions of the return policy, given by the seller.
+* [`ReturnPolicy`](Objects.html#ReturnPolicy) – A store's return policy governing the sale of an item.
 
 
 # Routes
 
-## GET /users/{user_id}/return-policies
+## GET /stores/{id}/return-policies
 
-Collection. Gets all return policies created by the given user. **Requires no authentication.**
+Collection. Gets all return policies managed by the given store. **Requires no authentication.**
 
 ### Query Parameters
 
@@ -28,7 +19,7 @@ None.
 
 ### Response
 
-Array of [`ReturnPolicy`](User Return Policies.html#ReturnPolicy).
+Array of [`ReturnPolicy`](Objects.html#ReturnPolicy).
 
 ### Errors
 
@@ -36,7 +27,27 @@ Array of [`ReturnPolicy`](User Return Policies.html#ReturnPolicy).
 :   `Failed to get return policies.` Occurs when the API could not complete the request.
 
 
-## POST /users/{user_id}/return-policies/validate
+
+## GET /stores/{id}/return-policies/{return_policy_id}
+
+Collection. Gets a specific return policy managed by the given store. **Requires no authentication.**
+
+### Query Parameters
+
+None.
+
+### Response
+
+[`ReturnPolicy`](Objects.html#ReturnPolicy).
+
+### Errors
+
+**500 Internal Server Error**
+:   `Failed to get return policies.` Occurs when the API could not complete the request.
+
+
+
+## POST /stores/{id}/return-policies/validate
 
 Controller. Checks whether the given return policy is valid to post. **Requires user level authentication.**
 
@@ -68,7 +79,7 @@ Generic [`Success`](Globals.html#Default Response Object) object.
 
 
 
-## POST /users/{user_id}/return-policies
+## POST /stores/{id}/return-policies
 
 Resource. Creates a new return policy. **Requires user level authentication.**
 

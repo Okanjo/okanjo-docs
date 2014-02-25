@@ -18,30 +18,29 @@
 </ul>
 <h1 id="userandstoreaddresses">User and Store Addresses</h1>
 
-<p>Generic physical mailing or permanent street address.</p>
+<p>Generic mailing or permanent street address.</p>
 
 <p>Users can store many addresses of different types.</p>
 
-<p>Stores can use addresses to list physical storefronts.</p>
+<p>Stores can use addresses to list physical storefront locations.</p>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Address"><code>Address</code></a> – Physical mailing or permanent street address.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
 
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#Address">Address</a></li>
 <li><a href="#GET /users/{id}/addresses">GET /users/{id}/addresses</a></li>
 <li><a href="#GET /users/{id}/addresses/{address_id}">GET /users/{id}/addresses/{address_id}</a></li>
 <li><a href="#POST /users/{id}/addresses">POST /users/{id}/addresses</a></li>
 <li><a href="#PUT /users/{id}/addresses/{address_id}">PUT /users/{id}/addresses/{address_id}</a></li>
 <li><a href="#DELETE /users/{id}/addresses/{address_id}">DELETE /users/{id}/addresses/{address_id}</a></li>
 </ul>
-
-<h2 id="addressahrefaddressidaddressclassdeeplinka">Address <a href="#Address" id="Address" class="deep-link">#</a></h2>
-
-<p>Generic physical or permanent street address.</p>
-
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique ID of the address.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int (enum)</code>  The status of the address. See [<code>AddressStatus</code>](Constants.html#AddressStatus].</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string (enum)</code>  The type of the address. See [<code>AddressType</code>](Constants.html#AddressType].</p></dd><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code>  Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code>  Addressee’s last name.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code>  Address line one.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Nullable. Optional, address line 2.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code>  Locality</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code>  State code (e.g. WI)</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code>  Postal code</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code>  Country code (e.g. US)</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code>  Addressee’s phone number.</p></dd><dt><p><code>created</code></p></dt><dd><p><code>date time</code>  When the address was created.</p></dd><dt><p><code>updated</code></p></dt><dd><p><code>date time</code>  When the address was last updated.</p></dd></dl>
-
-<h1 id="routes">Routes</h1>
 
 <h2 id="getusersidaddressesahrefgetusersidaddressesidgetusersidaddressesclassdeeplinka">GET /users/{id}/addresses <a href="#GET /users/{id}/addresses" id="GET /users/{id}/addresses" class="deep-link">#</a></h2>
 
@@ -53,7 +52,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p>Array of <a href="User Addresses.html#Address"><code>Address</code></a> objects.</p>
+<p>Array of <a href="Objects.html#Address"><code>Address</code></a> objects.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -69,7 +68,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="User Addresses.html#UserAddress"><code>Address</code></a> object.</p>
+<p><a href="Objects.html#Address"><code>Address</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -85,7 +84,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p><a href="User Addresses.html#UserAddress"><code>Address</code></a> object.</p>
+<p><a href="Objects.html#Address"><code>Address</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 
@@ -101,7 +100,7 @@
 
 <h3 id="returns">Returns</h3>
 
-<p>Updated <a href="User Addresses.html#UserAddress"><code>Address</code></a> object.</p>
+<p>Updated <a href="Objects.html#Address"><code>Address</code></a> object.</p>
 
 <h3 id="errors">Errors</h3>
 

@@ -3,67 +3,18 @@
 
 The base organizational unit which sells products and receives funds.
 
-Stores own products, and may inherit products as well.
-
-> ** Note: Stores are currently being refactored and will be released soon. Their direct link to users has been eliminated, and are now standalone.  **
+Stores own products, and may inherit products as well, e.g. cross-listing for items pledging to a cause.
 
 # Objects
 
-## Store
-
-A storefront which offers items for sale on Okanjo.
-
-`id`
-:   `int`  The unique ID of the store.
-`status`
-:   `int enum`  Status of the store. See (`StoreStatus`)[Constants.html#StoreStatus]
-`created`
-:   `date time`  When the store was created.
-`updated`
-:   `date time`  When the store was last modified.
-`type`
-:   `int enum`  Type of the store.  See (`StoreType`)[Constants.html#StoreType]
-`name`
-:   `string`  The display name of the store. By default is the name of the user who owns the store.
-`user_id`
-:   `int`  The ID of the user who owns the store.
-`about`
-:   `string (512)` Nullable. Store description.
-`location`
-:   `string (10)` Nullable. Store zip code location.
-`location_name`
-:   `string (180)` Nullable. Store city/locality name.
-`location_state`
-:   `string (2)` Nullable. Store state code abbreviation.
-`website_url`
-:   `string (255)` Nullable. Store website URL.
-`facebook_url`
-:   `string (255)` Nullable. Store facebook URL.
-`twitter_url`
-:   `string (255)` Nullable. Store twitter URL.
-`avatar_media_id`
-:   `int` Nullable. The media image ID to display as the store logo/avatar.
-`banner_media_id`
-:   `int` Nullable. The media image ID to display as the store banner.
-`rating_avg`
-:   `decimal (1,2)` Nullable. The store's average rating, from 1 to 5.
-`review_count`
-:   `int` Nullable. The number of reviews the store received.
-`product_count`
-:   `int`  Number of products available for sale in the store.
-`okanjo_url`
-:   `string (20)` Nullable. Okanjo URL associated with the store.
-`media`
-:   `MediaEmbeds`  Embeddable. Media associated with the store and other related objects.
-`addresses`
-:   `Address[]`  Embeddable. Array of physical store locations.
-`products:n`
-:   `Product[]`  Embeddable. Array of `n` number of products from the store. Used for a quick glance of the store’s items.
-`causes`
-:   (`Cause[]`)[Causes.html#Cause] Embeddable. Array of associated causes with the store.
+* [`Store`](Objects.html#Store) – A seller's store.
+* [`Plan`](Objects.html#Plan) – A plan the store is subscribed to.
+* [`Subscription`](Objects.html#Subscription) – The store's plan subscription state.
+* [`PlanPromotion`](Objects.html#PlanPromotion) – A plan-promotion applied to the store's subscription.
 
 
 # Routes
+
 
 ## GET /stores
 
@@ -79,20 +30,32 @@ All fields are optional. Accepts the standard pagination parameters as well.
 `search`
 :   `string` Returns stores that match the search query. Use this for user-given search strings.
 `seller_id`
-:   `int` Returns stores that belong to the given user id.
+:   `int` Returns stores that are managed by the given user id.
+`cause_id`
+:   `int` Returns the store that belong to the given cause id.
 `has_products`
-:   `bit` Returns stores that have products available when set to `1`.
+:   `int` Returns stores that have at least this number of products listed or products donating to them. When `0`, find stores without any products. Affected by the `product_types` filter.
+`product_types`
+:   `int enum csv` Specify the association of products used for the `product_count` property on the store and the `has_products` filter. Defaults to `OWNED` and `INHERITED`. See [ProductStoreType](Constants.html#ProductStoreType).
+`local_to`
+:   `int` DMA region code that the cause must be registered in. See [Regions](Regions.html).
+`current_plan_id`
+:   `int csv` Returns stores that have an active subscription to the given plan id(s).
+`has_permission`
+:   `int flags` Returns stores that have the given bitwise set of flags. May take multiple flags. e.g. `IS_VENDOR` bitwise-or `STOREFRONT_ENABLED` = `3`. See [StoreFlag](Constants.html#StoreFlag).
+`has_banner`
+:   `bit` Returns stores that have a banner set when `1`, or returns stores that do not have a banner set when `0`.
 *Fields & Includes*
 `fields`
 :   `csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `csv` When given, includes the additional resources. Accepts: `causes, media, addresses, products:n`.
+:   `csv` When given, includes the additional resources. Accepts: `media`, `addresses`, `products:n`, `causes`, `cards`, `bank_accounts`, `return_policies`, `subscription`.
 
 
 
 ### Returns
 
-Array of [`Store`](Stores.html#Store) objects.
+Array of [`Store`](Objects.html#Store) objects.
 
 ### Errors
 
@@ -111,13 +74,13 @@ Resource. Gets a specific store resource by its unique identifier.
 `fields`
 :   `csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `csv` When given, includes the additional resources. Accepts: `causes, media, addresses, products:n`.
+:   `csv` When given, includes the additional resources. Accepts: `media`, `addresses`, `products:n`, `causes`, `cards`, `bank_accounts`, `return_policies`, `subscription`.
 
 
 
 ### Returns
 
-[`Store`](Stores.html#Store) object.
+[`Store`](Objects.html#Store) object.
 
 ### Errors
 
@@ -138,6 +101,8 @@ Only send the fields that should be updated. Send them all if you’d really lik
 
 `name`
 :   `string (6-32)` The pretty store name, which may contain letters, numbers and the following characters: space, apostrophe, hyphen, and ampersand.
+`contact_email`
+:   `string` The email address in which to contact the store.
 `about`
 :   `string (512)` Information about the seller’s store. Can contain no more than 3 line breaks before they’re stripped.
 `avatar_media_id`
@@ -154,14 +119,45 @@ Only send the fields that should be updated. Send them all if you’d really lik
 :   `string (255)` The URL of the store’s twitter presence. Protocol must be HTTP or HTTPS and domain must end in twitter.com.
 `okanjo_url`
 :   `string (20)` The requested Okanjo vanity URL.
-`contact_email`
-:   `string (255)` The email in which to send store email notifications.
 `payout_preference`
 :   `string enum` Nullable. The store’s payout preference. See [PayoutPreference](Constants.html#PayoutPreference).
+`balanced_account_uri`
+:   `string` The URI of the tokenized Balanced Payments bank account URI to use as the default payout method. Used when adding or switching bank accounts.
+`payout_type`
+:   `string enum` Used when adding a new bank account. The type of bank account information being attached. One of `bank_business` or `bank_personal`
+`payout_business_name`
+:   `string (255)` Used when adding a new bank account. The name of the business associated with the bank account. Required for `bank_business` type.
+`payout_business_ein`
+:   `string (32)` Used when adding a new bank account. The IRS EIN number of the business associated with the bank account. Required for `bank_business` type.
+`payout_first_name`
+:   `string (255)` Used when adding a new bank account. The first name of the person associated with the bank account.
+`payout_last_name`
+:   `string (255)` Used when adding a new bank account. The last name of the person associated with the bank account.
+`payout_address1`
+:   `string (255)` Used when adding a new bank account. The street address of the business or person associated with the bank account.
+`payout_address2`
+:   `string (255)` Used when adding a new bank account. Optional building, unit, apartment number or secondary address component.
+`payout_city`
+:   `string (255)` Used when adding a new bank account. The city of the business or person associated with the bank account.
+`payout_state`
+:   `string (2)` Used when adding a new bank account. The state code of the business or person associated with the bank account.
+`payout_postal`
+:   `string (10)` Used when adding a new bank account. The postal code of the business or person associated with the bank account.
+`payout_country`
+:   `string (2)` Used when adding a new bank account. The country code of the business or person associated with the bank account.
+`payout_phone`
+:   `string (20)` Used when adding a new bank account. The phone number of the business or person associated with the bank account.
+`balanced_card_uri`
+:   `string` The URI of the tokenized Balanced Payments payment card URI to use as the default payment method. Used when adding or switching payment cards.
+`promo_code`
+:   `string` Adds a promotion code to the store's active subscription. Must be a valid promotional code for the plan or the request will be rejected.
+
+> ** Note: Providing the `balanced_card_uri` field will cause the subscription to be renewed immediately, if the subscription is past-due or requires payment to activate.**
+
 
 ### Returns
 
-Updated [`Store`](Stores.html#Store) object.
+Updated [`Store`](Objects.html#Store) object.
 
 ### Errors
 
