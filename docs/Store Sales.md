@@ -1,16 +1,14 @@
 # Sales
 
-Represent API routes that stores and sellers can use to interact with purchased [`OrderItem`s](User Order Items.html).
+Routes that stores can use to interact with sold [`OrderItem`s](Objects.html#OrderItem).
 
-> ** Order item routes have been refactored and changes will be reflected soon **
 
 # Routes
 
 ## GET /stores/{store_id}/sales
 
-Collection. By default, it returns all order items, most recent first, **sold by the current user**. This collection accepts search filters and pagination options. **Requires user level authentication.**
+Collection. By default, it returns all sold items, most recent first, sold by the given store. This collection accepts search filters and pagination options. **Requires user level authentication.**
 
-> ** Order item routes have been refactored and changes will be reflected soon **
 
 ### Query Parameters
 
@@ -39,9 +37,7 @@ Collection. By default, it returns all order items, most recent first, **sold by
 `fields`
 :   `string csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `order, media, seller, buyer, cause, feedback, history, payouts`.
-
-
+:   `string csv` When given, includes additional related data. Accepts: `order`, `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `payouts`.
 
 ### Returns
 
@@ -54,12 +50,10 @@ Collection. By default, it returns all order items, most recent first, **sold by
 :   `Failed to retrieve sale items.` Occurs when the request failed to be fulfilled.
 
 
+
 ## GET /stores/{store_id}/sales/{item_id}
 
-Resource. Returns a specific sale item given its unique identifier sold by the current user. **Requires user level authentication.**
-
-> ** Order item routes have been refactored and changes will be reflected soon **
-
+Resource. Returns a specific sold item given its unique identifier sold by the given store. **Requires user level authentication.**
 
 ### Query Parameters
 
@@ -67,9 +61,7 @@ Resource. Returns a specific sale item given its unique identifier sold by the c
 `fields`
 :   `string csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `order, media, seller, buyer, cause, feedback, history, payouts`.
-
-
+:   `string csv` When given, includes additional related data. Accepts: `order`, `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `payouts`.
 
 ### Returns
 
@@ -83,25 +75,27 @@ Resource. Returns a specific sale item given its unique identifier sold by the c
 :   `Failed to retrieve sale item.` Occurs when the request failed to be fulfilled.
 
 
+
 ## PUT /stores/{store_id}/sales/{item_id}
 
 Resource. Updates the status of the order item. Used by sellers to indicate an item was shipped. **Requires user level authentication.**
-
-> ** Order item routes have been refactored and changes will be reflected soon **
 
 
 ### Entity NVP Parameters
 
 `status`
-:   `int enum` The status to set the order item to. Must be 3 (Pending acquisition) when order item status is currently 2 (Pending fulfilment) or status must be 4 (Complete) when order item type is 2 (Deal/Giving Reward). See [OrderStatus](Constants.html#OrderStatus).
+:   `int enum` The status to set the order item to. See [OrderStatus](Constants.html#OrderStatus).
 `tracking_carrier`
 :   `string (64)` Name of the shipping carrier for the order item.
 `tracking_number`
 :   `string (64)` Tracking number for order item.
 `product_deal_vendor_ack`
-:   `string (255)` Note to indicate who at an organization redeemed a Deal/Giving Reward. Applies to Deals/Giving Rewards items and is available only to users with vendor level permissions.
+:   `string (255)` Note to indicate who at an organization redeemed a Deal. Applies to Deals items.
 
-
+> Note: The status can only be changed in the following situations:
+> * Can change to status `3` (Pending acquisition) when item status is currently `2` (Pending fulfilment)
+> * Can change to status `9` (Completed by seller) when the item is a [local-pickup](Constants.html#ShippingDescription) and the status is currently `3` (Pending acquisition)
+> * Can change to status `4` (Complete) when item type is `2` (Deal) and the status is currently `8` (Pending redemption)
 
 ### Returns
 

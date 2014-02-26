@@ -20,25 +20,25 @@ Controller. Registers a new user or authenticates an existing user.
 `action`
 :   `enum` Required. See [`LoginAction`](Constants.html#LoginAction).
 `facebook_token`
-:   `string (255)` Facebook access_token value. Required for action `loginFacebook, registerFacebook`
+:   `string (255)` Facebook access_token value. Required for action `loginFacebook`, `registerFacebook`
 `facebook_id`
-:   `string (64)` Facebook user id, usually numeric. Required for action `loginFacebook, registerFacebook`
+:   `string (64)` Facebook user id, usually numeric. Required for action `loginFacebook`, `registerFacebook`
 `email`
-:   `string (255)` User contact email address. Required for `loginEmailPassword, registerEmailPassword, checkoutAsGuest`
+:   `string (255)` User contact email address. Required for `loginEmailPassword`, `registerEmailPassword`, `checkoutAsGuest`
 `password`
-:   `string (6-max)` Account password, Required for `loginUsernamePassword, loginEmailPassword`
+:   `string (6-max)` Account password, Required for `loginUsernamePassword`, `loginEmailPassword`
 `username`
-:   `string (2-20)` Account username, unique to Okanjo. Required for `loginUsernamePassword, registerEmailPassword, registerFacebook`
+:   `string (2-20)` Account username, unique to Okanjo. Required for `loginUsernamePassword`, `registerEmailPassword`, `registerFacebook`
 `first_name`
-:   `string` User’s first name. Required for `registerEmailPassword, registerFacebook, checkoutAsGuest`
+:   `string` User’s first name. Required for `registerEmailPassword`, `registerFacebook`, `checkoutAsGuest`
 `last_name`
-:   `string` User’s last name. Required for `registerEmailPassword, registerFacebook, checkoutAsGuest`
+:   `string` User’s last name. Required for `registerEmailPassword`, `registerFacebook`, `checkoutAsGuest`
 `birthday`
-:   `date (18-115yrs)` User’s birthday. Required for `registerEmailPassword, registerFacebook`
+:   `date (18-115yrs)` User’s birthday. Required for `registerEmailPassword`, `registerFacebook`
 `zip`
-:   `string` Mailing zipcode. Required for `registerEmailPassword, registerFacebook`
+:   `string` Mailing zipcode. Required for `registerEmailPassword`, `registerFacebook`
 `gender`
-:   `string enum` User’s gender. Required for `registerEmailPassword, registerFacebook`. One of the following values: `male`, `female`, `other`
+:   `string enum` User’s gender. Required for `registerEmailPassword`, `registerFacebook`. One of the following values: `male`, `female`, `other`
 
 
 
@@ -105,7 +105,7 @@ If the user is manageable by the requesting user, complete information is return
 `fields`
 :   `csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `csv` When given, includes the additional resources. Accepts: `media`, `cards`, `bank_accounts`, `return_policy`
+:   `csv` When given, includes the additional resources. Accepts: `addresses`, `cards`, `stores`, `causes`, `media`.
 
 
 
@@ -123,7 +123,7 @@ If the user is manageable by the requesting user, complete information is return
 
 ## PUT /users/{id}
 
-Resource. Updates a user profile. **Requires user level authentication.**
+Resource. Updates a user account. **Requires user level authentication.**
 
 ### Entity NVP Parameters
 

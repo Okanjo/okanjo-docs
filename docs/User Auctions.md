@@ -42,7 +42,7 @@ Resource. Gets an auction item being watched by the given user. **Requires user 
 `fields`
 :   `csv` When given, only returns the given fields. Can also can specify fields on embedded objects. 
 `embed`
-:   `csv` When given, includes the additional resources. Accepts all product embeds. 
+:   `csv` When given, includes the additional resources. Accepts all [`Product`](Objects.html#Product) embeds.
 
 
 

@@ -1,11 +1,9 @@
+# User Addresses
 
-# User and Store Addresses
+Generic mailing or permanent street address. Users can store many addresses of different types.
 
-Generic mailing or permanent street address.
-
-Users can store many addresses of different types.
-
-Stores can use addresses to list physical storefront locations.
+Stores can use addresses to list physical storefront locations. Routes to manage store addresses are not yet implemented.
+Contact Okanjo support can add store addresses.
 
 
 # Objects
@@ -74,9 +72,9 @@ Resource. Adds a new address to the address collection. Limit 20 addresses per u
 :   `string (255)` Addressee’s first name.
 `last_name`
 :   `string (255)` Addressee’s last name.
-`address1`
+`address_1`
 :   `string (255)` Street address.
-`address2`
+`address_2`
 :   `string (255)` Optional. Street address line two.
 `city`
 :   `string (255)` Locality.
@@ -89,7 +87,7 @@ Resource. Adds a new address to the address collection. Limit 20 addresses per u
 `phone`
 :   `string (20)` Contact phone number.
 `type`
-:   `string enum` Address type. Valid options are: shipping billing cause payout store
+:   `string enum` Address type. See [`AddressType`](Constants.html#AddressType].
 
 
 
@@ -120,9 +118,9 @@ Resource. Modifies an existing address in the user’s address collection. Give 
 :   `string (255)` Addressee’s first name.
 `last_name`
 :   `string (255)` Addressee’s last name.
-`address1`
+`address_1`
 :   `string (255)` Street address.
-`address2`
+`address_2`
 :   `string (255)` Optional. Street address line two.
 `city`
 :   `string (255)` Locality.

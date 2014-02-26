@@ -1,7 +1,6 @@
-
 # User Notifications
 
-Event notification system. When anything happens, like an item is sold or auction is won, a notification is created.
+Event notification system. When an event occurs, such as when an item is sold or auction is won, a notification is created.
 
 Notifications store related objects in the state they were at the time of the event.
 
@@ -14,7 +13,9 @@ Notifications store related objects in the state they were at the time of the ev
 
 ## GET /users/{user_id}/notifications
 
-Collection. Gets notifications for the given user. **Requires user level authentication.** Results ordered by unread first, then by id descending, to provide unread notifications to bubble to the top of the list, and fill the rest with recently read notifications.
+Collection. Gets notifications applicable to the given user and the given user's stores. Results ordered by unread first,
+then by id descending, making unread notifications bubble to the top of the list, and fill the rest with recently read notifications.
+**Requires user level authentication.**
 
 ### Query Parameters
 
@@ -31,8 +32,6 @@ Collection. Gets notifications for the given user. **Requires user level authent
 `fields`
 :   `csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 
-
-
 ### Response
 
 Array of [`Notification`](Objects.html#Notification) objects.
@@ -48,14 +47,13 @@ Array of [`Notification`](Objects.html#Notification) objects.
 
 ## GET /users/{user_id}/notifications/{id}
 
-Resource. Gets a specific notification for the given user. **Requires user level authentication**
+Resource. Gets a specific notification applicable to the given user or the given user's stores. **Requires user level authentication**
 
 ### Query Parameters
 
 *Fields & Includes*
 `fields`
 :   `csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
-
 
 ### Response
 
@@ -73,12 +71,12 @@ Resource. Gets a specific notification for the given user. **Requires user level
 
 ## PUT /users/{user_id}/notifications/{id}
 
-Resource. Updates a specific notification for the given user. For example, to mark a notification as read. **Requires user level authentication.**
+Resource. Updates a specific notification applicable to the given user or given user's store. For example, to mark a notification as read. **Requires user level authentication.**
 
 ### Entity NVP Parameters
 
 `flags`
-:   `bitwise flags` The new bitwise flags attribute to assign. For example, changing adding bit 1 would mark a notification as read.  Note: some flags are for internal use only and are purely informational and cannot be changed. See [`NotificationFlags`](Constants.html#NotificationFlags).
+:   `bitwise flags` The new bitwise flags attribute to assign. For example, changing adding bit `1` would mark a notification as read.  Note: some flags are for internal use only and are purely informational and cannot be changed. See [`NotificationFlags`](Constants.html#NotificationFlags).
 
 
 ### Response
@@ -107,11 +105,11 @@ Controller. Updates flags on one or more notifications. For example, to mark a b
 ### Entity NVP Parameters
 
 `ids`
-:   `int csv` Required. ID or multiple ids of which notifications to update.
+:   `int csv` Required. ID or multiple ids of notifications to update.
 `flag`
-:   `bitwise flag` Required. The new bitwise flag attribute to update. Note: some flags are for internal use only and are purely informational and cannot be changed. See [`NotificationFlags`](Constants.html#NotificationFlags).
+:   `bitwise flag` Required. The new bitwise flag attribute to update. Note: Some flags are for internal use only and are purely informational and cannot be changed. See [`NotificationFlags`](Constants.html#NotificationFlags).
 `enabled`
-:   `bit` Required. Whether to add or remove the flag from the set of notifications.
+:   `bit` Required. Whether to add (`1`) or remove (`0`) the flag from the set of notifications.
 
 
 

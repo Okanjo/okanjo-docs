@@ -58,7 +58,7 @@ Resource. Leaves feedback regarding a specific purchase. **Requires user level a
 ### Entity NVP Parameters
 
 `rating`
-:   `int (1-5)` Required. The quantitative score given to the transaction. Accepts `1, 2, 3, 4` or `5`.
+:   `int (1-5)` Required. The quantitative score given to the transaction. Accepts `1`, `2`, `3`, `4` or `5`.
 `feedback`
 :   `string (140)` Optional. The message the reviewer is leaving regarding the transaction.
 

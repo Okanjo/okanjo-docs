@@ -305,8 +305,8 @@ Order object status codes.
 :   `7` Order has been abandoned and has not been confirmed. Occurs when an order is created but neglected for too long.
 `PENDING_REDEMPTION`
 :   `8` Deal item is waiting for the buyer to redeem at the vendor.
-`COMPLETE_SELLER_INSISTS_ITEM_RECEIVED`
-:   `9` Pickup item was marked as received by the seller. Pickup should typically be marked as received by a buyer, though many buyers forget or simply do not, leaving the seller high-and-dry for 30 days.
+`COMPLETED_BY_SELLER`
+:   `9` Pickup item was marked as received by the seller. Pickup should typically be marked as received by a buyer, though many buyers forget or simply do not, leaving the seller high'n'dry.
 
 
 ## OrderType
@@ -501,6 +501,16 @@ Store object types.
 :   `1` Regular store front.
 `CAUSE`
 :   `2` Non-profit cause store front.
+
+
+## SubscriptionIntent
+
+Used when subscribing to a plan.
+
+`PAID`
+:   `paid` Store would like to pay for the subscription now.
+`TRIAL`
+:   `trial` Store would like to begin a free trial.
 
 
 ## SubscriptionStatus

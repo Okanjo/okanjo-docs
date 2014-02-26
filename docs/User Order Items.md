@@ -1,4 +1,4 @@
-# Order Items
+# User Order Items
 
 Order items represent copies of products that were purchased within an [`Order`](Objects.html#Order).
 
@@ -12,9 +12,9 @@ Order items represent copies of products that were purchased within an [`Order`]
 
 # Routes
 
-## GET /order-items
+## GET /users/{id}/order-items
 
-Collection. By default, it returns all order items, most recent first, **purchased by the current user**. This collection accepts search filters and pagination options. **Requires user level authentication.**
+Collection. By default, it returns all order items, most recent first, belonging to the given user. This collection accepts search filters and pagination options. **Requires user level authentication.**
 
 ### Query Parameters
 
@@ -24,19 +24,19 @@ Collection. By default, it returns all order items, most recent first, **purchas
 `order_id`
 :   `int csv` Return only order items that were purchased in the given order id or ids.
 `status`
-:   `int csv` Return only order items in the given status(es). See [OrderStatus](Constants.html#OrderStatus).
+:   `int csv` Return only order items in the given status(es). See [`OrderStatus`](Constants.html#OrderStatus).
 `!status`
-:   `int csv` Return order items not in the given status(es). See [OrderStatus](Constants.html#OrderStatus).
+:   `int csv` Return order items not in the given status(es). See [`OrderStatus`](Constants.html#OrderStatus).
 `product_seller_store_id`
 :   `int` Return only order items sold by the given store id.
 `product_cause_id`
 :   `int` Return only order items that were pledged to the given cause id.
 `order_status`
-:   `int csv` Return only order items that belong to an order with the given status(es). See [OrderStatus](Constants.html#OrderStatus).
+:   `int csv` Return only order items that belong to an order with the given status(es). See [`OrderStatus`](Constants.html#OrderStatus).
 `!order_status`
-:   `int csv` Return only order items that that do not belong to orders with the given status(es). See [OrderStatus](Constants.html#OrderStatus).
+:   `int csv` Return only order items that that do not belong to orders with the given status(es). See [`OrderStatus`](Constants.html#OrderStatus).
 `product_type`
-:   `int csv` Return only order items of a specific product type or types. See [ProductType](Constants.html#ProductType).
+:   `int csv` Return only order items of a specific product type or types. See [`ProductType`](Constants.html#ProductType).
 `product_id`
 :   `int csv` Return only order items of a specific product.
 *Fields & Includes*
@@ -57,9 +57,9 @@ Collection. By default, it returns all order items, most recent first, **purchas
 
 
 
-## GET /order-items/{item_id}
+## GET /users/{id}/order-items/{item_id}
 
-Resource. Returns a specific order item given its unique identifier bought by the current user. **Requires user level authentication.**
+Resource. Returns a specific order item belonging to the given user. **Requires user level authentication.**
 
 ### Query Parameters
 
@@ -84,15 +84,17 @@ Resource. Returns a specific order item given its unique identifier bought by th
 
 
 
-## PUT /order-items/{item_id}
+## PUT /users/{id}/order-items/{item_id}
 
 Resource. Updates the status of the order item. Used by buyers to indicate an item was received. **Requires user level authentication.**
 
 ### Entity NVP Parameters
 
 `status`
-:   `int enum` The status to set the order item to. Must be `4` (Complete) when item status is currently `3` (Pending acquisition) OR if currently `2` (Pending fulfilment and shipping description was `Local Pickup`). See [OrderStatus](Constants.html#OrderStatus) and [ShippingDescription](Constants.html#ShippingDescription).
+:   `int enum` The status to set the order item to. See [OrderStatus](Constants.html#OrderStatus).
 
+> Note: The status can only be changed in the following situations:
+> * Can change to status `4` (Complete) when item status is currently `3` (Pending acquisition).
 
 ### Returns
 

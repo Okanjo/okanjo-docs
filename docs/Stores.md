@@ -18,7 +18,9 @@ Stores own products, and may inherit products as well, e.g. cross-listing for it
 
 ## GET /stores
 
-Collection. By default, it returns all stores alphabetically. This collection accepts search filters and pagination options.
+Collection. By default, it returns all stores alphabetically. This collection accepts search filters and pagination
+options. In order to return private fields, user-level authentication must be provided, and the user must be an admin of
+the store.
 
 ### Query Parameters
 
@@ -51,8 +53,6 @@ All fields are optional. Accepts the standard pagination parameters as well.
 `embed`
 :   `csv` When given, includes the additional resources. Accepts: `media`, `addresses`, `products:n`, `causes`, `cards`, `bank_accounts`, `return_policies`, `subscription`.
 
-
-
 ### Returns
 
 Array of [`Store`](Objects.html#Store) objects.
@@ -66,7 +66,8 @@ Array of [`Store`](Objects.html#Store) objects.
 
 ## GET /stores/{id}
 
-Resource. Gets a specific store resource by its unique identifier.
+Resource. Gets a specific store resource by its unique identifier. In order to return private fields, user-level
+authentication must be provided, and the user must be an admin of the store.
 
 ### Query Parameters
 
@@ -75,8 +76,6 @@ Resource. Gets a specific store resource by its unique identifier.
 :   `csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
 :   `csv` When given, includes the additional resources. Accepts: `media`, `addresses`, `products:n`, `causes`, `cards`, `bank_accounts`, `return_policies`, `subscription`.
-
-
 
 ### Returns
 
@@ -111,48 +110,48 @@ Only send the fields that should be updated. Send them all if you’d really lik
 :   `int` Media image ID to use for the store banner image. Target media image must belong to the seller.
 `zip`
 :   `string (10)` The zip code the store is located in.
-`website_url`
-:   `string (255)` The URL of the store’s web presence. Protocol must be HTTP or HTTPS.
-`facebook_url`
-:   `string (255)` The URL of the store’s Facebook presence. Protocol must be HTTP or HTTPS and domain must end in facebook.com.
-`twitter_url`
-:   `string (255)` The URL of the store’s twitter presence. Protocol must be HTTP or HTTPS and domain must end in twitter.com.
 `okanjo_url`
 :   `string (20)` The requested Okanjo vanity URL.
+`website_url`
+:   `string (255)` The URL of the store’s web presence. Protocol scheme must be included and be either HTTP or HTTPS. E.g. https://okanjo.com
+`facebook_url`
+:   `string (255)` The URL of the store’s Facebook presence. E.g. facebook.com/userorpagename
+`twitter_url`
+:   `string (255)` The URL of the store’s twitter presence. E.g. twitter.com/handlename
 `payout_preference`
 :   `string enum` Nullable. The store’s payout preference. See [PayoutPreference](Constants.html#PayoutPreference).
 `balanced_account_uri`
 :   `string` The URI of the tokenized Balanced Payments bank account URI to use as the default payout method. Used when adding or switching bank accounts.
 `payout_type`
-:   `string enum` Used when adding a new bank account. The type of bank account information being attached. One of `bank_business` or `bank_personal`
+:   `string enum` Used when adding a new bank account. The type of bank account information being attached. One of `bank_business` or `bank_personal`. Used with `balanced_account_uri`.
 `payout_business_name`
-:   `string (255)` Used when adding a new bank account. The name of the business associated with the bank account. Required for `bank_business` type.
+:   `string (255)` Used when adding a new bank account. The name of the business associated with the bank account. Required for `bank_business` type. Used with `balanced_account_uri`.
 `payout_business_ein`
-:   `string (32)` Used when adding a new bank account. The IRS EIN number of the business associated with the bank account. Required for `bank_business` type.
+:   `string (32)` Used when adding a new bank account. The IRS EIN number of the business associated with the bank account. Required for `bank_business` type. Used with `balanced_account_uri`.
 `payout_first_name`
-:   `string (255)` Used when adding a new bank account. The first name of the person associated with the bank account.
+:   `string (255)` Used when adding a new bank account. The first name of the person associated with the bank account. Used with `balanced_account_uri`.
 `payout_last_name`
-:   `string (255)` Used when adding a new bank account. The last name of the person associated with the bank account.
+:   `string (255)` Used when adding a new bank account. The last name of the person associated with the bank account. Used with `balanced_account_uri`.
 `payout_address1`
-:   `string (255)` Used when adding a new bank account. The street address of the business or person associated with the bank account.
+:   `string (255)` Used when adding a new bank account. The street address of the business or person associated with the bank account. Used with `balanced_account_uri`.
 `payout_address2`
-:   `string (255)` Used when adding a new bank account. Optional building, unit, apartment number or secondary address component.
+:   `string (255)` Used when adding a new bank account. Optional building, unit, apartment number or secondary address component. Used with `balanced_account_uri`.
 `payout_city`
-:   `string (255)` Used when adding a new bank account. The city of the business or person associated with the bank account.
+:   `string (255)` Used when adding a new bank account. The city of the business or person associated with the bank account. Used with `balanced_account_uri`.
 `payout_state`
-:   `string (2)` Used when adding a new bank account. The state code of the business or person associated with the bank account.
+:   `string (2)` Used when adding a new bank account. The state code of the business or person associated with the bank account. Used with `balanced_account_uri`.
 `payout_postal`
-:   `string (10)` Used when adding a new bank account. The postal code of the business or person associated with the bank account.
+:   `string (10)` Used when adding a new bank account. The postal code of the business or person associated with the bank account. Used with `balanced_account_uri`.
 `payout_country`
-:   `string (2)` Used when adding a new bank account. The country code of the business or person associated with the bank account.
+:   `string (2)` Used when adding a new bank account. The country code of the business or person associated with the bank account. Used with `balanced_account_uri`.
 `payout_phone`
-:   `string (20)` Used when adding a new bank account. The phone number of the business or person associated with the bank account.
+:   `string (20)` Used when adding a new bank account. The phone number of the business or person associated with the bank account. Used with `balanced_account_uri`.
 `balanced_card_uri`
-:   `string` The URI of the tokenized Balanced Payments payment card URI to use as the default payment method. Used when adding or switching payment cards.
+:   `string` **†** The URI of the tokenized Balanced Payments payment card URI to use as the default payment method. Used when adding or switching payment cards.
 `promo_code`
 :   `string` Adds a promotion code to the store's active subscription. Must be a valid promotional code for the plan or the request will be rejected.
 
-> ** Note: Providing the `balanced_card_uri` field will cause the subscription to be renewed immediately, if the subscription is past-due or requires payment to activate.**
+> ** † Note: Providing the `balanced_card_uri` field will cause the subscription to be renewed immediately, if the subscription is past-due or requires payment to activate.**
 
 
 ### Returns

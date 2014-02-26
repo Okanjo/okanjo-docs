@@ -1,6 +1,6 @@
-# Orders
+# User Orders
 
-Buyer order created during checkout. Contains one or more [`OrderItem`s](Objects.html#OrderItem).
+Order created during the checkout process. Contains one or more [`OrderItem`s](Objects.html#OrderItem).
 
 # Objects
 
@@ -9,17 +9,15 @@ Buyer order created during checkout. Contains one or more [`OrderItem`s](Objects
 
 # Routes
 
-## GET /orders
+## GET /users/{id}/orders
 
-Collection. By default, it returns all orders, most recent first, placed by the current user. This collection accepts search filters and pagination options. **Requires user level authentication.**
+Collection. By default, it returns all orders, most recent first, belonging to the given user. This collection accepts search filters and pagination options. **Requires user level authentication.**
 
 ### Query Parameters
 
 *Filtering*
 `id`
 :   `int csv` Return only orders with the given ID or ID’s.
-`buyer_id`
-:   `int` Return only orders placed by the specific user ID.
 `status`
 :   `int csv` Return only orders in the given status(es). [`OrderStatus`](Constants.html#OrderStatus)
 `!status`
@@ -28,7 +26,7 @@ Collection. By default, it returns all orders, most recent first, placed by the 
 `fields`
 :   `string csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `items`, `media`, `seller`, `buyer`, `cause`, `feedback`, `history`, `stores`.
+:   `string csv` When given, includes additional related data. Accepts: `items`, and embeds from order items: `media`, `store`, `buyer`, `cause`, `feedback`, `history`.
 
 
 
@@ -44,9 +42,9 @@ Collection. By default, it returns all orders, most recent first, placed by the 
 
 
 
-## GET /orders/{id}
+## GET /users/{user_id}/orders/{id}
 
-Resource. Returns a specific order given its unique identifier. **Requires user level authentication.**
+Resource. Returns a specific order given its unique identifier, belonging to the given user. **Requires user level authentication.**
 
 ### Query Parameters
 
@@ -54,7 +52,7 @@ Resource. Returns a specific order given its unique identifier. **Requires user 
 `fields`
 :   `string csv` When given, only returns the given fields.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `items`, `media`, `seller`, `buyer`, `cause`, `feedback`, `history`, `stores`.
+:   `string csv` When given, includes additional related data. Accepts: `items`, and embeds from order items: `media`, `store`, `buyer`, `cause`, `feedback`, `history`.
 
 
 ### Returns

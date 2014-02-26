@@ -78,12 +78,17 @@ An example of media embedded on a [`Cause`](Objects.html#Cause) object:
 }
 ```
 
+
 ### Size Descriptions
 
 See also [MediaImageConstants](Constants.html#MediaImageConstants).
 
+`original`
+:   The original image provided by the user, as-is.
 `listing`
-:   `Product` Used on product cards. Scaled to best fit and cropped from the middle to completely fill the bounds.
+:   `Product` Used on product cards. Variable-sized. Scaled to best fit and cropped from the middle to completely fill the bounds.
+`listing_fixed`
+:   `Product` Used on product cards. Fixed-sized square. Scaled to best fit and cropped from the middle to completely fill the bounds.
 `detail`
 :   `Product` Used in the product image viewer on the detail view. This is not the full-size image. Scaled and matted.
 `thumbnail`
