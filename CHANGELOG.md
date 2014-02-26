@@ -6,6 +6,7 @@ When stuff changes, it's described here.
 ## 2014-02-26
  * Finished documentation updates to match changes released from late 2013 through now
  * Added new fixed-listing media size
+ * Made the sidebar a smidge bigger
 
 ## 2014-02-25
  * Documentation updates to match changes released from late 2013 through now (still a work in progress)
