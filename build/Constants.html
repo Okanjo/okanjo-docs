@@ -61,6 +61,7 @@
 <li><a href="#ResponseHeaders">ResponseHeaders</a></li>
 <li><a href="#ShippingDescription">ShippingDescription</a></li>
 <li><a href="#StoreFlag">StoreFlag</a></li>
+<li><a href="#SubscriptionIntent">SubscriptionIntent</a></li>
 <li><a href="#SubscriptionStatus">SubscriptionStatus</a></li>
 <li><a href="#UserStatus">UserStatus</a></li>
 <li><a href="#VanityURLType">VanityURLType</a></li>
@@ -176,7 +177,7 @@
 
 <p>Order object status codes.</p>
 
-<dl class="inline-def"><dt><p><code>NOT_SUBMITTED</code></p></dt><dd><p><code>0</code> Order has been created and is ready for confirmation.</p></dd><dt><p><code>PENDING_PAYMENT</code></p></dt><dd><p><code>1</code> Order has been confirmed and is waiting for payment processing.</p></dd><dt><p><code>PENDING_FULFILMENT</code></p></dt><dd><p><code>2</code> Payment has been received and order is ready for the seller to ship the item.</p></dd><dt><p><code>PENDING_ACQUISITION</code></p></dt><dd><p><code>3</code> Seller has shipped the item and is waiting for the buyer to receive the item <strong>-or-</strong> the item is waiting to be picked-up by the buyer.</p></dd><dt><p><code>COMPLETE</code></p></dt><dd><p><code>4</code> Order or item has been completed. Nothing left to do.</p></dd><dt><p><code>REFUNDED</code></p></dt><dd><p><code>5</code> Order or item has been refunded.</p></dd><dt><p><code>VOIDED</code></p></dt><dd><p><code>6</code> Order has been cancelled. For example, this can occur when attempting to confirm an order, and an item is no longer valid.</p></dd><dt><p><code>EXPIRED</code></p></dt><dd><p><code>7</code> Order has been abandoned and has not been confirmed. Occurs when an order is created but neglected for too long.</p></dd><dt><p><code>PENDING_REDEMPTION</code></p></dt><dd><p><code>8</code> Deal item is waiting for the buyer to redeem at the vendor.</p></dd><dt><p><code>COMPLETE_SELLER_INSISTS_ITEM_RECEIVED</code></p></dt><dd><p><code>9</code> Pickup item was marked as received by the seller. Pickup should typically be marked as received by a buyer, though many buyers forget or simply do not, leaving the seller high-and-dry for 30 days.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>NOT_SUBMITTED</code></p></dt><dd><p><code>0</code> Order has been created and is ready for confirmation.</p></dd><dt><p><code>PENDING_PAYMENT</code></p></dt><dd><p><code>1</code> Order has been confirmed and is waiting for payment processing.</p></dd><dt><p><code>PENDING_FULFILMENT</code></p></dt><dd><p><code>2</code> Payment has been received and order is ready for the seller to ship the item.</p></dd><dt><p><code>PENDING_ACQUISITION</code></p></dt><dd><p><code>3</code> Seller has shipped the item and is waiting for the buyer to receive the item <strong>-or-</strong> the item is waiting to be picked-up by the buyer.</p></dd><dt><p><code>COMPLETE</code></p></dt><dd><p><code>4</code> Order or item has been completed. Nothing left to do.</p></dd><dt><p><code>REFUNDED</code></p></dt><dd><p><code>5</code> Order or item has been refunded.</p></dd><dt><p><code>VOIDED</code></p></dt><dd><p><code>6</code> Order has been cancelled. For example, this can occur when attempting to confirm an order, and an item is no longer valid.</p></dd><dt><p><code>EXPIRED</code></p></dt><dd><p><code>7</code> Order has been abandoned and has not been confirmed. Occurs when an order is created but neglected for too long.</p></dd><dt><p><code>PENDING_REDEMPTION</code></p></dt><dd><p><code>8</code> Deal item is waiting for the buyer to redeem at the vendor.</p></dd><dt><p><code>COMPLETED_BY_SELLER</code></p></dt><dd><p><code>9</code> Pickup item was marked as received by the seller. Pickup should typically be marked as received by a buyer, though many buyers forget or simply do not, leaving the seller high'n'dry.</p></dd></dl>
 
 <h2 id="ordertypeahrefordertypeidordertypeclassdeeplinka">OrderType <a href="#OrderType" id="OrderType" class="deep-link">#</a></h2>
 
@@ -269,6 +270,12 @@
 <p>Store object types.</p>
 
 <dl class="inline-def"><dt><p><code>STORE</code></p></dt><dd><p><code>1</code> Regular store front.</p></dd><dt><p><code>CAUSE</code></p></dt><dd><p><code>2</code> Non-profit cause store front.</p></dd></dl>
+
+<h2 id="subscriptionintentahrefsubscriptionintentidsubscriptionintentclassdeeplinka">SubscriptionIntent <a href="#SubscriptionIntent" id="SubscriptionIntent" class="deep-link">#</a></h2>
+
+<p>Used when subscribing to a plan.</p>
+
+<dl class="inline-def"><dt><p><code>PAID</code></p></dt><dd><p><code>paid</code> Store would like to pay for the subscription now.</p></dd><dt><p><code>TRIAL</code></p></dt><dd><p><code>trial</code> Store would like to begin a free trial.</p></dd></dl>
 
 <h2 id="subscriptionstatusahrefsubscriptionstatusidsubscriptionstatusclassdeeplinka">SubscriptionStatus <a href="#SubscriptionStatus" id="SubscriptionStatus" class="deep-link">#</a></h2>
 

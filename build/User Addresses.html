@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>User and Store Addresses : Okanjo API Core Specification</title>
+        <title>User Addresses : Okanjo API Core Specification</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets_/css/shCore.css">
         <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
@@ -16,13 +16,12 @@
     <li><a href="index.html">Index</a></li>
     <li><a href="#toc">TOC</a></li>
 </ul>
-<h1 id="userandstoreaddresses">User and Store Addresses</h1>
+<h1 id="useraddresses">User Addresses</h1>
 
-<p>Generic mailing or permanent street address.</p>
+<p>Generic mailing or permanent street address. Users can store many addresses of different types.</p>
 
-<p>Users can store many addresses of different types.</p>
-
-<p>Stores can use addresses to list physical storefront locations.</p>
+<p>Stores can use addresses to list physical storefront locations. Routes to manage store addresses are not yet implemented.
+Contact Okanjo support can add store addresses.</p>
 
 <h1 id="objects">Objects</h1>
 
@@ -80,7 +79,7 @@
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
-<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code.</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> Address type. Valid options are: shipping billing cause payout store</p></dd></dl>
+<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code.</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> Address type. See [<code>AddressType</code>](Constants.html#AddressType].</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 
@@ -96,7 +95,7 @@
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
-<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.  (e.g. WI)</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code. (e.g. US)</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> Address type. See [<code>AddressType</code>](Constants.html#AddressType].</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int enum</code> Address status. See [<code>AddressStatus</code>](Constants.html#AddressStatus].</p></dd></dl>
+<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.  (e.g. WI)</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code. (e.g. US)</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> Address type. See [<code>AddressType</code>](Constants.html#AddressType].</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int enum</code> Address status. See [<code>AddressStatus</code>](Constants.html#AddressStatus].</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 

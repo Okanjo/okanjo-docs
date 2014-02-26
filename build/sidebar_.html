@@ -293,6 +293,11 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Store object permission bitwise flags.</span>
                 </a>
                 
+                <a class="toc-item" href="Constants.html#SubscriptionIntent">
+                    <h4>SubscriptionIntent</h4>
+                    <span class="desc">Used when subscribing to a plan.</span>
+                </a>
+                
                 <a class="toc-item" href="Constants.html#SubscriptionStatus">
                     <h4>SubscriptionStatus</h4>
                     <span class="desc">Storefront subscription object status codes.</span>
@@ -642,12 +647,12 @@ user token attached will reset its timeout period.</span>
                 
                 <a class="toc-item" href="Store Sales.html#GET /stores/{store_id}/sales">
                     <h4>GET /stores/{store_id}/sales</h4>
-                    <span class="desc">Collection. By default, it returns all order items, most recent first, <strong>sold by the current user</strong>. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Collection. By default, it returns all sold items, most recent first, sold by the given store. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
                 <a class="toc-item" href="Store Sales.html#GET /stores/{store_id}/sales/{item_id}">
                     <h4>GET /stores/{store_id}/sales/{item_id}</h4>
-                    <span class="desc">Resource. Returns a specific sale item given its unique identifier sold by the current user. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Resource. Returns a specific sold item given its unique identifier sold by the given store. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
                 <a class="toc-item" href="Store Sales.html#PUT /stores/{store_id}/sales/{item_id}">
@@ -660,6 +665,31 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Store Subscriptions.html">Store Subscriptions</a></h3>
             <div class="toc-list">
                 
+                <a class="toc-item" href="Store Subscriptions.html#GET /stores/{id}/subscriptions">
+                    <h4>GET /stores/{id}/subscriptions</h4>
+                    <span class="desc">Collection. Returns past and present subscriptions on the given store. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Subscriptions.html#GET /stores/{store_id}/subscriptions/{id}">
+                    <h4>GET /stores/{store_id}/subscriptions/{id}</h4>
+                    <span class="desc">Collection. Returns a specific past or present subscription belonging to the given store. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Subscriptions.html#POST /stores/{id}/subscriptions/subscribe">
+                    <h4>POST /stores/{id}/subscriptions/subscribe</h4>
+                    <span class="desc">Controller. Subscribes the store to a plan. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Subscriptions.html#POST /stores/{id}/subscriptions/change">
+                    <h4>POST /stores/{id}/subscriptions/change</h4>
+                    <span class="desc">Controller. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Subscriptions.html#POST /stores/{id}/subscriptions/cancel">
+                    <h4>POST /stores/{id}/subscriptions/cancel</h4>
+                    <span class="desc">Controller. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
             </div>
         
             <h3 class="toc-mod-title"><a href="Stores.html">Stores</a></h3>
@@ -667,12 +697,13 @@ user token attached will reset its timeout period.</span>
                 
                 <a class="toc-item" href="Stores.html#GET /stores">
                     <h4>GET /stores</h4>
-                    <span class="desc">Collection. By default, it returns all stores alphabetically. This collection accepts search filters and pagination options.</span>
+                    <span class="desc">Collection. By default, it returns all stores alphabetically. This collection accepts search filters and pagination options. In order to return private fields, user-level authentication must be provided, and the user must be an admin of
+the store.</span>
                 </a>
                 
                 <a class="toc-item" href="Stores.html#GET /stores/{id}">
                     <h4>GET /stores/{id}</h4>
-                    <span class="desc">Resource. Gets a specific store resource by its unique identifier.</span>
+                    <span class="desc">Resource. Gets a specific store resource by its unique identifier. In order to return private fields, user-level authentication must be provided, and the user must be an admin of the store.</span>
                 </a>
                 
                 <a class="toc-item" href="Stores.html#PUT /stores/{id}">
@@ -777,17 +808,18 @@ user token attached will reset its timeout period.</span>
                 
                 <a class="toc-item" href="User Notifications.html#GET /users/{user_id}/notifications">
                     <h4>GET /users/{user_id}/notifications</h4>
-                    <span class="desc">Collection. Gets notifications for the given user. <strong>Requires user level authentication.</strong> Results ordered by unread first, then by id descending, to provide unread notifications to bubble to the top of the list, and fill the rest with recently read notifications.</span>
+                    <span class="desc">Collection. Gets notifications applicable to the given user and the given user's stores. Results ordered by unread first, then by id descending, making unread notifications bubble to the top of the list, and fill the rest with recently read notifications.
+<strong>Requires user level authentication.</strong></span>
                 </a>
                 
                 <a class="toc-item" href="User Notifications.html#GET /users/{user_id}/notifications/{id}">
                     <h4>GET /users/{user_id}/notifications/{id}</h4>
-                    <span class="desc">Resource. Gets a specific notification for the given user. <strong>Requires user level authentication</strong></span>
+                    <span class="desc">Resource. Gets a specific notification applicable to the given user or the given user's stores. <strong>Requires user level authentication</strong></span>
                 </a>
                 
                 <a class="toc-item" href="User Notifications.html#PUT /users/{user_id}/notifications/{id}">
                     <h4>PUT /users/{user_id}/notifications/{id}</h4>
-                    <span class="desc">Resource. Updates a specific notification for the given user. For example, to mark a notification as read. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Resource. Updates a specific notification applicable to the given user or given user's store. For example, to mark a notification as read. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
                 <a class="toc-item" href="User Notifications.html#POST /users/{user_id}/notifications/toggle-flag">
@@ -800,18 +832,18 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="User Order Items.html">User Order Items</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="User Order Items.html#GET /order-items">
-                    <h4>GET /order-items</h4>
-                    <span class="desc">Collection. By default, it returns all order items, most recent first, <strong>purchased by the current user</strong>. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="User Order Items.html#GET /users/{id}/order-items">
+                    <h4>GET /users/{id}/order-items</h4>
+                    <span class="desc">Collection. By default, it returns all order items, most recent first, belonging to the given user. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
-                <a class="toc-item" href="User Order Items.html#GET /order-items/{item_id}">
-                    <h4>GET /order-items/{item_id}</h4>
-                    <span class="desc">Resource. Returns a specific order item given its unique identifier bought by the current user. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="User Order Items.html#GET /users/{id}/order-items/{item_id}">
+                    <h4>GET /users/{id}/order-items/{item_id}</h4>
+                    <span class="desc">Resource. Returns a specific order item belonging to the given user. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
-                <a class="toc-item" href="User Order Items.html#PUT /order-items/{item_id}">
-                    <h4>PUT /order-items/{item_id}</h4>
+                <a class="toc-item" href="User Order Items.html#PUT /users/{id}/order-items/{item_id}">
+                    <h4>PUT /users/{id}/order-items/{item_id}</h4>
                     <span class="desc">Resource. Updates the status of the order item. Used by buyers to indicate an item was received. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
@@ -820,14 +852,14 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="User Orders.html">User Orders</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="User Orders.html#GET /orders">
-                    <h4>GET /orders</h4>
-                    <span class="desc">Collection. By default, it returns all orders, most recent first, placed by the current user. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="User Orders.html#GET /users/{id}/orders">
+                    <h4>GET /users/{id}/orders</h4>
+                    <span class="desc">Collection. By default, it returns all orders, most recent first, belonging to the given user. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
-                <a class="toc-item" href="User Orders.html#GET /orders/{id}">
-                    <h4>GET /orders/{id}</h4>
-                    <span class="desc">Resource. Returns a specific order given its unique identifier. <strong>Requires user level authentication.</strong></span>
+                <a class="toc-item" href="User Orders.html#GET /users/{user_id}/orders/{id}">
+                    <h4>GET /users/{user_id}/orders/{id}</h4>
+                    <span class="desc">Resource. Returns a specific order given its unique identifier, belonging to the given user. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
             </div>
@@ -852,7 +884,7 @@ user token attached will reset its timeout period.</span>
                 
                 <a class="toc-item" href="Users.html#PUT /users/{id}">
                     <h4>PUT /users/{id}</h4>
-                    <span class="desc">Resource. Updates a user profile. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Resource. Updates a user account. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
                 <a class="toc-item" href="Users.html#POST /users/{id}/set-password">

@@ -18,7 +18,7 @@
 </ul>
 <h1 id="usernotifications">User Notifications</h1>
 
-<p>Event notification system. When anything happens, like an item is sold or auction is won, a notification is created.</p>
+<p>Event notification system. When an event occurs, such as when an item is sold or auction is won, a notification is created.</p>
 
 <p>Notifications store related objects in the state they were at the time of the event.</p>
 
@@ -41,7 +41,9 @@
 
 <h2 id="getusersuser_idnotificationsahrefgetusersuser_idnotificationsidgetusersuser_idnotificationsclassdeeplinka">GET /users/{user_id}/notifications <a href="#GET /users/{user_id}/notifications" id="GET /users/{user_id}/notifications" class="deep-link">#</a></h2>
 
-<p>Collection. Gets notifications for the given user. <strong>Requires user level authentication.</strong> Results ordered by unread first, then by id descending, to provide unread notifications to bubble to the top of the list, and fill the rest with recently read notifications.</p>
+<p>Collection. Gets notifications applicable to the given user and the given user's stores. Results ordered by unread first,
+then by id descending, making unread notifications bubble to the top of the list, and fill the rest with recently read notifications.
+<strong>Requires user level authentication.</strong></p>
 
 <h3 id="queryparameters">Query Parameters</h3>
 
@@ -63,7 +65,7 @@
 
 <h2 id="getusersuser_idnotificationsidahrefgetusersuser_idnotificationsididgetusersuser_idnotificationsidclassdeeplinka">GET /users/{user_id}/notifications/{id} <a href="#GET /users/{user_id}/notifications/{id}" id="GET /users/{user_id}/notifications/{id}" class="deep-link">#</a></h2>
 
-<p>Resource. Gets a specific notification for the given user. <strong>Requires user level authentication</strong></p>
+<p>Resource. Gets a specific notification applicable to the given user or the given user's stores. <strong>Requires user level authentication</strong></p>
 
 <h3 id="queryparameters">Query Parameters</h3>
 
@@ -81,11 +83,11 @@
 
 <h2 id="putusersuser_idnotificationsidahrefputusersuser_idnotificationsididputusersuser_idnotificationsidclassdeeplinka">PUT /users/{user_id}/notifications/{id} <a href="#PUT /users/{user_id}/notifications/{id}" id="PUT /users/{user_id}/notifications/{id}" class="deep-link">#</a></h2>
 
-<p>Resource. Updates a specific notification for the given user. For example, to mark a notification as read. <strong>Requires user level authentication.</strong></p>
+<p>Resource. Updates a specific notification applicable to the given user or given user's store. For example, to mark a notification as read. <strong>Requires user level authentication.</strong></p>
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
-<dl class="inline-def"><dt><p><code>flags</code></p></dt><dd><p><code>bitwise flags</code> The new bitwise flags attribute to assign. For example, changing adding bit 1 would mark a notification as read.  Note: some flags are for internal use only and are purely informational and cannot be changed. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>flags</code></p></dt><dd><p><code>bitwise flags</code> The new bitwise flags attribute to assign. For example, changing adding bit <code>1</code> would mark a notification as read.  Note: some flags are for internal use only and are purely informational and cannot be changed. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd></dl>
 
 <h3 id="response">Response</h3>
 
@@ -101,7 +103,7 @@
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
-<dl class="inline-def"><dt><p><code>ids</code></p></dt><dd><p><code>int csv</code> Required. ID or multiple ids of which notifications to update.</p></dd><dt><p><code>flag</code></p></dt><dd><p><code>bitwise flag</code> Required. The new bitwise flag attribute to update. Note: some flags are for internal use only and are purely informational and cannot be changed. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd><dt><p><code>enabled</code></p></dt><dd><p><code>bit</code> Required. Whether to add or remove the flag from the set of notifications.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>ids</code></p></dt><dd><p><code>int csv</code> Required. ID or multiple ids of notifications to update.</p></dd><dt><p><code>flag</code></p></dt><dd><p><code>bitwise flag</code> Required. The new bitwise flag attribute to update. Note: Some flags are for internal use only and are purely informational and cannot be changed. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd><dt><p><code>enabled</code></p></dt><dd><p><code>bit</code> Required. Whether to add (<code>1</code>) or remove (<code>0</code>) the flag from the set of notifications.</p></dd></dl>
 
 <h3 id="response">Response</h3>
 
