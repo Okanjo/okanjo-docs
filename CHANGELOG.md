@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2014-02-27
+ * Removed emphasis in code block (doesn't render)
+
 ## 2014-02-26
  * Finished documentation updates to match changes released from late 2013 through now
  * Added new fixed-listing media size

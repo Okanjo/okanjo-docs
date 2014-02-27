@@ -80,9 +80,9 @@ It is safe to attach user tokens to requests even if they do not necessarily req
 The following shows an example of an API request that also sends a user token.
 
 1. Build the request URI:
->   `GET **/request?key=xxxx&user_token=as..df**`
+>   `GET /request?key=xxxx&user_token=yyyy`
 1. Sign the request URI:
->   `GET **/request?key=xxxx&user_token=as..df**&signature=b1..a3`
+>   `GET /request?key=xxxx&user_token=yyyy&signature=zzzz`
 1. Execute the request
 
 
