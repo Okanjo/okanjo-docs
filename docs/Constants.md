@@ -248,6 +248,8 @@ Types of event notifications. Sellers are synonymous with stores.
 :   Notification to buyer that a forgotten password request was made on their user account.
 `PrivateMessageProduct`
 :   Notification to a user or store in regards to a product.
+`PrivateMessageFailed`
+:   Notification to a user or store when delivery of a private message fails.
 `SellerAuctionCancelled`
 :   Notification to seller that their auction was cancelled.
 `SellerAuctionCancelledBuyOut`
