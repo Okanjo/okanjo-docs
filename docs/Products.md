@@ -8,7 +8,33 @@ Represents things that can be purchased on Okanjo.
 * [`ShippingOption`](Objects.html#ShippingOption) – A seller-specified method of item delivery.
 * [`Bid`](Objects.html#Bid) – A bid placed on an auction-type item.
 * [`PlaceBidResult`](Objects.html#PlaceBidResult) – The response for an attempt to place a bid.
-
+* `Dimensions` - A multidimensional array of product attributes and price modifiers:
+```js
+"dimensions": {
+    "Size": {
+        "Small": {
+            "price_modifier" : 0
+        },
+        ...
+    },
+    "Color": {
+        "Green with Sparkles" : {
+            "price_modifier" : 0
+        },
+        ...
+    }
+    ...
+}
+```
+* `Variants` - A multidimensional array of variant stock information, keyed by alphabetically sorted query strings comprised of dimension->attribute pairs for all permutations of dimensions. Used by checkout:
+```js
+"variants": {
+    "Color=Green+with+Sparkles&Size=Small": {
+        "stock" : 12
+    },
+    ...
+}
+```
 
 # Routes
 
@@ -179,6 +205,10 @@ Resource. Adds a new product for sale on the current user’s store. **Requires 
 :   `date time` When the deal may no longer be redeemed by buyers for the **full** promotional value, but may still be redeemed for the paid value.
 `deal_value`
 :   `decimal 10,2` The promotional value of the deal. e.g. $20 buys $40 worth of goods/service. $20 is the `price`, $40 is the `deal_value`.
+`dimensions`
+:   `array` Optional. Must be included if variants is present. Multidimensional array of product attributes and price modifiers.
+`variants`
+:   `array` Optional. Must be included if dimensions is present. Multidimensional array of product information keyed by query string, comprised of dimension->attribute pairs for all combinations of dimensions.
 
 
 ### Returns

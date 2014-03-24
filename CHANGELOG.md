@@ -3,6 +3,10 @@
 
 When stuff changes, it's described here.
 
+## 2014-03-24
+ * Added "PrivateMessageFailed" NotificationType to Constants
+ * Added product Attributes and Variants
+
 ## 2014-02-27
  * Removed emphasis in code block (doesn't render)
 

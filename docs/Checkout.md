@@ -26,7 +26,7 @@ Controller. Initializes the checkout process. Creates the order. For use with or
 ### Entity NVP Parameters
 
 `cart`
-:   `json string` JSON-encoded cart string in the format of `{ "20": { "quantity: 1, "shipping_type": "xxx" }, ...}`, where `20` = product id and shipping type is, `"free"`, `“local”` or the ID number of the shipping option attached to the product.
+:   `json string` JSON-encoded cart string in the format of `{ "20": { "quantity: 1, "shipping_type": "xxx" }, ...}`, where `20` = product id and shipping type is, `"free"`, `“local”` or the ID number of the shipping option attached to the product. If selecting a product variant, include the corresponding `variants` key from the [`Product`](Objects.html#Product) with the cart item, e.g. `{ variant : "Color=Green+with+Sparkles&Size=Small" }`
 `return_url`
 :   `string (1024)` Where to tell PayPal to redirect to after the buyer confirms the payment.
 `cancel_url`
@@ -192,6 +192,7 @@ HTTP 1.1 200 OK
 Content-Type: application/json
 Cache-Control: no-cache`
 ```
+
 ```js
 {
     "token": "EC%2d6YD141039D5125406",

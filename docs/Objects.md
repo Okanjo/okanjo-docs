@@ -611,6 +611,8 @@ An item that can be purchased on Okanjo.
 :   `date time` Nullable. When the deal/Giving Reward may no longer be redeemed for its promotional value.
 `deal_value`
 :   `decimal` Nullable. The promotional value of the deal/Giving Reward.
+`dimensions`
+:   `array` Nullable.
 `dma_code`
 :   `int` Nullable. The DMA region code the product belongs to. See [`Regions`](Regions.html#Regions).
 `media`
