@@ -558,7 +558,7 @@ An item that can be purchased on Okanjo.
 `location_state`
 :   `string (2)`  The state where the product is located.
 `stock`
-:   `int`  The quantity of the product available for sale.
+:   `null` | `int` How many instances of the product are for sale. Null or empty values denote that the product has infinite stock, and is made "on demand"
 `category_id`
 :   `int`  The ID of the category the product belongs to.
 `cause_id`

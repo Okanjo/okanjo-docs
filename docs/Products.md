@@ -30,7 +30,7 @@ Represents things that can be purchased on Okanjo.
 ```js
 "variants": {
     "Color=Green+with+Sparkles&Size=Small": {
-        "stock" : 12
+        "stock" : 12 // Note, this could also be null or an empty string, to denote that this product is made "on demand"
     },
     ...
 }
@@ -156,7 +156,7 @@ Resource. Adds a new product for sale on the current user’s store. **Requires 
 `price`
 :   `int (1-9000)` The cost of the product. For auctions, this is the buy-out price. For deals, this is the purchase price. See also [`PurchaseRequirements`](Constants.html#PurchaseRequirements).
 `stock`
-:   `int (0-max)` How many instances of the product are for sale.
+:   `null` | `int (-max)` How many instances of the product are for sale. Null or empty values denote that the product has infinite stock, and is made "on demand"
 `category_id`
 :   `int` The unique ID of the category to file the product under.
 `condition`
@@ -243,7 +243,7 @@ Only send the fields that should be updated. Send them all if that's your thing.
 `price`
 :   `int (1-9000)` The cost of the product.
 `stock`
-:   `int (0-max)` How many instances of the product are for sale.
+:   `null` | `int (-max)` How many instances of the product are for sale. Null or empty values denote that the product has infinite stock, and is made "on demand"
 `category_id`
 :   `int` The unique ID of the category to file the product under.
 `condition`
