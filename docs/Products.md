@@ -185,6 +185,8 @@ Resource. Adds a new product for sale on the current user’s store. **Requires 
 :   `int` The ID of the media image to use for the primary thumbnail image. ID must also be included in the media array.
 `media[n]`
 :   `int` Array. Media image IDs to attach to the product. Can only associate media owned by the seller. At least one media image is required.
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key.
 `cause_id`
 :   `int` Optional. The ID of the cause to pledge a portion of the proceeds to. Only include if `donation_perc` is set.
 `donation_perc`
@@ -221,6 +223,7 @@ The newly created [`Product`](Objects.html#Product) object.
 
 **400 Bad Request**
 :   `Invalid product field: {field}` Occurs when the given field is invalid.
+:   `Invalid field: {field}` Occurs when the given field was invalid.
 **500 Internal Server Error**
 :   `Failed to create product.` Occurs when the request failed to be fulfilled.
 
@@ -272,6 +275,8 @@ Only send the fields that should be updated. Send them all if that's your thing.
 :   `decimal` The starting bid price of the auction.
 `media[n]`
 :   `int` Array. Media image IDs to attach to the product. Can only associate media owned by the seller. At least one media image is required.
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
 `cause_id`
 :   `int` Optional. The ID of the cause to pledge a portion of the proceeds to. Only include if `donation_perc` is set. Set to empty string to clear, `donation_perc` will automatically set to 0.
 `donation_perc`
@@ -302,6 +307,7 @@ Generic [`Success`](Globals.html#Default Response Object) object.
 
 **400 Bad Request**
 :   `Invalid product field: {field}` Occurs when the given field is invalid.
+:   `Invalid field: {field}` Occurs when the given field was invalid.
 **404 Not Found**
 :   `Product not found.` Occurs when the given product could not be found or is invalid.
 **500 Internal Server Error**

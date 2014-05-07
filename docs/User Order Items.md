@@ -92,6 +92,8 @@ Resource. Updates the status of the order item. Used by buyers to indicate an it
 
 `status`
 :   `int enum` The status to set the order item to. See [OrderStatus](Constants.html#OrderStatus).
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
 
 > Note: The status can only be changed in the following situations:
 > * Can change to status `4` (Complete) when item status is currently `3` (Pending acquisition).

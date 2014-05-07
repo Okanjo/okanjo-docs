@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2014-05-07
+ * Added meta properties to Users, Stores, Products, Orders, and Order Items
+
 ## 2014-03-24
  * Added "PrivateMessageFailed" NotificationType to Constants
  * Added product Attributes and Variants

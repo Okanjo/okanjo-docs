@@ -39,6 +39,8 @@ Controller. Registers a new user or authenticates an existing user.
 :   `string` Mailing zipcode. Required for `registerEmailPassword`, `registerFacebook`
 `gender`
 :   `string enum` User’s gender. Required for `registerEmailPassword`, `registerFacebook`. One of the following values: `male`, `female`, `other`
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key.
 
 
 
@@ -145,6 +147,8 @@ Resource. Updates a user account. **Requires user level authentication.**
 :   `string (255)` The user’s last name.
 `zip`
 :   `string (10)` The user’s default location (postal code).
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
 
 
 

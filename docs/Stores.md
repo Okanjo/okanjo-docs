@@ -150,6 +150,8 @@ Only send the fields that should be updated. Send them all if you’d really lik
 :   `string` **†** The URI of the tokenized Balanced Payments payment card URI to use as the default payment method. Used when adding or switching payment cards.
 `promo_code`
 :   `string` Adds a promotion code to the store's active subscription. Must be a valid promotional code for the plan or the request will be rejected.
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
 
 > ** † Note: Providing the `balanced_card_uri` field will cause the subscription to be renewed immediately, if the subscription is past-due or requires payment to activate.**
 
@@ -162,6 +164,7 @@ Updated [`Store`](Objects.html#Store) object.
 
 **400 Bad Request**
 :   `Invalid {field}` Occurs when the given field was invalid.
+:   `Invalid field: {field}` Occurs when the given field was invalid.
 :   `{field} too long.` Occurs when the given field was too long.
 **404 Not Found**
 :   `Store not found.` Occurs when the given store was not found.

@@ -51,6 +51,8 @@ Controller. Initializes the checkout process. Creates the order. For use with or
 :   `string (20)` The buyer’s phone number.
 `subscribe_to`
 :   `int csv`  Optional. CSV of store ID's in which to subscribe to. (e.g. For future use for mailing list, updates, etc)
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key.
 
 
 
@@ -67,6 +69,7 @@ Controller. Initializes the checkout process. Creates the order. For use with or
 :   `Invalid cart total.` Occurs when the cart total is outside of the valid range of $1 and $10,000.
 :   `Invalid shipping address.` Occurs when one or more of the shipping fields were missing or invalid.
 :   `Invalid address - city, state, zip mismatch.` Occurs when PayPal failed to validate the given shipping address.
+:   `Invalid field: {field}` Occurs when the given field was not valid.
 **401 Unauthorized**
 :   `Login required.` Occurs when the user attempted to checkout without a valid account.
 **409 Conflict**
@@ -152,6 +155,8 @@ The main differences between [POST /checkout](Checkout.html#POST /checkout) are:
 :   `string (20)` Optional. The buyer’s phone number.
 `subscribe_to`
 :   `int csv`  Optional. CSV of store ID's in which to subscribe to. (e.g. mailing list, updates, etc)
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key.
 
 
 
@@ -168,6 +173,7 @@ The main differences between [POST /checkout](Checkout.html#POST /checkout) are:
 :   `Invalid cart total.` Occurs when the cart total is outside of the valid range of $1 and $10,000.
 :   `Invalid shipping address.` Occurs when one or more of the shipping fields were missing or invalid.
 :   `Invalid address - city, state, zip mismatch.` Occurs when PayPal failed to validate the given shipping address.
+:   `Invalid field: {field}` Occurs when the given field was not valid.
 **401 Unauthorized**
 :   `Login required.` Occurs when the user attempted to checkout without a valid account.
 **409 Conflict**

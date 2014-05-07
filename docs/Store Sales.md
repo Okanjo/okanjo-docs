@@ -91,6 +91,8 @@ Resource. Updates the status of the order item. Used by sellers to indicate an i
 :   `string (64)` Tracking number for order item.
 `product_deal_vendor_ack`
 :   `string (255)` Note to indicate who at an organization redeemed a Deal. Applies to Deals items.
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
 
 > Note: The status can only be changed in the following situations:
 > * Can change to status `3` (Pending acquisition) when item status is currently `2` (Pending fulfilment)
@@ -106,6 +108,7 @@ Generic [`Success`](Globals.html#Default Response Object) object.
 **400 Bad Request**
 :   `Order status change prohibited.` Occurs when the status cannot be changed to the given value due to the current state of the order item.
 :   `Invalid status.` Occurs when the given status is not a valid status code that can be applied.
+:   `Invalid field: {field}` Occurs when the given field was invalid.
 **403 Forbidden**
 :   `Insufficient privileges for this operation.` Occurs when the current user does not have access to the given order item.
 **404 Not Found**

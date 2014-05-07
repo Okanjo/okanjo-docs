@@ -66,3 +66,29 @@ Resource. Returns a specific order given its unique identifier, belonging to the
 **500 Internal Server Error**
 :   `Failed to retrieve order.` Occurs when the request failed to be fulfilled.
 
+
+
+## PUT /users/{user_id}/orders/{id}
+
+Resource. Updates the status of the order item. Used by buyers to indicate an item was received. **Requires user level authentication.**
+
+### Entity NVP Parameters
+
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
+
+
+### Returns
+
+Generic [`Success`](Globals.html#Default Response Object) object.
+
+### Errors
+
+**400 Bad Request**
+:   `Invalid field: {field}` Occurs when the given field was not valid.
+**403 Forbidden**
+:   `Insufficient privileges for this operation.` Occurs when the current user does not have access to the given order item.
+**404 Not Found**
+:   `Order not found.` Occurs when the given order item was not found or is invalid.
+**500 Internal Server Error**
+:   `System error.` Occurs when the request failed to be fulfilled.

@@ -173,6 +173,8 @@ A cause represents a non-profit, 501(c)-class organization.
 :   `string (255)` Nullable. The name of the cause group, if applicable.
 `store`
 :   (`Store`)[Objects.html#Store] Embeddable. The associated store for the cause.
+`meta`
+:   `string[]`  Array of key/value properties attached to the object. Metadata is per-API key.
 
 
 ## CheckoutConfirmation
@@ -221,7 +223,8 @@ for your application to to allow the buyer to complete the transaction.
 :   `Card []`  Array of stored cards. Always returns empty on guest checkout sessions.
 `subscriptions`
 :   [`Success KVP`](Globals.html#Default Response Object)  Associative set of subscription results, where the key is the store id being subscribed to and the value is the result of the subscription attempt.
-
+`meta`
+:   `string[]`  Array of key/value properties attached to the object upon creation of the order. Metadata is per-API key.
 
 ## Default Response Object
 
@@ -355,6 +358,8 @@ Complete buyer purchase transaction. Contains buyer information and purchased it
 :   `int enum`  The type of the order. See [`OrderType`](Constants.html#OrderType).
 `items`
 :   [`OrderItem []`](Objects.html#OrderItem)  Embeddable. Array of items being purchased on the order.
+`meta`
+:   `string[]`  Array of key/value properties attached to the object. Metadata is per-API key.
 
 
 ## OrderItem
@@ -435,6 +440,8 @@ Represents a snapshot of a product that was purchased.
 :   [`Cause`](Objects.html#Cause)  Embeddable. The cause the item was pledged to.
 `media`
 :   [`Media Embeds`](Media.html#Media Embeds)  Embeddable. The associated media for the associated product, store, buyer, and cause.
+`meta`
+:   `string[]`  Array of key/value properties attached to the object. Metadata is per-API key.
 `feedback`
 :   [`UserFeedback`](Objects.html#UserFeedback)  Embeddable. The feedback received from the buyer about the seller.
 `history`
@@ -617,6 +624,8 @@ An item that can be purchased on Okanjo.
 :   `int` Nullable. The DMA region code the product belongs to. See [`Regions`](Regions.html#Regions).
 `media`
 :   [`Media Embeds`](Media.html#Media Embeds)  Embeddable. All referenced media for the product and embedded objects.
+`meta`
+:   Array of key/value attributes attached to the object. Metadata is per-API key.
 `category`
 :   [`Category`](Objects.html#Category)  Embeddable. The category the product is filed under.
 `cause`
@@ -747,6 +756,8 @@ A storefront which offers items for sale on Okanjo.
 :   `string` Private. Nullable. The associated display label of the payment card. Only present if `card_uri` is set.
 `media`
 :   `MediaEmbeds`  Embeddable. Media associated with the store and other related objects.
+`meta`
+:   `string[]`  Array of key/value properties attached to the object. Metadata is per-API key.
 `addresses`
 :   `Address[]`  Embeddable. Array of physical store locations.
 `products`
@@ -841,6 +852,8 @@ Private user object, used for managing own user profile.
 :   [`Cause []`](Objects.html#Cause) Embeddable. Causes managed by the user.
 `media`
 :   [`Media Embeds`](Media.html#Media Embeds)  Embeddable. Associated avatar media image.
+`meta`
+:   `string[]`  Array of key/value properties attached to the object. Metadata is per-API key.
 
 
 ## UserProfile
