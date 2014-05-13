@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2014-05-13
+ * Updated default endpoint to sandbox, etc.
+
 ## 2014-05-07
  * Added meta properties to Users, Stores, Products, Orders, and Order Items
 
