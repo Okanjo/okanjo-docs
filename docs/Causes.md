@@ -94,6 +94,8 @@ Resource. Modifies a cause. Used by cause administrators to update their organiz
 
 `location`
 :   `string (10)` The zip code of the location. The city/state fields will be automatically populated.
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
 
 ### Returns
 
@@ -104,6 +106,7 @@ The updated [`Cause`](Objects.html#Cause) object.
 **400 Bad Request**
 :   `{field} too long.` Occurs when the given field was too long.
 :   `Invalid {field}.` Occurs when the value for the given field is not valid.
+:   `Invalid field: {field}` Occurs when the given field was invalid.
 **403 Forbidden**
 :   `Not authorized to manage cause.` Occurs when the current user does not have permission to manage the given cause.
 **404 Not Found**
