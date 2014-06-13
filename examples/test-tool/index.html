@@ -156,13 +156,67 @@ SOFTWARE.
     <a href="#" class="launch">PUT</a>
     <a href="#" class="launch">DELETE</a>
     <a href="#" class="launch">HEAD</a>
+    <a href="#" class="link-to-this">Link To This Request</a>
 </div>
 
 <div id="preview">
 </div>
 <script>
+
+function serialize() {
+    var val = JSON.stringify({
+        endpoint: $('#domain').val(),
+        key: $('#key').val(),
+        pass: $('#password').val(),
+        user: $('#user').val(),
+        route: $('#route').val(),
+        query: $('#params').val(),
+        entity: $('#data').val()
+    });
+
+    window.location.href = '#'+encodeURIComponent(val);
+
+    return val;
+}
+
+function deSerialize(val) {
+
+    val = val || decodeURIComponent(window.location.hash.substr(1));
+
+    // Defaults
+    var data = {
+        endpoint: 'https://sandbox-api.okanjo.com',
+        route: '/'
+    };
+
+    try {
+        if (val.length > 0) {
+            data = JSON.parse(val);
+        }
+    } catch (e) {
+        // Nope!
+    }
+
+
+    $('#domain').val(data.endpoint);
+    $('#key').val(data.key);
+    $('#password').val(data.pass);
+    $('#user').val(data.user);
+    $('#route').val(data.route);
+    $('#params').val(data.query);
+    $('#data').val(data.entity);
+}
+
 $(document).ready(function() {
     $('.input').bind('keyup', update);
+
+    $('.link-to-this').click(function(e) {
+        e.preventDefault();
+
+        serialize();
+
+    });
+
     $('.launch').click(function () {
 
         var request;
@@ -246,6 +300,8 @@ $(document).ready(function() {
         }
         return false;
     });
+
+    deSerialize();
 
     update();
 });
@@ -535,7 +591,7 @@ function FormatJSON(oData, sIndent) {
 // methods in a closure to avoid creating global variables.
 
 if (!this.JSON) {
-    JSON = {};
+    this.JSON = {};
 }
 (function () {
 

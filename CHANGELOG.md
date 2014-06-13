@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2014-06-11
+ * Added ability to link and save tests
+
 ## 2014-05-13
  * Updated default endpoint to sandbox, etc.
 
