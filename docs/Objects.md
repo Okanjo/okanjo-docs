@@ -428,6 +428,8 @@ Represents a snapshot of a product that was purchased.
 :   `decimal` Nullable. The promotional value of the deal/offer.
 `product_deal_vendor_ack`
 :   `string (255)` Nullable. Seller-only. For vendors to indicate which employee marked a deal/offer as redeemed.
+`product_meta`
+:   Array of key/value attributes attached to the object. Metadata is per-API key.
 `deal_number`
 :   `int` Nullable. The unique deal number identifier of the deal/offer used on the voucher.
 `order`
