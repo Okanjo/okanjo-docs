@@ -485,7 +485,7 @@ Store object permission bitwise flags.
 :   `8` The store may be included in the store rotation widget.
 
 
-# StoreStatus
+## StoreStatus
 
 Store object status codes.
 
@@ -495,7 +495,7 @@ Store object status codes.
 :   `1` Store is available and visible.
 
 
-# StoreType
+## StoreType
 
 Store object types.
 
@@ -520,21 +520,139 @@ Used when subscribing to a plan.
 Storefront subscription object status codes.
 
 `TRIAL`
-   `0` Subscription is active and in trial-mode.
+:   `0` Subscription is active and in trial-mode.
 `CREATED`
-   `1` Subscription is brand new.
+:   `1` Subscription is brand new.
 `REQUIRE_PAYMENT`
-   `2` Subscription will require payment.
+:   `2` Subscription will require payment.
 `PENDING_PAYMENT`
-   `3` Subscription is waiting on a payment to clear.
+:   `3` Subscription is waiting on a payment to clear.
 `ACTIVE`
-   `4` Subscription is active.
+:   `4` Subscription is active.
 `DELINQUENT`
-   `5` Subscription is delinquent or will become delinquent because it could not be renewed.
+:   `5` Subscription is delinquent or will become delinquent because it could not be renewed.
 `PENDING_CANCELLATION`
-   `6` Subscription has been cancelled and will be deactivated when the subscription expires.
+:   `6` Subscription has been cancelled and will be deactivated when the subscription expires.
 `CANCELLED`
-   `7` Subscription has ended.
+:   `7` Subscription has ended.
+
+
+## TransactionAssociation
+
+Types of associations between a transaction and another object.
+
+`CAUSE`
+:   `cause` Represents an association with a cause object.
+`ORDER`
+:   `order` Represents an association with an order object.
+`ORDER_ITEM`
+:   `order_item` Represents an association with an order item object.
+`STORE`
+:   `store` Represents an association with a store object.
+`USER`
+:   `user` Represents an association with a user object.
+
+
+## TransactionStatus
+
+The status of the transaction.
+
+`PENDING`
+:   `0` Transaction is waiting for another action to complete.
+`COMPLETE`
+:   `1` Transaction has been committed and funds are available.
+
+
+## TransactionType
+
+The type of action associated with a transaction. All credits are even and debits are odd.
+
+### Buyer Activities
+
+`BUYER_CREDIT_PAYMENT`
+:   `100` Occurs when the buyer's payment source (e.g. credit card, PayPal account) is debited and credited to their Okanjo account.
+`BUYER_DEBIT_PURCHASE`
+:   `101` Occurs when the buyer purchases an item.
+`BUYER_CREDIT_REFUND_PURCHASE`
+:   `110` Occurs when the buyer receives a refund for an item purchase.
+`BUYER_DEBIT_REFUND_PAYMENT`
+:   `111` Occurs when the buyer's payment source (e.g. credit card, PayPal account) is credited for the refund.
+
+### Store Activities
+
+`STORE_CREDIT_ITEM_PAYMENT`
+:   `200` Occurs when a store receives payment for the sale of an item.
+`STORE_DEBIT_PAYMENT_PROCESSING_FEE`
+:   `201` Third-party payment processing fee. For example, 2.9% + 30¢. Only collected when applicable.
+`STORE_DEBIT_OKANJO_COMMISSION_FEE`
+:   `203` Commission collected by Okanjo for facilitating the sale of an item. Only collected when applicable.
+`STORE_DEBIT_DONATION`
+:   `205` Donation given to a cause for the sale of an item. Only collected when applicable.
+`STORE_CREDIT_DONATION`
+:   `206` Occurs when the cause store receives a donation for the sale of an item.
+`STORE_DEBIT_DONATION_OKANJO_COMMISSION_FEE`
+:   `207` Commission collected by Okanjo for facilitating the donation of an item. Only collected when applicable.
+
+`STORE_DEBIT_DISBURSEMENT_FEE`
+:   `221` Third-party disbursement processing fee. For example, 25¢ for direct deposits, 2% up to $1 for PayPal.
+`STORE_DEBIT_DISBURSEMENT`
+:   `223` Withdrawal to the store's payout source, such as a bank account or PayPal.
+
+### Store Subscription Activities
+
+`STORE_CREDIT_PAYMENT`
+:   `230` Occurs when the store's payment source (e.g. credit card) is debited and credited to their Okanjo account.
+`STORE_DEBIT_PURCHASE`
+:   `231` Occurs when the store purchases a subscription or renewal.
+`STORE_CREDIT_REFUND_PURCHASE`
+:   `240` Occurs when the store receives a refund for subscription.
+`STORE_DEBIT_REFUND_PAYMENT`
+:   `241` Occurs when the store's payment source (e.g. credit card) is credited for the refund.
+
+### Store Refund Activities
+
+`STORE_CREDIT_REVERSE_DISBURSEMENT`
+:   `250` Occurs when the disbursement was reversed.
+`STORE_CREDIT_REVERSE_DISBURSEMENT_FAILED`
+:   `252` Occurs when the disbursement failed to be deposited.
+`STORE_CREDIT_REFUND_DISBURSEMENT_FEE`
+:   `254` Occurs when the disbursement fee is refunded back to the store.
+
+`STORE_CREDIT_REFUND_DONATION_OKANJO_COMMISSION_FEE`
+:   `260` Refund to the cause store for the commission taken for the donation of an item.
+`STORE_DEBIT_REFUND_DONATION`
+:   `261` Refund on the cause store back to the origin (donating) store.
+`STORE_CREDIT_REFUND_DONATION`
+:   `262` Refund to the store from a cause store.
+`STORE_CREDIT_REFUND_OKANJO_COMMISSION_FEE`
+:   `264` Refund to the store for the commission taken for the sale of an item.
+`STORE_CREDIT_REFUND_PAYMENT_PROCESSING_FEE`
+:   `266` Refund to the store for the payment processing fee taken by the third-party.
+`STORE_DEBIT_REFUND_ITEM_PAYMENT`
+:   `267` Refund to the buyer for the purchase of an item.
+
+### Organizational and Marketplace Activities
+
+`ORG_CREDIT_SALE_COMMISSION`
+:   `300` Occurs when a commission is received for the sale of an item.
+`ORG_DEBIT_REFUND_SALE_COMMISSION`
+:   `301` Occurs when a commission is refunded for the sale of an item
+`ORG_CREDIT_DONATION_COMMISSION`
+:   `310` Occurs when a commission is received for the donation of an item.
+`ORG_DEBIT_REFUND_DONATION_COMMISSION`
+:   `311` Occurs when a commission is refunded for the donation of an item.
+`ORG_CREDIT_SUBSCRIPTION_COMMISSION`
+:   `320` Occurs when a subscription commission is received.
+`ORG_DEBIT_REFUND_SUBSCRIPTION_COMMISSION`
+:   `321` Occurs when a subscription commission is refunded.
+`ORG_DEBIT_REFUNDED_PAYMENT_FEE`
+:   `331` Occurs when a third-party payment fee is refunded.
+`ORG_DEBIT_REVERSED_DISBURSEMENT_FEE`
+:   `333` Occurs when a third-party disbursement fee is refunded.
+`ORG_CREDIT_OTHER`
+:   `340` Miscellaneous credit.
+`ORG_DEBIT_OTHER`
+:   `341` Miscellaneous debit.
 
 
 ## UserStatus

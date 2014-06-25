@@ -61,8 +61,13 @@
 <li><a href="#ResponseHeaders">ResponseHeaders</a></li>
 <li><a href="#ShippingDescription">ShippingDescription</a></li>
 <li><a href="#StoreFlag">StoreFlag</a></li>
+<li><a href="#StoreStatus">StoreStatus</a></li>
+<li><a href="#StoreType">StoreType</a></li>
 <li><a href="#SubscriptionIntent">SubscriptionIntent</a></li>
 <li><a href="#SubscriptionStatus">SubscriptionStatus</a></li>
+<li><a href="#TransactionAssociation">TransactionAssociation</a></li>
+<li><a href="#TransactionStatus">TransactionStatus</a></li>
+<li><a href="#TransactionType">TransactionType</a></li>
 <li><a href="#UserStatus">UserStatus</a></li>
 <li><a href="#VanityURLType">VanityURLType</a></li>
 </ul>
@@ -259,13 +264,13 @@
 
 <dl class="inline-def"><dt><p><code>IS_VENDOR</code></p></dt><dd><p><code>1</code> The store has vendor level permissions.</p></dd><dt><p><code>STOREFRONT_ENABLED</code></p></dt><dd><p><code>2</code> The store's storefront properties may be used on their storefront page.</p></dd><dt><p><code>STOREFRONT_EMBED_ENABLED</code></p></dt><dd><p><code>4</code> The store may use the embedded storefront widget.</p></dd><dt><p><code>HOMEPAGE_PROMOTION_ENABLED</code></p></dt><dd><p><code>8</code> The store may be included in the store rotation widget.</p></dd></dl>
 
-<h1 id="storestatus">StoreStatus</h1>
+<h2 id="storestatusahrefstorestatusidstorestatusclassdeeplinka">StoreStatus <a href="#StoreStatus" id="StoreStatus" class="deep-link">#</a></h2>
 
 <p>Store object status codes.</p>
 
 <dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> Store has been disabled or is no longer accessible.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> Store is available and visible.</p></dd></dl>
 
-<h1 id="storetype">StoreType</h1>
+<h2 id="storetypeahrefstoretypeidstoretypeclassdeeplinka">StoreType <a href="#StoreType" id="StoreType" class="deep-link">#</a></h2>
 
 <p>Store object types.</p>
 
@@ -281,22 +286,47 @@
 
 <p>Storefront subscription object status codes.</p>
 
-<p><code>TRIAL</code>
-   <code>0</code> Subscription is active and in trial-mode.
-<code>CREATED</code>
-   <code>1</code> Subscription is brand new.
-<code>REQUIRE_PAYMENT</code>
-   <code>2</code> Subscription will require payment.
-<code>PENDING_PAYMENT</code>
-   <code>3</code> Subscription is waiting on a payment to clear.
-<code>ACTIVE</code>
-   <code>4</code> Subscription is active.
-<code>DELINQUENT</code>
-   <code>5</code> Subscription is delinquent or will become delinquent because it could not be renewed.
-<code>PENDING_CANCELLATION</code>
-   <code>6</code> Subscription has been cancelled and will be deactivated when the subscription expires.
-<code>CANCELLED</code>
-   <code>7</code> Subscription has ended.</p>
+<dl class="inline-def"><dt><p><code>TRIAL</code></p></dt><dd><p><code>0</code> Subscription is active and in trial-mode.</p></dd><dt><p><code>CREATED</code></p></dt><dd><p><code>1</code> Subscription is brand new.</p></dd><dt><p><code>REQUIRE_PAYMENT</code></p></dt><dd><p><code>2</code> Subscription will require payment.</p></dd><dt><p><code>PENDING_PAYMENT</code></p></dt><dd><p><code>3</code> Subscription is waiting on a payment to clear.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>4</code> Subscription is active.</p></dd><dt><p><code>DELINQUENT</code></p></dt><dd><p><code>5</code> Subscription is delinquent or will become delinquent because it could not be renewed.</p></dd><dt><p><code>PENDING_CANCELLATION</code></p></dt><dd><p><code>6</code> Subscription has been cancelled and will be deactivated when the subscription expires.</p></dd><dt><p><code>CANCELLED</code></p></dt><dd><p><code>7</code> Subscription has ended.</p></dd></dl>
+
+<h2 id="transactionassociationahreftransactionassociationidtransactionassociationclassdeeplinka">TransactionAssociation <a href="#TransactionAssociation" id="TransactionAssociation" class="deep-link">#</a></h2>
+
+<p>Types of associations between a transaction and another object.</p>
+
+<dl class="inline-def"><dt><p><code>CAUSE</code></p></dt><dd><p><code>cause</code> Represents an association with a cause object.</p></dd><dt><p><code>ORDER</code></p></dt><dd><p><code>order</code> Represents an association with an order object.</p></dd><dt><p><code>ORDER_ITEM</code></p></dt><dd><p><code>order_item</code> Represents an association with an order item object.</p></dd><dt><p><code>STORE</code></p></dt><dd><p><code>store</code> Represents an association with a store object.</p></dd><dt><p><code>USER</code></p></dt><dd><p><code>user</code> Represents an association with a user object.</p></dd></dl>
+
+<h2 id="transactionstatusahreftransactionstatusidtransactionstatusclassdeeplinka">TransactionStatus <a href="#TransactionStatus" id="TransactionStatus" class="deep-link">#</a></h2>
+
+<p>The status of the transaction.</p>
+
+<dl class="inline-def"><dt><p><code>PENDING</code></p></dt><dd><p><code>0</code> Transaction is waiting for another action to complete.</p></dd><dt><p><code>COMPLETE</code></p></dt><dd><p><code>1</code> Transaction has been committed and funds are available.</p></dd></dl>
+
+<h2 id="transactiontypeahreftransactiontypeidtransactiontypeclassdeeplinka">TransactionType <a href="#TransactionType" id="TransactionType" class="deep-link">#</a></h2>
+
+<p>The type of action associated with a transaction. All credits are even and debits are odd.</p>
+
+<h3 id="buyeractivities">Buyer Activities</h3>
+
+<dl class="inline-def"><dt><p><code>BUYER_CREDIT_PAYMENT</code></p></dt><dd><p><code>100</code> Occurs when the buyer's payment source (e.g. credit card, PayPal account) is debited and credited to their Okanjo account.</p></dd><dt><p><code>BUYER_DEBIT_PURCHASE</code></p></dt><dd><p><code>101</code> Occurs when the buyer purchases an item.</p></dd><dt><p><code>BUYER_CREDIT_REFUND_PURCHASE</code></p></dt><dd><p><code>110</code> Occurs when the buyer receives a refund for an item purchase.</p></dd><dt><p><code>BUYER_DEBIT_REFUND_PAYMENT</code></p></dt><dd><p><code>111</code> Occurs when the buyer's payment source (e.g. credit card, PayPal account) is credited for the refund.</p></dd></dl>
+
+<h3 id="storeactivities">Store Activities</h3>
+
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_ITEM_PAYMENT</code></p></dt><dd><p><code>200</code> Occurs when a store receives payment for the sale of an item.</p></dd><dt><p><code>STORE_DEBIT_PAYMENT_PROCESSING_FEE</code></p></dt><dd><p><code>201</code> Third-party payment processing fee. For example, 2.9% + 30¢. Only collected when applicable.</p></dd><dt><p><code>STORE_DEBIT_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>203</code> Commission collected by Okanjo for facilitating the sale of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_DEBIT_DONATION</code></p></dt><dd><p><code>205</code> Donation given to a cause for the sale of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_CREDIT_DONATION</code></p></dt><dd><p><code>206</code> Occurs when the cause store receives a donation for the sale of an item.</p></dd><dt><p><code>STORE_DEBIT_DONATION_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>207</code> Commission collected by Okanjo for facilitating the donation of an item. Only collected when applicable.</p></dd></dl>
+
+<dl class="inline-def"><dt><p><code>STORE_DEBIT_DISBURSEMENT_FEE</code></p></dt><dd><p><code>221</code> Third-party disbursement processing fee. For example, 25¢ for direct deposits, 2% up to $1 for PayPal.</p></dd><dt><p><code>STORE_DEBIT_DISBURSEMENT</code></p></dt><dd><p><code>223</code> Withdrawal to the store's payout source, such as a bank account or PayPal.</p></dd></dl>
+
+<h3 id="storesubscriptionactivities">Store Subscription Activities</h3>
+
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_PAYMENT</code></p></dt><dd><p><code>230</code> Occurs when the store's payment source (e.g. credit card) is debited and credited to their Okanjo account.</p></dd><dt><p><code>STORE_DEBIT_PURCHASE</code></p></dt><dd><p><code>231</code> Occurs when the store purchases a subscription or renewal.</p></dd><dt><p><code>STORE_CREDIT_REFUND_PURCHASE</code></p></dt><dd><p><code>240</code> Occurs when the store receives a refund for subscription.</p></dd><dt><p><code>STORE_DEBIT_REFUND_PAYMENT</code></p></dt><dd><p><code>241</code> Occurs when the store's payment source (e.g. credit card) is credited for the refund.</p></dd></dl>
+
+<h3 id="storerefundactivities">Store Refund Activities</h3>
+
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_REVERSE_DISBURSEMENT</code></p></dt><dd><p><code>250</code> Occurs when the disbursement was reversed.</p></dd><dt><p><code>STORE_CREDIT_REVERSE_DISBURSEMENT_FAILED</code></p></dt><dd><p><code>252</code> Occurs when the disbursement failed to be deposited.</p></dd><dt><p><code>STORE_CREDIT_REFUND_DISBURSEMENT_FEE</code></p></dt><dd><p><code>254</code> Occurs when the disbursement fee is refunded back to the store.</p></dd></dl>
+
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_REFUND_DONATION_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>260</code> Refund to the cause store for the commission taken for the donation of an item.</p></dd><dt><p><code>STORE_DEBIT_REFUND_DONATION</code></p></dt><dd><p><code>261</code> Refund on the cause store back to the origin (donating) store.</p></dd><dt><p><code>STORE_CREDIT_REFUND_DONATION</code></p></dt><dd><p><code>262</code> Refund to the store from a cause store.</p></dd><dt><p><code>STORE_CREDIT_REFUND_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>264</code> Refund to the store for the commission taken for the sale of an item.</p></dd><dt><p><code>STORE_CREDIT_REFUND_PAYMENT_PROCESSING_FEE</code></p></dt><dd><p><code>266</code> Refund to the store for the payment processing fee taken by the third-party.</p></dd><dt><p><code>STORE_DEBIT_REFUND_ITEM_PAYMENT</code></p></dt><dd><p><code>267</code> Refund to the buyer for the purchase of an item.</p></dd></dl>
+
+<h3 id="organizationalandmarketplaceactivities">Organizational and Marketplace Activities</h3>
+
+<dl class="inline-def"><dt><p><code>ORG_CREDIT_SALE_COMMISSION</code></p></dt><dd><p><code>300</code> Occurs when a commission is received for the sale of an item.</p></dd><dt><p><code>ORG_DEBIT_REFUND_SALE_COMMISSION</code></p></dt><dd><p><code>301</code> Occurs when a commission is refunded for the sale of an item</p></dd><dt><p><code>ORG_CREDIT_DONATION_COMMISSION</code></p></dt><dd><p><code>310</code> Occurs when a commission is received for the donation of an item.</p></dd><dt><p><code>ORG_DEBIT_REFUND_DONATION_COMMISSION</code></p></dt><dd><p><code>311</code> Occurs when a commission is refunded for the donation of an item.</p></dd><dt><p><code>ORG_CREDIT_SUBSCRIPTION_COMMISSION</code></p></dt><dd><p><code>320</code> Occurs when a subscription commission is received.</p></dd><dt><p><code>ORG_DEBIT_REFUND_SUBSCRIPTION_COMMISSION</code></p></dt><dd><p><code>321</code> Occurs when a subscription commission is refunded.</p></dd><dt><p><code>ORG_DEBIT_REFUNDED_PAYMENT_FEE</code></p></dt><dd><p><code>331</code> Occurs when a third-party payment fee is refunded.</p></dd><dt><p><code>ORG_DEBIT_REVERSED_DISBURSEMENT_FEE</code></p></dt><dd><p><code>333</code> Occurs when a third-party disbursement fee is refunded.</p></dd><dt><p><code>ORG_CREDIT_OTHER</code></p></dt><dd><p><code>340</code> Miscellaneous credit.</p></dd><dt><p><code>ORG_DEBIT_OTHER</code></p></dt><dd><p><code>341</code> Miscellaneous debit.</p></dd></dl>
 
 <h2 id="userstatusahrefuserstatusiduserstatusclassdeeplinka">UserStatus <a href="#UserStatus" id="UserStatus" class="deep-link">#</a></h2>
 

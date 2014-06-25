@@ -3,6 +3,10 @@
 
 When stuff changes, it's described here.
 
+## 2014-06-25
+ * Added information about transactions on stores and users
+ * Removed payouts since they've been deprecated
+
 ## 2014-06-11
  * Added ability to link and save tests
 
