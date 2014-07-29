@@ -55,6 +55,8 @@ All fields are optional. Accepts the standard pagination parameters as well.
 :   `string` Returns products that match the given keyword search query.
 `sub_search`
 :   `string` Returns products that match both the search query and the sub_search query. Use this for "search within" functionality.
+`meta.<key>=<value>`
+:   `string` Returns products with metadata that matches `key` and `value`.
 `condition`
 :   `string enum` Returns products that are of a specific condition. See [`ProductCondition`](Constants.html#ProductCondition).
 `is_local_pickup`
