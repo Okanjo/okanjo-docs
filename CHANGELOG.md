@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2014-07-29
+ * Added documentation for meta property filtering on Product search
+
 ## 2014-06-25
  * Added information about transactions on stores and users
  * Removed payouts since they've been deprecated
