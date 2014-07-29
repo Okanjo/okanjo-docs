@@ -448,8 +448,8 @@ Represents a snapshot of a product that was purchased.
 :   [`UserFeedback`](Objects.html#UserFeedback)  Embeddable. The feedback received from the buyer about the seller.
 `history`
 :   [`OrderItemStatus[]`](Objects.html#OrderItemStatus)  Embeddable. The history of status dates. Informs on when the order item hit various milestones.
-`payouts`
-:   [`Payout[]`](Objects.html#Payout)  Embeddable. The payouts associated with the item. Used for the breakdown of the item. Can only be embedded on sales.
+`transactions`
+:   [`Transaction[]`](Objects.html#Transaction)  Embeddable. The transactions associated with the item and the current user_token. For stores, can be used to get a break dow
 
 
 ## OrderItemStatus
@@ -464,28 +464,6 @@ Record when an item changed state.
 :   `int enum`  The status of the item. See [`OrderStatus`](Constants.html#OrderStatus).
 `updated`
 :   `int`  When the status was set.
-
-
-## Payout
-
-`id`
-:   `int`  The unique ID of the payout.
-`status`
-:   `int enum`  The status of the item. Options are: See [`PayoutStatus`](Constants.html#PayoutStatus).
-`user_id`
-:   `int` Nullable. Optional. The unique ID of the seller being paid.
-`cause_id`
-:   `int` Nullable. Optional. The unique ID of the cause being paid.status
-`is_okanjo_commission`
-:   `bit`  Whether the payout is Okanjo’s commission for brokering the transaction.
-`amount`
-:   `decimal (10)`  The amount of the payout, after processing fees and commission, before disbursement fees.
-`estimated_fee`
-:   `decimal (10)`  The estimated disbursement fee. Is subject to change depending on payout groupings or payout method changes.
-`fee`
-:   `decimal (10)`  The final disbursement fee. May not match estimated fee due to grouping or payout method change.
-`associated_payment_fee`
-:   `decimal (10)`  The 3rd-party payment processing fee associated with the payment made on the order.
 
 
 ## PlaceBidResult
@@ -748,6 +726,12 @@ A storefront which offers items for sale on Okanjo.
 :   `string` Private. Nullable. The contact email address store notifications should be sent to.
 `payout_preference`
 :   `string enum` Private. Nullable. The preferred method for payouts. See [`PayoutPreference`](Constants.html#PayoutPreference).
+`okanjo_account_id`
+:   `string` Unique id of the associated Okanjo account that handles the store's transactions.
+`balance_pending`
+:   `decimal` Current sum of funds pending completion.
+`balance_available`
+:   `decimal` Current sum of funds available for use or withdrawal.
 `bank_account_uri`
 :   `string` Private. Nullable. The Balanced Payments tokenized bank account URI associated with the store in which to send payouts.
 `bank_account_nickname`
@@ -812,6 +796,31 @@ A non-contextual product descriptor.
 :   `string (64)`  The tag name.
 
 
+## Transaction
+
+A credit or debit on an Okanjo account. Represents the transfer of funds.
+
+`id`
+:   `string` The unique ID of the transaction.
+`account_id`
+:   `string` The unique ID of the transacting account.
+`parent_transaction_id`
+:   `string` The unique ID of the parent transaction.
+`type`
+:   `int enum` The type of transaction. See [`TransactionType`](Constants.html#TransactionType).
+`status`
+:   `int enum` The status of the transaction. See [`TransactionStatus`](Constants.html#TransactionStatus).
+`created`
+:   `date time` When the transaction occurred.
+`updated`
+:   `date time` When the transaction was updated.
+`amount`
+:   `decimal` The amount of USD affected.
+`description`
+:   `string` The generic description of the transaction
+`associations`
+:   `object` The related objects associated with the transaction.
+
 ## User
 
 Private user object, used for managing own user profile.
@@ -844,6 +853,12 @@ Private user object, used for managing own user profile.
 :   `string` Nullable. The tokenized URI of the default credit card in which to use for purchases.
 `card_nickname`
 :   `string` Nullable. The nickname of the default credit card used for purchases.
+`okanjo_account_id`
+:   `string` Unique id of the associated Okanjo account that handles the user's transactions.
+`balance_pending`
+:   `decimal` Current sum of funds pending completion.
+`balance_available`
+:   `decimal` Current sum of funds available for use or withdrawal.
 `addresses`
 :   [`Address []`](Objects.html#Address) Embeddable. Addresses associated with the user.
 `cards`

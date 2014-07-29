@@ -293,6 +293,16 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Store object permission bitwise flags.</span>
                 </a>
                 
+                <a class="toc-item" href="Constants.html#StoreStatus">
+                    <h4>StoreStatus</h4>
+                    <span class="desc">Store object status codes.</span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#StoreType">
+                    <h4>StoreType</h4>
+                    <span class="desc">Store object types.</span>
+                </a>
+                
                 <a class="toc-item" href="Constants.html#SubscriptionIntent">
                     <h4>SubscriptionIntent</h4>
                     <span class="desc">Used when subscribing to a plan.</span>
@@ -301,6 +311,21 @@ user token attached will reset its timeout period.</span>
                 <a class="toc-item" href="Constants.html#SubscriptionStatus">
                     <h4>SubscriptionStatus</h4>
                     <span class="desc">Storefront subscription object status codes.</span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#TransactionAssociation">
+                    <h4>TransactionAssociation</h4>
+                    <span class="desc">Types of associations between a transaction and another object.</span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#TransactionStatus">
+                    <h4>TransactionStatus</h4>
+                    <span class="desc">The status of the transaction.</span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#TransactionType">
+                    <h4>TransactionType</h4>
+                    <span class="desc">The type of action associated with a transaction. All credits are even and debits are odd.</span>
                 </a>
                 
                 <a class="toc-item" href="Constants.html#UserStatus">
@@ -473,13 +498,6 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Record when an item changed state.</span>
                 </a>
                 
-                <a class="toc-item" href="Objects.html#Payout">
-                    <h4>Payout</h4>
-                    <span class="desc"><code>id</code> :   <code>int</code>  The unique ID of the payout.
-
-<dl class="inline-def"><dt><code>status</code></dt><dd><code>int enum</code>  The status of the item. Options are: See <code>PayoutStatus</code>.</dd><dt><code>user_id</code></dt><dd><code>int</code> Nullable. Optional. The unique ID of the seller being paid.</dd><dt><code>cause_id</code></dt><dd><code>int</code> Nullable. Optional. The unique ID of the cause being paid.status</dd><dt><code>is_okanjo_commission</code></dt><dd><code>bit</code>  Whether the payout is Okanjo’s commission for brokering the transaction.</dd><dt><code>amount</code></dt><dd><code>decimal (10)</code>  The amount of the payout, after processing fees and commission, before disbursement fees.</dd><dt><code>estimated_fee</code></dt><dd><code>decimal (10)</code>  The estimated disbursement fee. Is subject to change depending on payout groupings or payout method changes.</dd><dt><code>fee</code></dt><dd><code>decimal (10)</code>  The final disbursement fee. May not match estimated fee due to grouping or payout method change.</dd><dt><code>associated_payment_fee</code></dt><dd><code>decimal (10)</code>  The 3rd-party payment processing fee associated with the payment made on the order.</dd></dl></span>
-                </a>
-                
                 <a class="toc-item" href="Objects.html#PlaceBidResult">
                     <h4>PlaceBidResult</h4>
                     <span class="desc">The result of placing a bid on an action-type product.</span>
@@ -533,6 +551,11 @@ user token attached will reset its timeout period.</span>
                 <a class="toc-item" href="Objects.html#Tag">
                     <h4>Tag</h4>
                     <span class="desc">A non-contextual product descriptor.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#Transaction">
+                    <h4>Transaction</h4>
+                    <span class="desc">A credit or debit on an Okanjo account. Represents the transfer of funds.</span>
                 </a>
                 
                 <a class="toc-item" href="Objects.html#User">
@@ -688,6 +711,21 @@ user token attached will reset its timeout period.</span>
                 <a class="toc-item" href="Store Subscriptions.html#POST /stores/{id}/subscriptions/cancel">
                     <h4>POST /stores/{id}/subscriptions/cancel</h4>
                     <span class="desc">Controller. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+            </div>
+        
+            <h3 class="toc-mod-title"><a href="Store Transactions.html">Store Transactions</a></h3>
+            <div class="toc-list">
+                
+                <a class="toc-item" href="Store Transactions.html#GET /stores/{store_id}/transactions">
+                    <h4>GET /stores/{store_id}/transactions</h4>
+                    <span class="desc">Collection. Returns transactions on the store's Okanjo account, ordered most recent first. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Transactions.html#GET /stores/{id}/transactions/{txn_id}">
+                    <h4>GET /stores/{id}/transactions/{txn_id}</h4>
+                    <span class="desc">Resource. Returns a specific transaction on the store's Okanjo account given its unique identifier. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
             </div>
@@ -865,6 +903,21 @@ the store.</span>
                 <a class="toc-item" href="User Orders.html#PUT /users/{user_id}/orders/{id}">
                     <h4>PUT /users/{user_id}/orders/{id}</h4>
                     <span class="desc">Resource. Updates the status of the order item. Used by buyers to indicate an item was received. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+            </div>
+        
+            <h3 class="toc-mod-title"><a href="User Transactions.html">User Transactions</a></h3>
+            <div class="toc-list">
+                
+                <a class="toc-item" href="User Transactions.html#GET /users/{user_id}/transactions">
+                    <h4>GET /users/{user_id}/transactions</h4>
+                    <span class="desc">Collection. Returns transactions on the user's Okanjo account, ordered most recent first. This collection accepts search filters and pagination options. <strong>Requires user level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="User Transactions.html#GET /users/{id}/transactions/{txn_id}">
+                    <h4>GET /users/{id}/transactions/{txn_id}</h4>
+                    <span class="desc">Resource. Returns a specific transaction on the user's Okanjo account given its unique identifier. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
             </div>
