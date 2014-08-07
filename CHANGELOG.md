@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2014-08-07
+ * Added order status for pending disputes
+
 ## 2014-08-06
  * Added order status for pending refunds
 

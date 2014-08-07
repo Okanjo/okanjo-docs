@@ -311,6 +311,8 @@ Order object status codes.
 :   `9` Pickup item was marked as received by the seller. Pickup should typically be marked as received by a buyer, though many buyers forget or simply do not, leaving the seller high'n'dry.
 `PENDING_REFUND`
 :   `10` Item is on hold while a refund is being processed. Will move to `REFUNDED` when complete or back to `PENDING_FULFILMENT` or `PENDING_ACQUISITION` if item is not entirely refunded.
+`PENDING_DISPUTE`
+:   `11` Item is on hold while a dispute is being processed.
 
 
 ## OrderType
