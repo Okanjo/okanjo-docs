@@ -68,9 +68,9 @@ All fields are optional. Accepts the standard pagination parameters as well.
 `id`
 :   `int csv` Returns products with the given id or list of id’s. e.g. `id=1` or `id=1,2,3,4,5`
 `seller_store_id`
-:   `int` Returns products that are owned and sold by the given store id. No inherited items will return.
+:   `int` Returns products that are owned and sold by the given store id. No inherited items will return. Incompatible with `store_id`.
 `store_id`
-:   `int` Returns products that are owned and inherited by the given store id. e.g. items pledged to a cause's store and items listed by the cause for sale.
+:   `int` Returns products that are owned and inherited by the given store Incompatible with `seller_store_id`. id. e.g. items pledged to a cause's store and items listed by the cause for sale.
 `inherited_only`
 :   `bit` Returns only products that are inherited by a store. Used with `store_id`.
 `cause_id`
