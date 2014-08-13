@@ -1,5 +1,5 @@
 
-# Okanjo PHP SDK Change Log
+# Okanjo API Docs Change Log
 
 When stuff changes, it's described here.
 
