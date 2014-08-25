@@ -435,11 +435,11 @@ Product object type.
 Okanjo platform order requirements.
 
 `MIN_ORDER_TOTAL`
-:   `1` Minimum order sale total, in USD.
+:   `0.50` Minimum order sale total, in USD.
 `MAX_ORDER_TOTAL`
 :   `10000` Maximum order sale total, in USD. If order total exceeds this value, order must be completed by contacting Okanjo and arranging payment.
 `MIN_ITEM_PRICE`
-:   `1` Minimum item sale price, in USD.
+:   `0.01` Minimum item sale price, in USD.
 `MAX_ITEM_PRICE`
 :   `9000` Maximum item sale price, in USD.
 `MIN_SHIPPING_PRICE`

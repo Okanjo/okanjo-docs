@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+# 2014-08-25
+ * Adjusted minimum item and purchase limits to $0.01 and $0.50, respectively.
+
 ## 2014-08-07
  * Added order status for pending disputes
 
