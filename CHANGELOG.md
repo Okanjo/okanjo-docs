@@ -1,10 +1,19 @@
 
-# Okanjo PHP SDK Change Log
+# Okanjo API Docs Change Log
 
 When stuff changes, it's described here.
 
 ## 2014-09-09
  * Condensed error code output for POST and PUT /products
+
+# 2014-08-25
+ * Adjusted minimum item and purchase limits to $0.01 and $0.50, respectively.
+
+## 2014-08-07
+ * Added order status for pending disputes
+
+## 2014-08-06
+ * Added order status for pending refunds
 
 ## 2014-07-29
  * Added documentation for meta property filtering on Product search

@@ -352,6 +352,8 @@ Complete buyer purchase transaction. Contains buyer information and purchased it
 :   `string (2)`  The buyer’s country code. (e.g. US)
 `shipping_phone`
 :   `string (20)`  The buyer’s contact phone number.
+`shipping_email`
+:   `string (255)`  The buyer’s contact email address.
 `status`
 :   `int enum`  The status of the order. See [`OrderStatus`](Constants.html#OrderStatus).
 `type`

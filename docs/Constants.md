@@ -309,6 +309,10 @@ Order object status codes.
 :   `8` Deal item is waiting for the buyer to redeem at the vendor.
 `COMPLETED_BY_SELLER`
 :   `9` Pickup item was marked as received by the seller. Pickup should typically be marked as received by a buyer, though many buyers forget or simply do not, leaving the seller high'n'dry.
+`PENDING_REFUND`
+:   `10` Item is on hold while a refund is being processed. Will move to `REFUNDED` when complete or back to `PENDING_FULFILMENT` or `PENDING_ACQUISITION` if item is not entirely refunded.
+`PENDING_DISPUTE`
+:   `11` Item is on hold while a dispute is being processed.
 
 
 ## OrderType
@@ -431,11 +435,11 @@ Product object type.
 Okanjo platform order requirements.
 
 `MIN_ORDER_TOTAL`
-:   `1` Minimum order sale total, in USD.
+:   `0.50` Minimum order sale total, in USD.
 `MAX_ORDER_TOTAL`
 :   `10000` Maximum order sale total, in USD. If order total exceeds this value, order must be completed by contacting Okanjo and arranging payment.
 `MIN_ITEM_PRICE`
-:   `1` Minimum item sale price, in USD.
+:   `0.01` Minimum item sale price, in USD.
 `MAX_ITEM_PRICE`
 :   `9000` Maximum item sale price, in USD.
 `MIN_SHIPPING_PRICE`
