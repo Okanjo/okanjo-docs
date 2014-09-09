@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2014-09-09
+ * Condensed error code output for POST and PUT /products
+
 ## 2014-07-29
  * Added documentation for meta property filtering on Product search
 
