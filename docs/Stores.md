@@ -135,7 +135,7 @@ New [`Store`](Objects.html#Store) object.
 
 
 
-## PUT /stores/{id}
+## PUT /stores
 
 Resource. Updates a store by its unique identifier. **Requires user level authentication.**
 
