@@ -90,7 +90,7 @@ authentication must be provided, and the user must be an admin of the store.
 
 
 
-## POST /stores/{id}
+## POST /stores
 
 Resource. Creates a new store managed by the requesting user. **Requires user level authentication.**
 
@@ -135,7 +135,7 @@ New [`Store`](Objects.html#Store) object.
 
 
 
-## PUT /stores
+## PUT /stores/{id}
 
 Resource. Updates a store by its unique identifier. **Requires user level authentication.**
 

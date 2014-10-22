@@ -38,8 +38,8 @@
 <ul>
 <li><a href="#GET /stores">GET /stores</a></li>
 <li><a href="#GET /stores/{id}">GET /stores/{id}</a></li>
-<li><a href="#POST /stores/{id}">POST /stores/{id}</a></li>
-<li><a href="#PUT /stores">PUT /stores</a></li>
+<li><a href="#POST /stores">POST /stores</a></li>
+<li><a href="#PUT /stores/{id}">PUT /stores/{id}</a></li>
 <li><a href="#DELETE /stores/{id}">DELETE /stores/{id}</a></li>
 </ul>
 
@@ -88,7 +88,7 @@ authentication must be provided, and the user must be an admin of the store.</p>
 
 <dl><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Store not found.</code> Occurs when the given store was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to retrieve store.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
 
-<h2 id="poststoresidahrefpoststoresididpoststoresidclassdeeplinka">POST /stores/{id} <a href="#POST /stores/{id}" id="POST /stores/{id}" class="deep-link">#</a></h2>
+<h2 id="poststoresahrefpoststoresidpoststoresclassdeeplinka">POST /stores <a href="#POST /stores" id="POST /stores" class="deep-link">#</a></h2>
 
 <p>Resource. Creates a new store managed by the requesting user. <strong>Requires user level authentication.</strong></p>
 
@@ -106,7 +106,7 @@ authentication must be provided, and the user must be an admin of the store.</p>
 
 <dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid {field}</code> Occurs when the given field was invalid.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was invalid.</p></dd><dd><p><code>{field} too long.</code> Occurs when the given field was too long.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to update store.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
 
-<h2 id="putstoresahrefputstoresidputstoresclassdeeplinka">PUT /stores <a href="#PUT /stores" id="PUT /stores" class="deep-link">#</a></h2>
+<h2 id="putstoresidahrefputstoresididputstoresidclassdeeplinka">PUT /stores/{id} <a href="#PUT /stores/{id}" id="PUT /stores/{id}" class="deep-link">#</a></h2>
 
 <p>Resource. Updates a store by its unique identifier. <strong>Requires user level authentication.</strong></p>
 
