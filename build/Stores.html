@@ -38,7 +38,9 @@
 <ul>
 <li><a href="#GET /stores">GET /stores</a></li>
 <li><a href="#GET /stores/{id}">GET /stores/{id}</a></li>
+<li><a href="#POST /stores/{id}">POST /stores/{id}</a></li>
 <li><a href="#PUT /stores/{id}">PUT /stores/{id}</a></li>
+<li><a href="#DELETE /stores/{id}">DELETE /stores/{id}</a></li>
 </ul>
 
 <h2 id="getstoresahrefgetstoresidgetstoresclassdeeplinka">GET /stores <a href="#GET /stores" id="GET /stores" class="deep-link">#</a></h2>
@@ -86,6 +88,24 @@ authentication must be provided, and the user must be an admin of the store.</p>
 
 <dl><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Store not found.</code> Occurs when the given store was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to retrieve store.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
 
+<h2 id="poststoresidahrefpoststoresididpoststoresidclassdeeplinka">POST /stores/{id} <a href="#POST /stores/{id}" id="POST /stores/{id}" class="deep-link">#</a></h2>
+
+<p>Resource. Creates a new store managed by the requesting user. <strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>All of the following fields are optional. By default, the requesting user's information will be used.</p>
+
+<dl class="inline-def"><dt><p><code>name</code></p></dt><dd><p><code>string (6-32)</code> The pretty store name, which may contain letters, numbers and the following characters: space, apostrophe, hyphen, and ampersand.</p></dd><dt><p><code>contact_email</code></p></dt><dd><p><code>string</code> The email address in which to contact the store.</p></dd><dt><p><code>about</code></p></dt><dd><p><code>string (512)</code> Information about the seller’s store. Can contain no more than 3 line breaks before they’re stripped.</p></dd><dt><p><code>avatar_media_id</code></p></dt><dd><p><code>int</code> Media image ID to use for the store logo/avatar. Target media image must belong to the seller.</p></dd><dt><p><code>banner_media_id</code></p></dt><dd><p><code>int</code> Media image ID to use for the store banner image. Target media image must belong to the seller.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> The zip code the store is located in.</p></dd><dt><p><code>website_url</code></p></dt><dd><p><code>string (255)</code> The URL of the store’s web presence. Protocol scheme must be included and be either HTTP or HTTPS. E.g. https://okanjo.com</p></dd><dt><p><code>facebook_url</code></p></dt><dd><p><code>string (255)</code> The URL of the store’s Facebook presence. E.g. facebook.com/userorpagename</p></dd><dt><p><code>twitter_url</code></p></dt><dd><p><code>string (255)</code> The URL of the store’s twitter presence. E.g. twitter.com/handlename</p></dd><dt><p><code>meta</code></p></dt><dd><p><code>string[]</code>  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>New <a href="Objects.html#Store"><code>Store</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid {field}</code> Occurs when the given field was invalid.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was invalid.</p></dd><dd><p><code>{field} too long.</code> Occurs when the given field was too long.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to update store.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
 <h2 id="putstoresidahrefputstoresididputstoresidclassdeeplinka">PUT /stores/{id} <a href="#PUT /stores/{id}" id="PUT /stores/{id}" class="deep-link">#</a></h2>
 
 <p>Resource. Updates a store by its unique identifier. <strong>Requires user level authentication.</strong></p>
@@ -107,6 +127,30 @@ authentication must be provided, and the user must be an admin of the store.</p>
 <h3 id="errors">Errors</h3>
 
 <dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid {field}</code> Occurs when the given field was invalid.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was invalid.</p></dd><dd><p><code>{field} too long.</code> Occurs when the given field was too long.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Store not found.</code> Occurs when the given store was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to update store.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="deletestoresidahrefdeletestoresididdeletestoresidclassdeeplinka">DELETE /stores/{id} <a href="#DELETE /stores/{id}" id="DELETE /stores/{id}" class="deep-link">#</a></h2>
+
+<p>Resource. Disables a store by its unique identifier. <strong>Requires user level authentication.</strong></p>
+
+<p>In addition to the store being disabled:</p>
+
+<ul>
+<li>Any active products owned by the store will be disabled.</li>
+<li>Any active subscriptions will be cancelled.</li>
+<li>If the store has an okanjo_url, it will be disabled.</li>
+</ul>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> response.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the given store is not able to be disabled by the given user.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Store not found.</code> Occurs when the given store was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to handle request.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
                 <hr />
                 <small>Documentation generated by <a href="https://github.com/millermedeiros/mdoc">mdoc</a>.</small>
             </div>

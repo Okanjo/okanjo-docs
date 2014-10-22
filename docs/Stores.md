@@ -90,6 +90,51 @@ authentication must be provided, and the user must be an admin of the store.
 
 
 
+## POST /stores/{id}
+
+Resource. Creates a new store managed by the requesting user. **Requires user level authentication.**
+
+### Entity NVP Parameters
+
+All of the following fields are optional. By default, the requesting user's information will be used.
+
+`name`
+:   `string (6-32)` The pretty store name, which may contain letters, numbers and the following characters: space, apostrophe, hyphen, and ampersand.
+`contact_email`
+:   `string` The email address in which to contact the store.
+`about`
+:   `string (512)` Information about the seller’s store. Can contain no more than 3 line breaks before they’re stripped.
+`avatar_media_id`
+:   `int` Media image ID to use for the store logo/avatar. Target media image must belong to the seller.
+`banner_media_id`
+:   `int` Media image ID to use for the store banner image. Target media image must belong to the seller.
+`zip`
+:   `string (10)` The zip code the store is located in.
+`website_url`
+:   `string (255)` The URL of the store’s web presence. Protocol scheme must be included and be either HTTP or HTTPS. E.g. https://okanjo.com
+`facebook_url`
+:   `string (255)` The URL of the store’s Facebook presence. E.g. facebook.com/userorpagename
+`twitter_url`
+:   `string (255)` The URL of the store’s twitter presence. E.g. twitter.com/handlename
+`meta`
+:   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
+
+
+### Returns
+
+New [`Store`](Objects.html#Store) object.
+
+### Errors
+
+**400 Bad Request**
+:   `Invalid {field}` Occurs when the given field was invalid.
+:   `Invalid field: {field}` Occurs when the given field was invalid.
+:   `{field} too long.` Occurs when the given field was too long.
+**500 Internal Server Error**
+:   `Unable to update store.` Occurs when the request failed to be fulfilled.
+
+
+
 ## PUT /stores/{id}
 
 Resource. Updates a store by its unique identifier. **Requires user level authentication.**
@@ -171,3 +216,31 @@ Updated [`Store`](Objects.html#Store) object.
 **500 Internal Server Error**
 :   `Unable to update store.` Occurs when the request failed to be fulfilled.
 
+
+
+## DELETE /stores/{id}
+
+Resource. Disables a store by its unique identifier. **Requires user level authentication.**
+
+In addition to the store being disabled:
+
+* Any active products owned by the store will be disabled.
+* Any active subscriptions will be cancelled.
+* If the store has an okanjo_url, it will be disabled.
+
+### Entity NVP Parameters
+
+None.
+
+### Returns
+
+Generic [`Success`](Globals.html#Default Response Object) response.
+
+### Errors
+
+**401 Unauthorized**
+:   `Insufficient privileges for this operation.` Occurs when the given store is not able to be disabled by the given user.
+**404 Not Found**
+:   `Store not found.` Occurs when the given store was not found.
+**500 Internal Server Error**
+:   `Unable to handle request.` Occurs when the request failed to be fulfilled.
