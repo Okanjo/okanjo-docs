@@ -224,7 +224,6 @@ The newly created [`Product`](Objects.html#Product) object.
 ### Errors
 
 **400 Bad Request**
-:   `Invalid product field: {field}` Occurs when the given field is invalid.
 :   `Invalid field: {field}` Occurs when the given field was invalid.
 **500 Internal Server Error**
 :   `Failed to create product.` Occurs when the request failed to be fulfilled.
@@ -308,7 +307,6 @@ Generic [`Success`](Globals.html#Default Response Object) object.
 ### Errors
 
 **400 Bad Request**
-:   `Invalid product field: {field}` Occurs when the given field is invalid.
 :   `Invalid field: {field}` Occurs when the given field was invalid.
 **404 Not Found**
 :   `Product not found.` Occurs when the given product could not be found or is invalid.

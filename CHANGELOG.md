@@ -7,6 +7,9 @@ When stuff changes, it's described here.
  * Added POST /stores route to add a new store
  * Added DELETE /stores/{id} route to disable an existing store
 
+## 2014-09-09
+ * Condensed error code output for POST and PUT /products
+
 ## 2014-08-25
  * Adjusted minimum item and purchase limits to $0.01 and $0.50, respectively.
 
