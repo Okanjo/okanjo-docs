@@ -243,18 +243,12 @@ An Event object is generated and sent to any URL that's been registered for that
 `data`
 :   `array`  The data associated with the event
 `notifications`
-:   `array`  Array of [`Notification []`](Objects.html#Notification) records created during this event.
+:   `array`  [`Notification []`](Objects.html#Notification) Embeddable. Array of notification records created during this event.
 
 ## EventSubscription
 
 An EventSubscription object is returned when polling the platform for event subscriptions made by a client.
 
-`id`
-:   `int`  The unique event subscription identifier.
-`status`
-:   `int`  The status of the event subscription: "1" is Active; "0" is Disabled.
-`brand_id`
-:   `int`  The unique ID of the brand that the event subscription was created under.
 `type`
 :   `string`  The type of event that was subscribed to.
 `webhook_url`

@@ -40,6 +40,7 @@
 <li><a href="#CauseStatus">CauseStatus</a></li>
 <li><a href="#ConfirmationStatus">ConfirmationStatus</a></li>
 <li><a href="#ConfirmationType">ConfirmationType</a></li>
+<li><a href="#EventType">EventType</a></li>
 <li><a href="#LoginAction">LoginAction</a></li>
 <li><a href="#MediaImageConstants">MediaImageConstants</a></li>
 <li><a href="#MediaImageStatus">MediaImageStatus</a></li>
@@ -137,6 +138,16 @@
 <p>Confirmation object types.</p>
 
 <dl class="inline-def"><dt><p><code>ADD_CAUSE_ADMIN</code></p></dt><dd><p><code>add_cause_admin</code> Code to verify cause ownership.</p></dd><dt><p><code>FORGOT_PASSWORD</code></p></dt><dd><p><code>forgot_password</code> Code to verify user ownership.</p></dd></dl>
+
+<h2 id="eventtypeahrefeventtypeideventtypeclassdeeplinka">EventType <a href="#EventType" id="EventType" class="deep-link">#</a></h2>
+
+<p>Types of events that can occur.</p>
+
+<blockquote>
+  <p>NOTE: Current event names are temporary and will be changing to "object.event" formatting in the near future. As well this list will expand regularly. Use these for values of <code>type</code> when subscribing to events. The data that will be returned is listed under each event type.</p>
+</blockquote>
+
+<dl class="inline-def"><dt><p><code>added_product</code></p></dt><dd><p><a href="Objects.html#Product"><code>Product</code></a> - When a product is added.</p></dd><dt><p><code>confirmed_order</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is made/confirmed.</p></dd><dt><p><code>disbursement_sent</code></p></dt><dd><p>Occurs when Okanjo debits money into an account.</p></dd><dt><p><code>updated_order</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is updated (E.g. Buyer's payment came through).</p></dd><dt><p><code>updated_order_item</code></p></dt><dd><p><a href="Objects.html#OrderItem"><code>Order Item</code></a> - When an item on an order is updated (E.g. Seller marks item as shipped).</p></dd></dl>
 
 <h2 id="loginactionahrefloginactionidloginactionclassdeeplinka">LoginAction <a href="#LoginAction" id="LoginAction" class="deep-link">#</a></h2>
 

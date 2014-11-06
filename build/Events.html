@@ -19,8 +19,8 @@
 <h1 id="events">Events</h1>
 
 <p>An Event resource is generated when something occurs on the Okanjo platform. Events can pass along greatly differing data
-sets, but all will be centered around the event that took place (E.g. Data about a product being updated will be sent when
-a <code>updated_product</code> event occurs. Data about these events are transmitted by webhook to a third party URL at their request.</p>
+sets, but all will be centered around the event that took place (E.g. Data about an order being updated will be sent when
+an <code>updated_order</code> event occurs). Data about these events are transmitted by webhook to a third party URL at their request.</p>
 
 <h1 id="objects">Objects</h1>
 
@@ -38,24 +38,17 @@ addresses should not change, but if they do they will be reported here.</p>
 
 <p>For this example, we're going to subscribe to the event that is triggered whenever a user uploads a product to Okanjo.</p>
 
-<p>First, make sure you have your destination endpoint and URL in place. For this example I'm using
-<a href="http://requestb.in">Request Bin</a>. This is important because Okanjo will test the URL you give it before letting you
-subscribe to an event. Now that you're ready to subscribe to an event, send a POST request to <code>/events/subscribe</code> with the
-<code>type</code> and <code>webhook_url</code> entity data:</p>
+<p>First, make sure you have your destination endpoint and URL in place. For this example we're using
+<a href="http://requestb.in">Request Bin</a>, so we can see the POST data we're sent. This is important because
+Okanjo will test the URL you give it before letting you subscribe to an event. Now that you're ready to
+subscribe to an event, send a POST request to <code>/events/subscribe</code> with the <code>type</code> and <code>webhook_url</code> entity data:</p>
 
 <pre><code>type=added_product
 
-webhook_url=http://requestb.in/1230vpw1
+webhook_url=http://requestb.in/u2nxcmu2
 </code></pre>
 
-<p>Okanjo will attempt to send a JSON-encoded POST request to the supplied <code>webhook_url</code> to test the validity:</p>
-
-<pre class="brush:js">
-
-["This was a triumph","I'm making a note here:","HUGE SUCCESS"]
-</pre>
-
-<p>If that POST request returns a successful response code of 200, you will receive a "success" JSON response:</p>
+<p>If this was done properly, you will receive a "success" JSON response:</p>
 
 <pre class="brush:js">
 
@@ -68,32 +61,32 @@ your webhook URL. The contents will look something like this, which will include
 <pre class="brush:js">
 
 {
-  "id": "EVJyCMRfV7AEEg4zVMbA"
-  "occurred": "2014-11-05 12:45:35",
+  "id": "EV3KtarTnr6R1hJ6jjoq",
+  "occurred": "2014-11-06 14:39:43",
   "type": "added_product",
   "data": {
-    "id": "120553",
+    "id": "141751",
     "curated": null,
     "donation_perc": "15",
     "status": "1",
-    "seller_store_id": "14",
+    "seller_store_id": "5164",
     "brand_id": "1",
-    "location_zip": "53202",
-    "location_name": "Milwaukee",
+    "location_zip": "53022",
+    "location_name": "Germantown",
     "location_state": "WI",
-    "stock": "105",
-    "category_id": "176",
-    "cause_id": "35607",
+    "stock": null,
+    "category_id": "265",
+    "cause_id": "35882",
     "is_local_pickup": "0",
     "is_free_shipping": "1",
-    "thumbnail_media_id": "241021",
-    "created": "2014-11-05 12:45:34",
-    "published": "2014-11-05 12:45:34",
-    "updated": "2014-11-05 12:45:34",
-    "price": "50.00",
-    "slug": "120553-half-life-2-supply-crate",
+    "thumbnail_media_id": "281789",
+    "created": "2014-11-06 14:39:43",
+    "published": "2014-11-06 14:39:43",
+    "updated": "2014-11-06 14:39:43",
+    "price": "5.00",
+    "slug": "141751-half-life-2-supply-crate",
     "title": "Half-Life 2 Supply Crate",
-    "description": "Break it open to see what's inside! Well, don't break it open, because then you can't return it.",
+    "description": "This is a supply crate from Half-Life. Break it open to see what's inside!",
     "condition": "New",
     "is_vertical": "0",
     "current_bid": null,
@@ -101,7 +94,7 @@ your webhook URL. The contents will look something like this, which will include
     "auction_end": null,
     "auction_min_bid": null,
     "type": "0",
-    "return_policy_id": "593",
+    "return_policy_id": "1",
     "is_available": "1",
     "deal_start": null,
     "deal_end": null,
@@ -111,7 +104,7 @@ your webhook URL. The contents will look something like this, which will include
     "dma_code": "617",
     "dimensions": {
       "Contents": {
-        "Healthkit": {
+        "Health": {
           "price_modifier": "0"
         },
         "Ammo": {
@@ -123,36 +116,36 @@ your webhook URL. The contents will look something like this, which will include
       }
     },
     "variants": {
-      "Contents=Healthkit": {
-        "stock": "50"
+      "Contents=Health": {
+        "stock": ""
       },
       "Contents=Ammo": {
-        "stock": "35"
+        "stock": ""
       },
       "Contents=Energy": {
-        "stock": "20"
+        "stock": ""
       }
     },
     "category": {
-      "id": "176",
-      "parent_id": "155",
-      "port": "246",
-      "starboard": "247",
+      "id": "265",
+      "parent_id": "238",
+      "port": "300",
+      "starboard": "301",
       "depth": "3",
       "name": "Games",
-      "parents": "4,155"
+      "parents": "5,238"
     },
     "cause": {
-      "id": "35607",
+      "id": "35882",
       "status": "2",
-      "name": "Mesa Community Action Network Incorporated",
-      "local_name": "Mesa Community Action Network Incorporated (Mesa)",
+      "name": "The Breast Cancer Society Inc",
+      "local_name": "The Breast Cancer Society Inc (Mesa)",
       "city": "Mesa",
       "state": "AZ",
-      "created": "2014-11-04 17:57:46",
-      "updated": "2014-11-04 17:57:46",
-      "store_id": "4940",
-      "store_about": "MesaCAN serves, or facilitates services for, economically disadvantaged individuals and families and helps clients devise strategies for increased self sufficiency and reduced reliance on government services.",
+      "created": "2014-08-01 08:56:47",
+      "updated": "2014-08-01 08:56:47",
+      "store_id": "5200",
+      "store_about": "The guiding mission of The Breast Cancer Society, Inc. (The BCS) is to provide relief to those who suffer from the effects of breast cancer now, as well as to work cooperatively with and give support to other personnel, individuals and organizations that share in the goal of helping cancer patients, the critically ill, and the impoverished. This is done through such means as education, direct assistance, financial aid, and the providing of supplies and care-giving products, and referral services. Additionally, The BCS assist in the eradication of breast cancer through education and the support of breast cancer research.",
       "store_website_url": null,
       "store_facebook_url": null,
       "store_twitter_url": null,
@@ -161,26 +154,26 @@ your webhook URL. The contents will look something like this, which will include
       "store_okanjo_uri": null
     },
     "store": {
-      "id": "14",
+      "id": "5164",
       "status": "1",
-      "created": "2013-07-10 17:10:16",
-      "updated": "2014-08-07 11:49:04",
+      "created": "2014-05-12 16:38:15",
+      "updated": "2014-05-12 16:38:15",
       "type": "1",
-      "name": "Edited Store Name",
-      "about": "",
+      "name": "waynefsmith",
+      "about": null,
       "website_url": null,
-      "facebook_url": "",
-      "twitter_url": "",
-      "avatar_media_id": "1420",
-      "banner_media_id": "240914",
-      "rating_avg": "4.40",
-      "okanjo_uri": "bigwayne"
+      "facebook_url": null,
+      "twitter_url": null,
+      "avatar_media_id": null,
+      "banner_media_id": null,
+      "rating_avg": null,
+      "okanjo_uri": null
     },
     "shipping": null,
     "tags": {
-      "4": {
-        "id": "4",
-        "name": "Electronics"
+      "5": {
+        "id": "5",
+        "name": "Entertainment"
       },
       "54": {
         "id": "54",
@@ -192,68 +185,50 @@ your webhook URL. The contents will look something like this, which will include
       }
     },
     "return_policy": {
-      "id": "593",
-      "store_id": "14",
-      "name": "No tag backs",
-      "policy": "You break it, you bought it."
+      "id": "1",
+      "store_id": "0",
+      "name": "No Returns",
+      "policy": "Returns not accepted"
     },
     "media": {
-      "1420": {
-        "original": "https:\/\/dj01gpsbn30ii.cloudfront.net\/prod_1420_desktop_original.jpg_gmxl.jpg",
-        "avatar_desktop": "https:\/\/dj01gpsbn30ii.cloudfront.net\/prod_1420_desktop_avatar.jpg_uz3p.jpg",
-        "avatar_desktop_width": null,
-        "avatar_desktop_height": null,
-        "avatar_mobile_retina": "https:\/\/dev-api.okanjo.com\/media\/generate?id=1420&amp;format=mobile_retina&amp;size=avatar",
-        "avatar_mobile_retina_width": null,
-        "avatar_mobile_retina_height": null
-      },
-      "240914": {
-        "original": "https:\/\/dj01gpsbn30ii.cloudfront.net\/dev_s4zws_240914_desktop_original.png",
-        "banner_desktop": "https:\/\/dj01gpsbn30ii.cloudfront.net\/dev_ro1wl_240914_desktop_banner.png",
-        "banner_desktop_width": "1280",
-        "banner_desktop_height": "400",
-        "banner_mobile_retina": "https:\/\/dev-api.okanjo.com\/media\/generate?id=240914&amp;format=mobile_retina&amp;size=banner",
-        "banner_mobile_retina_width": null,
-        "banner_mobile_retina_height": null
-      },
-      "241021": {
-        "original": "https:\/\/dj01gpsbn30ii.cloudfront.net\/dev_8glko_241021_desktop_original.jpg",
-        "listing_desktop": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=desktop&amp;size=listing",
-        "listing_desktop_width": null,
-        "listing_desktop_height": null,
-        "detail_desktop": "https:\/\/dj01gpsbn30ii.cloudfront.net\/dev_11p9bp_241021_desktop_detail.jpg",
-        "detail_desktop_width": "1074",
-        "detail_desktop_height": "808",
-        "thumbnail_desktop": "https:\/\/dj01gpsbn30ii.cloudfront.net\/dev_5jz5c_241021_desktop_thumbnail.jpg",
-        "thumbnail_desktop_width": "130",
-        "thumbnail_desktop_height": "130",
-        "cart_desktop": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=desktop&amp;size=cart",
+      "281789": {
+        "original": "https:\/\/dj01gpsbn30ii.cloudfront.net\/sandbox_9ii4h_281789_desktop_original.jpg",
+        "cart_desktop": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=desktop&amp;size=cart",
         "cart_desktop_width": null,
         "cart_desktop_height": null,
-        "gallery_desktop": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=desktop&amp;size=gallery",
-        "gallery_desktop_width": null,
-        "gallery_desktop_height": null,
-        "listing_fixed_desktop": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=desktop&amp;size=listing_fixed",
-        "listing_fixed_desktop_width": null,
-        "listing_fixed_desktop_height": null,
-        "listing_mobile_retina": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=mobile_retina&amp;size=listing",
-        "listing_mobile_retina_width": null,
-        "listing_mobile_retina_height": null,
-        "detail_mobile_retina": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=mobile_retina&amp;size=detail",
-        "detail_mobile_retina_width": null,
-        "detail_mobile_retina_height": null,
-        "thumbnail_mobile_retina": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=mobile_retina&amp;size=thumbnail",
-        "thumbnail_mobile_retina_width": null,
-        "thumbnail_mobile_retina_height": null,
-        "cart_mobile_retina": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=mobile_retina&amp;size=cart",
+        "cart_mobile_retina": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=mobile_retina&amp;size=cart",
         "cart_mobile_retina_width": null,
         "cart_mobile_retina_height": null,
-        "gallery_mobile_retina": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=mobile_retina&amp;size=gallery",
+        "detail_desktop": "https:\/\/dj01gpsbn30ii.cloudfront.net\/sandbox_l7j1q_281789_desktop_detail.jpg",
+        "detail_desktop_width": "1074",
+        "detail_desktop_height": "808",
+        "detail_mobile_retina": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=mobile_retina&amp;size=detail",
+        "detail_mobile_retina_width": null,
+        "detail_mobile_retina_height": null,
+        "gallery_desktop": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=desktop&amp;size=gallery",
+        "gallery_desktop_width": null,
+        "gallery_desktop_height": null,
+        "gallery_mobile_retina": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=mobile_retina&amp;size=gallery",
         "gallery_mobile_retina_width": null,
         "gallery_mobile_retina_height": null,
-        "listing_fixed_mobile_retina": "https:\/\/dev-api.okanjo.com\/media\/generate?id=241021&amp;format=mobile_retina&amp;size=listing_fixed",
+        "listing_desktop": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=desktop&amp;size=listing",
+        "listing_desktop_width": null,
+        "listing_desktop_height": null,
+        "listing_mobile_retina": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=mobile_retina&amp;size=listing",
+        "listing_mobile_retina_width": null,
+        "listing_mobile_retina_height": null,
+        "listing_fixed_desktop": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=desktop&amp;size=listing_fixed",
+        "listing_fixed_desktop_width": null,
+        "listing_fixed_desktop_height": null,
+        "listing_fixed_mobile_retina": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=mobile_retina&amp;size=listing_fixed",
         "listing_fixed_mobile_retina_width": null,
-        "listing_fixed_mobile_retina_height": null
+        "listing_fixed_mobile_retina_height": null,
+        "thumbnail_desktop": "https:\/\/dj01gpsbn30ii.cloudfront.net\/sandbox_b67g0_281789_desktop_thumbnail.jpg",
+        "thumbnail_desktop_width": "130",
+        "thumbnail_desktop_height": "130",
+        "thumbnail_mobile_retina": "https:\/\/sandbox-api.okanjo.com\/media\/generate?id=281789&amp;format=mobile_retina&amp;size=thumbnail",
+        "thumbnail_mobile_retina_width": null,
+        "thumbnail_mobile_retina_height": null
       }
     },
     "meta": [
@@ -263,16 +238,14 @@ your webhook URL. The contents will look something like this, which will include
 }
 </pre>
 
-<p>If you did it right, well done. Now, while you trust Okanjo, you want to verify it as well.
-If you send a GET request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code> in this case is the ID from above, "EVJyCMRfV7AEEg4zVMbA".
-If done properly, the response you get will exactly match the data you received.</p>
+<p>If you did it right, well done. While you can process the event as-is, our security conscientious folks will want to verify
+that the event was really sent from Okanjo. To do so, send a GET request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code>
+in this case is the ID from above, "EV3KtarTnr6R1hJ6jjoq". If done properly, the response you get will exactly match
+the data you received via webhook.</p>
 
 <h1 id="eventtypes">Event Types</h1>
 
-<p>This list will expand regularly. Use these for values of <code>type</code> when subscribing to events. The data that will be returned
-is listed under each event type.</p>
-
-<dl class="inline-def"><dt><p><code>added_product</code></p></dt><dd><p><a href="Objects.html#Product"><code>Product</code></a> - When a product is added.</p></dd><dt><p><code>confirmed_order</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is made/confirmed.</p></dd><dt><p><code>disbursement_sent</code></p></dt><dd><p>Occurs when Okanjo debits money into an account.</p></dd><dt><p><code>updated_order</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is updated (E.g. Buyer's payment came through).</p></dd><dt><p><code>updated_order_item</code></p></dt><dd><p><a href="Objects.html#OrderItem"><code>Order Item</code></a> - When an item on an order is updated (E.g. Seller marks item as shipped).</p></dd></dl>
+<p>For a list of available Event Types, go to: <a href="Constants.html#EventType"><code>Event Types</code></a></p>
 
 <h1 id="routes">Routes</h1>
 
@@ -345,7 +318,7 @@ is listed under each event type.</p>
 
 <h3 id="queryparameters">Query Parameters</h3>
 
-<p>None.</p>
+<dl class="inline-def"><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional linked resources. Accepts: <code>notifications</code>.</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 
