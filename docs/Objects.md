@@ -230,6 +230,35 @@ for your application to to allow the buyer to complete the transaction.
 
 Basic response object for many controller routes. See [`Default Response Object`](Globals.html#Default Response Object).
 
+## Event
+
+An Event object is generated and sent to any URL that's been registered for that particular type.
+
+`id`
+:   `string`  The unique event identifier.
+`occurred`
+:   `datetime`  The date and time that the event occurred.
+`type`
+:   `string`  The type of event that occurred.
+`data`
+:   `array`  The data associated with the event
+`notifications`
+:   `array`  Array of [`Notification []`](Objects.html#Notification) records created during this event.
+
+## EventSubscription
+
+An EventSubscription object is returned when polling the platform for event subscriptions made by a client.
+
+`id`
+:   `int`  The unique event subscription identifier.
+`status`
+:   `int`  The status of the event subscription: "1" is Active; "0" is Disabled.
+`brand_id`
+:   `int`  The unique ID of the brand that the event subscription was created under.
+`type`
+:   `string`  The type of event that was subscribed to.
+`webhook_url`
+:   `string`  The URL that event data will be posted to.
 
 ## Feedback
 
