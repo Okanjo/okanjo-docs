@@ -266,10 +266,10 @@ is listed under each event type.
 `updated_order_item`
 :   [`Order Item`](Objects.html#OrderItem) - When an item on an order is updated (E.g. Seller marks item as shipped).
 
+
 # Routes
 
 Here are the list of API routes to interact with events.
-
 
 ## POST /events/subscribe
 
@@ -314,6 +314,7 @@ Array of [`Event Subscription`](Objects.html#EventSubscription) objects.
 #### Errors
 
 None.
+
 
 ## POST /events/unsubscribe
 
