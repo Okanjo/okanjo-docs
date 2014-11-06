@@ -270,20 +270,81 @@ is listed under each event type.
 
 Here are the list of API routes to interact with events.
 
+
 ## POST /events/subscribe
 
 Resource. Subscribes a given event type to a supplied webhook URL.
 
 ### Entity NVP Parameters
 
+Both of these parameters are mandatory.
+
 `type`
 :   `string` The type of event to subscribe to.
 `webhook_url`
-:   `string` The URL (including scheme)
+:   `string` The URL (including scheme).
+
+### Returns
+
+Generic [`Success`](Globals.html#Default Response Object) object.
+
+#### Errors
+
+**400 Bad Request**
+:   `Require {field}.`  Occurs when you're missing a necessary NVP parameter.
+:   `Invalid field {field}.`  Occurs when you have an invalid `type` field or Okanjo failed to POST to the supplied `webhook_url`, or if it was malformed.
+**409 Conflict**
+:   `Conflict with Event Subscription`  Occurs when trying to subscribe to an event `type` with the same `webhook_url`.
+**500 Internal Server Error**
+:   `Unable to handle request.`  Occurs when there's a system failure while attempting to subscribe to an event.
+
+
+## GET /events/subscriptions
+
+Collection. Gets all active subscriptions
+
+### Query Parameters
+
+None.
+
+### Returns
+
+Array of [`Event Subscription`](Objects.html#EventSubscription) objects.
+
+#### Errors
+
+None.
+
+## POST /events/unsubscribe
+
+Resource. Subscribes a given event type to a supplied webhook URL.
+
+### Entity NVP Parameters
+
+Both of these parameters are mandatory.
+
+`type`
+:   `string` The type of event to subscribe to.
+`webhook_url`
+:   `string` The URL (including scheme).
+
+### Returns
+
+Generic [`Success`](Globals.html#Default Response Object) object.
+
+#### Errors
+
+**400 Bad Request**
+:   `Require {field}.`  Occurs when you're missing a necessary NVP parameter.
+:   `Invalid field {field}.`  Occurs when you have an invalid `type` field or malformed `webhook_url`.
+**404 Not Found**
+:   `Event Subscription not found.`  Occurs when the event cannot be found.
+**500 Internal Server Error**
+:   `Unable to handle request.`  Occurs when there's a system failure while attempting to subscribe to an event.
 
 ## GET /events/{id}
 
-Collection. Gets the event and its details that was triggered at that
+Collection. Gets the event and associated data. A duplicate of what is sent by webhook.
 
 ### Query Parameters
 
@@ -293,43 +354,7 @@ None.
 
 [`Event`](Objects.html#Event) Objects.
 
-### Errors
+#### Errors
 
 **404 Not Found**
 :   `Event not found.`  Occurs when the event cannot be found.
-
-
-## GET /brands/{key or id}
-
-Resource. Gets an individual brand given its associated API key or unique identifier. **May require administrative privileges**.
-
-Only brands associated with the current request key or user token are accessible.
-
-When using an api key, The response will return 302 Found to the canonical /brands/{id} URI, fully signed and ready to go.
-
-### Query Parameters
-
-None.
-
-### Returns
-
-[`Brand`](Objects.html#Brand) configuration. e.g.
-
-```js
-{
-    "template_prefix": "ok",
-    ...
-}
-```
-
-
-#### Errors
-
-**302 Found**
-:   `See canonical URI.` Occurs on API key lookup, redirects to permanent uri.
-**401 Unauthorized**
-:   `Insufficient privileges for this operation.` Occurs when the request requires different privileges.
-**404 Not Found**
-:   `Brand not found.` Occurs when the given brand query was not found.
-**500 Internal Server Error**
-:   `Unable to handle request.`  Occurs when the request failed to be fulfilled.

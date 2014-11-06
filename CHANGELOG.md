@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2014-11-06
+ * Added /events routes
+
 ## 2014-10-22
  * Added POST /stores route to add a new store
  * Added DELETE /stores/{id} route to disable an existing store
@@ -11,7 +14,7 @@ When stuff changes, it's described here.
  * Condensed error code output for POST and PUT /products
 
 ## 2014-08-25
- * Adjusted minimum item and purchase limits to $0.01 and $0.50, respectively.
+ * Adjusted minimum item and purchase limits to $0.01 and $0.50, respectively
 
 ## 2014-08-07
  * Added order status for pending disputes

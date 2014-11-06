@@ -34,6 +34,8 @@
 <li><a href="#CheckoutConfirmation">CheckoutConfirmation</a></li>
 <li><a href="#CheckoutOrder">CheckoutOrder</a></li>
 <li><a href="#Default Response Object">Default Response Object</a></li>
+<li><a href="#Event">Event</a></li>
+<li><a href="#EventSubscription">EventSubscription</a></li>
 <li><a href="#Feedback">Feedback</a></li>
 <li><a href="#FeedbackEntity">FeedbackEntity</a></li>
 <li><a href="#LoginContext">LoginContext</a></li>
@@ -128,6 +130,18 @@ for your application to to allow the buyer to complete the transaction.</p>
 <h2 id="defaultresponseobjectahrefdefaultresponseobjectiddefaultresponseobjectclassdeeplinka">Default Response Object <a href="#Default Response Object" id="Default Response Object" class="deep-link">#</a></h2>
 
 <p>Basic response object for many controller routes. See <a href="Globals.html#Default Response Object"><code>Default Response Object</code></a>.</p>
+
+<h2 id="eventahrefeventideventclassdeeplinka">Event <a href="#Event" id="Event" class="deep-link">#</a></h2>
+
+<p>An Event object is generated and sent to any URL that's been registered for that particular type.</p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>string</code>  The unique event identifier.</p></dd><dt><p><code>occurred</code></p></dt><dd><p><code>datetime</code>  The date and time that the event occurred.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string</code>  The type of event that occurred.</p></dd><dt><p><code>data</code></p></dt><dd><p><code>array</code>  The data associated with the event</p></dd><dt><p><code>notifications</code></p></dt><dd><p><code>array</code>  Array of <a href="Objects.html#Notification"><code>Notification []</code></a> records created during this event.</p></dd></dl>
+
+<h2 id="eventsubscriptionahrefeventsubscriptionideventsubscriptionclassdeeplinka">EventSubscription <a href="#EventSubscription" id="EventSubscription" class="deep-link">#</a></h2>
+
+<p>An EventSubscription object is returned when polling the platform for event subscriptions made by a client.</p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int</code>  The unique event subscription identifier.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int</code>  The status of the event subscription: "1" is Active; "0" is Disabled.</p></dd><dt><p><code>brand_id</code></p></dt><dd><p><code>int</code>  The unique ID of the brand that the event subscription was created under.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string</code>  The type of event that was subscribed to.</p></dd><dt><p><code>webhook_url</code></p></dt><dd><p><code>string</code>  The URL that event data will be posted to.</p></dd></dl>
 
 <h2 id="feedbackahreffeedbackidfeedbackclassdeeplinka">Feedback <a href="#Feedback" id="Feedback" class="deep-link">#</a></h2>
 
