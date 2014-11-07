@@ -9,10 +9,14 @@ an `order.updated` event occurs). Data about these events are transmitted by web
 
 > Note: Webhooks are only available to marketplaces. In the future, we will make webhooks available to users and stores.
 
-## Objects
+# Objects
 
 * [`Event`](Objects.html#Event) – Event object (transmitted to client)
 * [`Event Subscription`](Objects.html#EventSubscription) - A subscription record for an event type to a URL
+
+# Event Types
+
+For a list of available event types, see [`Event Types`](Constants.html#EventType).
 
 
 ## Workflow Example
@@ -239,10 +243,6 @@ We've created a couple of Node.js webhook listeners that you may use as a starti
 
  * [Basic Example](https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks.js)
  * [Trust but Verify Example](https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks-verify.js)
-
-## Event Types
-
-For a list of available event types, see [`Event Types`](Constants.html#EventType).
 
 # Routes
 
