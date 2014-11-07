@@ -43,8 +43,7 @@ addresses should not change, but if they do they will be reported here.</p>
 Okanjo will test the URL you give it before letting you subscribe to an event. Now that you're ready to
 subscribe to an event, send a POST request to <code>/events/subscribe</code> with the <code>type</code> and <code>webhook_url</code> entity data:</p>
 
-<pre><code>type=added_product
-
+<pre><code>type=product.created
 webhook_url=http://requestb.in/u2nxcmu2
 </code></pre>
 
@@ -52,7 +51,9 @@ webhook_url=http://requestb.in/u2nxcmu2
 
 <pre class="brush:js">
 
-{"type": "success"}
+{
+  "type": "success"
+}
 </pre>
 
 <p>Now, whenever somebody adds a product to your marketplace, the system will send information about the event to
@@ -63,7 +64,7 @@ your webhook URL. The contents will look something like this, which will include
 {
   "id": "EV3KtarTnr6R1hJ6jjoq",
   "occurred": "2014-11-06 14:39:43",
-  "type": "added_product",
+  "type": "product.created",
   "data": {
     "id": "141751",
     "curated": null,
@@ -240,7 +241,7 @@ your webhook URL. The contents will look something like this, which will include
 
 <p>If you did it right, well done. While you can process the event as-is, our security conscientious folks will want to verify
 that the event was really sent from Okanjo. To do so, send a GET request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code>
-in this case is the ID from above, "EV3KtarTnr6R1hJ6jjoq". If done properly, the response you get will exactly match
+in this case is the ID from above, <code>EV3KtarTnr6R1hJ6jjoq</code>. If done properly, the response you get will exactly match
 the data you received via webhook.</p>
 
 <h1 id="eventtypes">Event Types</h1>

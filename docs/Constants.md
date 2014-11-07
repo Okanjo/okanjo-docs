@@ -142,19 +142,26 @@ Confirmation object types.
 
 Types of events that can occur.
 
-> NOTE: Current event names are temporary and will be changing to "object.event" formatting in the near future. As well this list will expand regularly. Use these for values of `type` when subscribing to events. The data that will be returned is listed under each event type.
+> NOTE: This list will expand regularly. Use these for values of `type` when subscribing to events. The data that will be returned is listed under each event type.
 
-`added_product`
-:   [`Product`](Objects.html#Product) - When a product is added.
-`confirmed_order`
-:   [`Order`](Objects.html#Order) - When an order is made/confirmed.
-`disbursement_sent`
+### Disbursements
+
+`disbursement.sent`
 :   Occurs when Okanjo debits money into an account.
-`updated_order`
-:   [`Order`](Objects.html#Order) - When an order is updated (E.g. Buyer's payment came through).
-`updated_order_item`
-:   [`Order Item`](Objects.html#OrderItem) - When an item on an order is updated (E.g. Seller marks item as shipped).
 
+### Products
+
+`product.created`
+:   [`Product`](Objects.html#Product) - When a product is added.
+
+### Orders and OrderItems
+
+`order.confirmed`
+:   [`Order`](Objects.html#Order) - When an order is made/confirmed.
+`order.updated`
+:   [`Order`](Objects.html#Order) - When an order is updated (E.g. Buyer's payment came through).
+`order_item.updated`
+:   [`Order Item`](Objects.html#OrderItem) - When an item on an order is updated (E.g. Seller marks item as shipped).
 
 ## LoginAction
 

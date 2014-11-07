@@ -144,10 +144,20 @@
 <p>Types of events that can occur.</p>
 
 <blockquote>
-  <p>NOTE: Current event names are temporary and will be changing to "object.event" formatting in the near future. As well this list will expand regularly. Use these for values of <code>type</code> when subscribing to events. The data that will be returned is listed under each event type.</p>
+  <p>NOTE: This list will expand regularly. Use these for values of <code>type</code> when subscribing to events. The data that will be returned is listed under each event type.</p>
 </blockquote>
 
-<dl class="inline-def"><dt><p><code>added_product</code></p></dt><dd><p><a href="Objects.html#Product"><code>Product</code></a> - When a product is added.</p></dd><dt><p><code>confirmed_order</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is made/confirmed.</p></dd><dt><p><code>disbursement_sent</code></p></dt><dd><p>Occurs when Okanjo debits money into an account.</p></dd><dt><p><code>updated_order</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is updated (E.g. Buyer's payment came through).</p></dd><dt><p><code>updated_order_item</code></p></dt><dd><p><a href="Objects.html#OrderItem"><code>Order Item</code></a> - When an item on an order is updated (E.g. Seller marks item as shipped).</p></dd></dl>
+<h3 id="disbursements">Disbursements</h3>
+
+<dl class="inline-def"><dt><p><code>disbursement.sent</code></p></dt><dd><p>Occurs when Okanjo debits money into an account.</p></dd></dl>
+
+<h3 id="products">Products</h3>
+
+<dl class="inline-def"><dt><p><code>product.created</code></p></dt><dd><p><a href="Objects.html#Product"><code>Product</code></a> - When a product is added.</p></dd></dl>
+
+<h3 id="ordersandorderitems">Orders and OrderItems</h3>
+
+<dl class="inline-def"><dt><p><code>order.confirmed</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is made/confirmed.</p></dd><dt><p><code>order.updated</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is updated (E.g. Buyer's payment came through).</p></dd><dt><p><code>order_item.updated</code></p></dt><dd><p><a href="Objects.html#OrderItem"><code>Order Item</code></a> - When an item on an order is updated (E.g. Seller marks item as shipped).</p></dd></dl>
 
 <h2 id="loginactionahrefloginactionidloginactionclassdeeplinka">LoginAction <a href="#LoginAction" id="LoginAction" class="deep-link">#</a></h2>
 
