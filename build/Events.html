@@ -28,21 +28,11 @@ an <code>order.updated</code> event occurs). Data about these events are transmi
   <p>Note: Webhooks are only available to marketplaces. In the future, we will make webhooks available to users and stores.</p>
 </blockquote>
 
-<h1 id="objects">Objects</h1>
-
-<ul>
-<li><a href="Objects.html#Event"><code>Event</code></a> – Event object (transmitted to client)</li>
-<li><a href="Objects.html#EventSubscription"><code>Event Subscription</code></a> - A subscription record for an event type to a URL</li>
-</ul>
-
-<h1 id="eventtypes">Event Types</h1>
-
-<p>For a list of available event types, see <a href="Constants.html#EventType"><code>Event Types</code></a>.</p>
-
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
 <li><a href="#Workflow Example">Workflow Example</a></li>
+<li><a href="#Acknowledgement and Retries">Acknowledgement and Retries</a></li>
 <li><a href="#Security Considerations">Security Considerations</a></li>
 <li><a href="#Node.js Example Listener">Node.js Example Listener</a></li>
 <li><a href="#GET /events/{id}">GET /events/{id}</a></li>
@@ -256,10 +246,25 @@ your webhook URL. The contents will look something like this, which will include
 }
 </pre>
 
+<h2 id="acknowledgementandretriesahrefacknowledgementandretriesidacknowledgementandretriesclassdeeplinka">Acknowledgement and Retries <a href="#Acknowledgement and Retries" id="Acknowledgement and Retries" class="deep-link">#</a></h2>
+
+<p>A webhook is considered to be successfully delivered if the HTTP response code received is a <code>200</code>-level status code.
+<code>301</code>, <code>302</code> and <code>303</code> status codes will be followed and retried automatically, however no more than three follow attempts will be performed.
+Any other status code received will be considered to be a failure.</p>
+
+<p>Failed webhooks will be retried up to 30 times on an exponentially-increasing delay.
+The number of minutes between each retry can be calculated as 2<sup>(n-1)</sup> or 64, which ever is least.
+This means that webhooks will continue to be attempted over a 26.5 hour span. If you experience an outage longer than
+this duration, please contact Okanjo support for assistance replaying lost webhooks.</p>
+
+<blockquote>
+  <p>Note: Due to the nature of the Internet, webhooks are not atomic. Okanjo does not guarantee that webhooks will be received in the order they occurred.</p>
+</blockquote>
+
 <h2 id="securityconsiderationsahrefsecurityconsiderationsidsecurityconsiderationsclassdeeplinka">Security Considerations <a href="#Security Considerations" id="Security Considerations" class="deep-link">#</a></h2>
 
 <p>While you can process the event as-is, our security conscientious folks will want to verify
-that the event was really sent from Okanjo. To do so, send a GET request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code>
+that the event was really sent from Okanjo. To do so, send a <code>GET</code> request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code>
 in this case is the ID from above, <code>EV3KtarTnr6R1hJ6jjoq</code>. If done properly, the response you get will exactly match
 the data you received via webhook.</p>
 
@@ -280,6 +285,17 @@ the data you received via webhook.</p>
 <li><a href="https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks.js">Basic Example</a></li>
 <li><a href="https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks-verify.js">Trust but Verify Example</a></li>
 </ul>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Event"><code>Event</code></a> – Event object (transmitted to client)</li>
+<li><a href="Objects.html#EventSubscription"><code>Event Subscription</code></a> - A subscription record for an event type to a URL</li>
+</ul>
+
+<h1 id="eventtypes">Event Types</h1>
+
+<p>For a list of available event types, see <a href="Constants.html#EventType"><code>Event Types</code></a>.</p>
 
 <h1 id="routes">Routes</h1>
 

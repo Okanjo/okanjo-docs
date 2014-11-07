@@ -9,15 +9,6 @@ an `order.updated` event occurs). Data about these events are transmitted by web
 
 > Note: Webhooks are only available to marketplaces. In the future, we will make webhooks available to users and stores.
 
-# Objects
-
-* [`Event`](Objects.html#Event) – Event object (transmitted to client)
-* [`Event Subscription`](Objects.html#EventSubscription) - A subscription record for an event type to a URL
-
-# Event Types
-
-For a list of available event types, see [`Event Types`](Constants.html#EventType).
-
 
 ## Workflow Example
 
@@ -223,10 +214,23 @@ your webhook URL. The contents will look something like this, which will include
 }
 ```
 
+## Acknowledgement and Retries
+
+A webhook is considered to be successfully delivered if the HTTP response code received is a `200`-level status code.
+`301`, `302` and `303` status codes will be followed and retried automatically, however no more than three follow attempts will be performed.
+Any other status code received will be considered to be a failure.
+
+Failed webhooks will be retried up to 30 times on an exponentially-increasing delay.
+The number of minutes between each retry can be calculated as 2<sup>(n-1)</sup> or 64, which ever is least.
+This means that webhooks will continue to be attempted over a 26.5 hour span. If you experience an outage longer than
+this duration, please contact Okanjo support for assistance replaying lost webhooks.
+
+> Note: Due to the nature of the Internet, webhooks are not atomic. Okanjo does not guarantee that webhooks will be received in the order they occurred.
+
 ## Security Considerations
 
 While you can process the event as-is, our security conscientious folks will want to verify
-that the event was really sent from Okanjo. To do so, send a GET request to `events/<event_id>`, where `<event_id>`
+that the event was really sent from Okanjo. To do so, send a `GET` request to `events/<event_id>`, where `<event_id>`
 in this case is the ID from above, `EV3KtarTnr6R1hJ6jjoq`. If done properly, the response you get will exactly match
 the data you received via webhook.
 
@@ -243,6 +247,15 @@ We've created a couple of Node.js webhook listeners that you may use as a starti
 
  * [Basic Example](https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks.js)
  * [Trust but Verify Example](https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks-verify.js)
+
+# Objects
+
+* [`Event`](Objects.html#Event) – Event object (transmitted to client)
+* [`Event Subscription`](Objects.html#EventSubscription) - A subscription record for an event type to a URL
+
+# Event Types
+
+For a list of available event types, see [`Event Types`](Constants.html#EventType).
 
 # Routes
 

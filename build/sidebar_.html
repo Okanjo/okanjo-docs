@@ -353,9 +353,15 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">For this example, we're going to subscribe to the event that is triggered whenever a user uploads a product to Okanjo.</span>
                 </a>
                 
+                <a class="toc-item" href="Events.html#Acknowledgement and Retries">
+                    <h4>Acknowledgement and Retries</h4>
+                    <span class="desc">A webhook is considered to be successfully delivered if the HTTP response code received is a <code>200</code>-level status code. <code>301</code>, <code>302</code> and <code>303</code> status codes will be followed and retried automatically, however no more than three follow attempts will be performed.
+Any other status code received will be considered to be a failure.</span>
+                </a>
+                
                 <a class="toc-item" href="Events.html#Security Considerations">
                     <h4>Security Considerations</h4>
-                    <span class="desc">While you can process the event as-is, our security conscientious folks will want to verify that the event was really sent from Okanjo. To do so, send a GET request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code>
+                    <span class="desc">While you can process the event as-is, our security conscientious folks will want to verify that the event was really sent from Okanjo. To do so, send a <code>GET</code> request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code>
 in this case is the ID from above, <code>EV3KtarTnr6R1hJ6jjoq</code>. If done properly, the response you get will exactly match
 the data you received via webhook.</span>
                 </a>
