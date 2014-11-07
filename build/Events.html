@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Events : Okanjo API Core Specification</title>
+        <title>Events (BETA) : Okanjo API Core Specification</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets_/css/shCore.css">
         <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
@@ -16,25 +16,40 @@
     <li><a href="index.html">Index</a></li>
     <li><a href="#toc">TOC</a></li>
 </ul>
-<h1 id="events">Events</h1>
+<h1 id="eventsbeta">Events (BETA)</h1>
 
 <p>An Event resource is generated when something occurs on the Okanjo platform. Events can pass along greatly differing data
-sets, but all will be centered around the event that took place (E.g. Data about an order being updated will be sent when
-an <code>updated_order</code> event occurs). Data about these events are transmitted by webhook to a third party URL at their request.</p>
+sets, but all will be centered around the event that took place. For example, an order that was updated will be sent when
+an <code>order.updated</code> event occurs). Data about these events are transmitted by webhook to a third party URL at their request.</p>
 
-<h1 id="objects">Objects</h1>
+<blockquote>
+  <p>Note: Events and Webhooks are currently in beta. Design may change in the future and not all events are available for webhooks. Please let us know your experience using Okanjo Events.</p>
+  
+  <p>Note: Webhooks are only available to marketplaces. In the future, we will make webhooks available to users and stores.</p>
+</blockquote>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#Objects">Objects</a></li>
+<li><a href="#Workflow Example">Workflow Example</a></li>
+<li><a href="#Security Considerations">Security Considerations</a></li>
+<li><a href="#Node.js Example Listener">Node.js Example Listener</a></li>
+<li><a href="#Event Types">Event Types</a></li>
+<li><a href="#GET /events/{id}">GET /events/{id}</a></li>
+<li><a href="#GET /events/subscriptions">GET /events/subscriptions</a></li>
+<li><a href="#POST /events/subscribe">POST /events/subscribe</a></li>
+<li><a href="#POST /events/unsubscribe">POST /events/unsubscribe</a></li>
+</ul>
+
+<h2 id="objectsahrefobjectsidobjectsclassdeeplinka">Objects <a href="#Objects" id="Objects" class="deep-link">#</a></h2>
 
 <ul>
 <li><a href="Objects.html#Event"><code>Event</code></a> – Event object (transmitted to client)</li>
 <li><a href="Objects.html#EventSubscription"><code>Event Subscription</code></a> - A subscription record for an event type to a URL</li>
 </ul>
 
-<h1 id="importantnotes">Important Notes</h1>
-
-<p>If you have configured events, they will come from one of two IP addresses: <code>96.30.254.41</code> and <code>96.30.254.43</code>. These
-addresses should not change, but if they do they will be reported here.</p>
-
-<h1 id="workflowexample">Workflow Example</h1>
+<h2 id="workflowexampleahrefworkflowexampleidworkflowexampleclassdeeplinka">Workflow Example <a href="#Workflow Example" id="Workflow Example" class="deep-link">#</a></h2>
 
 <p>For this example, we're going to subscribe to the event that is triggered whenever a user uploads a product to Okanjo.</p>
 
@@ -47,7 +62,7 @@ subscribe to an event, send a POST request to <code>/events/subscribe</code> wit
 webhook_url=http://requestb.in/u2nxcmu2
 </code></pre>
 
-<p>If this was done properly, you will receive a "success" JSON response:</p>
+<p>If this was done properly, you will receive the default <a href="Globals.html#Default Response Object"><code>Success</code></a> object:</p>
 
 <pre class="brush:js">
 
@@ -56,7 +71,7 @@ webhook_url=http://requestb.in/u2nxcmu2
 }
 </pre>
 
-<p>Now, whenever somebody adds a product to your marketplace, the system will send information about the event to
+<p>Now, whenever a product is added to your marketplace, the Okanjo will send information about the event to
 your webhook URL. The contents will look something like this, which will include the product information in the <code>data</code> section:</p>
 
 <pre class="brush:js">
@@ -239,49 +254,58 @@ your webhook URL. The contents will look something like this, which will include
 }
 </pre>
 
-<p>If you did it right, well done. While you can process the event as-is, our security conscientious folks will want to verify
+<h2 id="securityconsiderationsahrefsecurityconsiderationsidsecurityconsiderationsclassdeeplinka">Security Considerations <a href="#Security Considerations" id="Security Considerations" class="deep-link">#</a></h2>
+
+<p>While you can process the event as-is, our security conscientious folks will want to verify
 that the event was really sent from Okanjo. To do so, send a GET request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code>
 in this case is the ID from above, <code>EV3KtarTnr6R1hJ6jjoq</code>. If done properly, the response you get will exactly match
 the data you received via webhook.</p>
 
-<h1 id="eventtypes">Event Types</h1>
+<p>Webhook requests should originate from one of following IP addresses:</p>
 
-<p>For a list of available Event Types, go to: <a href="Constants.html#EventType"><code>Event Types</code></a></p>
+<ul>
+<li><code>96.30.254.41</code></li>
+<li><code>96.30.254.43</code></li>
+</ul>
+
+<p>These addresses should not change, but if they do they will be reported here.</p>
+
+<h2 id="nodejsexamplelistenerahrefnodejsexamplelisteneridnodejsexamplelistenerclassdeeplinka">Node.js Example Listener <a href="#Node.js Example Listener" id="Node.js Example Listener" class="deep-link">#</a></h2>
+
+<p>We've created a couple of Node.js webhook listeners that you may use as a starting point for implementing webhooks on your platform.</p>
+
+<ul>
+<li><a href="https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks.js">Basic Example</a></li>
+<li><a href="https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks-verify.js">Trust but Verify Example</a></li>
+</ul>
+
+<h2 id="eventtypesahrefeventtypesideventtypesclassdeeplinka">Event Types <a href="#Event Types" id="Event Types" class="deep-link">#</a></h2>
+
+<p>For a list of available event types, see <a href="Constants.html#EventType"><code>Event Types</code></a>.</p>
 
 <h1 id="routes">Routes</h1>
 
 <p>Here are the list of API routes to interact with events.</p>
 
-<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+<h2 id="geteventsidahrefgeteventsididgeteventsidclassdeeplinka">GET /events/{id} <a href="#GET /events/{id}" id="GET /events/{id}" class="deep-link">#</a></h2>
 
-<ul>
-<li><a href="#POST /events/subscribe">POST /events/subscribe</a></li>
-<li><a href="#GET /events/subscriptions">GET /events/subscriptions</a></li>
-<li><a href="#POST /events/unsubscribe">POST /events/unsubscribe</a></li>
-<li><a href="#GET /events/{id}">GET /events/{id}</a></li>
-</ul>
+<p>Resource. Gets the event and associated data. A duplicate of what is sent by webhook.</p>
 
-<h2 id="posteventssubscribeahrefposteventssubscribeidposteventssubscribeclassdeeplinka">POST /events/subscribe <a href="#POST /events/subscribe" id="POST /events/subscribe" class="deep-link">#</a></h2>
+<h3 id="queryparameters">Query Parameters</h3>
 
-<p>Resource. Subscribes a given event type to a supplied webhook URL.</p>
-
-<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
-
-<p>Both of these parameters are mandatory.</p>
-
-<dl class="inline-def"><dt><p><code>type</code></p></dt><dd><p><code>string</code> The type of event to subscribe to.</p></dd><dt><p><code>webhook_url</code></p></dt><dd><p><code>string</code> The URL (including scheme).</p></dd></dl>
+<dl class="inline-def"><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional linked resources. Accepts: <code>notifications</code>.</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 
-<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> object.</p>
+<p><a href="Objects.html#Event"><code>Event</code></a> Objects.</p>
 
 <h4 id="errors">Errors</h4>
 
-<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Require {field}.</code>  Occurs when you're missing a necessary NVP parameter.</p></dd><dd><p><code>Invalid field {field}.</code>  Occurs when you have an invalid <code>type</code> field or Okanjo failed to POST to the supplied <code>webhook_url</code>, or if it was malformed.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Conflict with Event Subscription</code>  Occurs when trying to subscribe to an event <code>type</code> with the same <code>webhook_url</code>.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to handle request.</code>  Occurs when there's a system failure while attempting to subscribe to an event.</p></dd></dl>
+<dl><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Event not found.</code>  Occurs when the event cannot be found.</p></dd></dl>
 
 <h2 id="geteventssubscriptionsahrefgeteventssubscriptionsidgeteventssubscriptionsclassdeeplinka">GET /events/subscriptions <a href="#GET /events/subscriptions" id="GET /events/subscriptions" class="deep-link">#</a></h2>
 
-<p>Collection. Gets all active subscriptions</p>
+<p>Collection. Gets all active subscriptions.</p>
 
 <h3 id="queryparameters">Query Parameters</h3>
 
@@ -294,6 +318,28 @@ the data you received via webhook.</p>
 <h4 id="errors">Errors</h4>
 
 <p>None.</p>
+
+<h2 id="posteventssubscribeahrefposteventssubscribeidposteventssubscribeclassdeeplinka">POST /events/subscribe <a href="#POST /events/subscribe" id="POST /events/subscribe" class="deep-link">#</a></h2>
+
+<p>Controller. Subscribes a given event type to a supplied webhook URL.</p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>Both of these parameters are mandatory.</p>
+
+<dl class="inline-def"><dt><p><code>type</code></p></dt><dd><p><code>string</code> The type of event to subscribe to.</p></dd><dt><p><code>webhook_url</code></p></dt><dd><p><code>string</code> The URL (including scheme).</p></dd></dl>
+
+<blockquote>
+  <p>Note:  You may use <code>*</code> to subscribe to all available events. This functionality may be changed or expanded in the future.</p>
+</blockquote>
+
+<h3 id="returns">Returns</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> object.</p>
+
+<h4 id="errors">Errors</h4>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Require {field}.</code>  Occurs when you're missing a necessary NVP parameter.</p></dd><dd><p><code>Invalid field {field}.</code>  Occurs when you have an invalid <code>type</code> field or Okanjo failed to POST to the supplied <code>webhook_url</code>, or if it was malformed.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Conflict with Event Subscription</code>  Occurs when trying to subscribe to an event <code>type</code> with the same <code>webhook_url</code>.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to handle request.</code>  Occurs when there's a system failure while attempting to subscribe to an event.</p></dd></dl>
 
 <h2 id="posteventsunsubscribeahrefposteventsunsubscribeidposteventsunsubscribeclassdeeplinka">POST /events/unsubscribe <a href="#POST /events/unsubscribe" id="POST /events/unsubscribe" class="deep-link">#</a></h2>
 
@@ -312,22 +358,6 @@ the data you received via webhook.</p>
 <h4 id="errors">Errors</h4>
 
 <dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Require {field}.</code>  Occurs when you're missing a necessary NVP parameter.</p></dd><dd><p><code>Invalid field {field}.</code>  Occurs when you have an invalid <code>type</code> field or malformed <code>webhook_url</code>.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Event Subscription not found.</code>  Occurs when the event cannot be found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Unable to handle request.</code>  Occurs when there's a system failure while attempting to subscribe to an event.</p></dd></dl>
-
-<h2 id="geteventsidahrefgeteventsididgeteventsidclassdeeplinka">GET /events/{id} <a href="#GET /events/{id}" id="GET /events/{id}" class="deep-link">#</a></h2>
-
-<p>Collection. Gets the event and associated data. A duplicate of what is sent by webhook.</p>
-
-<h3 id="queryparameters">Query Parameters</h3>
-
-<dl class="inline-def"><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional linked resources. Accepts: <code>notifications</code>.</p></dd></dl>
-
-<h3 id="returns">Returns</h3>
-
-<p><a href="Objects.html#Event"><code>Event</code></a> Objects.</p>
-
-<h4 id="errors">Errors</h4>
-
-<dl><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Event not found.</code>  Occurs when the event cannot be found.</p></dd></dl>
                 <hr />
                 <small>Documentation generated by <a href="https://github.com/millermedeiros/mdoc">mdoc</a>.</small>
             </div>

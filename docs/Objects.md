@@ -172,7 +172,7 @@ A cause represents a non-profit, 501(c)-class organization.
 `group_name`
 :   `string (255)` Nullable. The name of the cause group, if applicable.
 `store`
-:   (`Store`)[Objects.html#Store] Embeddable. The associated store for the cause.
+:   [`Store`](Objects.html#Store) Embeddable. The associated store for the cause.
 `meta`
 :   `string[]`  Array of key/value properties attached to the object. Metadata is per-API key.
 
@@ -704,13 +704,13 @@ A storefront which offers items for sale on Okanjo.
 `id`
 :   `int`  The unique ID of the store.
 `status`
-:   `int enum`  Status of the store. See (`StoreStatus`)[Constants.html#StoreStatus]
+:   `int enum`  Status of the store. See [`StoreStatus`](Constants.html#StoreStatus)
 `created`
 :   `date time`  When the store was created.
 `updated`
 :   `date time`  When the store was last modified.
 `type`
-:   `int enum`  Type of the store.  See (`StoreType`)[Constants.html#StoreType]
+:   `int enum`  Type of the store.  See [`StoreType`](Constants.html#StoreType)
 `name`
 :   `string`  The display name of the store. By default is the name of the user who owns the store.
 `about`
@@ -782,7 +782,7 @@ A storefront which offers items for sale on Okanjo.
 `return_policies`
 :   [`ReturnPolicy []`](Objects.html#ReturnPolicy) Embeddable. Private. Return policies managed by the store.
 `subscription`
-:   [`Subscription`][Objects.html#Subscription] Embeddable. Private. The active plan subscription on the store.
+:   [`Subscription`](Objects.html#Subscription) Embeddable. Private. The active plan subscription on the store.
 
 > ** Note: Private fields are only accessible to users who have access to manage the given store**
 

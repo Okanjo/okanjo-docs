@@ -146,8 +146,8 @@ Types of events that can occur.
 
 ### Disbursements
 
-`disbursement.sent`
-:   Occurs when Okanjo debits money into an account.
+`disbursement.created`
+:   Occurs when an Okanjo Account balance is withdrawn.
 
 ### Products
 
@@ -157,11 +157,11 @@ Types of events that can occur.
 ### Orders and OrderItems
 
 `order.confirmed`
-:   [`Order`](Objects.html#Order) - When an order is made/confirmed.
+:   [`Order`](Objects.html#Order) - When an order is confirmed.
 `order.updated`
-:   [`Order`](Objects.html#Order) - When an order is updated (E.g. Buyer's payment came through).
+:   [`Order`](Objects.html#Order) - When an order is updated (e.g. Buyer's payment came through).
 `order_item.updated`
-:   [`Order Item`](Objects.html#OrderItem) - When an item on an order is updated (E.g. Seller marks item as shipped).
+:   [`Order Item`](Objects.html#OrderItem) - When an item on an order is updated (e.g. Store marks item as shipped).
 
 ## LoginAction
 

@@ -348,24 +348,53 @@ user token attached will reset its timeout period.</span>
             <h3 class="toc-mod-title"><a href="Events.html">Events</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="Events.html#POST /events/subscribe">
-                    <h4>POST /events/subscribe</h4>
-                    <span class="desc">Resource. Subscribes a given event type to a supplied webhook URL.</span>
+                <a class="toc-item" href="Events.html#Objects">
+                    <h4>Objects</h4>
+                    <span class="desc"><ul>
+<li><code>Event</code> – Event object (transmitted to client) * <code>Event Subscription</code> - A subscription record for an event type to a URL</li>
+</ul></span>
+                </a>
+                
+                <a class="toc-item" href="Events.html#Workflow Example">
+                    <h4>Workflow Example</h4>
+                    <span class="desc">For this example, we're going to subscribe to the event that is triggered whenever a user uploads a product to Okanjo.</span>
+                </a>
+                
+                <a class="toc-item" href="Events.html#Security Considerations">
+                    <h4>Security Considerations</h4>
+                    <span class="desc">While you can process the event as-is, our security conscientious folks will want to verify that the event was really sent from Okanjo. To do so, send a GET request to <code>events/&lt;event_id&gt;</code>, where <code>&lt;event_id&gt;</code>
+in this case is the ID from above, <code>EV3KtarTnr6R1hJ6jjoq</code>. If done properly, the response you get will exactly match
+the data you received via webhook.</span>
+                </a>
+                
+                <a class="toc-item" href="Events.html#Node.js Example Listener">
+                    <h4>Node.js Example Listener</h4>
+                    <span class="desc">We've created a couple of Node.js webhook listeners that you may use as a starting point for implementing webhooks on your platform.</span>
+                </a>
+                
+                <a class="toc-item" href="Events.html#Event Types">
+                    <h4>Event Types</h4>
+                    <span class="desc">For a list of available event types, see <code>Event Types</code>.</span>
+                </a>
+                
+                <a class="toc-item" href="Events.html#GET /events/{id}">
+                    <h4>GET /events/{id}</h4>
+                    <span class="desc">Resource. Gets the event and associated data. A duplicate of what is sent by webhook.</span>
                 </a>
                 
                 <a class="toc-item" href="Events.html#GET /events/subscriptions">
                     <h4>GET /events/subscriptions</h4>
-                    <span class="desc">Collection. Gets all active subscriptions</span>
+                    <span class="desc">Collection. Gets all active subscriptions.</span>
+                </a>
+                
+                <a class="toc-item" href="Events.html#POST /events/subscribe">
+                    <h4>POST /events/subscribe</h4>
+                    <span class="desc">Controller. Subscribes a given event type to a supplied webhook URL.</span>
                 </a>
                 
                 <a class="toc-item" href="Events.html#POST /events/unsubscribe">
                     <h4>POST /events/unsubscribe</h4>
                     <span class="desc">Resource. Subscribes a given event type to a supplied webhook URL.</span>
-                </a>
-                
-                <a class="toc-item" href="Events.html#GET /events/{id}">
-                    <h4>GET /events/{id}</h4>
-                    <span class="desc">Collection. Gets the event and associated data. A duplicate of what is sent by webhook.</span>
                 </a>
                 
             </div>

@@ -1,21 +1,21 @@
 
-# Events
+# Events (BETA)
 
 An Event resource is generated when something occurs on the Okanjo platform. Events can pass along greatly differing data
-sets, but all will be centered around the event that took place (E.g. Data about an order being updated will be sent when
-an `updated_order` event occurs). Data about these events are transmitted by webhook to a third party URL at their request.
+sets, but all will be centered around the event that took place. For example, an order that was updated will be sent when
+an `order.updated` event occurs). Data about these events are transmitted by webhook to a third party URL at their request.
 
-# Objects
+> Note: Events and Webhooks are currently in beta. Design may change in the future and not all events are available for webhooks. Please let us know your experience using Okanjo Events.
+
+> Note: Webhooks are only available to marketplaces. In the future, we will make webhooks available to users and stores.
+
+## Objects
 
 * [`Event`](Objects.html#Event) – Event object (transmitted to client)
 * [`Event Subscription`](Objects.html#EventSubscription) - A subscription record for an event type to a URL
 
-# Important Notes
 
-If you have configured events, they will come from one of two IP addresses: `96.30.254.41` and `96.30.254.43`. These
-addresses should not change, but if they do they will be reported here.
-
-# Workflow Example
+## Workflow Example
 
 For this example, we're going to subscribe to the event that is triggered whenever a user uploads a product to Okanjo.
 
@@ -29,7 +29,7 @@ type=product.created
 webhook_url=http://requestb.in/u2nxcmu2
 ```
 
-If this was done properly, you will receive a "success" JSON response:
+If this was done properly, you will receive the default [`Success`](Globals.html#Default Response Object) object:
 
 ```js
 {
@@ -37,7 +37,7 @@ If this was done properly, you will receive a "success" JSON response:
 }
 ```
 
-Now, whenever somebody adds a product to your marketplace, the system will send information about the event to
+Now, whenever a product is added to your marketplace, the Okanjo will send information about the event to
 your webhook URL. The contents will look something like this, which will include the product information in the `data` section:
 
 ```js
@@ -219,22 +219,74 @@ your webhook URL. The contents will look something like this, which will include
 }
 ```
 
-If you did it right, well done. While you can process the event as-is, our security conscientious folks will want to verify
+## Security Considerations
+
+While you can process the event as-is, our security conscientious folks will want to verify
 that the event was really sent from Okanjo. To do so, send a GET request to `events/<event_id>`, where `<event_id>`
 in this case is the ID from above, `EV3KtarTnr6R1hJ6jjoq`. If done properly, the response you get will exactly match
 the data you received via webhook.
 
-# Event Types
+Webhook requests should originate from one of following IP addresses:
 
-For a list of available Event Types, go to: [`Event Types`](Constants.html#EventType)
+ * `96.30.254.41`
+ * `96.30.254.43`
+
+These addresses should not change, but if they do they will be reported here.
+
+## Node.js Example Listener
+
+We've created a couple of Node.js webhook listeners that you may use as a starting point for implementing webhooks on your platform.
+
+ * [Basic Example](https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks.js)
+ * [Trust but Verify Example](https://github.com/Okanjo/okanjo-nodejs/blob/master/examples/webhooks-verify.js)
+
+## Event Types
+
+For a list of available event types, see [`Event Types`](Constants.html#EventType).
 
 # Routes
 
 Here are the list of API routes to interact with events.
 
+## GET /events/{id}
+
+Resource. Gets the event and associated data. A duplicate of what is sent by webhook.
+
+### Query Parameters
+
+`embed`
+:   `csv` When given, includes the additional linked resources. Accepts: `notifications`.
+
+### Returns
+
+[`Event`](Objects.html#Event) Objects.
+
+#### Errors
+
+**404 Not Found**
+:   `Event not found.`  Occurs when the event cannot be found.
+
+
+## GET /events/subscriptions
+
+Collection. Gets all active subscriptions.
+
+### Query Parameters
+
+None.
+
+### Returns
+
+Array of [`Event Subscription`](Objects.html#EventSubscription) objects.
+
+#### Errors
+
+None.
+
+
 ## POST /events/subscribe
 
-Resource. Subscribes a given event type to a supplied webhook URL.
+Controller. Subscribes a given event type to a supplied webhook URL.
 
 ### Entity NVP Parameters
 
@@ -244,6 +296,8 @@ Both of these parameters are mandatory.
 :   `string` The type of event to subscribe to.
 `webhook_url`
 :   `string` The URL (including scheme).
+
+> Note:  You may use `*` to subscribe to all available events. This functionality may be changed or expanded in the future.
 
 ### Returns
 
@@ -258,23 +312,6 @@ Generic [`Success`](Globals.html#Default Response Object) object.
 :   `Conflict with Event Subscription`  Occurs when trying to subscribe to an event `type` with the same `webhook_url`.
 **500 Internal Server Error**
 :   `Unable to handle request.`  Occurs when there's a system failure while attempting to subscribe to an event.
-
-
-## GET /events/subscriptions
-
-Collection. Gets all active subscriptions
-
-### Query Parameters
-
-None.
-
-### Returns
-
-Array of [`Event Subscription`](Objects.html#EventSubscription) objects.
-
-#### Errors
-
-None.
 
 
 ## POST /events/unsubscribe
@@ -303,21 +340,3 @@ Generic [`Success`](Globals.html#Default Response Object) object.
 :   `Event Subscription not found.`  Occurs when the event cannot be found.
 **500 Internal Server Error**
 :   `Unable to handle request.`  Occurs when there's a system failure while attempting to subscribe to an event.
-
-## GET /events/{id}
-
-Collection. Gets the event and associated data. A duplicate of what is sent by webhook.
-
-### Query Parameters
-
-`embed`
-:   `csv` When given, includes the additional linked resources. Accepts: `notifications`.
-
-### Returns
-
-[`Event`](Objects.html#Event) Objects.
-
-#### Errors
-
-**404 Not Found**
-:   `Event not found.`  Occurs when the event cannot be found.
