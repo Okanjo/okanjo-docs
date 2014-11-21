@@ -3,6 +3,10 @@
 
 When stuff changes, it's described here.
 
+## 2014-11-14
+ * Updated docs for category and taxonomy system changes
+ * Added new checkout errors to confirmation routes
+
 ## 2014-11-06
  * Added /events routes
 

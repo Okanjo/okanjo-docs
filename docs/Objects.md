@@ -129,12 +129,8 @@ Categories are used to create a hierarchical structure (taxonomy) for organizing
 :   `int` The unique ID of the category.
 `parent_id`
 :   `int` The unique ID of the category’s parent.
-`depth`
-:   `int` How deep the category is in the taxonomy.
-`port`
-:   `int` The heretical left-side value of the category.
-`starboard`
-:   `int` The heretical right-side value of the category.
+`ancestor_ids`
+:   `int csv` The unique IDs of the category's ancestors.
 `tag_id`
 :   `int` The associated category’s original Tag id.
 `okanjo_url`
@@ -143,6 +139,8 @@ Categories are used to create a hierarchical structure (taxonomy) for organizing
 :   [`Category []`](Objects.html#Category) Embeddable. Array of sub-categories.
 `parent`
 :   [`Category`](Objects.html#Category) Nullable. Embeddable. The parent category object.
+`relationship`
+:   [`ProductCategoryRelationship`](Objects.html#ProductCategoryRelationship) Available on embedded categories on [`Product`](Objects.html#Product) objects.
 
 
 ## Cause
@@ -295,7 +293,7 @@ The basic data structure received when starting a session.
 `user_token`
 :   `string`  The user’s API session token.
 `user`
-:   [`User`](Objects.html#User)  The associated private user object. Includes embedded `media`, `stores`, `causes`, and `addresses`.
+:   [`User`](Objects.html#User)  The associated private user object. Includes embedded `media`, `stores`, `causes`, and `addresses`. `Stores` also include `subscriptions`.
 `notifications`
 :   [`Notification []`](Objects.html#Notification) Array of recent event notifications.
 
@@ -571,8 +569,6 @@ An item that can be purchased on Okanjo.
 :   `string (2)`  The state where the product is located.
 `stock`
 :   `null` | `int` How many instances of the product are for sale. Null or empty values denote that the product has infinite stock, and is made "on demand"
-`category_id`
-:   `int`  The ID of the category the product belongs to.
 `cause_id`
 :   `int` Nullable. The ID of the cause the product is being pledged to.
 `is_local_pickup`
@@ -631,8 +627,8 @@ An item that can be purchased on Okanjo.
 :   [`Media Embeds`](Media.html#Media Embeds)  Embeddable. All referenced media for the product and embedded objects.
 `meta`
 :   Array of key/value attributes attached to the object. Metadata is per-API key.
-`category`
-:   [`Category`](Objects.html#Category)  Embeddable. The category the product is filed under.
+`categories`
+:   [`Category []`](Objects.html#Category)  Embeddable. The categories the product is assigned to.
 `cause`
 :   [`Cause`](Objects.html#Cause)  Embeddable. The cause the product is being pledged to.
 `store`
@@ -645,6 +641,16 @@ An item that can be purchased on Okanjo.
 :   [`Bid []`](Objects.html#Bid)  Embeddable. The bidding history of the product.
 `return_policy`
 :   [`ReturnPolicy`](Objects.html#ReturnPolicy)  Embeddable. The return policy associated with the sale of this item.
+
+
+## ProductCategoryRelationship
+
+Relationship of a product to a category.
+
+`type`
+:   `int enum` How the product relates to the category. See [`ProductCategoryRelationshipType`](Constants.html#ProductCategoryRelationshipType)
+`root_category_id`
+:   `int` The unique id of the root id of the taxonomy the category belongs to.
 
 
 ## Promotion

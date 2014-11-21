@@ -14,7 +14,7 @@ Categories may only have a one parent. They may have zero or more children. A ta
 referenced by a different category.
 
 ## Caching
-Okanjo rarely makes changes to it's category taxonomy. We recommend caching the responses for your application.
+Okanjo internally taxonomies for 15 minutes. For most browse-clients, we suggest application-caching the taxonomy tree for the same amount of time.
 
 # Objects
 
@@ -38,17 +38,12 @@ All fields are optional. Accepts the standard pagination parameters.
 :   `string` Returns categories with the given name. Accepts wildcards, use `‘%’` like as in SQL.
 `parent_id`
 :   `int` Returns categories with the given parent.
-`between`
-:   `int csv` Returns categories that have port values between the given range. Used to get a hierarchical range. e.g. `between=10,20`.
-`depth`
-:   `int` Returns categories that have a specific depth.
 *Fields & Includes*
 `fields`
 :   `csv` When given, only returns the given fields. Field `id` will be included even if not specified.
 `embed`
-:   `csv` When given, includes the additional resources. Accepts: `children`, `parent`, or `all_children`. Please note that `all_children` is not compatible with `children` or `parent` embeds, and is not compatible with the `id` filter.
+:   `csv` When given, includes the additional resources. Accepts: `children`, `parent`.
 
-> An important note is that the `all_children` embed returns the entire category taxonomy. This can be very useful, especially for caching.
 
 ### Returns
 
@@ -70,7 +65,7 @@ Resource. Gets a specific category by its unique identifier.
 `fields`
 :   `csv` When given, only returns the given fields.
 `embed`
-:   `csv` When given, includes the additional resources. Accepts: `children`, `parent`.
+:   `csv` When given, includes the additional resources. Accepts: `children`, `parent`, `all_parents`. The `all_parents` embed will embed all ancestor categories.
 
 
 ### Returns
@@ -81,5 +76,23 @@ Resource. Gets a specific category by its unique identifier.
 
 **404 Not Found**
 :   `Category not found.` Occurs when the given category was not found.
+**500 Internal Server Error**
+:   `Failed to retrieve category.` Occurs when the request failed to be fulfilled.
+
+
+## GET /categories/tree
+
+Resource. Gets the complete category taxonomy for the current marketplace.
+
+### Query Parameters
+
+None.
+
+### Returns
+
+[Category](Objects.html#Category) tree object, starting from the root category.
+
+### Errors
+
 **500 Internal Server Error**
 :   `Failed to retrieve category.` Occurs when the request failed to be fulfilled.

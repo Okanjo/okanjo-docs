@@ -396,6 +396,18 @@ Payout object status codes.
 :   `1` Plan is active.
 
 
+## ProductCategoryRelationshipType
+
+How a product relates to a category.
+
+`INHERITED`
+:   `0` Product is related to the category by cross-taxonomy mapping.
+`PRIMARY`
+:   `1` Product was directly assigned to the category by the store.
+`MASTER`
+:   `2` Product is related to the category by direct-taxonomy mapping.
+
+
 ## ProductCondition
 
 Product object condition enumeration.

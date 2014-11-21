@@ -113,7 +113,8 @@ When paying using PayPal, `payer_id` is required, otherwise when paying using a 
 :   `One or more products are no longer available.` Occurs when an item was sold or taken down while it was in someone’s cart. Cannot complete the checkout since the item is no longer available.
 **500 Internal Server Error**
 :   `Could not checkout at this time.` Occurs when something goes wrong when communicating with PayPal/Balanced or there was a problem interacting with the backend.
-
+:   `Payment card could not be authorized.` Occurs when the payment card given could not be authorized by Balanced, usually due to the card issuer declining the transaction. For example, credit limit exceeded.
+:   `PayPal could not authorize the order due to error code: {id}` Occurs when PayPal could not authorize the transaction, usually due to insufficient funding or a problem with the buyer's funding source. `id` is the error number PayPal returned.
 
 
 ## POST /checkout/donations
@@ -252,6 +253,8 @@ When paying using PayPal, `payer_id` is required, otherwise when paying using a 
 :   `One or more products are no longer available.` Occurs when an item was sold or taken down while it was in someone’s cart. Cannot complete the checkout since the item is no longer available.
 **500 Internal Server Error**
 :   `Could not checkout at this time.` Occurs when something goes wrong when communicating with PayPal/Balanced or there was a problem interacting with the backend.
+:   `Payment card could not be authorized.` Occurs when the payment card given could not be authorized by Balanced, usually due to the card issuer declining the transaction. For example, credit limit exceeded.
+:   `PayPal could not authorize the order due to error code: {id}` Occurs when PayPal could not authorize the transaction, usually due to insufficient funding or a problem with the buyer's funding source. `id` is the error number PayPal returned.
 
 
 ### Example
