@@ -56,7 +56,7 @@ user token attached will reset its timeout period.</span>
                 
                 <a class="toc-item" href="Categories.html#Caching">
                     <h4>Caching</h4>
-                    <span class="desc">Okanjo rarely makes changes to it's category taxonomy. We recommend caching the responses for your application.</span>
+                    <span class="desc">Okanjo internally taxonomies for 15 minutes. For most browse-clients, we suggest application-caching the taxonomy tree for the same amount of time.</span>
                 </a>
                 
                 <a class="toc-item" href="Categories.html#GET /categories">
@@ -67,6 +67,11 @@ user token attached will reset its timeout period.</span>
                 <a class="toc-item" href="Categories.html#GET /categories/{id}">
                     <h4>GET /categories/{id}</h4>
                     <span class="desc">Resource. Gets a specific category by its unique identifier.</span>
+                </a>
+                
+                <a class="toc-item" href="Categories.html#GET /categories/tree">
+                    <h4>GET /categories/tree</h4>
+                    <span class="desc">Resource. Gets the complete category taxonomy for the current marketplace.</span>
                 </a>
                 
             </div>
@@ -251,6 +256,11 @@ user token attached will reset its timeout period.</span>
                     <span class="desc"><code>DISABLED</code> :   <code>0</code> Plan is disabled.
 
 <dl class="inline-def"><dt><code>ACTIVE</code></dt><dd><code>1</code> Plan is active.</dd></dl></span>
+                </a>
+                
+                <a class="toc-item" href="Constants.html#ProductCategoryRelationshipType">
+                    <h4>ProductCategoryRelationshipType</h4>
+                    <span class="desc">How a product relates to a category.</span>
                 </a>
                 
                 <a class="toc-item" href="Constants.html#ProductCondition">
@@ -579,6 +589,11 @@ the data you received via webhook.</span>
                 <a class="toc-item" href="Objects.html#Product">
                     <h4>Product</h4>
                     <span class="desc">An item that can be purchased on Okanjo.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#ProductCategoryRelationship">
+                    <h4>ProductCategoryRelationship</h4>
+                    <span class="desc">Relationship of a product to a category.</span>
                 </a>
                 
                 <a class="toc-item" href="Objects.html#Promotion">
