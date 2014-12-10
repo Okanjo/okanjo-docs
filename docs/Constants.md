@@ -10,16 +10,6 @@ The constants listed below are represented in the format:
 Where `LABEL` is the descriptive enumerated name and `VALUE` is the actual enumeration value, used in objects and API routes.
 
 
-## AddressStatus
-
-Address object status codes.
-
-`DISABLED`
-:   `0` Address is no longer available for use.
-`ACTIVE`
-:   `1` Address is available for use.
-
-
 ## AddressType
 
 Address object types.
@@ -33,7 +23,9 @@ Address object types.
 `PAYOUT`
 :   `payout` Used for KYC and anti-fraud purposes.
 `STORE`
-:   `store` Used for physical retail/store presences.
+:   `store` Physical retail/store presence, can be displayed on store profiles.
+`NEXUS`
+:   `nexus` Required for sales tax, specifies point of nexus.
 
 
 ## AuctionWatchStatus
@@ -517,13 +509,15 @@ Reserved product shipping names.
 Store object permission bitwise flags.
 
 `IS_VENDOR`
-:   `1` The store has vendor level permissions.
+:   `1` The store has vendor-level permissions.
 `STOREFRONT_ENABLED`
 :   `2` The store's storefront properties may be used on their storefront page.
 `STOREFRONT_EMBED_ENABLED`
 :   `4` The store may use the embedded storefront widget.
 `HOMEPAGE_PROMOTION_ENABLED`
 :   `8` The store may be included in the store rotation widget.
+`SALES_TAX_ENABLED`
+:   `16` The store accepts sales tax on the products they sell.
 
 
 ## StoreStatus

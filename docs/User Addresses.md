@@ -132,10 +132,6 @@ Resource. Modifies an existing address in the user’s address collection. Give 
 :   `string (2)` Country code. (e.g. US)
 `phone`
 :   `string (20)` Contact phone number.
-`type`
-:   `string enum` Address type. See [`AddressType`](Constants.html#AddressType].
-`status`
-:   `int enum` Address status. See [`AddressStatus`](Constants.html#AddressStatus].
 
 
 ### Returns

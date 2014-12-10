@@ -167,6 +167,8 @@ Resource. Adds a new product for sale on the current user’s store. **Requires 
 :   `bit` Whether the product is available for local pickup.
 `is_free_shipping`
 :   `bit` Whether the product is available with free shipping.
+`is_taxable`
+:   `bit` Whether sales tax is applicable to the product. Default `1` (enabled).
 `shipping_options[n][description]`
 :   `string (2-32)` Array. Description of the shipping option.
 `shipping_options[n][price]`
@@ -256,6 +258,8 @@ Only send the fields that should be updated. Send them all if that's your thing.
 :   `bit` Whether the product is available for local pickup.
 `is_free_shipping`
 :   `bit` Whether the product is available with free shipping.
+`is_taxable`
+:   `bit` Whether sales tax is applicable to the product. Default `1` (enabled).
 `shipping_options[n][description]`
 :   `string (2-32)` Array. Description of the shipping option.
 `shipping_options[n][price]`

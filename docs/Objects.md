@@ -9,8 +9,6 @@ Generic mailing or permanent street address.
 
 `id`
 :   `int`  The unique ID of the address.
-`status`
-:   `int (enum)`  The status of the address. See [`AddressStatus`](Constants.html#AddressStatus].
 `type`
 :   `string (enum)`  The type of the address. See [`AddressType`](Constants.html#AddressType].
 `first_name`
@@ -18,17 +16,17 @@ Generic mailing or permanent street address.
 `last_name`
 :   `string (255)`  Addressee’s last name.
 `address_1`
-:   `string (255)`  Address line one.
+:   `string (255)`  Street address.
 `address_2`
-:   `string (255)` Nullable. Optional, address line 2.
+:   `string (255)` Nullable. Optional, Apt, Bldg, Unit, etc.
 `city`
-:   `string (255)`  Locality
+:   `string (255)`  Locality.
 `state`
-:   `string (2)`  State code (e.g. WI)
+:   `string (2)`  State code (e.g. WI.)
 `zip`
-:   `string (10)`  Postal code
+:   `string (10)`  Postal code.
 `country`
-:   `string (2)`  Country code (e.g. US)
+:   `string (2)`  Country code (e.g. US.)
 `phone`
 :   `string (20)`  Addressee’s phone number.
 `created`
@@ -575,6 +573,8 @@ An item that can be purchased on Okanjo.
 :   `bit`  Whether the product is available for pickup.
 `is_free_shipping`
 :   `bit`  Whether the product can be shipped for no cost to the buyer.
+`is_taxable`
+:   `bit` Whether sales tax is applicable to the product. Default `1` (enabled). Only applicable if the store has sales tax enabled and configured.
 `thumbnail_media_id`
 :   `int`  The ID of the media image that is used as the product’s thumbnail.
 `created`
@@ -746,7 +746,7 @@ A storefront which offers items for sale on Okanjo.
 `okanjo_url`
 :   `string (20)` Nullable. Okanjo URL associated with the store.
 `dma_code`
-:   `int` Nullable. The DMA region code the store belongs to. See [Regions](Regions.html#Regions).
+:   `int` Nullable. The DMA region code the store belongs to. See [`Regions`](Regions.html#Regions).
 `brand_id`
 :   `int` The ID of the brand the store was registered under.
 `brand_name`
@@ -776,11 +776,11 @@ A storefront which offers items for sale on Okanjo.
 `meta`
 :   `string[]`  Array of key/value properties attached to the object. Metadata is per-API key.
 `addresses`
-:   `Address[]`  Embeddable. Array of physical store locations.
+:   [`Address[]`](Objects.html#Address) Embeddable. Array of physical store locations (type `store` only.)
 `products`
 :   `Product[]`  Embeddable. Array of `n` number between 1 and 10 of products from the store. Used for a quick glance of the store’s items.
 `causes`
-:   (`Cause[]`)[Objects.html#Cause] Embeddable. Array of associated causes with the store.
+:   [`Cause[]`](Objects.html#Cause) Embeddable. Array of associated causes with the store.
 `cards`
 :   [`Card []`](Objects.html#Card) Embeddable. Private. Tokenized payment cards used for debits.
 `bank_accounts`
