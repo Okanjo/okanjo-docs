@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Store Addresses : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="storeaddresses">Store Addresses</h1>
+
+<p>Addresses used for store locations, billing, sales tax nexus, etc. Stores can have many addresses of different types.</p>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Address"><code>Address</code></a> – Address object.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#GET /stores/{id}/addresses">GET /stores/{id}/addresses</a></li>
+<li><a href="#GET /stores/{id}/addresses/{address_id}">GET /stores/{id}/addresses/{address_id}</a></li>
+<li><a href="#POST /stores/{id}/addresses">POST /stores/{id}/addresses</a></li>
+<li><a href="#PUT /stores/{id}/addresses/{address_id}">PUT /stores/{id}/addresses/{address_id}</a></li>
+<li><a href="#DELETE /stores/{id}/addresses/{address_id}">DELETE /stores/{id}/addresses/{address_id}</a></li>
+</ul>
+
+<h2 id="getstoresidaddressesahrefgetstoresidaddressesidgetstoresidaddressesclassdeeplinka">GET /stores/{id}/addresses <a href="#GET /stores/{id}/addresses" id="GET /stores/{id}/addresses" class="deep-link">#</a></h2>
+
+<p>Collection. Gets the addresses on file for the given store. <strong>Requires store level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>All fields are optional.</p>
+
+<p><em>Filtering</em></p>
+
+<dl class="inline-def"><dt><p><code>type</code></p></dt><dd><p><code>int enum</code> Returns only addresses of the given type. See <a href="Constants.html#AddressType"><code>AddressType</code></a>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Array of <a href="Objects.html#Address"><code>Address</code></a> objects.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given store is not manageable by the current user.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>store not found.</code> Occurs when the given store was not found. Perhaps deleted?</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+
+<h2 id="getstoresidaddressesaddress_idahrefgetstoresidaddressesaddress_ididgetstoresidaddressesaddress_idclassdeeplinka">GET /stores/{id}/addresses/{address_id} <a href="#GET /stores/{id}/addresses/{address_id}" id="GET /stores/{id}/addresses/{address_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Gets the specific address for the given store. <strong>Requires store level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#Address"><code>Address</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid address.</code> Occurs when the given address_id is not a valid address.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given store does not match the currently logged-in store.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Address not found.</code> Occurs when the given address_id was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+
+<h2 id="poststoresidaddressesahrefpoststoresidaddressesidpoststoresidaddressesclassdeeplinka">POST /stores/{id}/addresses <a href="#POST /stores/{id}/addresses" id="POST /stores/{id}/addresses" class="deep-link">#</a></h2>
+
+<p>Resource. Adds a new address to the store's address collection. <strong>Requires store level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code.</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> Address type. See [<code>AddressType</code>](Constants.html#AddressType].</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#Address"><code>Address</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid address.</code> Occurs when a parameter is missing or invalid.</p></dd><dd><p><code>{field} too long.</code> Occurs when the given parameter exceeded the maximum length.</p></dd><dd><p><code>{field} is invalid.</code> Occurs when the given parameter sent an invalid value.</p></dd><dd><p><code>Too many addresses.</code> Occurs when the store has exceeded the maximum number of addresses that may be stored on the platform.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given store does not match the currently logged-in store.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+
+<h2 id="putstoresidaddressesaddress_idahrefputstoresidaddressesaddress_ididputstoresidaddressesaddress_idclassdeeplinka">PUT /stores/{id}/addresses/{address_id} <a href="#PUT /stores/{id}/addresses/{address_id}" id="PUT /stores/{id}/addresses/{address_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Modifies an existing address in the store’s address collection. Provide only the fields that needed to be updated. Returns the updated address object. <strong>Requires store level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.  (e.g. WI)</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code. (e.g. US)</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Updated <a href="Objects.html#Address"><code>Address</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid address.</code> Occurs when the given address_id is not a valid address.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given store does not match the currently logged-in store.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+
+<h2 id="deletestoresidaddressesaddress_idahrefdeletestoresidaddressesaddress_ididdeletestoresidaddressesaddress_idclassdeeplinka">DELETE /stores/{id}/addresses/{address_id} <a href="#DELETE /stores/{id}/addresses/{address_id}" id="DELETE /stores/{id}/addresses/{address_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Deletes an existing address in the store’s address collection. <strong>Requires store level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Globals.html#Default Response Object"><code>Success</code></a> response when successful.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid address.</code> Occurs when the given <code>address_id</code> is not a valid address.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the given store does not match the currently logged-in store.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Address is still in use.</code> Occurs when the address is still in use by another store or cause.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when an exception occurs.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a href="https://github.com/millermedeiros/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+

@@ -29,7 +29,6 @@
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
-<li><a href="#AddressStatus">AddressStatus</a></li>
 <li><a href="#AddressType">AddressType</a></li>
 <li><a href="#AuctionWatchStatus">AuctionWatchStatus</a></li>
 <li><a href="#AuctionWinnerStatus">AuctionWinnerStatus</a></li>
@@ -53,6 +52,7 @@
 <li><a href="#PayoutStatus">PayoutStatus</a></li>
 <li><a href="#PayoutType">PayoutType</a></li>
 <li><a href="#PlanStatus">PlanStatus</a></li>
+<li><a href="#ProductCategoryRelationshipType">ProductCategoryRelationshipType</a></li>
 <li><a href="#ProductCondition">ProductCondition</a></li>
 <li><a href="#ProductStatus">ProductStatus</a></li>
 <li><a href="#ProductStoreType">ProductStoreType</a></li>
@@ -69,21 +69,15 @@
 <li><a href="#TransactionAssociation">TransactionAssociation</a></li>
 <li><a href="#TransactionStatus">TransactionStatus</a></li>
 <li><a href="#TransactionType">TransactionType</a></li>
-<li><a href="#UserStatus">UserStatus</a></li>
+<li><a href="#UserFlags">UserFlags</a></li>
 <li><a href="#VanityURLType">VanityURLType</a></li>
 </ul>
-
-<h2 id="addressstatusahrefaddressstatusidaddressstatusclassdeeplinka">AddressStatus <a href="#AddressStatus" id="AddressStatus" class="deep-link">#</a></h2>
-
-<p>Address object status codes.</p>
-
-<dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> Address is no longer available for use.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> Address is available for use.</p></dd></dl>
 
 <h2 id="addresstypeahrefaddresstypeidaddresstypeclassdeeplinka">AddressType <a href="#AddressType" id="AddressType" class="deep-link">#</a></h2>
 
 <p>Address object types.</p>
 
-<dl class="inline-def"><dt><p><code>BILLING</code></p></dt><dd><p><code>billing</code> Used for billing purposes.</p></dd><dt><p><code>SHIPPING</code></p></dt><dd><p><code>shipping</code> Used for shipping purposes.</p></dd><dt><p><code>CAUSE</code></p></dt><dd><p><code>cause</code> Used for cause organizations.</p></dd><dt><p><code>PAYOUT</code></p></dt><dd><p><code>payout</code> Used for KYC and anti-fraud purposes.</p></dd><dt><p><code>STORE</code></p></dt><dd><p><code>store</code> Used for physical retail/store presences.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>BILLING</code></p></dt><dd><p><code>billing</code> Used for billing purposes.</p></dd><dt><p><code>SHIPPING</code></p></dt><dd><p><code>shipping</code> Used for shipping purposes.</p></dd><dt><p><code>CAUSE</code></p></dt><dd><p><code>cause</code> Used for cause organizations.</p></dd><dt><p><code>PAYOUT</code></p></dt><dd><p><code>payout</code> Used for KYC and anti-fraud purposes.</p></dd><dt><p><code>STORE</code></p></dt><dd><p><code>store</code> Physical retail/store presence, can be displayed on store profiles.</p></dd><dt><p><code>NEXUS</code></p></dt><dd><p><code>nexus</code> Required for sales tax, specifies point of nexus.</p></dd></dl>
 
 <h2 id="auctionwatchstatusahrefauctionwatchstatusidauctionwatchstatusclassdeeplinka">AuctionWatchStatus <a href="#AuctionWatchStatus" id="AuctionWatchStatus" class="deep-link">#</a></h2>
 
@@ -231,6 +225,12 @@
 
 <dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> Plan is disabled.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> Plan is active.</p></dd></dl>
 
+<h2 id="productcategoryrelationshiptypeahrefproductcategoryrelationshiptypeidproductcategoryrelationshiptypeclassdeeplinka">ProductCategoryRelationshipType <a href="#ProductCategoryRelationshipType" id="ProductCategoryRelationshipType" class="deep-link">#</a></h2>
+
+<p>How a product relates to a category.</p>
+
+<dl class="inline-def"><dt><p><code>INHERITED</code></p></dt><dd><p><code>0</code> Product is related to the category by cross-taxonomy mapping.</p></dd><dt><p><code>PRIMARY</code></p></dt><dd><p><code>1</code> Product was directly assigned to the category by the store.</p></dd><dt><p><code>MASTER</code></p></dt><dd><p><code>2</code> Product is related to the category by direct-taxonomy mapping.</p></dd></dl>
+
 <h2 id="productconditionahrefproductconditionidproductconditionclassdeeplinka">ProductCondition <a href="#ProductCondition" id="ProductCondition" class="deep-link">#</a></h2>
 
 <p>Product object condition enumeration.</p>
@@ -283,7 +283,7 @@
 
 <p>Store object permission bitwise flags.</p>
 
-<dl class="inline-def"><dt><p><code>IS_VENDOR</code></p></dt><dd><p><code>1</code> The store has vendor level permissions.</p></dd><dt><p><code>STOREFRONT_ENABLED</code></p></dt><dd><p><code>2</code> The store's storefront properties may be used on their storefront page.</p></dd><dt><p><code>STOREFRONT_EMBED_ENABLED</code></p></dt><dd><p><code>4</code> The store may use the embedded storefront widget.</p></dd><dt><p><code>HOMEPAGE_PROMOTION_ENABLED</code></p></dt><dd><p><code>8</code> The store may be included in the store rotation widget.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>IS_VENDOR</code></p></dt><dd><p><code>1</code> The store has vendor-level permissions.</p></dd><dt><p><code>STOREFRONT_ENABLED</code></p></dt><dd><p><code>2</code> The store's storefront properties may be used on their storefront page.</p></dd><dt><p><code>STOREFRONT_EMBED_ENABLED</code></p></dt><dd><p><code>4</code> The store may use the embedded storefront widget.</p></dd><dt><p><code>HOMEPAGE_PROMOTION_ENABLED</code></p></dt><dd><p><code>8</code> The store may be included in the store rotation widget.</p></dd><dt><p><code>SALES_TAX_ENABLED</code></p></dt><dd><p><code>16</code> The store accepts sales tax on the products they sell.</p></dd></dl>
 
 <h2 id="storestatusahrefstorestatusidstorestatusclassdeeplinka">StoreStatus <a href="#StoreStatus" id="StoreStatus" class="deep-link">#</a></h2>
 
@@ -331,7 +331,7 @@
 
 <h3 id="storeactivities">Store Activities</h3>
 
-<dl class="inline-def"><dt><p><code>STORE_CREDIT_ITEM_PAYMENT</code></p></dt><dd><p><code>200</code> Occurs when a store receives payment for the sale of an item.</p></dd><dt><p><code>STORE_DEBIT_PAYMENT_PROCESSING_FEE</code></p></dt><dd><p><code>201</code> Third-party payment processing fee. For example, 2.9% + 30¢. Only collected when applicable.</p></dd><dt><p><code>STORE_DEBIT_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>203</code> Commission collected by Okanjo for facilitating the sale of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_DEBIT_DONATION</code></p></dt><dd><p><code>205</code> Donation given to a cause for the sale of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_CREDIT_DONATION</code></p></dt><dd><p><code>206</code> Occurs when the cause store receives a donation for the sale of an item.</p></dd><dt><p><code>STORE_DEBIT_DONATION_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>207</code> Commission collected by Okanjo for facilitating the donation of an item. Only collected when applicable.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_ITEM_PAYMENT</code></p></dt><dd><p><code>200</code> Occurs when a store receives payment for the sale of an item.</p></dd><dt><p><code>STORE_DEBIT_PAYMENT_PROCESSING_FEE</code></p></dt><dd><p><code>201</code> Third-party payment processing fee. For example, 2.9% + 30¢. Only collected when applicable.</p></dd><dt><p><code>STORE_DEBIT_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>203</code> Commission collected by Okanjo for facilitating the sale of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_DEBIT_DONATION</code></p></dt><dd><p><code>205</code> Donation given to a cause for the sale of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_CREDIT_DONATION</code></p></dt><dd><p><code>206</code> Occurs when the cause store receives a donation for the sale of an item.</p></dd><dt><p><code>STORE_DEBIT_DONATION_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>207</code> Commission collected by Okanjo for facilitating the donation of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_CREDIT_ITEM_SALES_TAX</code></p></dt><dd><p><code>208</code> Sales tax for the sale of the item. Only collected when the store is configured to do so and the buyer is not exempt from tax.</p></dd></dl>
 
 <dl class="inline-def"><dt><p><code>STORE_DEBIT_DISBURSEMENT_FEE</code></p></dt><dd><p><code>221</code> Third-party disbursement processing fee. For example, 25¢ for direct deposits, 2% up to $1 for PayPal.</p></dd><dt><p><code>STORE_DEBIT_DISBURSEMENT</code></p></dt><dd><p><code>223</code> Withdrawal to the store's payout source, such as a bank account or PayPal.</p></dd></dl>
 
@@ -343,17 +343,17 @@
 
 <dl class="inline-def"><dt><p><code>STORE_CREDIT_REVERSE_DISBURSEMENT</code></p></dt><dd><p><code>250</code> Occurs when the disbursement was reversed.</p></dd><dt><p><code>STORE_CREDIT_REVERSE_DISBURSEMENT_FAILED</code></p></dt><dd><p><code>252</code> Occurs when the disbursement failed to be deposited.</p></dd><dt><p><code>STORE_CREDIT_REFUND_DISBURSEMENT_FEE</code></p></dt><dd><p><code>254</code> Occurs when the disbursement fee is refunded back to the store.</p></dd></dl>
 
-<dl class="inline-def"><dt><p><code>STORE_CREDIT_REFUND_DONATION_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>260</code> Refund to the cause store for the commission taken for the donation of an item.</p></dd><dt><p><code>STORE_DEBIT_REFUND_DONATION</code></p></dt><dd><p><code>261</code> Refund on the cause store back to the origin (donating) store.</p></dd><dt><p><code>STORE_CREDIT_REFUND_DONATION</code></p></dt><dd><p><code>262</code> Refund to the store from a cause store.</p></dd><dt><p><code>STORE_CREDIT_REFUND_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>264</code> Refund to the store for the commission taken for the sale of an item.</p></dd><dt><p><code>STORE_CREDIT_REFUND_PAYMENT_PROCESSING_FEE</code></p></dt><dd><p><code>266</code> Refund to the store for the payment processing fee taken by the third-party.</p></dd><dt><p><code>STORE_DEBIT_REFUND_ITEM_PAYMENT</code></p></dt><dd><p><code>267</code> Refund to the buyer for the purchase of an item.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_REFUND_DONATION_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>260</code> Refund to the cause store for the commission taken for the donation of an item.</p></dd><dt><p><code>STORE_DEBIT_REFUND_DONATION</code></p></dt><dd><p><code>261</code> Refund on the cause store back to the origin (donating) store.</p></dd><dt><p><code>STORE_CREDIT_REFUND_DONATION</code></p></dt><dd><p><code>262</code> Refund to the store from a cause store.</p></dd><dt><p><code>STORE_CREDIT_REFUND_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>264</code> Refund to the store for the commission taken for the sale of an item.</p></dd><dt><p><code>STORE_CREDIT_REFUND_PAYMENT_PROCESSING_FEE</code></p></dt><dd><p><code>266</code> Refund to the store for the payment processing fee taken by the third-party.</p></dd><dt><p><code>STORE_DEBIT_REFUND_ITEM_PAYMENT</code></p></dt><dd><p><code>267</code> Refund to the buyer for the purchase of an item.</p></dd><dt><p><code>STORE_DEBIT_REFUND_ITEM_SALES_TAX</code></p></dt><dd><p><code>269</code> Refund to the buyer for the sales tax collected on the item.</p></dd></dl>
 
 <h3 id="organizationalandmarketplaceactivities">Organizational and Marketplace Activities</h3>
 
 <dl class="inline-def"><dt><p><code>ORG_CREDIT_SALE_COMMISSION</code></p></dt><dd><p><code>300</code> Occurs when a commission is received for the sale of an item.</p></dd><dt><p><code>ORG_DEBIT_REFUND_SALE_COMMISSION</code></p></dt><dd><p><code>301</code> Occurs when a commission is refunded for the sale of an item</p></dd><dt><p><code>ORG_CREDIT_DONATION_COMMISSION</code></p></dt><dd><p><code>310</code> Occurs when a commission is received for the donation of an item.</p></dd><dt><p><code>ORG_DEBIT_REFUND_DONATION_COMMISSION</code></p></dt><dd><p><code>311</code> Occurs when a commission is refunded for the donation of an item.</p></dd><dt><p><code>ORG_CREDIT_SUBSCRIPTION_COMMISSION</code></p></dt><dd><p><code>320</code> Occurs when a subscription commission is received.</p></dd><dt><p><code>ORG_DEBIT_REFUND_SUBSCRIPTION_COMMISSION</code></p></dt><dd><p><code>321</code> Occurs when a subscription commission is refunded.</p></dd><dt><p><code>ORG_DEBIT_REFUNDED_PAYMENT_FEE</code></p></dt><dd><p><code>331</code> Occurs when a third-party payment fee is refunded.</p></dd><dt><p><code>ORG_DEBIT_REVERSED_DISBURSEMENT_FEE</code></p></dt><dd><p><code>333</code> Occurs when a third-party disbursement fee is refunded.</p></dd><dt><p><code>ORG_CREDIT_OTHER</code></p></dt><dd><p><code>340</code> Miscellaneous credit.</p></dd><dt><p><code>ORG_DEBIT_OTHER</code></p></dt><dd><p><code>341</code> Miscellaneous debit.</p></dd></dl>
 
-<h2 id="userstatusahrefuserstatusiduserstatusclassdeeplinka">UserStatus <a href="#UserStatus" id="UserStatus" class="deep-link">#</a></h2>
+<h2 id="userflagsahrefuserflagsiduserflagsclassdeeplinka">UserFlags <a href="#UserFlags" id="UserFlags" class="deep-link">#</a></h2>
 
-<p>User object status codes.</p>
+<p>Configuration and informational settings on the user account.</p>
 
-<dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> User has been deactivated and is no longer accessible.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> User is active and can access Okanjo.</p></dd><dt><p><code>GUEST</code></p></dt><dd><p><code>2</code> User is a guest and has not completed user registration.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>TAX_EXEMPT</code></p></dt><dd><p><code>1</code> Indicates the user has tax exempt status, and sales tax is not applicable on purchases.</p></dd></dl>
 
 <h2 id="vanityurltypeahrefvanityurltypeidvanityurltypeclassdeeplinka">VanityURLType <a href="#VanityURLType" id="VanityURLType" class="deep-link">#</a></h2>
 

@@ -1,7 +1,6 @@
-# User Addresses
+# Store Addresses
 
-Generic mailing or permanent street address. Users can have many addresses of different types.
-
+Addresses used for store locations, billing, sales tax nexus, etc. Stores can have many addresses of different types.
 
 # Objects
 
@@ -11,9 +10,9 @@ Generic mailing or permanent street address. Users can have many addresses of di
 # Routes
 
 
-## GET /users/{id}/addresses
+## GET /stores/{id}/addresses
 
-Collection. Gets the addresses on file for the given user. **Requires user level authentication.**
+Collection. Gets the addresses on file for the given store. **Requires store level authentication.**
 
 ### Query Parameters
 
@@ -30,17 +29,17 @@ Array of [`Address`](Objects.html#Address) objects.
 ### Errors
 
 **403 Forbidden**
-:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+:   `Access denied.` Occurs when the given store is not manageable by the current user.
 **404 Not Found**
-:   `User not found.` Occurs when the given user was not found. Perhaps deleted?
+:   `store not found.` Occurs when the given store was not found. Perhaps deleted?
 **500 Internal Server Error**
 :   `System error.` Occurs when an exception occurs.
 
 
 
-## GET /users/{id}/addresses/{address_id}
+## GET /stores/{id}/addresses/{address_id}
 
-Resource. Gets the specific address for the given user. **Requires user level authentication.**
+Resource. Gets the specific address for the given store. **Requires store level authentication.**
 
 ### Query Parameters
 
@@ -55,7 +54,7 @@ None.
 **400 Bad Request**
 :   `Invalid address.` Occurs when the given address_id is not a valid address.
 **403 Forbidden**
-:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+:   `Access denied.` Occurs when the given store does not match the currently logged-in store.
 **404 Not Found**
 :   `Address not found.` Occurs when the given address_id was not found.
 **500 Internal Server Error**
@@ -63,9 +62,9 @@ None.
 
 
 
-## POST /users/{id}/addresses
+## POST /stores/{id}/addresses
 
-Resource. Adds a new address to the address collection. **Requires user level authentication.**
+Resource. Adds a new address to the store's address collection. **Requires store level authentication.**
 
 ### Entity NVP Parameters
 
@@ -102,16 +101,16 @@ Resource. Adds a new address to the address collection. **Requires user level au
 :   `Invalid address.` Occurs when a parameter is missing or invalid.
 :   `{field} too long.` Occurs when the given parameter exceeded the maximum length.
 :   `{field} is invalid.` Occurs when the given parameter sent an invalid value.
-:   `Too many addresses.` Occurs when the user has exceeded the maximum number of addresses that may be stored on the platform.
+:   `Too many addresses.` Occurs when the store has exceeded the maximum number of addresses that may be stored on the platform.
 **403 Forbidden**
-:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+:   `Access denied.` Occurs when the given store does not match the currently logged-in store.
 **500 Internal Server Error**
 :   `System error.` Occurs when an exception occurs.
 
 
-## PUT /users/{id}/addresses/{address_id}
+## PUT /stores/{id}/addresses/{address_id}
 
-Resource. Modifies an existing address in the user’s address collection. Give only the fields needed to update. Returns the updated address object. **Requires user level authentication.**
+Resource. Modifies an existing address in the store’s address collection. Provide only the fields that needed to be updated. Returns the updated address object. **Requires store level authentication.**
 
 ### Entity NVP Parameters
 
@@ -144,15 +143,15 @@ Updated [`Address`](Objects.html#Address) object.
 **400 Bad Request**
 :   `Invalid address.` Occurs when the given address_id is not a valid address.
 **403 Forbidden**
-:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+:   `Access denied.` Occurs when the given store does not match the currently logged-in store.
 **500 Internal Server Error**
 :   `System error.` Occurs when an exception occurs.
 
 
 
-## DELETE /users/{id}/addresses/{address_id}
+## DELETE /stores/{id}/addresses/{address_id}
 
-Resource. Deletes an existing address in the user’s address collection. **Requires user level authentication.**
+Resource. Deletes an existing address in the store’s address collection. **Requires store level authentication.**
 
 ### Entity NVP Parameters
 
@@ -167,8 +166,8 @@ None.
 **400 Bad Request**
 :   `Invalid address.` Occurs when the given `address_id` is not a valid address.
 **403 Forbidden**
-:   `Access denied.` Occurs when the given user does not match the currently logged-in user.
+:   `Access denied.` Occurs when the given store does not match the currently logged-in store.
 **409 Conflict**
-:   `Address is still in use.` Occurs when the address is still in use by another user or cause.
+:   `Address is still in use.` Occurs when the address is still in use by another store or cause.
 **500 Internal Server Error**
 :   `System error.` Occurs when an exception occurs.

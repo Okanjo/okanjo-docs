@@ -627,6 +627,8 @@ The type of action associated with a transaction. All credits are even and debit
 :   `206` Occurs when the cause store receives a donation for the sale of an item.
 `STORE_DEBIT_DONATION_OKANJO_COMMISSION_FEE`
 :   `207` Commission collected by Okanjo for facilitating the donation of an item. Only collected when applicable.
+`STORE_CREDIT_ITEM_SALES_TAX`
+:   `208` Sales tax for the sale of the item. Only collected when the store is configured to do so and the buyer is not exempt from tax.
 
 `STORE_DEBIT_DISBURSEMENT_FEE`
 :   `221` Third-party disbursement processing fee. For example, 25¢ for direct deposits, 2% up to $1 for PayPal.
@@ -665,6 +667,8 @@ The type of action associated with a transaction. All credits are even and debit
 :   `266` Refund to the store for the payment processing fee taken by the third-party.
 `STORE_DEBIT_REFUND_ITEM_PAYMENT`
 :   `267` Refund to the buyer for the purchase of an item.
+`STORE_DEBIT_REFUND_ITEM_SALES_TAX`
+:   `269` Refund to the buyer for the sales tax collected on the item.
 
 ### Organizational and Marketplace Activities
 
@@ -690,16 +694,12 @@ The type of action associated with a transaction. All credits are even and debit
 :   `341` Miscellaneous debit.
 
 
-## UserStatus
+## UserFlags
 
-User object status codes.
+Configuration and informational settings on the user account.
 
-`DISABLED`
-:   `0` User has been deactivated and is no longer accessible.
-`ACTIVE`
-:   `1` User is active and can access Okanjo.
-`GUEST`
-:   `2` User is a guest and has not completed user registration.
+`TAX_EXEMPT`
+:   `1` Indicates the user has tax exempt status, and sales tax is not applicable on purchases.
 
 
 ## VanityURLType

@@ -3,6 +3,15 @@
 
 When stuff changes, it's described here.
 
+## 2014-12-17
+ * Added transaction types for sales tax
+ * Added UserFlags for options on user objects
+ * Updated Address object (removed auditing fields)
+ * Added is_tax_exempt on Order objects
+ * Added tax_price on order_item
+ * Added store address CRUD routes
+ * Updated user address CRUD route docs
+
 ## 2014-11-14
  * Updated docs for category and taxonomy system changes
  * Added new checkout errors to confirmation routes

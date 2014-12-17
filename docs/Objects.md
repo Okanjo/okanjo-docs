@@ -5,7 +5,7 @@ The following are objects returned by API.
 
 ## Address
 
-Generic mailing or permanent street address.
+A physical location for various purposes, such as shipping, billing, store locations, sales tax nexus, etc.
 
 `id`
 :   `int`  The unique ID of the address.
@@ -20,19 +20,15 @@ Generic mailing or permanent street address.
 `address_2`
 :   `string (255)` Nullable. Optional, Apt, Bldg, Unit, etc.
 `city`
-:   `string (255)`  Locality.
+:   `string (255)`  Locality (e.g. Milwaukee.)
 `state`
 :   `string (2)`  State code (e.g. WI.)
 `zip`
-:   `string (10)`  Postal code.
+:   `string (10)`  Postal code. (e.g. 53202.)
 `country`
 :   `string (2)`  Country code (e.g. US.)
 `phone`
 :   `string (20)`  Addressee’s phone number.
-`created`
-:   `date time`  When the address was created.
-`updated`
-:   `date time`  When the address was last updated.
 
 
 ## BankAccount
@@ -373,6 +369,8 @@ Complete buyer purchase transaction. Contains buyer information and purchased it
 :   `string (20)`  The buyer’s contact phone number.
 `shipping_email`
 :   `string (255)`  The buyer’s contact email address.
+`is_tax_exempt`
+:   `bit`  Whether the purchase was exempt from collecting sales tax.
 `status`
 :   `int enum`  The status of the order. See [`OrderStatus`](Constants.html#OrderStatus).
 `type`
@@ -432,7 +430,9 @@ Represents a snapshot of a product that was purchased.
 `shipping_description`
 :   `string (32)` Nullable. The original selected shipping description.
 `shipping_price`
-:   `decimal` Nullable. The original cost of shipping.
+:   `decimal` Nullable. The original cost of shipping per item.
+`tax_price`
+:   `decimal` The sales tax applicable per item.
 `tracking_carrier`
 :   `string (64)` Nullable. The shipping provider, provided by the seller.
 `tracking_number`

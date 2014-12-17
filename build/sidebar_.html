@@ -56,7 +56,7 @@ user token attached will reset its timeout period.</span>
                 
                 <a class="toc-item" href="Categories.html#Caching">
                     <h4>Caching</h4>
-                    <span class="desc">Okanjo rarely makes changes to it's category taxonomy. We recommend caching the responses for your application.</span>
+                    <span class="desc">Okanjo internally taxonomies for 15 minutes. For most browse-clients, we suggest application-caching the taxonomy tree for the same amount of time.</span>
                 </a>
                 
                 <a class="toc-item" href="Categories.html#GET /categories">
@@ -67,6 +67,11 @@ user token attached will reset its timeout period.</span>
                 <a class="toc-item" href="Categories.html#GET /categories/{id}">
                     <h4>GET /categories/{id}</h4>
                     <span class="desc">Resource. Gets a specific category by its unique identifier.</span>
+                </a>
+                
+                <a class="toc-item" href="Categories.html#GET /categories/tree">
+                    <h4>GET /categories/tree</h4>
+                    <span class="desc">Resource. Gets the complete category taxonomy for the current marketplace.</span>
                 </a>
                 
             </div>
@@ -128,11 +133,6 @@ user token attached will reset its timeout period.</span>
         
             <h3 class="toc-mod-title"><a href="Constants.html">Constants</a></h3>
             <div class="toc-list">
-                
-                <a class="toc-item" href="Constants.html#AddressStatus">
-                    <h4>AddressStatus</h4>
-                    <span class="desc">Address object status codes.</span>
-                </a>
                 
                 <a class="toc-item" href="Constants.html#AddressType">
                     <h4>AddressType</h4>
@@ -253,6 +253,11 @@ user token attached will reset its timeout period.</span>
 <dl class="inline-def"><dt><code>ACTIVE</code></dt><dd><code>1</code> Plan is active.</dd></dl></span>
                 </a>
                 
+                <a class="toc-item" href="Constants.html#ProductCategoryRelationshipType">
+                    <h4>ProductCategoryRelationshipType</h4>
+                    <span class="desc">How a product relates to a category.</span>
+                </a>
+                
                 <a class="toc-item" href="Constants.html#ProductCondition">
                     <h4>ProductCondition</h4>
                     <span class="desc">Product object condition enumeration.</span>
@@ -333,9 +338,9 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">The type of action associated with a transaction. All credits are even and debits are odd.</span>
                 </a>
                 
-                <a class="toc-item" href="Constants.html#UserStatus">
-                    <h4>UserStatus</h4>
-                    <span class="desc">User object status codes.</span>
+                <a class="toc-item" href="Constants.html#UserFlags">
+                    <h4>UserFlags</h4>
+                    <span class="desc">Configuration and informational settings on the user account.</span>
                 </a>
                 
                 <a class="toc-item" href="Constants.html#VanityURLType">
@@ -453,7 +458,7 @@ the data you received via webhook.</span>
                 
                 <a class="toc-item" href="Objects.html#Address">
                     <h4>Address</h4>
-                    <span class="desc">Generic mailing or permanent street address.</span>
+                    <span class="desc">A physical location for various purposes, such as shipping, billing, store locations, sales tax nexus, etc.</span>
                 </a>
                 
                 <a class="toc-item" href="Objects.html#BankAccount">
@@ -581,6 +586,11 @@ the data you received via webhook.</span>
                     <span class="desc">An item that can be purchased on Okanjo.</span>
                 </a>
                 
+                <a class="toc-item" href="Objects.html#ProductCategoryRelationship">
+                    <h4>ProductCategoryRelationship</h4>
+                    <span class="desc">Relationship of a product to a category.</span>
+                </a>
+                
                 <a class="toc-item" href="Objects.html#Promotion">
                     <h4>Promotion</h4>
                     <span class="desc">Sales-based coupon/promotion that affects the earnings of as sale.</span>
@@ -684,6 +694,36 @@ the data you received via webhook.</span>
                 <a class="toc-item" href="Regions.html#GET /regions/{id}">
                     <h4>GET /regions/{id}</h4>
                     <span class="desc">Resource. Currently returns the regional information of the querying client by default.</span>
+                </a>
+                
+            </div>
+        
+            <h3 class="toc-mod-title"><a href="Store Addresses.html">Store Addresses</a></h3>
+            <div class="toc-list">
+                
+                <a class="toc-item" href="Store Addresses.html#GET /stores/{id}/addresses">
+                    <h4>GET /stores/{id}/addresses</h4>
+                    <span class="desc">Collection. Gets the addresses on file for the given store. <strong>Requires store level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Addresses.html#GET /stores/{id}/addresses/{address_id}">
+                    <h4>GET /stores/{id}/addresses/{address_id}</h4>
+                    <span class="desc">Resource. Gets the specific address for the given store. <strong>Requires store level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Addresses.html#POST /stores/{id}/addresses">
+                    <h4>POST /stores/{id}/addresses</h4>
+                    <span class="desc">Resource. Adds a new address to the store's address collection. <strong>Requires store level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Addresses.html#PUT /stores/{id}/addresses/{address_id}">
+                    <h4>PUT /stores/{id}/addresses/{address_id}</h4>
+                    <span class="desc">Resource. Modifies an existing address in the store’s address collection. Provide only the fields that needed to be updated. Returns the updated address object. <strong>Requires store level authentication.</strong></span>
+                </a>
+                
+                <a class="toc-item" href="Store Addresses.html#DELETE /stores/{id}/addresses/{address_id}">
+                    <h4>DELETE /stores/{id}/addresses/{address_id}</h4>
+                    <span class="desc">Resource. Deletes an existing address in the store’s address collection. <strong>Requires store level authentication.</strong></span>
                 </a>
                 
             </div>
@@ -844,17 +884,17 @@ the store.</span>
                 
                 <a class="toc-item" href="User Addresses.html#GET /users/{id}/addresses">
                     <h4>GET /users/{id}/addresses</h4>
-                    <span class="desc">Collection. Gets the addresses on file for the given user. Can only retrieve own addresses. Attempts to retrieve another user’s addresses will be denied. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Collection. Gets the addresses on file for the given user. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
                 <a class="toc-item" href="User Addresses.html#GET /users/{id}/addresses/{address_id}">
                     <h4>GET /users/{id}/addresses/{address_id}</h4>
-                    <span class="desc">Resource. Gets the specific address for the given user. Can only retrieve own addresses. Attempts to retrieve another user’s addresses will be denied. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Resource. Gets the specific address for the given user. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
                 <a class="toc-item" href="User Addresses.html#POST /users/{id}/addresses">
                     <h4>POST /users/{id}/addresses</h4>
-                    <span class="desc">Resource. Adds a new address to the address collection. Limit 20 addresses per user. New address will be created with active status. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Resource. Adds a new address to the address collection. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
                 <a class="toc-item" href="User Addresses.html#PUT /users/{id}/addresses/{address_id}">
@@ -864,7 +904,7 @@ the store.</span>
                 
                 <a class="toc-item" href="User Addresses.html#DELETE /users/{id}/addresses/{address_id}">
                     <h4>DELETE /users/{id}/addresses/{address_id}</h4>
-                    <span class="desc">Resource. Deletes an existing address in the user’s address collection. Only addresses that are not in use by other users and causes may be deleted. <strong>Requires user level authentication.</strong></span>
+                    <span class="desc">Resource. Deletes an existing address in the user’s address collection. <strong>Requires user level authentication.</strong></span>
                 </a>
                 
             </div>

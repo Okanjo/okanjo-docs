@@ -18,15 +18,12 @@
 </ul>
 <h1 id="useraddresses">User Addresses</h1>
 
-<p>Generic mailing or permanent street address. Users can store many addresses of different types.</p>
-
-<p>Stores can use addresses to list physical storefront locations. Routes to manage store addresses are not yet implemented.
-Contact Okanjo support can add store addresses.</p>
+<p>Generic mailing or permanent street address. Users can have many addresses of different types.</p>
 
 <h1 id="objects">Objects</h1>
 
 <ul>
-<li><a href="Objects.html#Address"><code>Address</code></a> – Physical mailing or permanent street address.</li>
+<li><a href="Objects.html#Address"><code>Address</code></a> – Address object.</li>
 </ul>
 
 <h1 id="routes">Routes</h1>
@@ -43,11 +40,15 @@ Contact Okanjo support can add store addresses.</p>
 
 <h2 id="getusersidaddressesahrefgetusersidaddressesidgetusersidaddressesclassdeeplinka">GET /users/{id}/addresses <a href="#GET /users/{id}/addresses" id="GET /users/{id}/addresses" class="deep-link">#</a></h2>
 
-<p>Collection. Gets the addresses on file for the given user. Can only retrieve own addresses. Attempts to retrieve another user’s addresses will be denied. <strong>Requires user level authentication.</strong></p>
+<p>Collection. Gets the addresses on file for the given user. <strong>Requires user level authentication.</strong></p>
 
 <h3 id="queryparameters">Query Parameters</h3>
 
-<p>None.</p>
+<p>All fields are optional.</p>
+
+<p><em>Filtering</em></p>
+
+<dl class="inline-def"><dt><p><code>type</code></p></dt><dd><p><code>int enum</code> Returns only addresses of the given type. See <a href="Constants.html#AddressType"><code>AddressType</code></a>.</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 
@@ -59,7 +60,7 @@ Contact Okanjo support can add store addresses.</p>
 
 <h2 id="getusersidaddressesaddress_idahrefgetusersidaddressesaddress_ididgetusersidaddressesaddress_idclassdeeplinka">GET /users/{id}/addresses/{address_id} <a href="#GET /users/{id}/addresses/{address_id}" id="GET /users/{id}/addresses/{address_id}" class="deep-link">#</a></h2>
 
-<p>Resource. Gets the specific address for the given user. Can only retrieve own addresses. Attempts to retrieve another user’s addresses will be denied. <strong>Requires user level authentication.</strong></p>
+<p>Resource. Gets the specific address for the given user. <strong>Requires user level authentication.</strong></p>
 
 <h3 id="queryparameters">Query Parameters</h3>
 
@@ -75,7 +76,7 @@ Contact Okanjo support can add store addresses.</p>
 
 <h2 id="postusersidaddressesahrefpostusersidaddressesidpostusersidaddressesclassdeeplinka">POST /users/{id}/addresses <a href="#POST /users/{id}/addresses" id="POST /users/{id}/addresses" class="deep-link">#</a></h2>
 
-<p>Resource. Adds a new address to the address collection. Limit 20 addresses per user. New address will be created with active status. <strong>Requires user level authentication.</strong></p>
+<p>Resource. Adds a new address to the address collection. <strong>Requires user level authentication.</strong></p>
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
@@ -95,7 +96,7 @@ Contact Okanjo support can add store addresses.</p>
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
-<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.  (e.g. WI)</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code. (e.g. US)</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>string enum</code> Address type. See [<code>AddressType</code>](Constants.html#AddressType].</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int enum</code> Address status. See [<code>AddressStatus</code>](Constants.html#AddressStatus].</p></dd></dl>
+<dl class="inline-def"><dt><p><code>first_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s first name.</p></dd><dt><p><code>last_name</code></p></dt><dd><p><code>string (255)</code> Addressee’s last name.</p></dd><dt><p><code>address_1</code></p></dt><dd><p><code>string (255)</code> Street address.</p></dd><dt><p><code>address_2</code></p></dt><dd><p><code>string (255)</code> Optional. Street address line two.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string (255)</code> Locality.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string (2)</code> State code.  (e.g. WI)</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string (10)</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string (2)</code> Country code. (e.g. US)</p></dd><dt><p><code>phone</code></p></dt><dd><p><code>string (20)</code> Contact phone number.</p></dd></dl>
 
 <h3 id="returns">Returns</h3>
 
@@ -107,7 +108,7 @@ Contact Okanjo support can add store addresses.</p>
 
 <h2 id="deleteusersidaddressesaddress_idahrefdeleteusersidaddressesaddress_ididdeleteusersidaddressesaddress_idclassdeeplinka">DELETE /users/{id}/addresses/{address_id} <a href="#DELETE /users/{id}/addresses/{address_id}" id="DELETE /users/{id}/addresses/{address_id}" class="deep-link">#</a></h2>
 
-<p>Resource. Deletes an existing address in the user’s address collection. Only addresses that are not in use by other users and causes may be deleted. <strong>Requires user level authentication.</strong></p>
+<p>Resource. Deletes an existing address in the user’s address collection. <strong>Requires user level authentication.</strong></p>
 
 <h3 id="entitynvpparameters">Entity NVP Parameters</h3>
 
