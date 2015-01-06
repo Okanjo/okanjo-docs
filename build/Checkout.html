@@ -32,6 +32,7 @@
 
 <ul>
 <li><a href="Objects.html#Card"><code>Card</code></a> – Tokenized payment card</li>
+<li><a href="Objects.html#CheckoutQuote"><code>CheckoutQuote</code></a> – Order quote (includes tax and shipping rates)</li>
 <li><a href="Objects.html#CheckoutOrder"><code>CheckoutOrder</code></a> – Unconfirmed order</li>
 <li><a href="Objects.html#CheckoutConfirmation"><code>CheckoutConfirmation</code></a> – Order confirmation</li>
 </ul>
@@ -42,6 +43,7 @@
 
 <ul>
 <li><a href="#POST /checkout">POST /checkout</a></li>
+<li><a href="#POST /checkout/rates">POST /checkout/rates</a></li>
 <li><a href="#POST /checkout/confirm">POST /checkout/confirm</a></li>
 <li><a href="#POST /checkout/donations">POST /checkout/donations</a></li>
 <li><a href="#POST /checkout/donations/confirm">POST /checkout/donations/confirm</a></li>
@@ -61,7 +63,28 @@
 
 <h3 id="errors">Errors</h3>
 
-<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid cart.</code> Occurs when the cart that was given was invalid.</p></dd><dd><p><code>Invalid url.</code> Occurs when one of the return URL’s are invalid.</p></dd><dd><p><code>Invalid cart item: {id}</code> Occurs when there was a problem with a specific product in the cart.</p></dd><dd><p><code>Invalid cart total.</code> Occurs when the cart total is outside of the valid range of $1 and $10,000.</p></dd><dd><p><code>Invalid shipping address.</code> Occurs when one or more of the shipping fields were missing or invalid.</p></dd><dd><p><code>Invalid address - city, state, zip mismatch.</code> Occurs when PayPal failed to validate the given shipping address.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was not valid.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Login required.</code> Occurs when the user attempted to checkout without a valid account.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Cannot buy items own item: {id}</code> Occurs when the user attempted to checkout their own item.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Something went wrong.</code> Occurs when the was an unknown problem on the server.</p></dd><dd><p><code>Could not checkout at this time.</code> Occurs when something goes wrong when talking to PayPal’s API.</p></dd></dl>
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid cart.</code> Occurs when the cart that was given was invalid.</p></dd><dd><p><code>Invalid url.</code> Occurs when one of the return URL’s are invalid.</p></dd><dd><p><code>Invalid cart item: {id}</code> Occurs when there was a problem with a specific product in the cart.</p></dd><dd><p><code>Invalid cart total.</code> Occurs when the cart total is outside of the valid range of $1 and $10,000.</p></dd><dd><p><code>Invalid shipping address.</code> Occurs when one or more of the shipping fields were missing or invalid.</p></dd><dd><p><code>Invalid address - city, state, zip mismatch.</code> Occurs when PayPal failed to validate the given shipping address.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was not valid.</p></dd><dd><p><code>Quoted shipping address does not match given shipping address.</code> Occurs when the shipping address given differs from what was used to quote a shipping rate.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Login required.</code> Occurs when the user attempted to checkout without a valid account.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Cannot buy items own item: {id}</code> Occurs when the user attempted to checkout their own item.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Something went wrong.</code> Occurs when the was an unknown problem on the server.</p></dd><dd><p><code>Could not checkout at this time.</code> Occurs when something goes wrong when talking to PayPal’s API.</p></dd></dl>
+
+<h2 id="postcheckoutratesahrefpostcheckoutratesidpostcheckoutratesclassdeeplinka">POST /checkout/rates <a href="#POST /checkout/rates" id="POST /checkout/rates" class="deep-link">#</a></h2>
+
+<p>Controller. Generates a final quote for an order, including sales tax and dynamic shipping rates. <strong>Requires authentication at user or guest levels.</strong></p>
+
+<blockquote>
+  <p>Note: Quoting an order isn't necessarily required during the checkout process. If an item is taxable and the store
+  collects sales tax, or the item uses dynamic shipping to get the shipping rates at time of checkout, then this route required.</p>
+</blockquote>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>Takes the same parameters as <a href="Checkout.html#POST /checkout"><code>POST /checkout</code></a>.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Array of <a href="Objects.html#CheckoutQuote"><code>CheckoutQuote</code></a> objects.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid cart.</code> Occurs when the cart that was given was invalid.</p></dd><dd><p><code>Invalid url.</code> Occurs when one of the return URL’s are invalid.</p></dd><dd><p><code>Invalid cart item: {id}</code> Occurs when there was a problem with a specific product in the cart.</p></dd><dd><p><code>Invalid cart total.</code> Occurs when the cart total is outside of the valid range of $1 and $10,000.</p></dd><dd><p><code>Invalid shipping address.</code> Occurs when one or more of the shipping fields were missing or invalid.</p></dd><dd><p><code>Invalid address - city, state, zip mismatch.</code> Occurs when PayPal failed to validate the given shipping address.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was not valid.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Login required.</code> Occurs when the user attempted to checkout without a valid account.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Cannot buy items own item: {id}</code> Occurs when the user attempted to checkout their own item.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Something went wrong.</code> Occurs when the was an unknown problem on the server.</p></dd><dd><p><code>Could not checkout at this time.</code> Occurs when something goes wrong when talking to PayPal’s API.</p></dd><dt><p><strong>503 Service Unavailable</strong></p></dt><dd><p><code>Service unavailable.</code> Occurs when the shipping provider was unable to return shipping rates. Likely a temporary error.</p></dd></dl>
 
 <h2 id="postcheckoutconfirmahrefpostcheckoutconfirmidpostcheckoutconfirmclassdeeplinka">POST /checkout/confirm <a href="#POST /checkout/confirm" id="POST /checkout/confirm" class="deep-link">#</a></h2>
 

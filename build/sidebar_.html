@@ -104,6 +104,11 @@ user token attached will reset its timeout period.</span>
                     <span class="desc">Controller. Initializes the checkout process. Creates the order. For use with orders containing physical items (regular items, auctions, and offers) only. <strong>Requires authentication at user or guest levels.</strong></span>
                 </a>
                 
+                <a class="toc-item" href="Checkout.html#POST /checkout/rates">
+                    <h4>POST /checkout/rates</h4>
+                    <span class="desc">Controller. Generates a final quote for an order, including sales tax and dynamic shipping rates. <strong>Requires authentication at user or guest levels.</strong></span>
+                </a>
+                
                 <a class="toc-item" href="Checkout.html#POST /checkout/confirm">
                     <h4>POST /checkout/confirm</h4>
                     <span class="desc">Controller. Submits the order created via POST /checkout for processing. <strong>Requires authentication at user or guest levels.</strong></span>
@@ -350,6 +355,32 @@ user token attached will reset its timeout period.</span>
                 
             </div>
         
+            <h3 class="toc-mod-title"><a href="Dynamic Shipping.html">Dynamic Shipping</a></h3>
+            <div class="toc-list">
+                
+                <a class="toc-item" href="Dynamic Shipping.html#Prerequisites">
+                    <h4>Prerequisites</h4>
+                    <span class="desc">In order to take advantage of dynamic shipping rates, you must satisfy the following requirements.</span>
+                </a>
+                
+                <a class="toc-item" href="Dynamic Shipping.html#Checkout Process">
+                    <h4>Checkout Process</h4>
+                    <span class="desc">To utilize dynamic shipping during checkout, you must use the <code>POST /checkout/rates</code> route to quote shipping rates for the cart items. The route takes the same request as the <code>POST /checkout</code> route,
+so client-side implementation is easily integrated.</span>
+                </a>
+                
+                <a class="toc-item" href="Dynamic Shipping.html#Transactions">
+                    <h4>Transactions</h4>
+                    <span class="desc">The dynamic shipping cost of the item will be credited to your store account separately, and as a result will not be affected by donations or commissions.</span>
+                </a>
+                
+                <a class="toc-item" href="Dynamic Shipping.html#Shipping Providers">
+                    <h4>Shipping Providers</h4>
+                    <span class="desc">Okanjo offers stores and marketplaces the ability to build their own shipping quoting service, called a Shipping Provider.</span>
+                </a>
+                
+            </div>
+        
             <h3 class="toc-mod-title"><a href="Events.html">Events</a></h3>
             <div class="toc-list">
                 
@@ -503,7 +534,17 @@ the data you received via webhook.</span>
                 
                 <a class="toc-item" href="Objects.html#CheckoutOrder">
                     <h4>CheckoutOrder</h4>
-                    <span class="desc">A CheckoutOrder object is returned as the response to initially creating the order. Contain the information needed for your application to to allow the buyer to complete the transaction.</span>
+                    <span class="desc">A CheckoutOrder object is returned as the response to initially creating the order. Contains the information needed for your application to to allow the buyer to complete the transaction.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#CheckoutQuote">
+                    <h4>CheckoutQuote</h4>
+                    <span class="desc">A CheckoutQuote object is returned as the response to <code>POST /checkout/rates</code>. Contains the information needed to provide an accurate order total summary with tax and dynamic shipping quotes.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#CheckoutQuoteTaxData">
+                    <h4>CheckoutQuoteTaxData</h4>
+                    <span class="desc">Sales tax information pertaining to the sale of the item.</span>
                 </a>
                 
                 <a class="toc-item" href="Objects.html#Default Response Object">
@@ -566,6 +607,11 @@ the data you received via webhook.</span>
                     <span class="desc">Record when an item changed state.</span>
                 </a>
                 
+                <a class="toc-item" href="Objects.html#ProductParcel">
+                    <h4>ProductParcel</h4>
+                    <span class="desc">The information about the package that will contain the product during shipping.</span>
+                </a>
+                
                 <a class="toc-item" href="Objects.html#PlaceBidResult">
                     <h4>PlaceBidResult</h4>
                     <span class="desc">The result of placing a bid on an action-type product.</span>
@@ -591,6 +637,16 @@ the data you received via webhook.</span>
                     <span class="desc">Relationship of a product to a category.</span>
                 </a>
                 
+                <a class="toc-item" href="Objects.html#ProductDimensions">
+                    <h4>ProductDimensions</h4>
+                    <span class="desc">A multidimensional array of product attributes and price modifiers. For example:</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#ProductVariants">
+                    <h4>ProductVariants</h4>
+                    <span class="desc">A multidimensional array of variant information, keyed by alphabetically sorted query strings comprised of dimension->attribute pairs for all permutations of dimensions. Variants store the stock and optional parcel information about the option.</span>
+                </a>
+                
                 <a class="toc-item" href="Objects.html#Promotion">
                     <h4>Promotion</h4>
                     <span class="desc">Sales-based coupon/promotion that affects the earnings of as sale.</span>
@@ -609,6 +665,11 @@ the data you received via webhook.</span>
                 <a class="toc-item" href="Objects.html#ShippingOption">
                     <h4>ShippingOption</h4>
                     <span class="desc">A method the seller offers the buyer to acquire a product.</span>
+                </a>
+                
+                <a class="toc-item" href="Objects.html#ShippingRate">
+                    <h4>ShippingRate</h4>
+                    <span class="desc">A quoted shipping rate for an order item. Resembles a <code>ShippingOption</code>. Contains a minimum of the following fields:</span>
                 </a>
                 
                 <a class="toc-item" href="Objects.html#Store">
@@ -694,6 +755,27 @@ the data you received via webhook.</span>
                 <a class="toc-item" href="Regions.html#GET /regions/{id}">
                     <h4>GET /regions/{id}</h4>
                     <span class="desc">Resource. Currently returns the regional information of the querying client by default.</span>
+                </a>
+                
+            </div>
+        
+            <h3 class="toc-mod-title"><a href="Sales Tax.html">Sales Tax</a></h3>
+            <div class="toc-list">
+                
+                <a class="toc-item" href="Sales Tax.html#Prerequisites">
+                    <h4>Prerequisites</h4>
+                    <span class="desc">In order to take advantage of collecting sales tax, you must satisfy the following requirements.</span>
+                </a>
+                
+                <a class="toc-item" href="Sales Tax.html#Checkout Process">
+                    <h4>Checkout Process</h4>
+                    <span class="desc">To utilize sales tax during checkout, you <strong>should</strong> use the <code>POST /checkout/rates</code> route to get the applicable sales tax rates for the cart items. The route takes the same request as the <code>POST /checkout</code> route,
+so client-side implementation is easily integrated.</span>
+                </a>
+                
+                <a class="toc-item" href="Sales Tax.html#Transactions">
+                    <h4>Transactions</h4>
+                    <span class="desc">The sales tax of the item will be credited to your store account separately, and as a result will not be affected by donations or commissions.</span>
                 </a>
                 
             </div>

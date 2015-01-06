@@ -8,33 +8,10 @@ Represents things that can be purchased on Okanjo.
 * [`ShippingOption`](Objects.html#ShippingOption) – A seller-specified method of item delivery.
 * [`Bid`](Objects.html#Bid) – A bid placed on an auction-type item.
 * [`PlaceBidResult`](Objects.html#PlaceBidResult) – The response for an attempt to place a bid.
-* `Dimensions` - A multidimensional array of product attributes and price modifiers:
-```js
-"dimensions": {
-    "Size": {
-        "Small": {
-            "price_modifier" : 0
-        },
-        ...
-    },
-    "Color": {
-        "Green with Sparkles" : {
-            "price_modifier" : 0
-        },
-        ...
-    }
-    ...
-}
-```
-* `Variants` - A multidimensional array of variant stock information, keyed by alphabetically sorted query strings comprised of dimension->attribute pairs for all permutations of dimensions. Used by checkout:
-```js
-"variants": {
-    "Color=Green+with+Sparkles&Size=Small": {
-        "stock" : 12 // Note, this could also be null or an empty string, to denote that this product is made "on demand"
-    },
-    ...
-}
-```
+* [`ProductDimensions`](Objects.html#ProductDimensions) - The various option dimensions a product may contain.
+* [`ProductVariants`](Objects.html#ProductVariants) - The purchasable options of a product.
+* [`ProductParcel`](Objects.html#ProductParcel) – The parcel information that the product gets shipped in.
+
 
 # Routes
 
@@ -143,7 +120,9 @@ Resource. Gets a specific product resource by its unique identifier.
 
 Resource. Adds a new product for sale on the current user’s store. **Requires user level authentication.**
 
-**Note: Cannot include shipping options when free shipping is enabled.**
+> Note: Cannot include shipping options when free shipping is enabled.
+
+> Note: When including a parcel, you must specify either a predefined package type or the dimensions of the package. Weight is always required when specifying a package.
 
 ### Entity NVP Parameters
 
@@ -167,6 +146,8 @@ Resource. Adds a new product for sale on the current user’s store. **Requires 
 :   `bit` Whether the product is available for local pickup.
 `is_free_shipping`
 :   `bit` Whether the product is available with free shipping.
+`use_dynamic_shipping`
+:   `bit` Whether shipping can be quoted dynamically at checkout time. Requires a parcel to be defined and is not compatible with `is_free_shipping`.
 `is_taxable`
 :   `bit` Whether sales tax is applicable to the product. Default `1` (enabled).
 `shipping_options[n][description]`
@@ -215,7 +196,16 @@ Resource. Adds a new product for sale on the current user’s store. **Requires 
 :   `array` Optional. Must be included if variants is present. Multidimensional array of product attributes and price modifiers.
 `variants`
 :   `array` Optional. Must be included if dimensions is present. Multidimensional array of product information keyed by query string, comprised of dimension->attribute pairs for all combinations of dimensions.
-
+`parcel_predefined_package`
+:   `string` Specify either this field or `parcel_length`, `parcel_width`, and `parcel_height`, but not both. A carrier-specific parcel type. For example, see EasyPost's [list of parcels](https://www.easypost.com/service-levels-and-parcels).
+`parcel_length`
+:   `decimal` The length of the parcel, in inches.
+`parcel_width`
+:   `decimal` The width of the parcel, in inches.
+`parcel_height`
+:   `decimal` The height of the parcel, in inches.
+`parcel_weight`
+:   `decimal` The weight of the parcel, in ounces.
 
 ### Returns
 
@@ -258,6 +248,8 @@ Only send the fields that should be updated. Send them all if that's your thing.
 :   `bit` Whether the product is available for local pickup.
 `is_free_shipping`
 :   `bit` Whether the product is available with free shipping.
+`use_dynamic_shipping`
+:   `bit` Whether shipping can be quoted dynamically at checkout time. Requires a parcel to be defined and is not compatible with `is_free_shipping`. Set to `0` to remove the parcel from the product.
 `is_taxable`
 :   `bit` Whether sales tax is applicable to the product. Default `1` (enabled).
 `shipping_options[n][description]`
@@ -302,7 +294,20 @@ Only send the fields that should be updated. Send them all if that's your thing.
 :   `date time` When the deal may no longer be redeemed by buyers for the **full** promotional value, but may still be redeemed for the paid value.
 `deal_value`
 :   `decimal 10,2` The promotional value of the deal. e.g. $20 buys $40 worth of goods/service. $20 is the `price`, $40 is the `deal_value`.
-
+`dimensions`
+:   `array` Optional. Must be included if variants is present. Multidimensional array of product attributes and price modifiers.
+`variants`
+:   `array` Optional. Must be included if dimensions is present. Multidimensional array of product information keyed by query string, comprised of dimension->attribute pairs for all combinations of dimensions.
+`parcel_predefined_package`
+:   `string` Specify either this field or `parcel_length`, `parcel_width`, and `parcel_height`, but not both. A carrier-specific parcel type. For example, see EasyPost's [list of parcels](https://www.easypost.com/service-levels-and-parcels).
+`parcel_length`
+:   `decimal` The length of the parcel, in inches.
+`parcel_width`
+:   `decimal` The width of the parcel, in inches.
+`parcel_height`
+:   `decimal` The height of the parcel, in inches.
+`parcel_weight`
+:   `decimal` The weight of the parcel, in ounces.
 
 ### Returns
 

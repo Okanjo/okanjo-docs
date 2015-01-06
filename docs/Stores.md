@@ -116,6 +116,8 @@ All of the following fields are optional. By default, the requesting user's info
 :   `string (255)` The URL of the store’s Facebook presence. E.g. facebook.com/userorpagename
 `twitter_url`
 :   `string (255)` The URL of the store’s twitter presence. E.g. twitter.com/handlename
+`shipping_carriers`
+:   `string csv` Limits dynamic shipping rates to the given carriers. e.g. ups,usps,fedex
 `meta`
 :   `string[]`  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.
 
@@ -163,6 +165,8 @@ Only send the fields that should be updated. Send them all if you’d really lik
 :   `string (255)` The URL of the store’s Facebook presence. E.g. facebook.com/userorpagename
 `twitter_url`
 :   `string (255)` The URL of the store’s twitter presence. E.g. twitter.com/handlename
+`shipping_carriers`
+:   `string csv` Limits dynamic shipping rates to the given carriers. Send an empty string to reset. e.g. ups,usps,fedex
 `payout_preference`
 :   `string enum` Nullable. The store’s payout preference. See [PayoutPreference](Constants.html#PayoutPreference).
 `balanced_account_uri`

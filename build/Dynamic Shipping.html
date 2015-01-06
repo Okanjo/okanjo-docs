@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dynamic Shipping (BETA) : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="dynamicshippingbeta">Dynamic Shipping (BETA)</h1>
+
+<p>Okanjo offers the ability to get real-time shipping rates for an item at checkout time. We call this feature Dynamic Shipping.</p>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#Prerequisites">Prerequisites</a></li>
+<li><a href="#Checkout Process">Checkout Process</a></li>
+<li><a href="#Transactions">Transactions</a></li>
+<li><a href="#Shipping Providers">Shipping Providers</a></li>
+</ul>
+
+<h2 id="prerequisitesahrefprerequisitesidprerequisitesclassdeeplinka">Prerequisites <a href="#Prerequisites" id="Prerequisites" class="deep-link">#</a></h2>
+
+<p>In order to take advantage of dynamic shipping rates, you must satisfy the following requirements.</p>
+
+<ul>
+<li>Your store must have an active subscription or free trial.</li>
+<li>Your store must have at least one <code>shipping</code> type <a href="Objects.html#Address"><code>Address</code></a>.</li>
+<li>Your product(s) must have <code>use_dynamic_shipping</code> set to <code>1</code> (enabled) and have parcel information set.</li>
+</ul>
+
+<h2 id="checkoutprocessahrefcheckoutprocessidcheckoutprocessclassdeeplinka">Checkout Process <a href="#Checkout Process" id="Checkout Process" class="deep-link">#</a></h2>
+
+<p>To utilize dynamic shipping during checkout, you must use the <a href="Checkout.html#POST /checkout/rates"><code>POST /checkout/rates</code></a> route to
+quote shipping rates for the cart items. The route takes the same request as the <a href="Checkout.html#POST /checkout"><code>POST /checkout</code></a> route,
+so client-side implementation is easily integrated.</p>
+
+<p>The biggest difference in flow to the checkout process, is that the buyer shipping address must be known prior to quoting shipping. The order of operations is:</p>
+
+<ol>
+<li>Get buyer shipping address</li>
+<li>Quote shipping and sales tax (<a href="Checkout.html#POST /checkout/rates"><code>POST /checkout/rates</code></a>)</li>
+<li>Present the buyer with the quoted shipping options and allow them to select which one they want. The UI can show the total cost of the order since tax information is available as well.</li>
+<li>Create the order (<a href="Checkout.html#POST /checkout"><code>POST /checkout</code></a>)</li>
+<li>Choose a payment method and confirm the order (<a href="Checkout.html#POST /checkout/confirm"><code>POST /checkout/confirm</code></a>)</li>
+</ol>
+
+<h2 id="transactionsahreftransactionsidtransactionsclassdeeplinka">Transactions <a href="#Transactions" id="Transactions" class="deep-link">#</a></h2>
+
+<p>The dynamic shipping cost of the item will be credited to your store account separately, and as a result will not be affected by donations or commissions.</p>
+
+<h2 id="shippingprovidersahrefshippingprovidersidshippingprovidersclassdeeplinka">Shipping Providers <a href="#Shipping Providers" id="Shipping Providers" class="deep-link">#</a></h2>
+
+<p>Okanjo offers stores and marketplaces the ability to build their own shipping quoting service, called a Shipping Provider.</p>
+
+<p>We have open-sourced our basic shipping provider on GitHub, called <a href="https://github.com/okanjo/okanjo-shipit">Okanjo ShipIt</a>. You are free to use this as a basis to build your own shipping provider that's unique to your business.</p>
+
+<p>Okanjo ShipIt integrates with <a href="https://easypost.com">EasyPost</a> to generate dynamic shipping rates. You may use your own EasyPost API key for your own shipping provider.</p>
+
+<h3 id="security">Security</h3>
+
+<p>Okanjo API communicates with shipping providers using a custom AES-128-CBC encryption algorithm, signed using SHA-256 HMAC. Okanjo elected to use this methodology instead of simply using SSL for two reasons.</p>
+
+<p>Firstly, the shipping provider service is very much a background service, and as such, it's a service that can easily be forgotten about. Due to the nature of SSL, certificates are renewed regularly. Organizations
+and stores that do not have proactive maintenance plans could easily forget to update the service, silently disabling checkout transactions.</p>
+
+<p>Secondly, simply using SSL would still enable public requests to a shipping provider. By design, we only want to allow traffic to the shipping provider from trusted sources. The AES/SHA-HMAC keys essentially act as API keys.</p>
+
+<h3 id="routes">Routes</h3>
+
+<p>The shipping provider must implement two routes:</p>
+
+<h4 id="get">GET /</h4>
+
+<p>The primary purpose of this route is to verify that the encryption keys are valid. When decrypted, the response should be a human-readable service version description.</p>
+
+<p>For example:</p>
+
+<pre><code>5C/a8TAYiPmR+1MfPuJ7Hw36c5W8LRQo/2tHfGqAXDAGPrp6orn+Y8prn4WVNX4F2D3kAB1qze7qFZJvqbeftgQacFi8UWJN5Fx9nfjMvSdj6A1s25tEhAZ9Sb5Xly5e$srEWwiFyEDBdhwrWJn7gUA==$ogwAuMG0a6+5ACrSH090QtHYMzhqOD/pd7oJP0R6Icc=
+</code></pre>
+
+<p>Using the encryption key <code>C9TMDUOmeg+l65rJP/91nQ==</code> and HMAC key <code>+oH65mIBPAAibxzddZ6P9w==</code>, the decrypted response reads:</p>
+
+<pre><code>Okanjo Shipping Calculation Service version 0.1.0. Ask your doctor. Use as directed.
+</code></pre>
+
+<h4 id="postcalculaterates">POST /calculate/rates</h4>
+
+<p>This route takes order information and returns shipping rates for each item.</p>
+
+<blockquote>
+  <p>Note: By default, Okanjo ShipIt quotes per product, and as a result, the Okanjo API multiplies shipping * quantity, essentially quoting what it would cost to ship each item by itself.
+  In the real world, for example, a customer who buys two t-shirts from a store who has both on hand, the store would likely aggregate the items into the same parcel and ship it, barely increasing the cost
+  of shipping over one t-shirt. The buyer, unfortunately, pays the penalty. When building your own shipping provider, you can account for this by calculating the total aggregated cost of shipping and
+  dividing it evenly per item, so shipping * quantity results in the total aggregated cost of shipping.</p>
+</blockquote>
+
+<h5 id="request">Request</h5>
+
+<p>The when executing a <a href="Checkout.html#POST /checkout/rates"><code>POST /checkout/rates</code></a> request, cart items are aggregated per store. A shipping provider request is executed per store.</p>
+
+<dl class="inline-def"><dt><p><code>shipping_destination</code></p></dt><dd><p><code>ShippingProviderAddress</code> The address in which the items are being sent to.</p></dd><dt><p><code>shipping_origins</code></p></dt><dd><p><code>ShippingProviderAddress []</code> An array of <code>shipping</code> type addresses the items could be shipped from. These are the store's <code>shipping</code> addresses.</p></dd><dt><p><code>items</code></p></dt><dd><p><a href="Objects.html#CheckoutQuote"><code>CheckoutQuote []</code></a> An array of items to quote shipping for.</p></dd></dl>
+
+<h6 id="shippingprovideraddress">ShippingProviderAddress</h6>
+
+<p>A physical mailing address.</p>
+
+<dl class="inline-def"><dt><p><code>street1</code></p></dt><dd><p><code>string</code> Street address.</p></dd><dt><p><code>street2</code></p></dt><dd><p><code>string</code> Optional. Only include if there is a secondary street address line, such as building, suite, or apartment.</p></dd><dt><p><code>city</code></p></dt><dd><p><code>string</code> City name.</p></dd><dt><p><code>state</code></p></dt><dd><p><code>string</code> Two-letter state abbreviation.</p></dd><dt><p><code>zip</code></p></dt><dd><p><code>string</code> Postal code.</p></dd><dt><p><code>country</code></p></dt><dd><p><code>string</code> Two-letter country code.</p></dd></dl>
+
+<h5 id="response">Response</h5>
+
+<p>Returns an array of shipping quote objects:</p>
+
+<h6 id="shippingprovideritemquote">ShippingProviderItemQuote</h6>
+
+<dl class="inline-def"><dt><p><code>product_id</code></p></dt><dd><p><code>string</code> Unique ID of the quoted product.</p></dd><dt><p><code>origin_address</code></p></dt><dd><p><code>ShippingProviderAddress</code> The address in which the package will originate.</p></dd><dt><p><code>destination_address</code></p></dt><dd><p><code>ShippingProviderAddress</code> The address in which the package will be shipped to.</p></dd><dt><p><code>parcel</code></p></dt><dd><p><a href="Objects.html#ProductParcel"><code>ProductParcel</code></a> The parcel the item will be shipped in.</p></dd><dt><p><code>rates</code></p></dt><dd><p><a href="Objects.html#ShippingRate"><code>ShippingRate []</code></a> Array of options in which the package can be shipped.</p></dd></dl>
+
+<blockquote>
+  <p>Note: You may choose to include more than the minimum shipping rate fields. That's entirely up to your implementation.</p>
+</blockquote>
+                <hr />
+                <small>Documentation generated by <a href="https://github.com/millermedeiros/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+

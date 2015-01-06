@@ -3,6 +3,10 @@
 
 When stuff changes, it's described here.
 
+## 2015-01-06
+ * Added dynamic shipping docs
+ * Updated sales tax docs
+
 ## 2014-12-17
  * Added transaction types for sales tax
  * Added UserFlags for options on user objects

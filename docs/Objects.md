@@ -204,7 +204,7 @@ may be used for Google Analytics to track e-commerce traffic.
 
 ## CheckoutOrder
 
-A CheckoutOrder object is returned as the response to initially creating the order. Contain the information needed
+A CheckoutOrder object is returned as the response to initially creating the order. Contains the information needed
 for your application to to allow the buyer to complete the transaction.
 
 `token`
@@ -218,9 +218,92 @@ for your application to to allow the buyer to complete the transaction.
 `meta`
 :   `string[]`  Array of key/value properties attached to the object upon creation of the order. Metadata is per-API key.
 
+
+## CheckoutQuote
+
+A CheckoutQuote object is returned as the response to [`POST /checkout/rates`](Checkout.html#POST /checkout/rates).
+Contains the information needed to provide an accurate order total summary with tax and dynamic shipping quotes.
+
+`product_id`
+:   `int` The unique product identifier of the item in the cart
+`shipping_methods`
+:   [`ShippingOption []`](Objects.html#ShippingOption) Associative array of shipping options, where the key is the ID of the option.
+`get_rates`
+:   `bit` Whether the item was submitted for dynamic shipping rates.
+`tax`
+:   [`CheckoutQuoteTaxData`](Objects.html#CheckoutQuoteTaxData) Nullable. The sales tax information about the item.
+`quantity`
+:   `int` The quantity of the item being purchased.
+`variant`
+:   `string` The variant of the product selected by the buyer.
+`product_type`
+:   `int enum`   The original type of the product. See [`ProductType`](Constants.html#ProductType).
+`product_donation_perc`
+:   `int (0-100)` Nullable. The original percentage of the sale of the item that will be donated to the associated cause.
+`product_seller_store_id`
+:   `int`  The original unique ID of the store selling the product.
+`product_brand_id`
+:   `int`  The unique ID of the brand the product was listed originally under.
+`product_cause_id`
+:   `int` Nullable. The original unique ID of the cause the the product was being pledged to.
+`product_location_zip`
+:   `string (10)`  The original location of the product.
+`product_is_local_pickup`
+:   `bit`  Whether the original product offered local pickup.
+`product_is_free_shipping`
+:   `bit`  Whether the original product offered free shipping.
+`product_use_dynamic_shipping`
+:   `bit`  Whether the original product offered dynamic shipping.
+`product_thumbnail_media_id`
+:   `int`  The original thumbnail media ID of the product.
+`product_media_id_csv`
+:   `int csv`  All of the original media image ID’s associated with the product.
+`product_price`
+:   `decimal`  The original cost of the product.
+`product_title`
+:   `string`  The original title of the product.
+`product_description`
+:   `string`  The original description of the product.
+`product_condition`
+:   `string enum`  The original condition of the product. See [`ProductCondition`](Constants.html#ProductCondition).
+`product_parcel`
+:   [`ProductParcel`](Objects.html#ProductParcel) Nullable. The parcel information that the product gets shipped in.
+`product_variants`
+:   [`ProductDimensions`](Objects.html#ProductDimensions) Nullable. The various option dimensions a product may contain.
+`product_dimensions`
+:   [`ProductVariants`](Objects.html#ProductVariants) Nullable. The purchasable options of a product.
+`product_deal_start`
+:   `date time` Nullable. When the deal/offer can start being purchased.
+`product_deal_end`
+:   `date time` Nullable. When the deal/offer can no longer be purchased.
+`product_promo_start`
+:   `date time` Nullable. When the deal/offer can start being redeemed for its promotional value.
+`product_promo_end`
+:   `date time` Nullable. When the deal/offer can no longer be redeemed for its promotional value.
+`product_deal_value`
+:   `decimal` Nullable. The promotional value of the deal/offer.
+`product_meta`
+:   Array of key/value attributes attached to the purchased item. Metadata is per-API key.
+
+
+## CheckoutQuoteTaxData
+
+Sales tax information pertaining to the sale of the item.
+
+`rate`
+:   `decimal` The percent of the sale that is taxable.
+`freight_taxable`
+:   `bit` Whether the shipping costs are also taxable.
+`tax_source`
+:   `string enum` Whether the tax is collected at the `origin` or `destination` of the sale.
+`location`
+:   `string` The locality that is collecting the sales tax. e.g. `Milwaukee, WI`
+
+
 ## Default Response Object
 
 Basic response object for many controller routes. See [`Default Response Object`](Globals.html#Default Response Object).
+
 
 ## Event
 
@@ -236,6 +319,7 @@ An Event object is generated and sent to any URL that's been registered for that
 :   `array`  The data associated with the event
 `notifications`
 :   `array`  [`Notification []`](Objects.html#Notification) Embeddable. Array of notification records created during this event.
+
 
 ## EventSubscription
 
@@ -399,6 +483,8 @@ Represents a snapshot of a product that was purchased.
 :   `int`  How many of this item was purchased.
 `status`
 :   `int enum`  The status of the item. See [`OrderStatus`](Constants.html#OrderStatus).
+`variant`
+:   `string` The variant of the product selected by the buyer.
 `product_type`
 :   `int enum`   The original type of the product. See [`ProductType`](Constants.html#ProductType).
 `product_brand_id`
@@ -415,6 +501,8 @@ Represents a snapshot of a product that was purchased.
 :   `bit`  Whether the original product offered local pickup.
 `product_is_free_shipping`
 :   `bit`  Whether the original product offered free shipping
+`product_use_dynamic_shipping`
+:   `bit`  Whether the original product offered dynamic shipping.
 `product_thumbnail_media_id`
 :   `int`  The original thumbnail media ID of the product.
 `product_media_id_csv`
@@ -449,6 +537,12 @@ Represents a snapshot of a product that was purchased.
 :   `decimal` Nullable. The promotional value of the deal/offer.
 `product_deal_vendor_ack`
 :   `string (255)` Nullable. Seller-only. For vendors to indicate which employee marked a deal/offer as redeemed.
+`product_parcel`
+:   [`ProductParcel`](Objects.html#ProductParcel) Nullable. The parcel information that the product gets shipped in.
+`product_variants`
+:   [`ProductDimensions`](Objects.html#ProductDimensions) Nullable. The various option dimensions a product may contain.
+`product_dimensions`
+:   [`ProductVariants`](Objects.html#ProductVariants) Nullable. The purchasable options of a product.
 `product_meta`
 :   Array of key/value attributes attached to the purchased item. Metadata is per-API key.
 `deal_number`
@@ -470,7 +564,9 @@ Represents a snapshot of a product that was purchased.
 `history`
 :   [`OrderItemStatus[]`](Objects.html#OrderItemStatus)  Embeddable. The history of status dates. Informs on when the order item hit various milestones.
 `transactions`
-:   [`Transaction[]`](Objects.html#Transaction)  Embeddable. The transactions associated with the item and the current user_token. For stores, can be used to get a break dow
+:   [`Transaction[]`](Objects.html#Transaction)  Embeddable. The transactions associated with the item and the current user_token. For stores, can be used to get a breakdown.
+`shipping_rate`
+:   [`ShippingRate`](Objects.html#ShippingRate)  Embeddable. The selected dynamically-quoted shipping rate.
 
 
 ## OrderItemStatus
@@ -485,6 +581,42 @@ Record when an item changed state.
 :   `int enum`  The status of the item. See [`OrderStatus`](Constants.html#OrderStatus).
 `updated`
 :   `int`  When the status was set.
+
+
+## ProductParcel
+
+The information about the package that will contain the product during shipping.
+
+Either `predefined_package` will be defined, or `length`, `width` and `height`. `weight` must always be defined. Sizes are defined in inches and weight in ounces.
+
+`predefined_package`
+:   `string enum` Nullable. A carrier-specific parcel type. For example, see EasyPost's [list of parcels](https://www.easypost.com/service-levels-and-parcels).
+`length`
+:   `decimal` Nullable. The length of the parcel, in inches.
+`width`
+:   `decimal` Nullable. The width of the parcel, in inches.
+`height`
+:   `decimal` Nullable. The height of the parcel, in inches.
+`weight`
+:   `decimal` The weight of the parcel including the product, in ounces.
+
+For example, both of the following are valid parcels:
+
+```js
+{
+  "length": 10.2,
+  "width": 7.8,
+  "height": 4.3,
+  "weight": 21.2
+}
+```
+
+```js
+{
+  "predefined_package": "Tube",
+  "weight": 16.2
+}
+```
 
 
 ## PlaceBidResult
@@ -573,6 +705,8 @@ An item that can be purchased on Okanjo.
 :   `bit`  Whether the product is available for pickup.
 `is_free_shipping`
 :   `bit`  Whether the product can be shipped for no cost to the buyer.
+`use_dynamic_shipping`
+:   `bit`  Whether the product can be quoted for dynamic shipping rates at checkout time. Requires a parcel to be defined.
 `is_taxable`
 :   `bit` Whether sales tax is applicable to the product. Default `1` (enabled). Only applicable if the store has sales tax enabled and configured.
 `thumbnail_media_id`
@@ -619,10 +753,14 @@ An item that can be purchased on Okanjo.
 :   `date time` Nullable. When the deal/Giving Reward may no longer be redeemed for its promotional value.
 `deal_value`
 :   `decimal` Nullable. The promotional value of the deal/Giving Reward.
-`dimensions`
-:   `array` Nullable.
 `dma_code`
 :   `int` Nullable. The DMA region code the product belongs to. See [`Regions`](Regions.html#Regions).
+`dimensions`
+:   [`ProductVariants`](Objects.html#ProductVariants) Nullable. The purchasable options of a product.
+`variants`
+:   [`ProductDimensions`](Objects.html#ProductDimensions) Nullable. The various option dimensions a product may contain.
+`parcel`
+:   [`ProductParcel`](Objects.html#ProductParcel) Nullable. The parcel information that the product gets shipped in.
 `media`
 :   [`Media Embeds`](Media.html#Media Embeds)  Embeddable. All referenced media for the product and embedded objects.
 `meta`
@@ -651,6 +789,46 @@ Relationship of a product to a category.
 :   `int enum` How the product relates to the category. See [`ProductCategoryRelationshipType`](Constants.html#ProductCategoryRelationshipType)
 `root_category_id`
 :   `int` The unique id of the root id of the taxonomy the category belongs to.
+
+
+## ProductDimensions
+
+A multidimensional array of product attributes and price modifiers. For example:
+
+```js
+"dimensions": {
+    "Size": {
+        "Small": {
+            "price_modifier" : 0
+        },
+        ...
+    },
+    "Color": {
+        "Green with Sparkles" : {
+            "price_modifier" : 0
+        },
+        ...
+    }
+    ...
+}
+```
+
+
+## ProductVariants
+
+A multidimensional array of variant information, keyed by alphabetically sorted query strings comprised of dimension->attribute pairs for all permutations of dimensions. Variants store the stock and optional parcel information about the option.
+
+For example:
+
+```js
+"variants": {
+    "Color=Green+with+Sparkles&Size=Small": {
+        "parcel": null, // Optional. Could also be a Parcel object.
+        "stock" : 12    // This could also be null or an empty string, to denote that this product is made "on demand"
+    },
+    ...
+}
+```
 
 
 ## Promotion
@@ -701,6 +879,48 @@ A method the seller offers the buyer to acquire a product.
 :   `string (32)`  Information about the shipping option.
 `price`
 :   `decimal (0-1000)`  How much it costs the buyer to use this shipping option.
+
+
+## ShippingRate
+
+A quoted shipping rate for an order item. Resembles a [`ShippingOption`](Objects.html#ShippingOption). Contains a minimum of the following fields:
+
+`id`
+:   `string` Unique ID of the shipping method.
+`description`
+:   `string` The brief description of the shipping method.
+`price`
+:   `decimal` The cost of shipping using this method.
+`carrier`
+:   `string` The name of the carrier company handling the package. E.g. `UPS`.
+`service`
+:   `string` The name of the service level the package is shipped as. E.g. `Ground`.
+
+> Note: Custom shipping providers may chose to include more details about the shipping rate. These fields should not be assumed to be always present. For example:
+
+```js
+"shipping_rate": {
+    "id": "rate_jYXg00Lk",
+    "description": "UPS Ground",
+    "price": "18.81",
+    "carrier": "UPS",
+    "service": "Ground",
+    "object": "Rate",
+    "created_at": "2015-01-06T19:27:22Z",
+    "updated_at": "2015-01-06T19:27:22Z",
+    "mode": "test",
+    "rate": "18.81",
+    "currency": "USD",
+    "retail_rate": "18.81",
+    "retail_currency": "USD",
+    "delivery_days": null,
+    "delivery_date": null,
+    "delivery_date_guaranteed": false,
+    "est_delivery_days": null,
+    "shipment_id": "shp_Zl5MU1gP",
+    "carrier_account_id": "ca_K705XRwb"
+}
+```
 
 
 ## Store
@@ -771,6 +991,8 @@ A storefront which offers items for sale on Okanjo.
 :   `string` Private. Nullable. The Balanced Payments tokenized payment card URI associated with the store in which to use for debits.
 `card_nickname`
 :   `string` Private. Nullable. The associated display label of the payment card. Only present if `card_uri` is set.
+`shipping_carriers`
+:   `string csv` Private. Nullable. When defined, limits dynamic shipping rates to the given carriers. e.g. ups,usps,fedex
 `media`
 :   `MediaEmbeds`  Embeddable. Media associated with the store and other related objects.
 `meta`

@@ -13,6 +13,7 @@ Checkout currently supports payments using PayPal or Balanced Payments for credi
 # Objects
 
 * [`Card`](Objects.html#Card) – Tokenized payment card
+* [`CheckoutQuote`](Objects.html#CheckoutQuote) – Order quote (includes tax and shipping rates)
 * [`CheckoutOrder`](Objects.html#CheckoutOrder) – Unconfirmed order
 * [`CheckoutConfirmation`](Objects.html#CheckoutConfirmation) – Order confirmation
 
@@ -70,6 +71,7 @@ Controller. Initializes the checkout process. Creates the order. For use with or
 :   `Invalid shipping address.` Occurs when one or more of the shipping fields were missing or invalid.
 :   `Invalid address - city, state, zip mismatch.` Occurs when PayPal failed to validate the given shipping address.
 :   `Invalid field: {field}` Occurs when the given field was not valid.
+:   `Quoted shipping address does not match given shipping address.` Occurs when the shipping address given differs from what was used to quote a shipping rate.
 **401 Unauthorized**
 :   `Login required.` Occurs when the user attempted to checkout without a valid account.
 **409 Conflict**
@@ -78,6 +80,41 @@ Controller. Initializes the checkout process. Creates the order. For use with or
 :   `Something went wrong.` Occurs when the was an unknown problem on the server.
 :   `Could not checkout at this time.` Occurs when something goes wrong when talking to PayPal’s API.
 
+
+## POST /checkout/rates
+
+Controller. Generates a final quote for an order, including sales tax and dynamic shipping rates. **Requires authentication at user or guest levels.**
+
+> Note: Quoting an order isn't necessarily required during the checkout process. If an item is taxable and the store
+> collects sales tax, or the item uses dynamic shipping to get the shipping rates at time of checkout, then this route required.
+
+### Entity NVP Parameters
+
+Takes the same parameters as [`POST /checkout`](Checkout.html#POST /checkout).
+
+### Returns
+
+Array of [`CheckoutQuote`](Objects.html#CheckoutQuote) objects.
+
+### Errors
+
+**400 Bad Request**
+:   `Invalid cart.` Occurs when the cart that was given was invalid.
+:   `Invalid url.` Occurs when one of the return URL’s are invalid.
+:   `Invalid cart item: {id}` Occurs when there was a problem with a specific product in the cart.
+:   `Invalid cart total.` Occurs when the cart total is outside of the valid range of $1 and $10,000.
+:   `Invalid shipping address.` Occurs when one or more of the shipping fields were missing or invalid.
+:   `Invalid address - city, state, zip mismatch.` Occurs when PayPal failed to validate the given shipping address.
+:   `Invalid field: {field}` Occurs when the given field was not valid.
+**401 Unauthorized**
+:   `Login required.` Occurs when the user attempted to checkout without a valid account.
+**409 Conflict**
+:   `Cannot buy items own item: {id}` Occurs when the user attempted to checkout their own item.
+**500 Internal Server Error**
+:   `Something went wrong.` Occurs when the was an unknown problem on the server.
+:   `Could not checkout at this time.` Occurs when something goes wrong when talking to PayPal’s API.
+**503 Service Unavailable**
+:   `Service unavailable.` Occurs when the shipping provider was unable to return shipping rates. Likely a temporary error.
 
 
 ## POST /checkout/confirm
