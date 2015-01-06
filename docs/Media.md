@@ -171,12 +171,9 @@ Returns 302 Found (redirect) with Location of the URL of the image on the Okanjo
 ### Errors
 
 **400 Bad Request**
-:   `Missing one or more parameters.` Occurs when `id`, `size`, or `format` were not given.
+:   `Invalid field: <field>` Occurs when `id`, `size`, or `format` were not given or not in a correct format.
 **404 Not Found**
 :   `Media not found.` Occurs when the given media index was not found.
-:   `Format not found.` Occurs when the given format was not valid.
-:   `Size not found.` Occurs when the given size was not valid.
 **500 Internal Server Error**
 :   `Failed to generate image. Try again?` Occurs when something went wrong and the image could not be generated or located. Trying again may resolve the issue, but who knows. Anything is possible.
 :   `There was a problem handling your request.` Occurs when something went wrong, and we don’t know exactly what it was.
-

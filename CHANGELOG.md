@@ -11,6 +11,7 @@ When stuff changes, it's described here.
  * Added tax_price on order_item
  * Added store address CRUD routes
  * Updated user address CRUD route docs
+ * Updated /media/generate response codes
 
 ## 2014-11-14
  * Updated docs for category and taxonomy system changes
