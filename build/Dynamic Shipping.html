@@ -80,7 +80,7 @@ and stores that do not have proactive maintenance plans could easily forget to u
 
 <p>The shipping provider must implement two routes:</p>
 
-<h4 id="get">GET /</h4>
+<h4 id="get"><code>GET /</code></h4>
 
 <p>The primary purpose of this route is to verify that the encryption keys are valid. When decrypted, the response should be a human-readable service version description.</p>
 
@@ -109,7 +109,7 @@ and stores that do not have proactive maintenance plans could easily forget to u
 
 <p>The when executing a <a href="Checkout.html#POST /checkout/rates"><code>POST /checkout/rates</code></a> request, cart items are aggregated per store. A shipping provider request is executed per store.</p>
 
-<dl class="inline-def"><dt><p><code>shipping_destination</code></p></dt><dd><p><code>ShippingProviderAddress</code> The address in which the items are being sent to.</p></dd><dt><p><code>shipping_origins</code></p></dt><dd><p><code>ShippingProviderAddress []</code> An array of <code>shipping</code> type addresses the items could be shipped from. These are the store's <code>shipping</code> addresses.</p></dd><dt><p><code>items</code></p></dt><dd><p><a href="Objects.html#CheckoutQuote"><code>CheckoutQuote []</code></a> An array of items to quote shipping for.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>shipping_destination</code></p></dt><dd><p><a href="Dynamic Shipping.html#ShippingProviderAddress"><code>ShippingProviderAddress</code></a> The address in which the items are being sent to.</p></dd><dt><p><code>shipping_origins</code></p></dt><dd><p><a href="Dynamic Shipping.html#ShippingProviderAddress"><code>ShippingProviderAddress []</code></a> An array of <code>shipping</code> type addresses the items could be shipped from. These are the store's <code>shipping</code> addresses.</p></dd><dt><p><code>items</code></p></dt><dd><p><a href="Objects.html#CheckoutQuote"><code>CheckoutQuote []</code></a> An array of items to quote shipping for.</p></dd></dl>
 
 <h6 id="shippingprovideraddress">ShippingProviderAddress</h6>
 
@@ -123,7 +123,7 @@ and stores that do not have proactive maintenance plans could easily forget to u
 
 <h6 id="shippingprovideritemquote">ShippingProviderItemQuote</h6>
 
-<dl class="inline-def"><dt><p><code>product_id</code></p></dt><dd><p><code>string</code> Unique ID of the quoted product.</p></dd><dt><p><code>origin_address</code></p></dt><dd><p><code>ShippingProviderAddress</code> The address in which the package will originate.</p></dd><dt><p><code>destination_address</code></p></dt><dd><p><code>ShippingProviderAddress</code> The address in which the package will be shipped to.</p></dd><dt><p><code>parcel</code></p></dt><dd><p><a href="Objects.html#ProductParcel"><code>ProductParcel</code></a> The parcel the item will be shipped in.</p></dd><dt><p><code>rates</code></p></dt><dd><p><a href="Objects.html#ShippingRate"><code>ShippingRate []</code></a> Array of options in which the package can be shipped.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>product_id</code></p></dt><dd><p><code>string</code> Unique ID of the quoted product.</p></dd><dt><p><code>origin_address</code></p></dt><dd><p><a href="Dynamic Shipping.html#ShippingProviderAddress"><code>ShippingProviderAddress</code></a> The address in which the package will originate.</p></dd><dt><p><code>destination_address</code></p></dt><dd><p><a href="Dynamic Shipping.html#ShippingProviderAddress"><code>ShippingProviderAddress</code></a> The address in which the package will be shipped to.</p></dd><dt><p><code>parcel</code></p></dt><dd><p><a href="Objects.html#ProductParcel"><code>ProductParcel</code></a> The parcel the item will be shipped in.</p></dd><dt><p><code>rates</code></p></dt><dd><p><a href="Objects.html#ShippingRate"><code>ShippingRate []</code></a> Array of options in which the package can be shipped.</p></dd></dl>
 
 <blockquote>
   <p>Note: You may choose to include more than the minimum shipping rate fields. That's entirely up to your implementation.</p>
