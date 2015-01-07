@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2015-01-07
+ * Added note about tax exemption status
+
 ## 2015-01-06
  * Added dynamic shipping docs
  * Updated sales tax docs

@@ -29,3 +29,9 @@ The biggest difference in flow to the checkout process, is that the buyer shippi
 ## Transactions
 
 The sales tax of the item will be credited to your store account separately, and as a result will not be affected by donations or commissions.
+
+## Tax Exemption
+
+Some customers may have tax exemption status and would not want sales tax to be collected on purchases.
+These customers should contact support@okanjo.com and provide proof of their tax exemption status. Once verified,
+Okanjo will mark their accounts as tax exempt, eliminating sales tax collection during checkout.
