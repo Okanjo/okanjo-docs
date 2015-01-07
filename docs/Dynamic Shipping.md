@@ -82,9 +82,9 @@ This route takes order information and returns shipping rates for each item.
 The when executing a [`POST /checkout/rates`](Checkout.html#POST /checkout/rates) request, cart items are aggregated per store. A shipping provider request is executed per store.
 
 `shipping_destination`
-:   [`ShippingProviderAddress`](Dynamic Shipping.html#ShippingProviderAddress) The address in which the items are being sent to.
+:   [`ShippingProviderAddress`](Dynamic Shipping.html#shippingprovideraddress) The address in which the items are being sent to.
 `shipping_origins`
-:   [`ShippingProviderAddress []`](Dynamic Shipping.html#ShippingProviderAddress) An array of `shipping` type addresses the items could be shipped from. These are the store's `shipping` addresses.
+:   [`ShippingProviderAddress []`](Dynamic Shipping.html#shippingprovideraddress) An array of `shipping` type addresses the items could be shipped from. These are the store's `shipping` addresses.
 `items`
 :   [`CheckoutQuote []`](Objects.html#CheckoutQuote) An array of items to quote shipping for.
 
@@ -116,9 +116,9 @@ Returns an array of shipping quote objects:
 `product_id`
 :   `string` Unique ID of the quoted product.
 `origin_address`
-:   [`ShippingProviderAddress`](Dynamic Shipping.html#ShippingProviderAddress) The address in which the package will originate.
+:   [`ShippingProviderAddress`](Dynamic Shipping.html#shippingprovideraddress) The address in which the package will originate.
 `destination_address`
-:   [`ShippingProviderAddress`](Dynamic Shipping.html#ShippingProviderAddress) The address in which the package will be shipped to.
+:   [`ShippingProviderAddress`](Dynamic Shipping.html#shippingprovideraddress) The address in which the package will be shipped to.
 `parcel`
 :   [`ProductParcel`](Objects.html#ProductParcel) The parcel the item will be shipped in.
 `rates`
