@@ -35,9 +35,9 @@ These parameters are used by most resource and collection routes.
 These parameters are used by many collection routes. Not all collection routes fully implement or use theses parameters.
 
 `page_size`
-:   `string` Optional. Specific to collections and stores, specifies how many records to return.
+:   `int` Optional. Specific to collections and stores, specifies how many records to return.
 `page_start_index`
-:   `string` Optional. Specific to collections and stores, specifies the starting point in the resultset.
+:   `int` Optional. Specific to collections and stores, specifies the starting point in the resultset.
 
 
 

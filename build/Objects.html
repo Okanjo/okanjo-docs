@@ -47,7 +47,6 @@
 <li><a href="#Order">Order</a></li>
 <li><a href="#OrderItem">OrderItem</a></li>
 <li><a href="#OrderItemStatus">OrderItemStatus</a></li>
-<li><a href="#ProductParcel">ProductParcel</a></li>
 <li><a href="#PlaceBidResult">PlaceBidResult</a></li>
 <li><a href="#Plan">Plan</a></li>
 <li><a href="#PlanPromotion">PlanPromotion</a></li>
@@ -55,6 +54,8 @@
 <li><a href="#ProductCategoryRelationship">ProductCategoryRelationship</a></li>
 <li><a href="#ProductDimensions">ProductDimensions</a></li>
 <li><a href="#ProductVariants">ProductVariants</a></li>
+<li><a href="#ProductParcel">ProductParcel</a></li>
+<li><a href="#ProductSenseResult">ProductSenseResult</a></li>
 <li><a href="#Promotion">Promotion</a></li>
 <li><a href="#Region">Region</a></li>
 <li><a href="#ReturnPolicy">ReturnPolicy</a></li>
@@ -215,34 +216,6 @@ Contains the information needed to provide an accurate order total summary with 
 
 <dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>bigint</code>  The unique ID of the history record.</p></dd><dt><p><code>order_item_id</code></p></dt><dd><p><code>bigint</code>  The unique ID of the associated order item.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int enum</code>  The status of the item. See <a href="Constants.html#OrderStatus"><code>OrderStatus</code></a>.</p></dd><dt><p><code>updated</code></p></dt><dd><p><code>int</code>  When the status was set.</p></dd></dl>
 
-<h2 id="productparcelahrefproductparcelidproductparcelclassdeeplinka">ProductParcel <a href="#ProductParcel" id="ProductParcel" class="deep-link">#</a></h2>
-
-<p>The information about the package that will contain the product during shipping.</p>
-
-<p>Either <code>predefined_package</code> will be defined, or <code>length</code>, <code>width</code> and <code>height</code>. <code>weight</code> must always be defined. Sizes are defined in inches and weight in ounces.</p>
-
-<dl class="inline-def"><dt><p><code>predefined_package</code></p></dt><dd><p><code>string enum</code> Nullable. A carrier-specific parcel type. For example, see EasyPost's <a href="https://www.easypost.com/service-levels-and-parcels">list of parcels</a>.</p></dd><dt><p><code>length</code></p></dt><dd><p><code>decimal</code> Nullable. The length of the parcel, in inches.</p></dd><dt><p><code>width</code></p></dt><dd><p><code>decimal</code> Nullable. The width of the parcel, in inches.</p></dd><dt><p><code>height</code></p></dt><dd><p><code>decimal</code> Nullable. The height of the parcel, in inches.</p></dd><dt><p><code>weight</code></p></dt><dd><p><code>decimal</code> The weight of the parcel including the product, in ounces.</p></dd></dl>
-
-<p>For example, both of the following are valid parcels:</p>
-
-<pre class="brush:js">
-
-{
-  "length": 10.2,
-  "width": 7.8,
-  "height": 4.3,
-  "weight": 21.2
-}
-</pre>
-
-<pre class="brush:js">
-
-{
-  "predefined_package": "Tube",
-  "weight": 16.2
-}
-</pre>
-
 <h2 id="placebidresultahrefplacebidresultidplacebidresultclassdeeplinka">PlaceBidResult <a href="#PlaceBidResult" id="PlaceBidResult" class="deep-link">#</a></h2>
 
 <p>The result of placing a bid on an action-type product.</p>
@@ -312,6 +285,40 @@ Contains the information needed to provide an accurate order total summary with 
     ...
 }
 </pre>
+
+<h2 id="productparcelahrefproductparcelidproductparcelclassdeeplinka">ProductParcel <a href="#ProductParcel" id="ProductParcel" class="deep-link">#</a></h2>
+
+<p>The information about the package that will contain the product during shipping.</p>
+
+<p>Either <code>predefined_package</code> will be defined, or <code>length</code>, <code>width</code> and <code>height</code>. <code>weight</code> must always be defined. Sizes are defined in inches and weight in ounces.</p>
+
+<dl class="inline-def"><dt><p><code>predefined_package</code></p></dt><dd><p><code>string enum</code> Nullable. A carrier-specific parcel type. For example, see EasyPost's <a href="https://www.easypost.com/service-levels-and-parcels">list of parcels</a>.</p></dd><dt><p><code>length</code></p></dt><dd><p><code>decimal</code> Nullable. The length of the parcel, in inches.</p></dd><dt><p><code>width</code></p></dt><dd><p><code>decimal</code> Nullable. The width of the parcel, in inches.</p></dd><dt><p><code>height</code></p></dt><dd><p><code>decimal</code> Nullable. The height of the parcel, in inches.</p></dd><dt><p><code>weight</code></p></dt><dd><p><code>decimal</code> The weight of the parcel including the product, in ounces.</p></dd></dl>
+
+<p>For example, both of the following are valid parcels:</p>
+
+<pre class="brush:js">
+
+{
+  "length": 10.2,
+  "width": 7.8,
+  "height": 4.3,
+  "weight": 21.2
+}
+</pre>
+
+<pre class="brush:js">
+
+{
+  "predefined_package": "Tube",
+  "weight": 16.2
+}
+</pre>
+
+<h2 id="productsenseresultahrefproductsenseresultidproductsenseresultclassdeeplinka">ProductSenseResult <a href="#ProductSenseResult" id="ProductSenseResult" class="deep-link">#</a></h2>
+
+<p>The response for a ProductSense API call.</p>
+
+<dl class="inline-def"><dt><p><code>products</code></p></dt><dd><p><a href="Objects.html#Product"><code>ProductSense []</code></a> Array of products, including <code>store</code>, <code>tags</code>, <code>media</code> and <code>score</code> embeds.</p></dd></dl>
 
 <h2 id="promotionahrefpromotionidpromotionclassdeeplinka">Promotion <a href="#Promotion" id="Promotion" class="deep-link">#</a></h2>
 

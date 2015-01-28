@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2015-01-28
+ * Added ProductSense basic documentation
+
 ## 2015-01-07
  * Added note about tax exemption status
 

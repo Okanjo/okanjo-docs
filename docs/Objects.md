@@ -583,42 +583,6 @@ Record when an item changed state.
 :   `int`  When the status was set.
 
 
-## ProductParcel
-
-The information about the package that will contain the product during shipping.
-
-Either `predefined_package` will be defined, or `length`, `width` and `height`. `weight` must always be defined. Sizes are defined in inches and weight in ounces.
-
-`predefined_package`
-:   `string enum` Nullable. A carrier-specific parcel type. For example, see EasyPost's [list of parcels](https://www.easypost.com/service-levels-and-parcels).
-`length`
-:   `decimal` Nullable. The length of the parcel, in inches.
-`width`
-:   `decimal` Nullable. The width of the parcel, in inches.
-`height`
-:   `decimal` Nullable. The height of the parcel, in inches.
-`weight`
-:   `decimal` The weight of the parcel including the product, in ounces.
-
-For example, both of the following are valid parcels:
-
-```js
-{
-  "length": 10.2,
-  "width": 7.8,
-  "height": 4.3,
-  "weight": 21.2
-}
-```
-
-```js
-{
-  "predefined_package": "Tube",
-  "weight": 16.2
-}
-```
-
-
 ## PlaceBidResult
 
 The result of placing a bid on an action-type product.
@@ -829,6 +793,50 @@ For example:
     ...
 }
 ```
+
+
+## ProductParcel
+
+The information about the package that will contain the product during shipping.
+
+Either `predefined_package` will be defined, or `length`, `width` and `height`. `weight` must always be defined. Sizes are defined in inches and weight in ounces.
+
+`predefined_package`
+:   `string enum` Nullable. A carrier-specific parcel type. For example, see EasyPost's [list of parcels](https://www.easypost.com/service-levels-and-parcels).
+`length`
+:   `decimal` Nullable. The length of the parcel, in inches.
+`width`
+:   `decimal` Nullable. The width of the parcel, in inches.
+`height`
+:   `decimal` Nullable. The height of the parcel, in inches.
+`weight`
+:   `decimal` The weight of the parcel including the product, in ounces.
+
+For example, both of the following are valid parcels:
+
+```js
+{
+  "length": 10.2,
+  "width": 7.8,
+  "height": 4.3,
+  "weight": 21.2
+}
+```
+
+```js
+{
+  "predefined_package": "Tube",
+  "weight": 16.2
+}
+```
+
+
+## ProductSenseResult
+
+The response for a ProductSense API call.
+
+`products`
+:   [`ProductSense []`](Objects.html#Product) Array of products, including `store`, `tags`, `media` and `score` embeds.
 
 
 ## Promotion
