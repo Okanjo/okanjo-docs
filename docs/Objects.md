@@ -836,7 +836,7 @@ For example, both of the following are valid parcels:
 The response for a ProductSense API call.
 
 `products`
-:   [`ProductSense []`](Objects.html#Product) Array of products, including `store`, `tags`, `media` and `score` embeds.
+:   [`Product []`](Objects.html#Product) Array of products, including `store`, `tags`, `media` and `score` embeds.
 
 
 ## Promotion

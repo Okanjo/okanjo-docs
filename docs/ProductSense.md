@@ -4,47 +4,48 @@ Piloted in early 2014, ProductSense is Okanjo's technology solution to unify the
 
 Simply stated, ProductSense analyses the content of a web page or article and returns related products from the marketplace.
 
-ProductSense can be utilized either directly through the API or through the ProductSense Widget.
+ProductSense can be utilized directly through the API or through the ProductSense Widget.
 
 # API
 
 ## POST /products/sense
 
-Controller. Retrieve products based on the content of a URL or the given text.
+Controller. Retrieve products based on the content of a URL or given text.
 
 ### Entity NVP Parameters
 
 `url`
-:   `string` The URL of HTML content to analyse. Required if `text` is not given.
+:   `string` The URL of an HTML document to analyse. Required if `text` is not given.
 `text`
 :   `string` The given text to analyse. Required if `url` is not given.
 `selectors`
-:   `string csv` Optional. A CSV list of [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_Started/Selectors), used to extract content from the given `url`. Defaults to `p,title,meta[name="description"],meta[name="keywords"]`.
-`scan_for`
-:   `string csv` Optional. A CSV of types of things to extract from the content. Allowed: `entities`, `keywords`, and `concepts`. Defaults to all enabled.
+:   `string csv` Optional. A CSV list of [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_Started/Selectors), used to pick what content to analyse from the given `url`. Defaults to `p,title,meta[name="description"],meta[name="keywords"]`.
 `local_to`
-:   `int` Optional. Limits products returned to a specific region DMA. See [Regions](Regions.html#Regions). Default is all regions.
+:   `int` Optional. Limits products returned to a specific region DMA. See [Regions](Regions.html#Regions). Defaults to everywhere.
 `store_id`
-:   `int` Optional. Limits products returned to a specific store. Default is all stores.
+:   `int` Optional. Limits products returned to a specific store. Defaults to all stores.
 `brand_id`
-:   `int` Optional. Limits products returned to stores belonging to the given brand. Default is all brands.
+:   `int` Optional. Limits products returned to stores belonging to the given brand. Defaults to all brands.
 `page_size`
-:   `int` Optional. Specific to collections and stores, specifies how many products to return.
+:   `int` Optional. Specifies how many products to return. Please note that you may not receive the full number of products you ask for.
 `page_start_index`
-:   `int` Optional. Specific to collections and stores, specifies the starting point in the result set.
+:   `int` Optional. Specifies the zero-based starting point in the result set.
+`scan_for`
+:   `string csv` Optional. A CSV of types of things to extract from the content. Allowed: `entities`, `keywords`, and `concepts`. Defaults to all. ***This field is temporarily enabled during the beta testing period.***
 `sentiment`
-:   `string csv` Optional. A CSV list of sentiment flags. Allowed: `ignore`, `positive`, `mixed`, `negative`, `neutral`. Default: `ignore`. ***This field is temporarily enabled during the beta testing period.***
+:   `string csv` Optional. A CSV list of sentiment flags. Allowed: `ignore`, `positive`, `mixed`, `negative`, `neutral`. Defaults to `ignore`. ***This field is temporarily enabled during the beta testing period.***
 `max_keywords`
 :   `int` Optional. Specifies the maximum number of keywords derived from the content to use. This helps to drop outlying keywords. Defaults to `10`. ***This field is temporarily enabled during the beta testing period.***
 `relevancy_filter`
 :   `int` Optional. Filters keyword relevancy score below a given percentage. Defaults to `40`. ***This field is temporarily enabled during the beta testing period.***
 
-> Note: Please be aware that some fields are currently enabled during the beta program and may not continue to be available when the beta testing period expires.
+> Note: Please be aware that some fields are currently enabled during the beta program and may be removed when the beta testing period expires.
 
 
 ### Returns
 
 [`ProductSenseResult`](Objects.html#ProductSenseResult) object.
+
 
 ### Errors
 
@@ -53,67 +54,77 @@ Controller. Retrieve products based on the content of a URL or the given text.
 **500 Internal Server Error**
 :   `System error.` Occurs when the request failed to be fulfilled.
 **503 Service Unavailable**
-:   `Service unavailable.` Occurs when the ProductSense service is temporarily
+:   `Service unavailable.` Occurs when the ProductSense service is temporarily unavailable.
 
 
 # ProductSense Widget
 
-The ProductSense widget is a Okanjo-hosted JavaScript widget that directly inserts related products on a web page.
+The ProductSense widget is a Okanjo-hosted JavaScript widget that directly inserts related products onto a web page.
 
 
 ## Prerequisites
 
-### Marketplace
-
-To fully customize the ProductSense experience, you may need your own Okanjo Marketplace to configure your brand's display template.
+In order to use the ProductSense widget, you will need the following.
 
 ### Widget Key
 
-In order to use the ProductSense widget, you will need to obtain a widget key from [Okanjo Support](https://help.okanjo.com/customer/portal/emails/new).
+In order to use the ProductSense widget, you will need to obtain a widget key from the [Okanjo Support](https://help.okanjo.com/customer/portal/emails/new) team.
 
-Widget keys are unique per customer application. When requesting a widget key, please be sure to include the domain name(s) in which widgets will be used.
+Widget keys are unique per customer application. When requesting a widget key, please be sure to include the domain name(s) where the widget is to be used.
+
+### Marketplace
+
+To fully customize the ProductSense experience, you will need your own Okanjo Marketplace to configure your brand's display template.
 
 
 ## Configuration
 
 ### Embedding The Widget
 
-There are two ways to utilize the ProductSense widget, automatically and asynchronously.
+There are several ways in which to implement the ProductSense widget, automatically, asynchronously and manually.
 
 #### Automatic Loading
 
-This method is the most basic option, that takes specified elements on a page and loads the ProductSense widget into those elements.
+This method is the most basic option, that takes specified elements on a page (elements with the class `ok-product-sense`) and loads the ProductSense widget into those elements.
 
 
 To utilize this method:
 
-1. Create an element on the page that ProductSense should load into. For example:
+ * Create an element on the page that ProductSense should load into. For example:
 
 ```html
 <div class="ok-product-sense" data-url="http://example.com/canonical/url" data-page-size="4"></div>
 ```
 
-2. Make sure to include any configuration parameters necessary to your implementation.
-3. Load the ProductSense widget JavaScript file. You can put this near the bottom of the page.
+ * Make sure to include any configuration parameters necessary to your implementation.
+
+> To set the ProductSense configuration on an element, set data attributes according to the [api route specification](ProductSense.html#Entity NVP Parameters) listed above, using dashes instead of underscores.
+
+ * Load the ProductSense widget JavaScript file. You should put this near the bottom of the page.
 
 ```html
 <script src="https://shop.okanjo.com/widgets/okanjo.productsense.min.js?key=AKyourWidgetKeyHere"></script>
 ```
 
-4. Save and load the page. You should now see products on your website! If you do not, open the developer console of your browser and look for error messages given by ProductSense.
+> Note: you should replace shop.okanjo.com with your hosted marketplace domain name.
+
+ * When you load the page, you should start seeing related products on your website! If you do not, open the developer console of your browser and look for error messages given by ProductSense.
+
+> Note: The most common error for ProductSense not to work is an invalid widget key or domain origin was used.
 
 #### Asynchronous Loading
 
-This method is the more advanced option, that allows for some programmatic loading of the widget. Use this method when no predefined locations on the page exist on DOM load.
+This method is a bit more advanced, in that it allows for some programmatic loading of the widget. Use this method when
+no predefined locations on the page exist on DOM load, or you wish to do some basic customization of how ProductSense gets loaded on the page.
 
 
-To utilize this method, you'll need to be somewhat familiar with JavaScript. For example:
+To utilize this method, you'll need to have a basic understanding of JavaScript. For example:
 
 ```js
 (function( container, key, config ) {
     var d = document,
         widget = d.createElement('div'),
-        container = d.nodeType ? container : d.getElementById(container),
+        container = container.nodeType ? container : d.getElementById(container),
         script = d.createElement("script");
 
     // Setup the widget target
@@ -126,7 +137,7 @@ To utilize this method, you'll need to be somewhat familiar with JavaScript. For
     script.id = 'ok-product-sense-js';
     script.type = "text/javascript";
     script.async = true;
-    script.src = d.location.protocol+"//shop.okanjo.com/widgets/okanjo.productsense.js?key="+key;
+    script.src = d.location.protocol+"//shop.okanjo.com/widgets/okanjo.productsense.min.js?key="+key; // Note: you should replace shop.okanjo.com with your hosted marketplace domain name.
     d.body.appendChild(script);
 
 })(document.body /* or string id of the element */, 'WK-your-widget-key', { /*
@@ -156,10 +167,89 @@ To utilize this method, you'll need to be somewhat familiar with JavaScript. For
 */ } );
 ```
 
+This code block will dynamically add the ProductSense widget to a DOM element or ID of an element on the page,
+dynamically load the JavaScript file, and allows you to specify the widget configuration programmatically.
+
+
+### Manual Loading
+
+This is the most programmatic way of implementing ProductSense on a page. In this method, a global flag is declared to stop ProductSense from initializing on DOM ready.
+
+Here's an example of how to manually load ProductSense:
+
+```html
+<script>
+    // Flag okanjo widgets not to initialize on DOM ready
+    // This has to be set before the okanjo.productsense.min.js script is loaded!
+    window.okanjoNoAutoLoad = true;
+</script>
+
+<div class="ok-product-sense" data-url="http://example.com/canonical/url" data-page-size="4"></div>
+<script src="https://shop.okanjo.com/widgets/okanjo.productsense.min.js?key=AKyourWidgetKeyHere"></script>
+
+<script>
+
+    // Optionally assign the widget key to the global window okanjo namespace (e.g. instead of in the script tag)
+    okanjo.widgetKey = 'AKyourWidgetKeyHere';
+
+    // Instantiate new instances of ProductSense for any element with the specified class
+    var elements = document.getElementsByClassName('ok-product-sense'),
+        instances = [];
+
+    for(var i = 0; i < elements.length; i++) {
+
+        // Create a new ProductSense instance
+        var ps = new okanjo.ProductSense(element, {
+            noAutoLoad: true, // Optional, you can choose to skip the initialization in the constructor and do it manually
+            widgetKey: 'AKyourWidgetKeyHere' // You can have this instance use a specific widget key instead of a global one
+            /*
+             * Assign any configuration parameters if the target element does not have any data attributes set
+             * For example, url, page_size, text, etc...
+             * See the API route documentation for complete list of configuration options.
+             */
+        });
+
+        // Do something with the widget if you so choose, like extend, hack or whatever you would like!
+        // For example, if you find our super basic CSS to be offensive, you could override the method, like so:
+        ps.ensureCss = function() { };
+
+        // Or maybe you want to specify your own methodology for client-side caching:
+        ps.getCacheKey = function() { return "i know what i want this key to be" };
+
+        // When you're done playing, boot up the instance
+        ps.init();
+
+        // Hold on to the instance in case you want to access it again later
+        instances.push(ps);
+    }
+
+</script>
+```
+
+We've abstracted the `init` function code into as many prototype methods as possible, making it easy to customize specific portions of the widget.
+Have a peek in your browser's JavaScript console by inspecting `okanjo.ProductSense.prototype`.
+
+You can take a gander at our unminified build, [here](https://shop.okanjo.com/widgets/okanjo.productsense.min.js).
+
+### CSS
+
+The ProductSense widget ships with its own built in base styles:
+
+```css
+.ok-product-container { list-style-type:none; padding:0; }
+.ok-product { float:left; width:130px; text-align:center; margin-right:25px; }
+.ok-product-title { margin:0 }
+```
+
+Feel free to add overriding styles to your site's existing CSS files, or if using [manual mode](ProductSense.html#Manual Loading), you can customize the global widget styles like so:
+
+```js
+okanjo.ProductSense.Css.base = '/* your css styles here */';
+```
 
 ### Product Template
 
-Okanjo uses Twig templates to render the product data into markup on your website. Here is the base template Okanjo offers maketplaces to customize.
+Okanjo uses Twig templates on the marketplace to render the product data into markup for your website. Here is the base template that can be customized:
 
 ```html
 <div class="ok-product-sense-container">
@@ -176,5 +266,26 @@ Okanjo uses Twig templates to render the product data into markup on your websit
 </div>
 ```
 
+## Getting Good Results
 
+While Okanjo does their best to pair products with content, sometimes pairings can be unpredictable. This can be due to several factors:
 
+### Okanjo is having trouble analysing the page content
+
+The out-of-the-box configuration will probably not fully suit your website's needs. Nobody knows your page structure and content better than you do!
+
+The best thing you can do to maximize content digestion, is to make sure that you provide the best content to Okanjo.
+
+ * **Specify the page selectors that match your content**. For example, send the selectors to your article title, article copy, keywords, tags, and any other relevant data.
+ * **Specify a canonical url**. Some websites utilize a pay-wall, or other asset that manipulates the DOM after answering some questions by an advertiser. If Okanjo cannot read the content of the current page, then they will need a "robot" url that can.
+ * **Contact the Okanjo support team**. They will be able to help pinpoint what content is being considered, how it's being digested and offer tips to ensure the best result.
+
+### Okanjo is returning unexpected results
+
+Good content analysis is one thing, however good quality products is another. In order to best products to content,
+Okanjo also has to understand what a product is about. Stress to your stores that better quality product titles, descriptions
+and tags will dramatically improve product pairings alongside content.
+
+### I have no idea what's going on
+
+No problem! Contact the [Okanjo support](https://help.okanjo.com/customer/portal/emails/new) team. They're happy to help with your implementation and will help you get the best results.
