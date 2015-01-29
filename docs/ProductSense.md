@@ -286,6 +286,9 @@ Good content analysis is one thing, however good quality products is another. In
 Okanjo also has to understand what a product is about. Stress to your stores that better quality product titles, descriptions
 and tags will dramatically improve product pairings alongside content.
 
+Additionally, not having a large enough product base to choose from may hinder expectations. If you're using configuration settings to limiting results
+(e.g. `local_to`, `store_id`, `brand_id`, etc) you're effectively limiting the product pool to choose from. The general rule is, the larger the pool, the better the results will be.
+
 ### I have no idea what's going on
 
 No problem! Contact the [Okanjo support](https://help.okanjo.com/customer/portal/emails/new) team. They're happy to help with your implementation and will help you get the best results.
