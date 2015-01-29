@@ -89,8 +89,10 @@
 <li>Create an element on the page that ProductSense should load into. For example:</li>
 </ul>
 
-<pre><code>&lt;div class="ok-product-sense" data-url="http://example.com/canonical/url" data-page-size="4"&gt;&lt;/div&gt;
-</code></pre>
+<pre class="brush:html">
+
+&#60;div class="ok-product-sense" data-url="http://example.com/canonical/url" data-page-size="4"&#62;&#60;/div&#62;
+</pre>
 
 <ul>
 <li>Make sure to include any configuration parameters necessary to your implementation.</li>
@@ -104,8 +106,10 @@
 <li>Load the ProductSense widget JavaScript file. You should put this near the bottom of the page.</li>
 </ul>
 
-<pre><code>&lt;script src="https://shop.okanjo.com/widgets/okanjo.productsense.min.js?key=AKyourWidgetKeyHere"&gt;&lt;/script&gt;
-</code></pre>
+<pre class="brush:html">
+
+&#60;script src="https://shop.okanjo.com/widgets/okanjo.productsense.min.js?key=AKyourWidgetKeyHere"&#62;&#60;/script&#62;
+</pre>
 
 <blockquote>
   <p>Note: you should replace shop.okanjo.com with your hosted marketplace domain name.</p>
@@ -126,7 +130,9 @@ no predefined locations on the page exist on DOM load, or you wish to do some ba
 
 <p>To utilize this method, you'll need to have a basic understanding of JavaScript. For example:</p>
 
-<pre><code>(function( container, key, config ) {
+<pre class="brush:js">
+
+(function( container, key, config ) {
     var d = document,
         widget = d.createElement('div'),
         container = container.nodeType ? container : d.getElementById(container),
@@ -170,7 +176,7 @@ no predefined locations on the page exist on DOM load, or you wish to do some ba
     page_size: 5  // The number of products to return, default: 5
 
 */ } );
-</code></pre>
+</pre>
 
 <p>This code block will dynamically add the ProductSense widget to a DOM element or ID of an element on the page,
 dynamically load the JavaScript file, and allows you to specify the widget configuration programmatically.</p>
@@ -181,16 +187,18 @@ dynamically load the JavaScript file, and allows you to specify the widget confi
 
 <p>Here's an example of how to manually load ProductSense:</p>
 
-<pre><code>&lt;script&gt;
+<pre class="brush:html">
+
+&#60;script&#62;
     // Flag okanjo widgets not to initialize on DOM ready
     // This has to be set before the okanjo.productsense.min.js script is loaded!
     window.okanjoNoAutoLoad = true;
-&lt;/script&gt;
+&#60;/script&#62;
 
-&lt;div class="ok-product-sense" data-url="http://example.com/canonical/url" data-page-size="4"&gt;&lt;/div&gt;
-&lt;script src="https://shop.okanjo.com/widgets/okanjo.productsense.min.js?key=AKyourWidgetKeyHere"&gt;&lt;/script&gt;
+&#60;div class="ok-product-sense" data-url="http://example.com/canonical/url" data-page-size="4"&#62;&#60;/div&#62;
+&#60;script src="https://shop.okanjo.com/widgets/okanjo.productsense.min.js?key=AKyourWidgetKeyHere"&#62;&#60;/script&#62;
 
-&lt;script&gt;
+&#60;script&#62;
 
     // Optionally assign the widget key to the global window okanjo namespace (e.g. instead of in the script tag)
     okanjo.widgetKey = 'AKyourWidgetKeyHere';
@@ -199,7 +207,7 @@ dynamically load the JavaScript file, and allows you to specify the widget confi
     var elements = document.getElementsByClassName('ok-product-sense'),
         instances = [];
 
-    for(var i = 0; i &lt; elements.length; i++) {
+    for(var i = 0; i &#60; elements.length; i++) {
 
         // Create a new ProductSense instance
         var ps = new okanjo.ProductSense(element, {
@@ -226,8 +234,8 @@ dynamically load the JavaScript file, and allows you to specify the widget confi
         instances.push(ps);
     }
 
-&lt;/script&gt;
-</code></pre>
+&#60;/script&#62;
+</pre>
 
 <p>We've abstracted the <code>init</code> function code into as many prototype methods as possible, making it easy to customize specific portions of the widget.
 Have a peek in your browser's JavaScript console by inspecting <code>okanjo.ProductSense.prototype</code>.</p>
@@ -238,33 +246,39 @@ Have a peek in your browser's JavaScript console by inspecting <code>okanjo.Prod
 
 <p>The ProductSense widget ships with its own built in base styles:</p>
 
-<pre><code>.ok-product-container { list-style-type:none; padding:0; }
+<pre class="brush:css">
+
+.ok-product-container { list-style-type:none; padding:0; }
 .ok-product { float:left; width:130px; text-align:center; margin-right:25px; }
 .ok-product-title { margin:0 }
-</code></pre>
+</pre>
 
 <p>Feel free to add overriding styles to your site's existing CSS files, or if using <a href="ProductSense.html#Manual Loading">manual mode</a>, you can customize the global widget styles like so:</p>
 
-<pre><code>okanjo.ProductSense.Css.base = '/* your css styles here */';
-</code></pre>
+<pre class="brush:js">
+
+okanjo.ProductSense.Css.base = '/* your css styles here */';
+</pre>
 
 <h3 id="producttemplate">Product Template</h3>
 
 <p>Okanjo uses Twig templates on the marketplace to render the product data into markup for your website. Here is the base template that can be customized:</p>
 
-<pre><code>&lt;div class="ok-product-sense-container"&gt;
-    &lt;ul class="ok-product-container"&gt;
+<pre class="brush:html">
+
+&#60;div class="ok-product-sense-container"&#62;
+    &#60;ul class="ok-product-container"&#62;
         {% for product in products %}
-            &lt;li class="ok-product"&gt;
-                &lt;a href="{{ app.brand.web_home|default('https://okanjo.com') }}/item/{{ product.slug }}?ref=PS"&gt;
-                    &lt;div class="ok-product-image-container"&gt;&lt;img class="ok-product-image" src="{{ product.media[product.thumbnail_media_id].thumbnail_desktop|raw }}" title="{{ product.title }}"&gt;&lt;/div&gt;
-                    &lt;div class="ok-product-title-container"&gt;&lt;span class="ok-product-title"&gt;{{ product.title }} {#{% if app.brand.display_name %}&lt;span class="ok-brand-name"&gt; ({{ app.brand.display_name }})&lt;/span&gt;{% endif %}#}&lt;/span&gt;&lt;/div&gt;
-                &lt;/a&gt;
-            &lt;/li&gt;
+            &#60;li class="ok-product"&#62;
+                &#60;a href="{{ app.brand.web_home|default('https://okanjo.com') }}/item/{{ product.slug }}?ref=PS"&#62;
+                    &#60;div class="ok-product-image-container"&#62;&#60;img class="ok-product-image" src="{{ product.media[product.thumbnail_media_id].thumbnail_desktop|raw }}" title="{{ product.title }}"&#62;&#60;/div&#62;
+                    &#60;div class="ok-product-title-container"&#62;&#60;span class="ok-product-title"&#62;{{ product.title }} {#{% if app.brand.display_name %}&#60;span class="ok-brand-name"&#62; ({{ app.brand.display_name }})&#60;/span&#62;{% endif %}#}&#60;/span&#62;&#60;/div&#62;
+                &#60;/a&#62;
+            &#60;/li&#62;
         {% endfor %}
-    &lt;/ul&gt;
-&lt;/div&gt;
-</code></pre>
+    &#60;/ul&#62;
+&#60;/div&#62;
+</pre>
 
 <h2 id="gettinggoodresultsahrefgettinggoodresultsidgettinggoodresultsclassdeeplinka">Getting Good Results <a href="#Getting Good Results" id="Getting Good Results" class="deep-link">#</a></h2>
 

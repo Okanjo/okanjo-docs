@@ -92,7 +92,7 @@ To utilize this method:
 
  * Create an element on the page that ProductSense should load into. For example:
 
-```
+```html
 <div class="ok-product-sense" data-url="http://example.com/canonical/url" data-page-size="4"></div>
 ```
 
@@ -102,7 +102,7 @@ To utilize this method:
 
  * Load the ProductSense widget JavaScript file. You should put this near the bottom of the page.
 
-```
+```html
 <script src="https://shop.okanjo.com/widgets/okanjo.productsense.min.js?key=AKyourWidgetKeyHere"></script>
 ```
 
@@ -120,7 +120,7 @@ no predefined locations on the page exist on DOM load, or you wish to do some ba
 
 To utilize this method, you'll need to have a basic understanding of JavaScript. For example:
 
-```
+```js
 (function( container, key, config ) {
     var d = document,
         widget = d.createElement('div'),
@@ -177,7 +177,7 @@ This is the most programmatic way of implementing ProductSense on a page. In thi
 
 Here's an example of how to manually load ProductSense:
 
-```
+```html
 <script>
     // Flag okanjo widgets not to initialize on DOM ready
     // This has to be set before the okanjo.productsense.min.js script is loaded!
@@ -235,7 +235,7 @@ You can take a gander at our unminified build, [here](https://shop.okanjo.com/wi
 
 The ProductSense widget ships with its own built in base styles:
 
-```
+```css
 .ok-product-container { list-style-type:none; padding:0; }
 .ok-product { float:left; width:130px; text-align:center; margin-right:25px; }
 .ok-product-title { margin:0 }
@@ -243,7 +243,7 @@ The ProductSense widget ships with its own built in base styles:
 
 Feel free to add overriding styles to your site's existing CSS files, or if using [manual mode](ProductSense.html#Manual Loading), you can customize the global widget styles like so:
 
-```
+```js
 okanjo.ProductSense.Css.base = '/* your css styles here */';
 ```
 
@@ -251,7 +251,7 @@ okanjo.ProductSense.Css.base = '/* your css styles here */';
 
 Okanjo uses Twig templates on the marketplace to render the product data into markup for your website. Here is the base template that can be customized:
 
-```
+```html
 <div class="ok-product-sense-container">
     <ul class="ok-product-container">
         {% for product in products %}
