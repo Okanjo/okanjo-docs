@@ -125,8 +125,10 @@ When paying using PayPal, `payer_id` is required, otherwise when paying using a 
 
 ### Entity NVP Parameters
 
+`order_id`
+:   `string` Required. Order unique ID. Alternatively, you may provide `order_token` instead of `order_id`. 
 `order_token`
-:   `string` Required. Order transaction token.
+:   `string` PayPal transaction token.
 `payer_id`
 :   `string` PayPal payer id code.
 `balanced_card_uri`
@@ -265,8 +267,10 @@ When paying using PayPal, `payer_id` is required, otherwise when paying using a 
 
 ### Entity NVP Parameters
 
+`order_id`
+:   `string` Required. Order unique ID. Alternatively, you may provide `order_token` instead of `order_id`. 
 `order_token`
-:   `string` Required. Order transaction token.
+:   `string` PayPal transaction token.
 `payer_id`
 :   `string` PayPal payer id code.
 `balanced_card_uri`

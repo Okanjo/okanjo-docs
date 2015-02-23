@@ -3,6 +3,11 @@
 
 When stuff changes, it's described here.
 
+## 2015-02-23
+ * Added order_id to confirm checkout routes
+ * Added missing fields to CheckoutConfirmation object
+ * Added order_id to CheckoutOrder object
+
 ## 2015-01-28
  * Added ProductSense basic documentation
 

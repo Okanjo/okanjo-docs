@@ -184,6 +184,8 @@ may be used for Google Analytics to track e-commerce traffic.
 :   `int`  Item’s price.
 `items[n][qty]`
 :   `int`  How many of the item was purchased.
+`items[n][sellerId]`
+:   `int`  The store's ID number
 `items[n][sku]`
 :   `int`  Order item id number.
 `items[n][title]`
@@ -191,11 +193,13 @@ may be used for Google Analytics to track e-commerce traffic.
 `items[n][txnId]`
 :   `int`  Order id number.
 `shipping`
-:   `string`  Shipping total price.
+:   `decimal`  Total shipping.
 `state`
 :   `string (2)`  Buyer’s state.
 `storeName`
 :   `string`  Affiliation / store name (currently only returns Okanjo).
+`tax`
+:   `decimal` Total tax. 
 `total`
 :   `string`  Order item total.
 `txnId`
@@ -207,8 +211,10 @@ may be used for Google Analytics to track e-commerce traffic.
 A CheckoutOrder object is returned as the response to initially creating the order. Contains the information needed
 for your application to to allow the buyer to complete the transaction.
 
+`order_id`
+:   `string` The unique order object ID that was started.
 `token`
-:   `string`  The unique order identifier.
+:   `string`  The paypal token associated with the order.
 `paypal_url`
 :   `string`  The PayPal URL to redirect the client to complete the transaction using PayPal.
 `cards`
