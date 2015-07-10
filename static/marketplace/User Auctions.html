@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>User Auctions : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="userauctions">User Auctions</h1>
+
+<p>Auction-type products watches. Enables users to watch auctions to receive updates when auctions start, end, cancelled or when they are outbid.</p>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#GET /users/{user_id}/auctions">GET /users/{user_id}/auctions</a></li>
+<li><a href="#GET /users/{user_id}/auctions/{item_id}">GET /users/{user_id}/auctions/{item_id}</a></li>
+<li><a href="#PUT /users/{user_id}/auctions/{item_id}">PUT /users/{user_id}/auctions/{item_id}</a></li>
+<li><a href="#DELETE /users/{user_id}/auctions/{item_id}">DELETE /users/{user_id}/auctions/{item_id}</a></li>
+</ul>
+
+<h2 id="getusersuser_idauctionsahrefgetusersuser_idauctionsidgetusersuser_idauctionsclassdeeplinka">GET /users/{user_id}/auctions <a href="#GET /users/{user_id}/auctions" id="GET /users/{user_id}/auctions" class="deep-link">#</a></h2>
+
+<p>Store Collection. Gets auction-type products being watched by the given user. Paginated.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When given, only returns the given fields. Can also can specify fields on embedded objects.</p></dd><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional resources. Accepts all <a href="Objects.html#Product"><code>Product</code></a> embeds.</p></dd></dl>
+
+<h3 id="response">Response</h3>
+
+<p>Array of <a href="Objects.html#Product"><code>Product</code></a> objects.
+<code>X-COLLECTION-COUNT</code> header is set to the total number of results available.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the request credentials were not sufficient to perform the action. Providing different credentials could solve the issue.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+
+<h2 id="getusersuser_idauctionsitem_idahrefgetusersuser_idauctionsitem_ididgetusersuser_idauctionsitem_idclassdeeplinka">GET /users/{user_id}/auctions/{item_id} <a href="#GET /users/{user_id}/auctions/{item_id}" id="GET /users/{user_id}/auctions/{item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Gets an auction item being watched by the given user.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When given, only returns the given fields. Can also can specify fields on embedded objects. </p></dd><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional resources. Accepts all <a href="Objects.html#Product"><code>Product</code></a> embeds.</p></dd></dl>
+
+<h3 id="response">Response</h3>
+
+<p><a href="Objects.html#Product"><code>Product</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the request credentials were not sufficient to perform the action. Providing different credentials could solve the issue.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Auction not found.</code> Occurs when the target auction was not found in the user’s watch list.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+
+<h2 id="putusersuser_idauctionsitem_idahrefputusersuser_idauctionsitem_ididputusersuser_idauctionsitem_idclassdeeplinka">PUT /users/{user_id}/auctions/{item_id} <a href="#PUT /users/{user_id}/auctions/{item_id}" id="PUT /users/{user_id}/auctions/{item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Adds an auction item into the given user’s watchlist.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid product.</code> Occurs when the target product is not a valid auction that can be watched.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the request credentials were not sufficient to perform the action. Providing different credentials could solve the issue.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+
+<h2 id="deleteusersuser_idauctionsitem_idahrefdeleteusersuser_idauctionsitem_ididdeleteusersuser_idauctionsitem_idclassdeeplinka">DELETE /users/{user_id}/auctions/{item_id} <a href="#DELETE /users/{user_id}/auctions/{item_id}" id="DELETE /users/{user_id}/auctions/{item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Removes an auction item from the given user’s watchlist.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Auction is not being watched.</code> Occurs when the target auction is not in the watch list.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the request credentials were not sufficient to perform the action. Providing different credentials could solve the issue.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Cannot stop watching this auction.</code> Occurs when the target product cannot stop being watched because the user has bid on the item. The watch can be removed once the auction has ended.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a target="_blank" href="https://github.com/kfitzgerald/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+        <script>
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-36849843-8', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

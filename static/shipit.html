@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+
+    <title>Okanjo Ship-It Documentation</title>
+
+    <link  href='css/theme.css' rel='stylesheet'>
+
+    <!-- Meta -->
+    <meta content="Okanjo Ship-It Documentation" property="og:title">
+    <meta content="Create a custom shipping calculator for your Okanjo store or marketplace." name="description">
+
+    <!-- Initializer -->
+
+    <script src="js/docs-build.js"></script>
+    <script>
+        Flatdoc.run({
+
+            fetcher: Flatdoc.github('okanjo/okanjo-shipit')
+        
+        });
+    </script>
+
+</head>
+<body role='flatdoc'>
+
+<div class="okanjo-header">
+    <a href="/"><img src="img/okanjo.png"></a><h1>Developer Docs</h1>
+</div>
+
+<div class='header'>
+    <ul>
+        <li><a href='mp' class="">Marketplace API</a></li>
+        <li><a href='okanjo-js' class="">Okanjo-JS</a></li>
+        <li><a href='node-sdk' class="">Node.js SDK</a></li>
+        <li><a href='php-sdk' class="">PHP SDK</a></li>
+        <li><a href='shipit' class="active">Ship-It</a></li>
+    </ul>
+</div>
+
+<div class='content-root'>
+    <div class='menubar'>
+        <div class='menu section' role='flatdoc-menu'></div>
+    </div>
+    <div role='flatdoc-content' class='content'></div>
+</div>
+<script>
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-36849843-8', 'auto');
+    ga('send', 'pageview');
+
+</script>
+</body>
+</html>

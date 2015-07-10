@@ -3,6 +3,12 @@
 
 When stuff changes, it's described here.
 
+## 2015-06-25 - v2
+ * Abstracting documentation to be able to support multiple products
+ * Moving to single-page documentation approach
+ * Fudged old marketplace documentation into an iframe for now
+ * Lots of new documentation on Okanjo-JS
+
 ## 2015-02-23
  * Added order_id to confirm checkout routes
  * Added missing fields to CheckoutConfirmation object

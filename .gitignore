@@ -3,3 +3,4 @@
 
 # Mdoc dir - let it be managed as a git submodule
 mdoc
+node_modules

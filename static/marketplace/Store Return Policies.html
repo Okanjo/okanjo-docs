@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Store Return Policies : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="storereturnpolicies">Store Return Policies</h1>
+
+<p>An agreement stores create for buyers regarding item returns.</p>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#ReturnPolicy"><code>ReturnPolicy</code></a> – A store's return policy governing the sale of an item.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#GET /stores/{id}/return-policies">GET /stores/{id}/return-policies</a></li>
+<li><a href="#GET /stores/{id}/return-policies/{return_policy_id}">GET /stores/{id}/return-policies/{return_policy_id}</a></li>
+<li><a href="#POST /stores/{id}/return-policies/validate">POST /stores/{id}/return-policies/validate</a></li>
+<li><a href="#POST /stores/{id}/return-policies">POST /stores/{id}/return-policies</a></li>
+</ul>
+
+<h2 id="getstoresidreturnpoliciesahrefgetstoresidreturnpoliciesidgetstoresidreturnpoliciesclassdeeplinka">GET /stores/{id}/return-policies <a href="#GET /stores/{id}/return-policies" id="GET /stores/{id}/return-policies" class="deep-link">#</a></h2>
+
+<p>Collection. Gets all return policies managed by the given store.<strong>Requires no authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Array of <a href="Objects.html#ReturnPolicy"><code>ReturnPolicy</code></a>.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to get return policies.</code> Occurs when the API could not complete the request.</p></dd></dl>
+
+<h2 id="getstoresidreturnpoliciesreturn_policy_idahrefgetstoresidreturnpoliciesreturn_policy_ididgetstoresidreturnpoliciesreturn_policy_idclassdeeplinka">GET /stores/{id}/return-policies/{return_policy_id} <a href="#GET /stores/{id}/return-policies/{return_policy_id}" id="GET /stores/{id}/return-policies/{return_policy_id}" class="deep-link">#</a></h2>
+
+<p>Collection. Gets a specific return policy managed by the given store.<strong>Requires no authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="response">Response</h3>
+
+<p><a href="Objects.html#ReturnPolicy"><code>ReturnPolicy</code></a>.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to get return policies.</code> Occurs when the API could not complete the request.</p></dd></dl>
+
+<h2 id="poststoresidreturnpoliciesvalidateahrefpoststoresidreturnpoliciesvalidateidpoststoresidreturnpoliciesvalidateclassdeeplinka">POST /stores/{id}/return-policies/validate <a href="#POST /stores/{id}/return-policies/validate" id="POST /stores/{id}/return-policies/validate" class="deep-link">#</a></h2>
+
+<p>Controller. Checks whether the given return policy is valid to post.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>name</code></p></dt><dd><p><code>string (64)</code> Name to give the new return policy.</p></dd><dt><p><code>policy</code></p></dt><dd><p><code>string</code> Terms and conditions of the sale the return policy is applied to.</p></dd></dl>
+
+<h3 id="response">Response</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid value for return policy id.</code> Occurs when the ID parameter is invalid.</p></dd><dd><p><code>Invalid value for user id.</code> Occurs when the User Id is invalid.</p></dd><dd><p><code>Return policy user id is required.</code> Occurs when the User Id is not given.</p></dd><dd><p><code>Invalid value for return policy name.</code> Occurs when the return policy name is invalid.</p></dd><dd><p><code>Return policy name already exists.</code> Occurs when a return policy with the same name already exists.</p></dd><dd><p><code>Return policy name is required.</code> Occurs when the policy name is not given.</p></dd><dd><p><code>Invalid value for return policy.</code> Occurs when the policy text is invalid.</p></dd><dd><p><code>Return policy field is required.</code> Occurs when the policy text is not given.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to validate return policy.</code> Occurs when the API could not complete the request.</p></dd></dl>
+
+<h2 id="poststoresidreturnpoliciesahrefpoststoresidreturnpoliciesidpoststoresidreturnpoliciesclassdeeplinka">POST /stores/{id}/return-policies <a href="#POST /stores/{id}/return-policies" id="POST /stores/{id}/return-policies" class="deep-link">#</a></h2>
+
+<p>Resource. Creates a new return policy.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>name</code></p></dt><dd><p><code>string (64)</code> Name to give the new return policy.</p></dd><dt><p><code>policy</code></p></dt><dd><p><code>string</code> Terms and conditions of the sale the return policy is applied to.</p></dd></dl>
+
+<h3 id="response">Response</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid value for return policy id.</code> Occurs when the ID parameter is invalid.</p></dd><dd><p><code>Invalid value for user id.</code> Occurs when the User Id is invalid.</p></dd><dd><p><code>Return policy user id is required.</code> Occurs when the User Id is not given.</p></dd><dd><p><code>Invalid value for return policy name.</code> Occurs when the return policy name is invalid.</p></dd><dd><p><code>Return policy name already exists.</code> Occurs when a return policy with the same name already exists.</p></dd><dd><p><code>Return policy name is required.</code> Occurs when the policy name is not given.</p></dd><dd><p><code>Invalid value for return policy.</code> Occurs when the policy text is invalid.</p></dd><dd><p><code>Return policy field is required.</code> Occurs when the policy text is not given.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Access denied.</code> Occurs when the requesting user does not have permission to post return policies to the target user’s collection.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to create return policy.</code> Occurs when the API could not complete the request.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a target="_blank" href="https://github.com/kfitzgerald/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+        <script>
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-36849843-8', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

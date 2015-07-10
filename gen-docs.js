@@ -3,10 +3,10 @@ var fs       = require('fs'),
 	path     = require('path');
 
 var paths = {
-	'docs' : path.normalize(process.cwd() + '/docs'),
+	'docs' : path.normalize(process.cwd() + '/static/docs/marketplace'),
     'mdoc_root': path.normalize(process.cwd() + '/mdoc'),
 	'node_modules' : path.normalize(process.cwd() + '/mdoc/node_modules'),
-	"path_to_docs" : path.normalize(process.cwd() + '/build'),
+	"path_to_docs" : path.normalize(process.cwd() + '/static/marketplace'),
 	'mdoc' : path.normalize(process.cwd() + '/mdoc/bin/mdoc')
 };
 
@@ -74,7 +74,7 @@ function runMdoc() {
     deleteFolderRecursive(paths.path_to_docs);
 
     console.log('Generating new docs...');
-    var mdocProc = spawn('node', [paths.mdoc, '-i', paths.docs, '-o', paths.path_to_docs, '--title', 'Okanjo API Core Specification', '--exclude', 'MyHiddenDoc.md,MyHiddenDoc2.md']);
+    var mdocProc = spawn('node', [paths.mdoc, '-i', paths.docs, '-o', paths.path_to_docs, '--title', 'Okanjo API Core Specification', '--exclude', 'combined.md,MyHiddenDoc2.md']);
     mdocProc.stdout.on('data', function (data) {
         console.log(data.toString().replace("\n", ''));
     });

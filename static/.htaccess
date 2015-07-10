@@ -1,0 +1,16 @@
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)\/(\?.*)?$ $1$2 [R=301,L]
+
+#drop the .html off the files, just so the URL's look nicer
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L,QSA]
+
+# Redirect from the .html page to the pretty url, if you managed to get there for some reason
+#RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.html\ HTTP/
+#RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+
+
+ErrorDocument 404 https://developer.okanjo.com/404

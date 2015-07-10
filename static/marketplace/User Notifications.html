@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>User Notifications : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="usernotifications">User Notifications</h1>
+
+<p>Event notification system. When an event occurs, such as when an item is sold or auction is won, a notification is created.</p>
+
+<p>Notifications store related objects in the state they were at the time of the event.</p>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Notification"><code>Notification</code></a> – A notification of an event.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#GET /users/{user_id}/notifications">GET /users/{user_id}/notifications</a></li>
+<li><a href="#GET /users/{user_id}/notifications/{id}">GET /users/{user_id}/notifications/{id}</a></li>
+<li><a href="#PUT /users/{user_id}/notifications/{id}">PUT /users/{user_id}/notifications/{id}</a></li>
+<li><a href="#POST /users/{user_id}/notifications/toggle-flag">POST /users/{user_id}/notifications/toggle-flag</a></li>
+</ul>
+
+<h2 id="getusersuser_idnotificationsahrefgetusersuser_idnotificationsidgetusersuser_idnotificationsclassdeeplinka">GET /users/{user_id}/notifications <a href="#GET /users/{user_id}/notifications" id="GET /users/{user_id}/notifications" class="deep-link">#</a></h2>
+
+<p>Collection. Gets notifications applicable to the given user and the given user's stores. Results ordered by unread first,
+then by id descending, making unread notifications bubble to the top of the list, and fill the rest with recently read notifications.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Filtering</em></p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>int csv</code> Returns notifications with the specific id or ids.</p></dd><dt><p><code>has_flag</code></p></dt><dd><p><code>int bit</code> Returns notifications that have been flagged with the given bitwise flag. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd><dt><p><code>!has_flag</code></p></dt><dd><p><code>int bit</code> Returns notifications that do not contain the given flag. For example, find notifications that have not been marked read. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd><dt><p><code>recipient_store_id</code></p></dt><dd><p><code>int</code> Returns notifications that were sent to the given store id.</p></dd></dl>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When given, only returns the given fields. Can also can specify fields on embedded objects.</p></dd></dl>
+
+<h3 id="response">Response</h3>
+
+<p>Array of <a href="Objects.html#Notification"><code>Notification</code></a> objects.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the requesting user does not have sufficient privileges to fulfil the operation. Providing different credentials could solve the problem.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to retrieve notifications.</code> Occurs when the API could not complete the request.</p></dd></dl>
+
+<h2 id="getusersuser_idnotificationsidahrefgetusersuser_idnotificationsididgetusersuser_idnotificationsidclassdeeplinka">GET /users/{user_id}/notifications/{id} <a href="#GET /users/{user_id}/notifications/{id}" id="GET /users/{user_id}/notifications/{id}" class="deep-link">#</a></h2>
+
+<p>Resource. Gets a specific notification applicable to the given user or the given user's stores.<strong>Requires user level authentication</strong></p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When given, only returns the given fields. Can also can specify fields on embedded objects.</p></dd></dl>
+
+<h3 id="response">Response</h3>
+
+<p><a href="Objects.html#Notification"><code>Notification</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the requesting user does not have sufficient privileges to fulfil the operation. Providing different credentials could solve the problem.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Notification not found.</code> Occurs when the given notification was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to retrieve notifications.</code> Occurs when the API could not complete the request.</p></dd></dl>
+
+<h2 id="putusersuser_idnotificationsidahrefputusersuser_idnotificationsididputusersuser_idnotificationsidclassdeeplinka">PUT /users/{user_id}/notifications/{id} <a href="#PUT /users/{user_id}/notifications/{id}" id="PUT /users/{user_id}/notifications/{id}" class="deep-link">#</a></h2>
+
+<p>Resource. Updates a specific notification applicable to the given user or given user's store. For example, to mark a notification as read.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>flags</code></p></dt><dd><p><code>bitwise flags</code> The new bitwise flags attribute to assign. For example, changing adding bit <code>1</code> would mark a notification as read.  Note: some flags are for internal use only and are purely informational and cannot be changed. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd></dl>
+
+<h3 id="response">Response</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> response.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid field: {field}</code> Occurs when the given field was not valid.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the requesting user does not have sufficient privileges to fulfil the operation. Providing different credentials could solve the problem.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the given field is not able to be changed.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Notification not found.</code> Occurs when the given notification was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to retrieve notifications.</code> Occurs when the API could not complete the request.</p></dd></dl>
+
+<h2 id="postusersuser_idnotificationstoggleflagahrefpostusersuser_idnotificationstoggleflagidpostusersuser_idnotificationstoggleflagclassdeeplinka">POST /users/{user_id}/notifications/toggle-flag <a href="#POST /users/{user_id}/notifications/toggle-flag" id="POST /users/{user_id}/notifications/toggle-flag" class="deep-link">#</a></h2>
+
+<p>Controller. Updates flags on one or more notifications. For example, to mark a batch of notifications as read.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>ids</code></p></dt><dd><p><code>int csv</code> Required. ID or multiple ids of notifications to update.</p></dd><dt><p><code>flag</code></p></dt><dd><p><code>bitwise flag</code> Required. The new bitwise flag attribute to update. Note: Some flags are for internal use only and are purely informational and cannot be changed. See <a href="Constants.html#NotificationFlags"><code>NotificationFlags</code></a>.</p></dd><dt><p><code>enabled</code></p></dt><dd><p><code>bit</code> Required. Whether to add (<code>1</code>) or remove (<code>0</code>) the flag from the set of notifications.</p></dd></dl>
+
+<h3 id="response">Response</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> response.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid field: {field}</code> Occurs when the given field was not valid.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the requesting user does not have sufficient privileges to fulfil the operation. Providing different credentials could solve the problem.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Notification not found.</code> Occurs when the given notification was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to retrieve notifications.</code> Occurs when the API could not complete the request.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a target="_blank" href="https://github.com/kfitzgerald/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+        <script>
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-36849843-8', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

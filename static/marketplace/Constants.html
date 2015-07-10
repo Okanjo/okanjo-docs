@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Constants : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="constants">Constants</h1>
+
+<p>Constants and enumerations. We try not to modify these values, however we may add new values from time to time.</p>
+
+<p>The constants listed below are represented in the format:</p>
+
+<dl class="inline-def"><dt><p><code>LABEL</code></p></dt><dd><p><code>VALUE</code> Description</p></dd></dl>
+
+<p>Where <code>LABEL</code> is the descriptive enumerated name and <code>VALUE</code> is the actual enumeration value, used in objects and API routes.</p>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#AddressType">AddressType</a></li>
+<li><a href="#AuctionWatchStatus">AuctionWatchStatus</a></li>
+<li><a href="#AuctionWinnerStatus">AuctionWinnerStatus</a></li>
+<li><a href="#AuthLevel">AuthLevel</a></li>
+<li><a href="#BidFlag">BidFlag</a></li>
+<li><a href="#BidStatus">BidStatus</a></li>
+<li><a href="#BidType">BidType</a></li>
+<li><a href="#CauseStatus">CauseStatus</a></li>
+<li><a href="#ConfirmationStatus">ConfirmationStatus</a></li>
+<li><a href="#ConfirmationType">ConfirmationType</a></li>
+<li><a href="#EventType">EventType</a></li>
+<li><a href="#LoginAction">LoginAction</a></li>
+<li><a href="#MediaImageConstants">MediaImageConstants</a></li>
+<li><a href="#MediaImageStatus">MediaImageStatus</a></li>
+<li><a href="#MessageContext">MessageContext</a></li>
+<li><a href="#NotificationFlag">NotificationFlag</a></li>
+<li><a href="#NotificationType">NotificationType</a></li>
+<li><a href="#OrderStatus">OrderStatus</a></li>
+<li><a href="#OrderType">OrderType</a></li>
+<li><a href="#PayoutPreference">PayoutPreference</a></li>
+<li><a href="#PayoutStatus">PayoutStatus</a></li>
+<li><a href="#PayoutType">PayoutType</a></li>
+<li><a href="#PlanStatus">PlanStatus</a></li>
+<li><a href="#ProductCategoryRelationshipType">ProductCategoryRelationshipType</a></li>
+<li><a href="#ProductCondition">ProductCondition</a></li>
+<li><a href="#ProductStatus">ProductStatus</a></li>
+<li><a href="#ProductStoreType">ProductStoreType</a></li>
+<li><a href="#ProductType">ProductType</a></li>
+<li><a href="#PurchaseRequirements">PurchaseRequirements</a></li>
+<li><a href="#RegionStatus">RegionStatus</a></li>
+<li><a href="#ResponseHeaders">ResponseHeaders</a></li>
+<li><a href="#ShippingDescription">ShippingDescription</a></li>
+<li><a href="#StoreFlag">StoreFlag</a></li>
+<li><a href="#StoreStatus">StoreStatus</a></li>
+<li><a href="#StoreType">StoreType</a></li>
+<li><a href="#SubscriptionIntent">SubscriptionIntent</a></li>
+<li><a href="#SubscriptionStatus">SubscriptionStatus</a></li>
+<li><a href="#TransactionAssociation">TransactionAssociation</a></li>
+<li><a href="#TransactionStatus">TransactionStatus</a></li>
+<li><a href="#TransactionType">TransactionType</a></li>
+<li><a href="#UserFlags">UserFlags</a></li>
+<li><a href="#VanityURLType">VanityURLType</a></li>
+</ul>
+
+<h2 id="addresstypeahrefaddresstypeidaddresstypeclassdeeplinka">AddressType <a href="#AddressType" id="AddressType" class="deep-link">#</a></h2>
+
+<p>Address object types.</p>
+
+<dl class="inline-def"><dt><p><code>BILLING</code></p></dt><dd><p><code>billing</code> Used for billing purposes.</p></dd><dt><p><code>SHIPPING</code></p></dt><dd><p><code>shipping</code> Used for shipping purposes.</p></dd><dt><p><code>CAUSE</code></p></dt><dd><p><code>cause</code> Used for cause organizations.</p></dd><dt><p><code>PAYOUT</code></p></dt><dd><p><code>payout</code> Used for KYC and anti-fraud purposes.</p></dd><dt><p><code>STORE</code></p></dt><dd><p><code>store</code> Physical retail/store presence, can be displayed on store profiles.</p></dd><dt><p><code>NEXUS</code></p></dt><dd><p><code>nexus</code> Required for sales tax, specifies point of nexus.</p></dd></dl>
+
+<h2 id="auctionwatchstatusahrefauctionwatchstatusidauctionwatchstatusclassdeeplinka">AuctionWatchStatus <a href="#AuctionWatchStatus" id="AuctionWatchStatus" class="deep-link">#</a></h2>
+
+<p>Auction watch status codes.</p>
+
+<dl class="inline-def"><dt><p><code>ACTIVE</code></p></dt><dd><p><code>0</code> Auction watch is enabled.</p></dd></dl>
+
+<h2 id="auctionwinnerstatusahrefauctionwinnerstatusidauctionwinnerstatusclassdeeplinka">AuctionWinnerStatus <a href="#AuctionWinnerStatus" id="AuctionWinnerStatus" class="deep-link">#</a></h2>
+
+<p>Status codes of an auction winner object.</p>
+
+<dl class="inline-def"><dt><p><code>ACTIVE</code></p></dt><dd><p><code>0</code> Winner is selected and item has not been purchased yet.</p></dd><dt><p><code>REVOKED</code></p></dt><dd><p><code>1</code> Winner failed to purchase the item. Occurs when someone fails to pay for the auction.</p></dd><dt><p><code>PURCHASED</code></p></dt><dd><p><code>2</code> Winner has purchased the item.</p></dd></dl>
+
+<h2 id="authlevelahrefauthlevelidauthlevelclassdeeplinka">AuthLevel <a href="#AuthLevel" id="AuthLevel" class="deep-link">#</a></h2>
+
+<p>Bitwise user authentication level flags.</p>
+
+<dl class="inline-def"><dt><p><code>USER</code></p></dt><dd><p><code>1</code> Standard registered user level.</p></dd><dt><p><code>ADMIN</code></p></dt><dd><p><code>2</code> Staff administrator or site moderator.</p></dd><dt><p><code>GUEST</code></p></dt><dd><p><code>4</code> Unregistered guest account that can be used for purchases.</p></dd></dl>
+
+<h2 id="bidflagahrefbidflagidbidflagclassdeeplinka">BidFlag <a href="#BidFlag" id="BidFlag" class="deep-link">#</a></h2>
+
+<p>Bitwise auction bid flags. Metadata information for bidding history on an auction.</p>
+
+<dl class="inline-def"><dt><p><code>STOPPING_POINT</code></p></dt><dd><p><code>1</code> Bidding war stopped at this bid.</p></dd><dt><p><code>MAX_BID_UPDATE</code></p></dt><dd><p><code>2</code> Bidder is the high-bidder and made the max-bid higher.</p></dd><dt><p><code>COUNTER_ATTEMPT</code></p></dt><dd><p><code>4</code> Incoming bidder is attempting to take the lead.</p></dd><dt><p><code>INSTANT_OUTBID</code></p></dt><dd><p><code>8</code> Bid was automatically countered by the high-bidder.</p></dd></dl>
+
+<h2 id="bidstatusahrefbidstatusidbidstatusclassdeeplinka">BidStatus <a href="#BidStatus" id="BidStatus" class="deep-link">#</a></h2>
+
+<p>Auction bid status codes.</p>
+
+<dl class="inline-def"><dt><p><code>ACTIVE</code></p></dt><dd><p><code>0</code> Bid is live.</p></dd><dt><p><code>REVOKED</code></p></dt><dd><p><code>1</code> Bid has been annulled.</p></dd></dl>
+
+<h2 id="bidtypeahrefbidtypeidbidtypeclassdeeplinka">BidType <a href="#BidType" id="BidType" class="deep-link">#</a></h2>
+
+<p>Auction bid origin type.</p>
+
+<dl class="inline-def"><dt><p><code>USER</code></p></dt><dd><p><code>0</code> Bid placed by a user.</p></dd><dt><p><code>PROXY</code></p></dt><dd><p><code>1</code> Bid placed by Okanjo on-behalf of a user.</p></dd></dl>
+
+<h2 id="causestatusahrefcausestatusidcausestatusclassdeeplinka">CauseStatus <a href="#CauseStatus" id="CauseStatus" class="deep-link">#</a></h2>
+
+<p>Cause object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> Cause is no longer available or has been disabled.</p></dd><dt><p><code>UNCONFIRMED</code></p></dt><dd><p><code>1</code> Cause has been searched for or added to Okanjo, and its identity has not been verified.</p></dd><dt><p><code>SUGGESTED</code></p></dt><dd><p><code>2</code> A seller has pledged an item to the cause and is queued for Okanjo verification.</p></dd><dt><p><code>CONFIRMED</code></p></dt><dd><p><code>3</code> Cause has been verified by Okanjo.</p></dd></dl>
+
+<h2 id="confirmationstatusahrefconfirmationstatusidconfirmationstatusclassdeeplinka">ConfirmationStatus <a href="#ConfirmationStatus" id="ConfirmationStatus" class="deep-link">#</a></h2>
+
+<p>Confirmation object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>UNCONFIRMED</code></p></dt><dd><p><code>0</code> Confirmation code has not been redeemed.</p></dd><dt><p><code>CONFIRMED</code></p></dt><dd><p><code>1</code> Confirmation code has been redeemed.</p></dd><dt><p><code>REVOKED</code></p></dt><dd><p><code>2</code> Confirmation code has been revoked.</p></dd></dl>
+
+<h2 id="confirmationtypeahrefconfirmationtypeidconfirmationtypeclassdeeplinka">ConfirmationType <a href="#ConfirmationType" id="ConfirmationType" class="deep-link">#</a></h2>
+
+<p>Confirmation object types.</p>
+
+<dl class="inline-def"><dt><p><code>ADD_CAUSE_ADMIN</code></p></dt><dd><p><code>add_cause_admin</code> Code to verify cause ownership.</p></dd><dt><p><code>FORGOT_PASSWORD</code></p></dt><dd><p><code>forgot_password</code> Code to verify user ownership.</p></dd></dl>
+
+<h2 id="eventtypeahrefeventtypeideventtypeclassdeeplinka">EventType <a href="#EventType" id="EventType" class="deep-link">#</a></h2>
+
+<p>Types of events that can occur.</p>
+
+<blockquote>
+  <p>NOTE: This list will expand regularly. Use these for values of <code>type</code> when subscribing to events. The data that will be returned is listed under each event type.</p>
+</blockquote>
+
+<h3 id="disbursements">Disbursements</h3>
+
+<dl class="inline-def"><dt><p><code>disbursement.created</code></p></dt><dd><p>Occurs when an Okanjo Account balance is withdrawn.</p></dd></dl>
+
+<h3 id="products">Products</h3>
+
+<dl class="inline-def"><dt><p><code>product.created</code></p></dt><dd><p><a href="Objects.html#Product"><code>Product</code></a> - When a product is added.</p></dd></dl>
+
+<h3 id="ordersandorderitems">Orders and OrderItems</h3>
+
+<dl class="inline-def"><dt><p><code>order.confirmed</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is confirmed.</p></dd><dt><p><code>order.updated</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is updated (e.g. Buyer's payment came through).</p></dd><dt><p><code>order_item.updated</code></p></dt><dd><p><a href="Objects.html#OrderItem"><code>Order Item</code></a> - When an item on an order is updated (e.g. Store marks item as shipped).</p></dd></dl>
+
+<h2 id="loginactionahrefloginactionidloginactionclassdeeplinka">LoginAction <a href="#LoginAction" id="LoginAction" class="deep-link">#</a></h2>
+
+<p>Login auctions that are handled by <a href="Users.html#POST /users/login">POST /users/login</a>.</p>
+
+<dl class="inline-def"><dt><p><code>LOGIN_USERNAME_PASSWORD</code></p></dt><dd><p><code>loginUsernamePassword</code> Login using a username and password.</p></dd><dt><p><code>LOGIN_EMAIL_PASSWORD</code></p></dt><dd><p><code>loginEmailPassword</code> Login using an email address and password.</p></dd><dt><p><code>LOGIN_FACEBOOK</code></p></dt><dd><p><code>loginFacebook</code> Login using Facebook ID and token.</p></dd><dt><p><code>REGISTER_EMAIL_PASSWORD</code></p></dt><dd><p><code>registerEmailPassword</code> Register for a standard user account.</p></dd><dt><p><code>REGISTER_FACEBOOK</code></p></dt><dd><p><code>registerFacebook</code> Register for a standard user account with Facebook account association.</p></dd><dt><p><code>GUEST_CHECKOUT</code></p></dt><dd><p><code>checkoutAsGuest</code> Register or login as a guest account to make a purchase without a standard user account.</p></dd></dl>
+
+<h2 id="mediaimageconstantsahrefmediaimageconstantsidmediaimageconstantsclassdeeplinka">MediaImageConstants <a href="#MediaImageConstants" id="MediaImageConstants" class="deep-link">#</a></h2>
+
+<p>Sizes define the sizing type of a media image, such as scale and cropping algorithms. See also <a href="Media.html#Size Descriptions">Size Descriptions</a>.</p>
+
+<p>Formats define the device class formats, such as desktop, mobile, etc.</p>
+
+<p>Purposes define how the media image is intended to be used.</p>
+
+<dl class="inline-def"><dt><p><code>SIZE_ORIGINAL</code></p></dt><dd><p><code>original</code> Originally uploaded image.</p></dd><dt><p><code>SIZE_LISTING</code></p></dt><dd><p><code>listing</code> Used for product tiles and general browse experiences.</p></dd><dt><p><code>SIZE_THUMBNAIL</code></p></dt><dd><p><code>thumbnail</code> Used as thumbnail selectors for an item detail view.</p></dd><dt><p><code>SIZE_DETAIL</code></p></dt><dd><p><code>detail</code> Used to show larger detail of an image on an item detail view.</p></dd><dt><p><code>SIZE_CART</code></p></dt><dd><p><code>cart</code> Used as a thumbnail in a cart view.</p></dd><dt><p><code>SIZE_BANNER</code></p></dt><dd><p><code>banner</code> Used by stores and causes to customize their headers</p></dd><dt><p><code>SIZE_AVATAR</code></p></dt><dd><p><code>avatar</code> Used by users and causes to customize their profile image.</p></dd><dt><p><code>SIZE_GALLERY</code></p></dt><dd><p><code>gallery</code> Used for mobile browse experiences.</p></dd><dt><p><code>FORMAT_DESKTOP</code></p></dt><dd><p><code>desktop</code> Format for desktop experiences.</p></dd><dt><p><code>FORMAT_MOBILE_RETINA</code></p></dt><dd><p><code>mobile_retina</code> Format for high-resolution mobile devices (e.g. iPhone 4+)</p></dd><dt><p><code>PURPOSE_PRODUCT</code></p></dt><dd><p><code>product</code> Media association for products.</p></dd><dt><p><code>PURPOSE_USER_PROFILE</code></p></dt><dd><p><code>user_profile</code> Media association for user profile images.</p></dd><dt><p><code>PURPOSE_STORE_BANNER</code></p></dt><dd><p><code>store_banner</code> Media association for store banners.</p></dd><dt><p><code>PURPOSE_STORE_PROFILE</code></p></dt><dd><p><code>store_profile</code> Media association for store profile images.</p></dd></dl>
+
+<h2 id="mediaimagestatusahrefmediaimagestatusidmediaimagestatusclassdeeplinka">MediaImageStatus <a href="#MediaImageStatus" id="MediaImageStatus" class="deep-link">#</a></h2>
+
+<p>Media image object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> Media image is no longer available.</p></dd><dt><p><code>ENABLED</code></p></dt><dd><p><code>1</code> Media image is available for use.</p></dd></dl>
+
+<h2 id="messagecontextahrefmessagecontextidmessagecontextclassdeeplinka">MessageContext <a href="#MessageContext" id="MessageContext" class="deep-link">#</a></h2>
+
+<p>Message object context type.</p>
+
+<dl class="inline-def"><dt><p><code>SELLER</code></p></dt><dd><p><code>seller-to-buyer</code> Message originated from the seller (e.g. message buyer in regards to a sale)</p></dd><dt><p><code>BUYER</code></p></dt><dd><p><code>buyer-to-seller</code> Message originated from a buyer (e.g. message seller in regards to a product)</p></dd></dl>
+
+<h2 id="notificationflagahrefnotificationflagidnotificationflagclassdeeplinka">NotificationFlag <a href="#NotificationFlag" id="NotificationFlag" class="deep-link">#</a></h2>
+
+<p>Bitwise notification flags.</p>
+
+<dl class="inline-def"><dt><p><code>READ</code></p></dt><dd><p><code>1</code> Notification has been marked as read.</p></dd><dt><p><code>EMAIL_SENT</code></p></dt><dd><p><code>2</code> Notification has been sent via email.</p></dd></dl>
+
+<h2 id="notificationtypeahrefnotificationtypeidnotificationtypeclassdeeplinka">NotificationType <a href="#NotificationType" id="NotificationType" class="deep-link">#</a></h2>
+
+<p>Types of event notifications. Sellers are synonymous with stores.</p>
+
+<dl class="inline-def"><dt><p><code>BuyerAuctionCancelled</code></p></dt><dd><p>Notification to buyer that the auction they were watching was cancelled.</p></dd><dt><p><code>BuyerAuctionEnded</code></p></dt><dd><p>Notification to buyer that the auction they were watching has ended.</p></dd><dt><p><code>BuyerAuctionHasBegun</code></p></dt><dd><p>Notification to buyer that the auction they are watching has started.</p></dd><dt><p><code>BuyerAuctionOutBid</code></p></dt><dd><p>Notification to buyer that they have been outbid on the given auction.</p></dd><dt><p><code>BuyerAuctionWinner</code></p></dt><dd><p>Notification to buyer that they have won the auction they were bidding on.</p></dd><dt><p><code>BuyerItemInsistedReceived</code></p></dt><dd><p>Notification to buyer that the seller marked the item they purchased as picked-up.</p></dd><dt><p><code>BuyerItemPurchase</code></p></dt><dd><p>Notification to buyer that they successfully a purchase.</p></dd><dt><p><code>BuyerItemShipped</code></p></dt><dd><p>Notification to buyer that the item they bought has been marked as shipped by the seller.</p></dd><dt><p><code>ForgotPassword</code></p></dt><dd><p>Notification to buyer that a forgotten password request was made on their user account.</p></dd><dt><p><code>PrivateMessageProduct</code></p></dt><dd><p>Notification to a user or store in regards to a product.</p></dd><dt><p><code>PrivateMessageFailed</code></p></dt><dd><p>Notification to a user or store when delivery of a private message fails.</p></dd><dt><p><code>SellerAuctionCancelled</code></p></dt><dd><p>Notification to seller that their auction was cancelled.</p></dd><dt><p><code>SellerAuctionCancelledBuyOut</code></p></dt><dd><p>Notification to seller that their auction was cancelled because it was bought-out.</p></dd><dt><p><code>SellerAuctionFailed</code></p></dt><dd><p>Notification to seller that their auction ended and no bids were made.</p></dd><dt><p><code>SellerAuctionHasBegun</code></p></dt><dd><p>Notification to seller that their auction has started.</p></dd><dt><p><code>SellerAuctionWon</code></p></dt><dd><p>Notification to seller that their auction has ended and was won buy a bidder.</p></dd><dt><p><code>SellerFeedback</code></p></dt><dd><p>Notification to seller that a buyer left feedback on one of their sales.</p></dd><dt><p><code>SellerFundsDisbursed</code></p></dt><dd><p>Notification to seller that they Okanjo has released their funds for the sale of an item.</p></dd><dt><p><code>SellerFundsDisbursementFailed</code></p></dt><dd><p>Notification to seller that they could not be paid.</p></dd><dt><p><code>SellerItemPosted</code></p></dt><dd><p>Notification to seller that they have successfully listed an item for sale.</p></dd><dt><p><code>SellerItemPurchase</code></p></dt><dd><p>Notification to seller that they have sold an item.</p></dd><dt><p><code>SellerSubscriptionBillingFailed</code></p></dt><dd><p>Notification to seller that their subscription failed to be purchased or renewed.</p></dd><dt><p><code>SellerSubscriptionDelinquent</code></p></dt><dd><p>Notification to seller that their subscription has been suspended due to non-payment.</p></dd><dt><p><code>SellerSubscriptionFreeTrialStart</code></p></dt><dd><p>Notification to seller that their subscription free-trial has begun.</p></dd><dt><p><code>SellerSubscriptionInvoice</code></p></dt><dd><p>Notification to seller that their subscription has been purchased or renewed.</p></dd><dt><p><code>SellerSubscriptionStart</code></p></dt><dd><p>Notification to seller that their subscription has begun.</p></dd><dt><p><code>SellerSubscriptionTrialEnd</code></p></dt><dd><p>Notification to seller that their subscription free-trial has ended.</p></dd><dt><p><code>Welcome</code></p></dt><dd><p>Notification to a user welcoming them to the platform after signing up for a new account.</p></dd></dl>
+
+<h2 id="orderstatusahreforderstatusidorderstatusclassdeeplinka">OrderStatus <a href="#OrderStatus" id="OrderStatus" class="deep-link">#</a></h2>
+
+<p>Order object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>NOT_SUBMITTED</code></p></dt><dd><p><code>0</code> Order has been created and is ready for confirmation.</p></dd><dt><p><code>PENDING_PAYMENT</code></p></dt><dd><p><code>1</code> Order has been confirmed and is waiting for payment processing.</p></dd><dt><p><code>PENDING_FULFILMENT</code></p></dt><dd><p><code>2</code> Payment has been received and order is ready for the seller to ship the item.</p></dd><dt><p><code>PENDING_ACQUISITION</code></p></dt><dd><p><code>3</code> Seller has shipped the item and is waiting for the buyer to receive the item<strong>-or-</strong> the item is waiting to be picked-up by the buyer.</p></dd><dt><p><code>COMPLETE</code></p></dt><dd><p><code>4</code> Order or item has been completed. Nothing left to do.</p></dd><dt><p><code>REFUNDED</code></p></dt><dd><p><code>5</code> Order or item has been refunded.</p></dd><dt><p><code>VOIDED</code></p></dt><dd><p><code>6</code> Order has been cancelled. For example, this can occur when attempting to confirm an order, and an item is no longer valid.</p></dd><dt><p><code>EXPIRED</code></p></dt><dd><p><code>7</code> Order has been abandoned and has not been confirmed. Occurs when an order is created but neglected for too long.</p></dd><dt><p><code>PENDING_REDEMPTION</code></p></dt><dd><p><code>8</code> Deal item is waiting for the buyer to redeem at the vendor.</p></dd><dt><p><code>COMPLETED_BY_SELLER</code></p></dt><dd><p><code>9</code> Pickup item was marked as received by the seller. Pickup should typically be marked as received by a buyer, though many buyers forget or simply do not, leaving the seller high'n'dry.</p></dd><dt><p><code>PENDING_REFUND</code></p></dt><dd><p><code>10</code> Item is on hold while a refund is being processed. Will move to <code>REFUNDED</code> when complete or back to <code>PENDING_FULFILMENT</code> or <code>PENDING_ACQUISITION</code> if item is not entirely refunded.</p></dd><dt><p><code>PENDING_DISPUTE</code></p></dt><dd><p><code>11</code> Item is on hold while a dispute is being processed.</p></dd></dl>
+
+<h2 id="ordertypeahrefordertypeidordertypeclassdeeplinka">OrderType <a href="#OrderType" id="OrderType" class="deep-link">#</a></h2>
+
+<p>Order object types.</p>
+
+<dl class="inline-def"><dt><p><code>PHYSICAL</code></p></dt><dd><p><code>1</code> - Standard order type for regular items, auctions, and deals. May not contain virtual items.</p></dd><dt><p><code>DONATION</code></p></dt><dd><p><code>2</code> - Order type that may only include virtual items.</p></dd></dl>
+
+<h2 id="payoutpreferenceahrefpayoutpreferenceidpayoutpreferenceclassdeeplinka">PayoutPreference <a href="#PayoutPreference" id="PayoutPreference" class="deep-link">#</a></h2>
+
+<p>Store payout preference types. Currently only Balanced is supported.</p>
+
+<dl class="inline-def"><dt><p><code>BANK_ACCOUNT</code></p></dt><dd><p><code>balanced</code> Disburse funds via direct deposit.</p></dd></dl>
+
+<h2 id="payoutstatusahrefpayoutstatusidpayoutstatusclassdeeplinka">PayoutStatus <a href="#PayoutStatus" id="PayoutStatus" class="deep-link">#</a></h2>
+
+<p>Payout object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>WAITING_ON_ORDER</code></p></dt><dd><p><code>0</code> Payout is waiting for the order / item to advance to a disburse-able state.</p></dd><dt><p><code>WAITING_FOR_DISBURSEMENT</code></p></dt><dd><p><code>1</code> Payout is queued for disbursement.</p></dd><dt><p><code>DISBURSED</code></p></dt><dd><p><code>2</code> Payout has been disbursed.</p></dd><dt><p><code>RETURNED</code></p></dt><dd><p><code>3</code> Payout has been returned by the bank.</p></dd><dt><p><code>VOIDED</code></p></dt><dd><p><code>4</code> Payout has been annulled.</p></dd><dt><p><code>ADMIN_HELD</code></p></dt><dd><p><code>5</code> Payout has been stopped by Okanjo staff.</p></dd></dl>
+
+<h2 id="payouttypeahrefpayouttypeidpayouttypeclassdeeplinka">PayoutType <a href="#PayoutType" id="PayoutType" class="deep-link">#</a></h2>
+
+<dl class="inline-def"><dt><p><code>UNCLASSIFIED</code></p></dt><dd><p><code>0</code> Automatic Okanjo commission</p></dd><dt><p><code>STORE_COMMISSION</code></p></dt><dd><p><code>1</code> Store earnings for a sale</p></dd><dt><p><code>CAUSE_DONATION</code></p></dt><dd><p><code>2</code> Cause donation</p></dd><dt><p><code>OKANJO_COMMISSION</code></p></dt><dd><p><code>3</code> Okanjo transaction fee commission</p></dd></dl>
+
+<h2 id="planstatusahrefplanstatusidplanstatusclassdeeplinka">PlanStatus <a href="#PlanStatus" id="PlanStatus" class="deep-link">#</a></h2>
+
+<dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> Plan is disabled.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> Plan is active.</p></dd></dl>
+
+<h2 id="productcategoryrelationshiptypeahrefproductcategoryrelationshiptypeidproductcategoryrelationshiptypeclassdeeplinka">ProductCategoryRelationshipType <a href="#ProductCategoryRelationshipType" id="ProductCategoryRelationshipType" class="deep-link">#</a></h2>
+
+<p>How a product relates to a category.</p>
+
+<dl class="inline-def"><dt><p><code>INHERITED</code></p></dt><dd><p><code>0</code> Product is related to the category by cross-taxonomy mapping.</p></dd><dt><p><code>PRIMARY</code></p></dt><dd><p><code>1</code> Product was directly assigned to the category by the store.</p></dd><dt><p><code>MASTER</code></p></dt><dd><p><code>2</code> Product is related to the category by direct-taxonomy mapping.</p></dd></dl>
+
+<h2 id="productconditionahrefproductconditionidproductconditionclassdeeplinka">ProductCondition <a href="#ProductCondition" id="ProductCondition" class="deep-link">#</a></h2>
+
+<p>Product object condition enumeration.</p>
+
+<dl class="inline-def"><dt><p><code>BRAND_NEW</code></p></dt><dd><p><code>New</code> Item is brand new, mint condition.</p></dd><dt><p><code>USED</code></p></dt><dd><p><code>Used</code> Item has been used or opened.</p></dd><dt><p><code>OTHER</code></p></dt><dd><p><code>Other</code> Item condition is unknown or not applicable. (e.g. imported)</p></dd></dl>
+
+<h2 id="productstatusahrefproductstatusidproductstatusclassdeeplinka">ProductStatus <a href="#ProductStatus" id="ProductStatus" class="deep-link">#</a></h2>
+
+<p>Product object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> Item has been de-listed.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> Item is available for sale (provided other conditions are met).</p></dd><dt><p><code>PENDING</code></p></dt><dd><p><code>2</code> Intermediary stage where imported items are created as stubs.</p></dd><dt><p><code>DRAFT</code></p></dt><dd><p><code>4</code> Intermediary stage where partial items can be saved and revisited later.</p></dd><dt><p><code>AUCTION_ENDED_AWAITING_PURCHASE</code></p></dt><dd><p><code>5</code> Auction item has been won and is waiting for the high-bidder to purchase the item.</p></dd><dt><p><code>AUCTION_ENDED_PURCHASED</code></p></dt><dd><p><code>6</code> Auction item has been won and the high-bidder has purchased the item.</p></dd><dt><p><code>PERMANENTLY_REMOVED</code></p></dt><dd><p><code>7</code> Item has been permanently removed and is no longer accessible.</p></dd><dt><p><code>ON_VACATION</code></p></dt><dd><p><code>8</code> Item has been suspended until the seller is available.</p></dd><dt><p><code>PENDING_ACTIVATION</code></p></dt><dd><p><code>9</code> Deal item is waiting for start date to become accessible.</p></dd></dl>
+
+<h2 id="productstoretypeahrefproductstoretypeidproductstoretypeclassdeeplinka">ProductStoreType <a href="#ProductStoreType" id="ProductStoreType" class="deep-link">#</a></h2>
+
+<p>How a product is associated with a cause store.</p>
+
+<dl class="inline-def"><dt><p><code>OWNED</code></p></dt><dd><p><code>1</code> Item is owned and was listed by the store.</p></dd><dt><p><code>INHERITED</code></p></dt><dd><p><code>2</code> Item was listed by another store and donates to the associated cause store.</p></dd></dl>
+
+<h2 id="producttypeahrefproducttypeidproducttypeclassdeeplinka">ProductType <a href="#ProductType" id="ProductType" class="deep-link">#</a></h2>
+
+<p>Product object type.</p>
+
+<dl class="inline-def"><dt><p><code>REGULAR</code></p></dt><dd><p><code>0</code> Regular, fixed-price item. Supports variable quantities.</p></dd><dt><p><code>AUCTION</code></p></dt><dd><p><code>1</code> Auction item, single quantity. One-time use.</p></dd><dt><p><code>DEAL</code></p></dt><dd><p><code>2</code> Deal item (e.g. get $40 for $20). Reserved for use by <a href="Constants.html#StoreFlags"><code>Vendors</code></a> only.</p></dd><dt><p><code>DONATION</code></p></dt><dd><p><code>3</code> Donation item (e.g. donation item drive). Reserved for use by <a href="Constants.html#StoreType"><code>Causes</code></a> only.</p></dd></dl>
+
+<h2 id="purchaserequirementsahrefpurchaserequirementsidpurchaserequirementsclassdeeplinka">PurchaseRequirements <a href="#PurchaseRequirements" id="PurchaseRequirements" class="deep-link">#</a></h2>
+
+<p>Okanjo platform order requirements.</p>
+
+<dl class="inline-def"><dt><p><code>MIN_ORDER_TOTAL</code></p></dt><dd><p><code>0.50</code> Minimum order sale total, in USD.</p></dd><dt><p><code>MAX_ORDER_TOTAL</code></p></dt><dd><p><code>10000</code> Maximum order sale total, in USD. If order total exceeds this value, order must be completed by contacting Okanjo and arranging payment.</p></dd><dt><p><code>MIN_ITEM_PRICE</code></p></dt><dd><p><code>0.01</code> Minimum item sale price, in USD.</p></dd><dt><p><code>MAX_ITEM_PRICE</code></p></dt><dd><p><code>9000</code> Maximum item sale price, in USD.</p></dd><dt><p><code>MIN_SHIPPING_PRICE</code></p></dt><dd><p><code>0</code> Minimum item sale price, in USD.</p></dd><dt><p><code>MAX_SHIPPING_PRICE</code></p></dt><dd><p><code>1000</code> Maximum item sale price, in USD.</p></dd><dt><p><code>MAX_AUCTION_BUY_NOW_RATIO</code></p></dt><dd><p><code>0.15</code> The maximum ratio of current-bid price to buy-out price to allow buy-out</p></dd></dl>
+
+<h2 id="regionstatusahrefregionstatusidregionstatusclassdeeplinka">RegionStatus <a href="#RegionStatus" id="RegionStatus" class="deep-link">#</a></h2>
+
+<p>Region object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>INACTIVE</code></p></dt><dd><p><code>0</code> Region is available, but not supported by Okanjo.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> Region is available and supported by Okanjo.</p></dd></dl>
+
+<h2 id="responseheadersahrefresponseheadersidresponseheadersclassdeeplinka">ResponseHeaders <a href="#ResponseHeaders" id="ResponseHeaders" class="deep-link">#</a></h2>
+
+<p>Headers that may be included in the API response.</p>
+
+<dl class="inline-def"><dt><p><code>COLLECTION_COUNT</code></p></dt><dd><p><code>X-COLLECTION-COUNT</code> Header used for pagination to indicate how many total records matched the query request.</p></dd></dl>
+
+<h2 id="shippingdescriptionahrefshippingdescriptionidshippingdescriptionclassdeeplinka">ShippingDescription <a href="#ShippingDescription" id="ShippingDescription" class="deep-link">#</a></h2>
+
+<p>Reserved product shipping names.</p>
+
+<dl class="inline-def"><dt><p><code>LocalPickup</code></p></dt><dd><p><code>Local Pickup</code> Reserved shipping description for Local Pickup item acquisition.</p></dd></dl>
+
+<h2 id="storeflagahrefstoreflagidstoreflagclassdeeplinka">StoreFlag <a href="#StoreFlag" id="StoreFlag" class="deep-link">#</a></h2>
+
+<p>Store object permission bitwise flags.</p>
+
+<dl class="inline-def"><dt><p><code>IS_VENDOR</code></p></dt><dd><p><code>1</code> The store has vendor-level permissions.</p></dd><dt><p><code>STOREFRONT_ENABLED</code></p></dt><dd><p><code>2</code> The store's storefront properties may be used on their storefront page.</p></dd><dt><p><code>STOREFRONT_EMBED_ENABLED</code></p></dt><dd><p><code>4</code> The store may use the embedded storefront widget.</p></dd><dt><p><code>HOMEPAGE_PROMOTION_ENABLED</code></p></dt><dd><p><code>8</code> The store may be included in the store rotation widget.</p></dd><dt><p><code>SALES_TAX_ENABLED</code></p></dt><dd><p><code>16</code> The store accepts sales tax on the products they sell.</p></dd></dl>
+
+<h2 id="storestatusahrefstorestatusidstorestatusclassdeeplinka">StoreStatus <a href="#StoreStatus" id="StoreStatus" class="deep-link">#</a></h2>
+
+<p>Store object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>DISABLED</code></p></dt><dd><p><code>0</code> Store has been disabled or is no longer accessible.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> Store is available and visible.</p></dd></dl>
+
+<h2 id="storetypeahrefstoretypeidstoretypeclassdeeplinka">StoreType <a href="#StoreType" id="StoreType" class="deep-link">#</a></h2>
+
+<p>Store object types.</p>
+
+<dl class="inline-def"><dt><p><code>STORE</code></p></dt><dd><p><code>1</code> Regular store front.</p></dd><dt><p><code>CAUSE</code></p></dt><dd><p><code>2</code> Non-profit cause store front.</p></dd></dl>
+
+<h2 id="subscriptionintentahrefsubscriptionintentidsubscriptionintentclassdeeplinka">SubscriptionIntent <a href="#SubscriptionIntent" id="SubscriptionIntent" class="deep-link">#</a></h2>
+
+<p>Used when subscribing to a plan.</p>
+
+<dl class="inline-def"><dt><p><code>PAID</code></p></dt><dd><p><code>paid</code> Store would like to pay for the subscription now.</p></dd><dt><p><code>TRIAL</code></p></dt><dd><p><code>trial</code> Store would like to begin a free trial.</p></dd></dl>
+
+<h2 id="subscriptionstatusahrefsubscriptionstatusidsubscriptionstatusclassdeeplinka">SubscriptionStatus <a href="#SubscriptionStatus" id="SubscriptionStatus" class="deep-link">#</a></h2>
+
+<p>Storefront subscription object status codes.</p>
+
+<dl class="inline-def"><dt><p><code>TRIAL</code></p></dt><dd><p><code>0</code> Subscription is active and in trial-mode.</p></dd><dt><p><code>CREATED</code></p></dt><dd><p><code>1</code> Subscription is brand new.</p></dd><dt><p><code>REQUIRE_PAYMENT</code></p></dt><dd><p><code>2</code> Subscription will require payment.</p></dd><dt><p><code>PENDING_PAYMENT</code></p></dt><dd><p><code>3</code> Subscription is waiting on a payment to clear.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>4</code> Subscription is active.</p></dd><dt><p><code>DELINQUENT</code></p></dt><dd><p><code>5</code> Subscription is delinquent or will become delinquent because it could not be renewed.</p></dd><dt><p><code>PENDING_CANCELLATION</code></p></dt><dd><p><code>6</code> Subscription has been cancelled and will be deactivated when the subscription expires.</p></dd><dt><p><code>CANCELLED</code></p></dt><dd><p><code>7</code> Subscription has ended.</p></dd></dl>
+
+<h2 id="transactionassociationahreftransactionassociationidtransactionassociationclassdeeplinka">TransactionAssociation <a href="#TransactionAssociation" id="TransactionAssociation" class="deep-link">#</a></h2>
+
+<p>Types of associations between a transaction and another object.</p>
+
+<dl class="inline-def"><dt><p><code>CAUSE</code></p></dt><dd><p><code>cause</code> Represents an association with a cause object.</p></dd><dt><p><code>ORDER</code></p></dt><dd><p><code>order</code> Represents an association with an order object.</p></dd><dt><p><code>ORDER_ITEM</code></p></dt><dd><p><code>order_item</code> Represents an association with an order item object.</p></dd><dt><p><code>STORE</code></p></dt><dd><p><code>store</code> Represents an association with a store object.</p></dd><dt><p><code>USER</code></p></dt><dd><p><code>user</code> Represents an association with a user object.</p></dd></dl>
+
+<h2 id="transactionstatusahreftransactionstatusidtransactionstatusclassdeeplinka">TransactionStatus <a href="#TransactionStatus" id="TransactionStatus" class="deep-link">#</a></h2>
+
+<p>The status of the transaction.</p>
+
+<dl class="inline-def"><dt><p><code>PENDING</code></p></dt><dd><p><code>0</code> Transaction is waiting for another action to complete.</p></dd><dt><p><code>COMPLETE</code></p></dt><dd><p><code>1</code> Transaction has been committed and funds are available.</p></dd></dl>
+
+<h2 id="transactiontypeahreftransactiontypeidtransactiontypeclassdeeplinka">TransactionType <a href="#TransactionType" id="TransactionType" class="deep-link">#</a></h2>
+
+<p>The type of action associated with a transaction. All credits are even and debits are odd.</p>
+
+<h3 id="buyeractivities">Buyer Activities</h3>
+
+<dl class="inline-def"><dt><p><code>BUYER_CREDIT_PAYMENT</code></p></dt><dd><p><code>100</code> Occurs when the buyer's payment source (e.g. credit card, PayPal account) is debited and credited to their Okanjo account.</p></dd><dt><p><code>BUYER_DEBIT_PURCHASE</code></p></dt><dd><p><code>101</code> Occurs when the buyer purchases an item.</p></dd><dt><p><code>BUYER_CREDIT_REFUND_PURCHASE</code></p></dt><dd><p><code>110</code> Occurs when the buyer receives a refund for an item purchase.</p></dd><dt><p><code>BUYER_DEBIT_REFUND_PAYMENT</code></p></dt><dd><p><code>111</code> Occurs when the buyer's payment source (e.g. credit card, PayPal account) is credited for the refund.</p></dd></dl>
+
+<h3 id="storeactivities">Store Activities</h3>
+
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_ITEM_PAYMENT</code></p></dt><dd><p><code>200</code> Occurs when a store receives payment for the sale of an item.</p></dd><dt><p><code>STORE_DEBIT_PAYMENT_PROCESSING_FEE</code></p></dt><dd><p><code>201</code> Third-party payment processing fee. For example, 2.9% + 30¢. Only collected when applicable.</p></dd><dt><p><code>STORE_DEBIT_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>203</code> Commission collected by Okanjo for facilitating the sale of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_DEBIT_DONATION</code></p></dt><dd><p><code>205</code> Donation given to a cause for the sale of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_CREDIT_DONATION</code></p></dt><dd><p><code>206</code> Occurs when the cause store receives a donation for the sale of an item.</p></dd><dt><p><code>STORE_DEBIT_DONATION_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>207</code> Commission collected by Okanjo for facilitating the donation of an item. Only collected when applicable.</p></dd><dt><p><code>STORE_CREDIT_ITEM_SALES_TAX</code></p></dt><dd><p><code>208</code> Sales tax for the sale of the item. Only collected when the store is configured to do so and the buyer is not exempt from tax.</p></dd></dl>
+
+<dl class="inline-def"><dt><p><code>STORE_DEBIT_DISBURSEMENT_FEE</code></p></dt><dd><p><code>221</code> Third-party disbursement processing fee. For example, 25¢ for direct deposits, 2% up to $1 for PayPal.</p></dd><dt><p><code>STORE_DEBIT_DISBURSEMENT</code></p></dt><dd><p><code>223</code> Withdrawal to the store's payout source, such as a bank account or PayPal.</p></dd></dl>
+
+<h3 id="storesubscriptionactivities">Store Subscription Activities</h3>
+
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_PAYMENT</code></p></dt><dd><p><code>230</code> Occurs when the store's payment source (e.g. credit card) is debited and credited to their Okanjo account.</p></dd><dt><p><code>STORE_DEBIT_PURCHASE</code></p></dt><dd><p><code>231</code> Occurs when the store purchases a subscription or renewal.</p></dd><dt><p><code>STORE_CREDIT_REFUND_PURCHASE</code></p></dt><dd><p><code>240</code> Occurs when the store receives a refund for subscription.</p></dd><dt><p><code>STORE_DEBIT_REFUND_PAYMENT</code></p></dt><dd><p><code>241</code> Occurs when the store's payment source (e.g. credit card) is credited for the refund.</p></dd></dl>
+
+<h3 id="storerefundactivities">Store Refund Activities</h3>
+
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_REVERSE_DISBURSEMENT</code></p></dt><dd><p><code>250</code> Occurs when the disbursement was reversed.</p></dd><dt><p><code>STORE_CREDIT_REVERSE_DISBURSEMENT_FAILED</code></p></dt><dd><p><code>252</code> Occurs when the disbursement failed to be deposited.</p></dd><dt><p><code>STORE_CREDIT_REFUND_DISBURSEMENT_FEE</code></p></dt><dd><p><code>254</code> Occurs when the disbursement fee is refunded back to the store.</p></dd></dl>
+
+<dl class="inline-def"><dt><p><code>STORE_CREDIT_REFUND_DONATION_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>260</code> Refund to the cause store for the commission taken for the donation of an item.</p></dd><dt><p><code>STORE_DEBIT_REFUND_DONATION</code></p></dt><dd><p><code>261</code> Refund on the cause store back to the origin (donating) store.</p></dd><dt><p><code>STORE_CREDIT_REFUND_DONATION</code></p></dt><dd><p><code>262</code> Refund to the store from a cause store.</p></dd><dt><p><code>STORE_CREDIT_REFUND_OKANJO_COMMISSION_FEE</code></p></dt><dd><p><code>264</code> Refund to the store for the commission taken for the sale of an item.</p></dd><dt><p><code>STORE_CREDIT_REFUND_PAYMENT_PROCESSING_FEE</code></p></dt><dd><p><code>266</code> Refund to the store for the payment processing fee taken by the third-party.</p></dd><dt><p><code>STORE_DEBIT_REFUND_ITEM_PAYMENT</code></p></dt><dd><p><code>267</code> Refund to the buyer for the purchase of an item.</p></dd><dt><p><code>STORE_DEBIT_REFUND_ITEM_SALES_TAX</code></p></dt><dd><p><code>269</code> Refund to the buyer for the sales tax collected on the item.</p></dd></dl>
+
+<h3 id="organizationalandmarketplaceactivities">Organizational and Marketplace Activities</h3>
+
+<dl class="inline-def"><dt><p><code>ORG_CREDIT_SALE_COMMISSION</code></p></dt><dd><p><code>300</code> Occurs when a commission is received for the sale of an item.</p></dd><dt><p><code>ORG_DEBIT_REFUND_SALE_COMMISSION</code></p></dt><dd><p><code>301</code> Occurs when a commission is refunded for the sale of an item</p></dd><dt><p><code>ORG_CREDIT_DONATION_COMMISSION</code></p></dt><dd><p><code>310</code> Occurs when a commission is received for the donation of an item.</p></dd><dt><p><code>ORG_DEBIT_REFUND_DONATION_COMMISSION</code></p></dt><dd><p><code>311</code> Occurs when a commission is refunded for the donation of an item.</p></dd><dt><p><code>ORG_CREDIT_SUBSCRIPTION_COMMISSION</code></p></dt><dd><p><code>320</code> Occurs when a subscription commission is received.</p></dd><dt><p><code>ORG_DEBIT_REFUND_SUBSCRIPTION_COMMISSION</code></p></dt><dd><p><code>321</code> Occurs when a subscription commission is refunded.</p></dd><dt><p><code>ORG_DEBIT_REFUNDED_PAYMENT_FEE</code></p></dt><dd><p><code>331</code> Occurs when a third-party payment fee is refunded.</p></dd><dt><p><code>ORG_DEBIT_REVERSED_DISBURSEMENT_FEE</code></p></dt><dd><p><code>333</code> Occurs when a third-party disbursement fee is refunded.</p></dd><dt><p><code>ORG_CREDIT_OTHER</code></p></dt><dd><p><code>340</code> Miscellaneous credit.</p></dd><dt><p><code>ORG_DEBIT_OTHER</code></p></dt><dd><p><code>341</code> Miscellaneous debit.</p></dd></dl>
+
+<h2 id="userflagsahrefuserflagsiduserflagsclassdeeplinka">UserFlags <a href="#UserFlags" id="UserFlags" class="deep-link">#</a></h2>
+
+<p>Configuration and informational settings on the user account.</p>
+
+<dl class="inline-def"><dt><p><code>TAX_EXEMPT</code></p></dt><dd><p><code>1</code> Indicates the user has tax exempt status, and sales tax is not applicable on purchases.</p></dd></dl>
+
+<h2 id="vanityurltypeahrefvanityurltypeidvanityurltypeclassdeeplinka">VanityURLType <a href="#VanityURLType" id="VanityURLType" class="deep-link">#</a></h2>
+
+<p>Okanjo vanity object types.</p>
+
+<dl class="inline-def"><dt><p><code>STORE</code></p></dt><dd><p><code>store</code> Vanity URI pointer for a store.</p></dd><dt><p><code>CAUSE</code></p></dt><dd><p><code>cause</code> Vanity URI pointer for a cause.</p></dd><dt><p><code>CATEGORY</code></p></dt><dd><p><code>category</code> Vanity URI pointer for a category landing page.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a target="_blank" href="https://github.com/kfitzgerald/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+        <script>
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-36849843-8', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

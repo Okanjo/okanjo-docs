@@ -1,0 +1,131 @@
+// Fonts
+@body-font: Open Sans, 'Helvetica Neue', sans-serif;
+@mono-font: Menlo, Consolas,'Source Code Pro', monospace;
+
+// Margins
+@pad: 40px;      // Space between things
+@sidepad: 30px;  // Padding to the left of the sidebar
+@minipad: 20px;  // Space for mobile
+@vmargin: 10px;  // Margin between blocks
+
+// Colors
+@grey: color("#888");
+@txt: color("#454545");
+@accent: darken(color("#27c293"), 15%);
+@line: darken(color("#e4e7ec"), 2%);
+
+@okanjo: color("#438ff4");
+@darker: color("#262626");
+@offwhite: desaturate(lighten(@okanjo, 38%), 50%);
+@menubg: color("#222222");
+@menutext: color("#bbb");
+@codebox: color("#fafafa");
+
+// Syntax highlight colors
+//@code_base03: color("#002b36");
+//@code_base02: color("#073642");
+//@code_base01: color("#586e75");
+//@code_base00: color("#657b83");
+//@code_base0: color("#839496");
+//@code_base1: color("#93a1a1");
+//@code_base2: color("#eee8d5");
+//@code_base3: color("#fdf6e3");
+//@code_yellow: color("#b58900");
+//@code_orange: color("#cb4b16");
+//@code_red: color("#dc322f");
+//@code_magenta: color("#d33682");
+//@code_violet: color("#6c71c4");
+//@code_blue: color("#268bd2");
+//@code_cyan: color("#2aa198");
+//@code_green: color("#859900");
+
+// Default code colors
+//@code_string: color("#3ac");
+//@code_init: color("#383");
+//@code_number: color("#3ac");
+//@code_keyword: color("#454545");
+//@code_comment: lighten(@grey, 20%);
+
+// Random sciency theme
+//@code_base: @code_base00;
+//@code_string: @code_cyan;
+//@code_init: color("#383");
+//@code_number: @code_base00;
+//@code_keyword: @code_blue;
+//@code_comment: @code_yellow;
+
+// Github
+@code_base: color("#333");
+@code_string: color("#183691");
+@code_init: color("#795da3");
+@code_number: color("#183691");
+@code_keyword: color("#a71d5d");
+@code_entity: color("#63a35c");
+//@code_attribute: @code_base;
+//@code_comment: color("#b58900"); // slategray
+@code_attribute: @code_init;
+
+
+
+@code_class: color("#0086b3");
+@code_comment: color("slategray"); // slategray
+@code_js_keyword: color("#a71d5d");
+@code_tag: #63a35c;
+
+@code_required: #cb4b16;
+
+
+
+// Misc
+@shadow-str: 0.1;
+
+// Dimensions
+@sidebar-width: 230px;
+@content-width: 550px;
+@pre-width: 380px;
+
+/* ----------------------------------------------------------------------------
+ * Fonts
+ */
+@import url("//fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700%7COpen+Sans:300,400,400italic,500,600,700,700italic%7CMontserrat:300,400,400italic,500,600,700,700italic&subset=latin,greek-ext,cyrillic,latin-ext,greek,cyrillic-ext,vietnamese,latin,greek-ext,cyrillic,latin-ext,greek,cyrillic-ext,vietnamese");
+
+
+.scrollbar(@bg:white) {
+
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 8px;
+    border: solid 4px @bg;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background: #999;
+    box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.2);
+  }
+
+}
+
+.antialias() {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.clearfix() {
+  zoom: 1;
+
+  &:before, &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}

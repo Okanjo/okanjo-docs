@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Products : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="products">Products</h1>
+
+<p>Represents things that can be purchased on Okanjo.</p>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Product"><code>Product</code></a> – An purchasable item.</li>
+<li><a href="Objects.html#ShippingOption"><code>ShippingOption</code></a> – A seller-specified method of item delivery.</li>
+<li><a href="Objects.html#Bid"><code>Bid</code></a> – A bid placed on an auction-type item.</li>
+<li><a href="Objects.html#PlaceBidResult"><code>PlaceBidResult</code></a> – The response for an attempt to place a bid.</li>
+<li><a href="Objects.html#ProductDimensions"><code>ProductDimensions</code></a> - The various option dimensions a product may contain.</li>
+<li><a href="Objects.html#ProductVariants"><code>ProductVariants</code></a> - The purchasable options of a product.</li>
+<li><a href="Objects.html#ProductParcel"><code>ProductParcel</code></a> – The parcel information that the product gets shipped in.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#GET /products">GET /products</a></li>
+<li><a href="#GET /products/{id}">GET /products/{id}</a></li>
+<li><a href="#POST /products">POST /products</a></li>
+<li><a href="#PUT /products/{id}">PUT /products/{id}</a></li>
+<li><a href="#POST /products/{id}/bids">POST /products/{id}/bids</a></li>
+</ul>
+
+<h2 id="getproductsahrefgetproductsidgetproductsclassdeeplinka">GET /products <a href="#GET /products" id="GET /products" class="deep-link">#</a></h2>
+
+<p>Collection. By default, it returns all products ordered by curated date, then by most recently published. This collection accepts search filters and pagination options.</p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>All fields are optional. Accepts the standard pagination parameters as well.</p>
+
+<p><em>Filtering</em></p>
+
+<dl class="inline-def"><dt><p><code>available</code></p></dt><dd><p><code>bit</code> Returns only products that are available for purchase.</p></dd><dt><p><code>slug</code></p></dt><dd><p><code>string</code> Returns products with the given slug.</p></dd><dt><p><code>search</code></p></dt><dd><p><code>string</code> Returns products that match the given keyword search query.</p></dd><dt><p><code>sub_search</code></p></dt><dd><p><code>string</code> Returns products that match both the search query and the sub_search query. Use this for "search within" functionality.</p></dd><dt><p><code>meta.&lt;key&gt;=&lt;value&gt;</code></p></dt><dd><p><code>string</code> Returns products with metadata that matches <code>key</code> and <code>value</code>.</p></dd><dt><p><code>condition</code></p></dt><dd><p><code>string enum</code> Returns products that are of a specific condition. See <a href="Constants.html#ProductCondition"><code>ProductCondition</code></a>.</p></dd><dt><p><code>is_local_pickup</code></p></dt><dd><p><code>bit</code> Returns products that are available for local pickup</p></dd><dt><p><code>is_free_shipping</code></p></dt><dd><p><code>bit</code> Returns products that are available with free shipping.</p></dd><dt><p><code>has_cause</code></p></dt><dd><p><code>bit</code> Returns products that are (or are not) being pledged to a cause.</p></dd><dt><p><code>id</code></p></dt><dd><p><code>int csv</code> Returns products with the given id or list of id’s. e.g. <code>id=1</code> or <code>id=1,2,3,4,5</code></p></dd><dt><p><code>seller_store_id</code></p></dt><dd><p><code>int</code> Returns products that are owned and sold by the given store id. No inherited items will return. Incompatible with <code>store_id</code>.</p></dd><dt><p><code>store_id</code></p></dt><dd><p><code>int</code> Returns products that are owned and inherited by the given store Incompatible with <code>seller_store_id</code>. id. e.g. items pledged to a cause's store and items listed by the cause for sale.</p></dd><dt><p><code>inherited_only</code></p></dt><dd><p><code>bit</code> Returns only products that are inherited by a store. Used with <code>store_id</code>.</p></dd><dt><p><code>cause_id</code></p></dt><dd><p><code>int</code> Returns products that are being pledged to a specific cause.</p></dd><dt><p><code>category_id</code></p></dt><dd><p><code>int</code> Returns products that are explicitly filed under a specific category.</p></dd><dt><p><code>between</code></p></dt><dd><p><code>int csv</code> Returns products that are categorized between the given category port/starboard range. e.g. <code>between=10,20</code></p></dd><dt><p><code>price_between</code></p></dt><dd><p><code>int csv</code> Returns products that have a price between the given range. e.g. <code>price_between=10,20</code></p></dd><dt><p><code>local_to</code></p></dt><dd><p><code>int</code> Returns products that are being sold (in zip codes within) the DMA code given</p></dd><dt><p><code>not_around</code></p></dt><dd><p><code>int</code> Returns products that are being sold outside of the DMA code given.</p></dd><dt><p><code>curated</code></p></dt><dd><p><code>bit</code> Returns products that have been curated by the Okanjo staff.</p></dd><dt><p><code>tag_id</code></p></dt><dd><p><code>int csv or int psv</code> Returns products that have been tagged with the given tag. CSV indicates to return products that match any of the given tags. Plus-separated-values (PSV) indicates to return products that match all of the given tags.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>int csv</code> Returns products of the given type(s). See <a href="Constants.html#ProductType"><code>ProductType</code></a>.</p></dd><dt><p><code>exclude</code></p></dt><dd><p><code>int csv</code> Excludes products matching the given ids from the result set.</p></dd><dt><p><code>order_by_dma</code></p></dt><dd><p><code>int</code> Biases products that belong to the given DMA, then products outside of the DMA follow. Useful to show that more products exist, but they're outside of the buyer's locality. See <a href="Regions.html#Regions">Regions</a>.</p></dd></dl>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When a field in a set is given, only returns the specified fields per set.</p></dd><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional linked resources. Accepts: <code>media</code>, <code>category</code>, <code>cause</code>, <code>store</code>, <code>shipping</code>, <code>tags</code>, <code>bids</code>, <code>return_policy</code>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Array of <a href="Objects.html#Product"><code>Product</code></a> objects</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to retrieve products.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="getproductsidahrefgetproductsididgetproductsidclassdeeplinka">GET /products/{id} <a href="#GET /products/{id}" id="GET /products/{id}" class="deep-link">#</a></h2>
+
+<p>Resource. Gets a specific product resource by its unique identifier.</p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p><em>Fields &amp; Includes</em></p>
+
+<dl class="inline-def"><dt><p><code>fields</code></p></dt><dd><p><code>csv</code> When a field in a set is given, only returns the specified fields per set.</p></dd><dt><p><code>embed</code></p></dt><dd><p><code>csv</code> When given, includes the additional linked resources. Accepts: <code>media</code>, <code>category</code>, <code>cause</code>, <code>store</code>, <code>shipping</code>, <code>tags</code>, <code>bids</code>, <code>return_policy</code>.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#Product"><code>Product</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Product not found.</code> Occurs when the given product was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to retrieve product.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="postproductsahrefpostproductsidpostproductsclassdeeplinka">POST /products <a href="#POST /products" id="POST /products" class="deep-link">#</a></h2>
+
+<p>Resource. Adds a new product for sale on the current user’s store.<strong>Requires user level authentication.</strong></p>
+
+<blockquote>
+  <p>Note: Cannot include shipping options when free shipping is enabled.</p>
+  
+  <p>Note: When including a parcel, you must specify either a predefined package type or the dimensions of the package. Weight is always required when specifying a package.</p>
+</blockquote>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>store_id</code></p></dt><dd><p><code>int</code> The ID of the primary store in which to sell the item. The referenced store must be manageable by the requesting user.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>int enum</code> The type of product. See <a href="Constants.html#ProductType"><code>ProductType</code></a>.</p></dd><dt><p><code>title</code></p></dt><dd><p><code>string (5-128)</code> The title of the product.</p></dd><dt><p><code>description</code></p></dt><dd><p><code>string (5-2048)</code> The description of the product.</p></dd><dt><p><code>price</code></p></dt><dd><p><code>int (1-9000)</code> The cost of the product. For auctions, this is the buy-out price. For deals, this is the purchase price. See also <a href="Constants.html#PurchaseRequirements"><code>PurchaseRequirements</code></a>.</p></dd><dt><p><code>stock</code></p></dt><dd><p><code>null</code> | <code>int (-max)</code> How many instances of the product are for sale. Null or empty values denote that the product has infinite stock, and is made "on demand"</p></dd><dt><p><code>category_id</code></p></dt><dd><p><code>int</code> The unique ID of the category to file the product under.</p></dd><dt><p><code>condition</code></p></dt><dd><p><code>string enum</code> The condition of the product. See <a href="Constants.html#ProductCondition"><code>ProductCondition</code></a>.</p></dd><dt><p><code>is_local_pickup</code></p></dt><dd><p><code>bit</code> Whether the product is available for local pickup.</p></dd><dt><p><code>is_free_shipping</code></p></dt><dd><p><code>bit</code> Whether the product is available with free shipping.</p></dd><dt><p><code>use_dynamic_shipping</code></p></dt><dd><p><code>bit</code> Whether shipping can be quoted dynamically at checkout time. Requires a parcel to be defined and is not compatible with <code>is_free_shipping</code>.</p></dd><dt><p><code>is_taxable</code></p></dt><dd><p><code>bit</code> Whether sales tax is applicable to the product. Default <code>1</code> (enabled).</p></dd><dt><p><code>shipping_options[n][description]</code></p></dt><dd><p><code>string (2-32)</code> Array. Description of the shipping option.</p></dd><dt><p><code>shipping_options[n][price]</code></p></dt><dd><p><code>int (0-1000)</code> Array. Price of the shipping option.</p></dd><dt><p><code>return_policy[id]</code></p></dt><dd><p><code>int</code> Optionally required. Value can be the ID of an existing Return Policy or <code>0</code> to indicate ‘No Returns’. Must be empty if new return policy.</p></dd><dt><p><code>return_policy[name]</code></p></dt><dd><p><code>string (64)</code> Optionally required. Must be included if <code>return_policy[id]</code> is empty. The name of the return policy.</p></dd><dt><p><code>return_policy[policy]</code></p></dt><dd><p><code>text</code> Optionally required. Must be included if <code>return_policy[id]</code> is empty. The terms of the return policy.</p></dd><dt><p><code>auction_start</code></p></dt><dd><p><code>date time</code> When bidding on the auction should begin. Formatted as an ISO 8601.</p></dd><dt><p><code>auction_end</code></p></dt><dd><p><code>date time</code> When bidding on the auction should end. Formatted as an ISO 8601.</p></dd><dt><p><code>auction_min_bid</code></p></dt><dd><p><code>decimal</code> The starting bid price of the auction.</p></dd><dt><p><code>thumbnail_media_id</code></p></dt><dd><p><code>int</code> The ID of the media image to use for the primary thumbnail image. ID must also be included in the media array.</p></dd><dt><p><code>media[n]</code></p></dt><dd><p><code>int</code> Array. Media image IDs to attach to the product. Can only associate media owned by the seller. At least one media image is required.</p></dd><dt><p><code>meta</code></p></dt><dd><p><code>string[]</code>  Array of key/value properties to attach to the object. Metadata is per-API key.</p></dd><dt><p><code>cause_id</code></p></dt><dd><p><code>int</code> Optional. The ID of the cause to pledge a portion of the proceeds to. Only include if <code>donation_perc</code> is set.</p></dd><dt><p><code>donation_perc</code></p></dt><dd><p><code>int (0-100)</code> Optional. How much of the sale will be donated to the associated cause. Only include if <code>cause_id</code> is set.</p></dd><dt><p><code>promo_code</code></p></dt><dd><p><code>string (32)</code> Optional. A promotional code that was used when listing the item.</p></dd><dt><p><code>tags[n][id]</code></p></dt><dd><p><code>int</code> Optional. Array. ID of a tag being related to the the product</p></dd><dt><p><code>tags[n][name]</code></p></dt><dd><p><code>string (64)</code> Optional. Array. Name of new tag being added to the system. Note: This field is ignored if it is accompanied by an ID.</p></dd><dt><p><code>deal_start</code></p></dt><dd><p><code>date time</code> When the deal should be available for sale.</p></dd><dt><p><code>deal_end</code></p></dt><dd><p><code>date time</code> When the deal should no longer available for sale.</p></dd><dt><p><code>promo_start</code></p></dt><dd><p><code>date time</code> When the deal may begin to be redeemed by buyers for the full promotional value.</p></dd><dt><p><code>promo_end</code></p></dt><dd><p><code>date time</code> When the deal may no longer be redeemed by buyers for the<strong>full</strong> promotional value, but may still be redeemed for the paid value.</p></dd><dt><p><code>deal_value</code></p></dt><dd><p><code>decimal 10,2</code> The promotional value of the deal. e.g. $20 buys $40 worth of goods/service. $20 is the <code>price</code>, $40 is the <code>deal_value</code>.</p></dd><dt><p><code>dimensions</code></p></dt><dd><p><code>array</code> Optional. Must be included if variants is present. Multidimensional array of product attributes and price modifiers.</p></dd><dt><p><code>variants</code></p></dt><dd><p><code>array</code> Optional. Must be included if dimensions is present. Multidimensional array of product information keyed by query string, comprised of dimension->attribute pairs for all combinations of dimensions.</p></dd><dt><p><code>parcel_predefined_package</code></p></dt><dd><p><code>string</code> Specify either this field or <code>parcel_length</code>, <code>parcel_width</code>, and <code>parcel_height</code>, but not both. A carrier-specific parcel type. For example, see EasyPost's <a href="https://www.easypost.com/service-levels-and-parcels">list of parcels</a>.</p></dd><dt><p><code>parcel_length</code></p></dt><dd><p><code>decimal</code> The length of the parcel, in inches.</p></dd><dt><p><code>parcel_width</code></p></dt><dd><p><code>decimal</code> The width of the parcel, in inches.</p></dd><dt><p><code>parcel_height</code></p></dt><dd><p><code>decimal</code> The height of the parcel, in inches.</p></dd><dt><p><code>parcel_weight</code></p></dt><dd><p><code>decimal</code> The weight of the parcel, in ounces.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>The newly created <a href="Objects.html#Product"><code>Product</code></a> object.</p>
+
+<blockquote>
+  <p><strong>Note: The product is published and available for sale immediately after being posted.</strong></p>
+</blockquote>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid field: {field}</code> Occurs when the given field was invalid.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to create product.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="putproductsidahrefputproductsididputproductsidclassdeeplinka">PUT /products/{id} <a href="#PUT /products/{id}" id="PUT /products/{id}" class="deep-link">#</a></h2>
+
+<p>Resource. Updates a product given its unique identifier.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>Only send the fields that should be updated. Send them all if that's your thing.</p>
+
+<dl class="inline-def"><dt><p><code>status</code></p></dt><dd><p><code>int enum</code> The status of the product.  See <a href="Constants.html#ProductStatus"><code>ProductStatus</code></a>.</p></dd><dt><p><code>title</code></p></dt><dd><p><code>string (5-128)</code> The title of the product.</p></dd><dt><p><code>description</code></p></dt><dd><p><code>string (5-2048)</code> The description of the product.</p></dd><dt><p><code>price</code></p></dt><dd><p><code>int (1-9000)</code> The cost of the product.</p></dd><dt><p><code>stock</code></p></dt><dd><p><code>null</code> | <code>int (-max)</code> How many instances of the product are for sale. Null or empty values denote that the product has infinite stock, and is made "on demand"</p></dd><dt><p><code>category_id</code></p></dt><dd><p><code>int</code> The unique ID of the category to file the product under.</p></dd><dt><p><code>condition</code></p></dt><dd><p><code>string enum</code> The condition of the product. See <a href="Constants.html#ProductCondition"><code>ProductCondition</code></a>.</p></dd><dt><p><code>is_local_pickup</code></p></dt><dd><p><code>bit</code> Whether the product is available for local pickup.</p></dd><dt><p><code>is_free_shipping</code></p></dt><dd><p><code>bit</code> Whether the product is available with free shipping.</p></dd><dt><p><code>use_dynamic_shipping</code></p></dt><dd><p><code>bit</code> Whether shipping can be quoted dynamically at checkout time. Requires a parcel to be defined and is not compatible with <code>is_free_shipping</code>. Set to <code>0</code> to remove the parcel from the product.</p></dd><dt><p><code>is_taxable</code></p></dt><dd><p><code>bit</code> Whether sales tax is applicable to the product. Default <code>1</code> (enabled).</p></dd><dt><p><code>shipping_options[n][description]</code></p></dt><dd><p><code>string (2-32)</code> Array. Description of the shipping option.</p></dd><dt><p><code>shipping_options[n][price]</code></p></dt><dd><p><code>int (0-1000)</code> Array. Price of the shipping option.</p></dd><dt><p><code>return_policy[id]</code></p></dt><dd><p><code>int</code> Optionally required. Value can be the ID of an existing Return Policy or 0 to indicate ‘No Returns’. Must be empty if new return policy.</p></dd><dt><p><code>return_policy[name]</code></p></dt><dd><p><code>string (64)</code> Optionally required. Must be included if return_policy[id] is empty. The name of the return policy.</p></dd><dt><p><code>return_policy[policy]</code></p></dt><dd><p><code>text</code> Optionally required. Must be included if return_policy[id] is empty. The terms of the return policy.</p></dd><dt><p><code>thumbnail_media_id</code></p></dt><dd><p><code>int</code> The ID of the media image to use for the primary thumbnail image. ID must also be included in the current media list, or media array if specified.</p></dd><dt><p><code>auction_start</code></p></dt><dd><p><code>date time</code> When bidding on the auction should begin. Formatted as an ISO 8601.</p></dd><dt><p><code>auction_end</code></p></dt><dd><p><code>date time</code> When bidding on the auction should end. Formatted as an ISO 8601.</p></dd><dt><p><code>auction_min_bid</code></p></dt><dd><p><code>decimal</code> The starting bid price of the auction.</p></dd><dt><p><code>media[n]</code></p></dt><dd><p><code>int</code> Array. Media image IDs to attach to the product. Can only associate media owned by the seller. At least one media image is required.</p></dd><dt><p><code>meta</code></p></dt><dd><p><code>string[]</code>  Array of key/value properties to attach to the object. Metadata is per-API key. Anything included will replace any existing properties on the object.</p></dd><dt><p><code>cause_id</code></p></dt><dd><p><code>int</code> Optional. The ID of the cause to pledge a portion of the proceeds to. Only include if <code>donation_perc</code> is set. Set to empty string to clear, <code>donation_perc</code> will automatically set to 0.</p></dd><dt><p><code>donation_perc</code></p></dt><dd><p><code>int (0-100)</code> Optional. How much of the sale will be donated to the associated cause. Only include if <code>cause_id</code> is set.</p></dd><dt><p><code>promo_code</code></p></dt><dd><p><code>string (32)</code> Optional. Attaches a seller promotional code to the product.</p></dd><dt><p><code>tags[n][id]</code></p></dt><dd><p><code>int</code> Array. This can be an id that is already related to the product or the ID of a tag being related to the the product. Note: If the ID of a tag that is already related to a product is not included in the request, that tag relationship will be deleted.</p></dd><dt><p><code>tags[n][name]</code></p></dt><dd><p><code>string (64)</code> Array. Name of new tag being added to the system. Note: This field is ignored if it is accompanied by an ID.</p></dd><dt><p><code>deal_start</code></p></dt><dd><p><code>date time</code> When the deal should be available for sale.</p></dd><dt><p><code>deal_end</code></p></dt><dd><p><code>date time</code> When the deal should no longer available for sale.</p></dd><dt><p><code>promo_start</code></p></dt><dd><p><code>date time</code> When the deal may begin to be redeemed by buyers for the full promotional value.</p></dd><dt><p><code>promo_end</code></p></dt><dd><p><code>date time</code> When the deal may no longer be redeemed by buyers for the<strong>full</strong> promotional value, but may still be redeemed for the paid value.</p></dd><dt><p><code>deal_value</code></p></dt><dd><p><code>decimal 10,2</code> The promotional value of the deal. e.g. $20 buys $40 worth of goods/service. $20 is the <code>price</code>, $40 is the <code>deal_value</code>.</p></dd><dt><p><code>dimensions</code></p></dt><dd><p><code>array</code> Optional. Must be included if variants is present. Multidimensional array of product attributes and price modifiers.</p></dd><dt><p><code>variants</code></p></dt><dd><p><code>array</code> Optional. Must be included if dimensions is present. Multidimensional array of product information keyed by query string, comprised of dimension->attribute pairs for all combinations of dimensions.</p></dd><dt><p><code>parcel_predefined_package</code></p></dt><dd><p><code>string</code> Specify either this field or <code>parcel_length</code>, <code>parcel_width</code>, and <code>parcel_height</code>, but not both. A carrier-specific parcel type. For example, see EasyPost's <a href="https://www.easypost.com/service-levels-and-parcels">list of parcels</a>.</p></dd><dt><p><code>parcel_length</code></p></dt><dd><p><code>decimal</code> The length of the parcel, in inches.</p></dd><dt><p><code>parcel_width</code></p></dt><dd><p><code>decimal</code> The width of the parcel, in inches.</p></dd><dt><p><code>parcel_height</code></p></dt><dd><p><code>decimal</code> The height of the parcel, in inches.</p></dd><dt><p><code>parcel_weight</code></p></dt><dd><p><code>decimal</code> The weight of the parcel, in ounces.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid field: {field}</code> Occurs when the given field was invalid.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>Product not found.</code> Occurs when the given product could not be found or is invalid.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to update product.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+
+<h2 id="postproductsidbidsahrefpostproductsidbidsidpostproductsidbidsclassdeeplinka">POST /products/{id}/bids <a href="#POST /products/{id}/bids" id="POST /products/{id}/bids" class="deep-link">#</a></h2>
+
+<p>Controller. Places a Bid on an auction-type product.<strong>Requires user level authentication.</strong></p>
+
+<p>Bidding on Okanjo is done only by proxy. Users provide their maximum bid amount and when new bids are placed, they are fulfilled first-in, first-out.</p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>max_bid</code></p></dt><dd><p><code>decimal</code> The max bid the user is willing to bid on an item.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#PlaceBidResult"><code>PlaceBidResult</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid max bid.</code> Occurs when the max bid is outside the acceptable range.</p></dd><dd><p><code>Product cannot be bid on at this time.</code> Occurs when the given product does not exist, has expired, or is not an auction.</p></dd><dd><p><code>Max bid cannot be lower than the auction starting bid.</code> Occurs when the max bid is less than the minimum required bid for the auction.</p></dd><dd><p><code>Max bid must be higher than the current bid.</code> Occurs when the max bid is lower than the current bid.</p></dd><dd><p><code>Max bid must be larger than your previous max bid.</code> Occurs when the user is winning the auction, but provided a lower max bid than their previously given bid.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request failed to be fulfilled.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a target="_blank" href="https://github.com/kfitzgerald/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+        <script>
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-36849843-8', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

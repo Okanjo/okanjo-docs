@@ -1,9 +1,11 @@
-# Okanjo API Documentation
+# Okanjo Platform Documentation
 
 This project houses and builds the Okanjo platform documentation.
 
-Documentation is stored as Markdown files, and is converted to fancy html documentation using a forked copy of mdoc,
-a Node.js Markdown documentation converter.
+> We've recently switched to a flatfdoc-based approach for new product documentation. We're in the process of updating the old documentation to this format. Please bare with us! 
+
+The Marketplace documentation is stored as Markdown files, and is converted to fancy html documentation using a forked copy of mdoc,
+a Node.js-based Markdown documentation converter.
 
 # Contributing
 
@@ -15,10 +17,9 @@ fork away, submit an issue, and top it off with a pull request!
 To build the Okanjo docs, you'll need:
 
 * Node.js
-* Node Package Manager (npm)
 * mdoc (referenced as git submodule)
 
-In a command prompt / terminal, change into the okanjo-docs project directory:
+After cloning this repository, in your favorite shell/terminal, get into the okanjo-docs project directory:
 ```bash
 cd okanjo-docs
 ```
@@ -29,8 +30,10 @@ git submodule init
 git submodule update
 ```
 
-And that should get mdoc checked out into the right spot.
-
+Install the required dependencies to get everything building:
+```bash
+npm install
+```
 
 # Build the Docs
 
@@ -39,9 +42,19 @@ In a command prompt / terminal, change into the okanjo-docs project directory:
 cd okanjo-docs
 ```
 
-Then run the build script:
+If you have gulp installed globally, then you can simply run:
 ```bash
-node gen-docs.js
+gulp
 ```
 
-And the build directory will contain the generated html documentation.
+Or, you can build using the gulp installed in the node_modules directory like so:
+```bash
+export PATH=./node_modules/.bin/:$PATH
+gulp
+```
+
+Though, you should do yourself a favor and install gulp globally:
+
+```bash
+npm install -g gulp
+```

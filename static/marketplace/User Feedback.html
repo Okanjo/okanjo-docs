@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>User Given Feedback : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="usergivenfeedback">User Given Feedback</h1>
+
+<p>Gets previously left feedback or adds feedback on purchases.</p>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Feedback"><code>Feedback</code></a> – A user's quantifiable order experience.</li>
+<li><a href="Objects.html#FeedbackEntity"><code>FeedbackEntity</code></a> –  Additional information about the reviewer or reviewee.</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#GET /users/{id}/feedback">GET /users/{id}/feedback</a></li>
+<li><a href="#GET /users/{id}/feedback/{order_item_id}">GET /users/{id}/feedback/{order_item_id}</a></li>
+<li><a href="#PUT /users/{id}/feedback/{order_item_id}">PUT /users/{id}/feedback/{order_item_id}</a></li>
+</ul>
+
+<h2 id="getusersidfeedbackahrefgetusersidfeedbackidgetusersidfeedbackclassdeeplinka">GET /users/{id}/feedback <a href="#GET /users/{id}/feedback" id="GET /users/{id}/feedback" class="deep-link">#</a></h2>
+
+<p>Collection. Returns feedback given by the user.</p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Array of <a href="Objects.html#Feedback"><code>Feedback</code></a> messages.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+
+<h2 id="getusersidfeedbackorder_item_idahrefgetusersidfeedbackorder_item_ididgetusersidfeedbackorder_item_idclassdeeplinka">GET /users/{id}/feedback/{order_item_id} <a href="#GET /users/{id}/feedback/{order_item_id}" id="GET /users/{id}/feedback/{order_item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Returns a specific feedback message left by the user.</p>
+
+<h3 id="queryparameters">Query Parameters</h3>
+
+<p>None.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#Feedback"><code>Feedback</code></a> message.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>404 Bad Request</strong></p></dt><dd><p><code>Feedback not found.</code> Occurs when the specific feedback was not found.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>System error.</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+
+<h2 id="putusersidfeedbackorder_item_idahrefputusersidfeedbackorder_item_ididputusersidfeedbackorder_item_idclassdeeplinka">PUT /users/{id}/feedback/{order_item_id} <a href="#PUT /users/{id}/feedback/{order_item_id}" id="PUT /users/{id}/feedback/{order_item_id}" class="deep-link">#</a></h2>
+
+<p>Resource. Leaves feedback regarding a specific purchase.<strong>Requires user level authentication.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>rating</code></p></dt><dd><p><code>int (1-5)</code> Required. The quantitative score given to the transaction. Accepts <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code> or <code>5</code>.</p></dd><dt><p><code>feedback</code></p></dt><dd><p><code>string (140)</code> Optional. The message the reviewer is leaving regarding the transaction.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p>Generic <a href="Globals.html#Default Response Object"><code>Success</code></a> response.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Require {field}.</code> Occurs when the field was required but was not given in the request.</p></dd><dd><p><code>Cannot leave Feedback for this product again</code> Occurs when the user attempts to leave feedback on an item after feedback has already been left.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Insufficient privileges for this operation.</code> Occurs when the request credentials were not sufficient to perform the action. Providing different credentials could solve the issue.</p></dd><dt><p><strong>404 Not Found</strong></p></dt><dd><p><code>{object} not found.</code> Occurs when the specific target order/item/product/store was not found or valid.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Failed to save Feedback. Try again later</code> Occurs when the request could not be fulfilled.</p></dd></dl>
+                <hr />
+                <small>Documentation generated by <a target="_blank" href="https://github.com/kfitzgerald/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+        <script>
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-36849843-8', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

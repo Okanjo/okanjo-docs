@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Checkout : Okanjo API Core Specification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body data-root-path="">
+        <div id="wrapper">
+            <div id="content">
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="checkout">Checkout</h1>
+
+<p>The checkout system facilitates purchasing products listed Okanjo.</p>
+
+<p>Checkout currently supports payments using PayPal or Balanced Payments for credit-card processing.</p>
+
+<blockquote>
+  <p><strong>Credit card information must never pass through or be collected by your application.</strong> <a href="http://balancedpayments.com">Balanced Payments™</a> enables PCI
+  compliance by routing user payment card data directly to Balanced's API, who then returns a tokenized card URI, which
+  is used by Okanjo for checkout transactions.</p>
+</blockquote>
+
+<h1 id="objects">Objects</h1>
+
+<ul>
+<li><a href="Objects.html#Card"><code>Card</code></a> – Tokenized payment card</li>
+<li><a href="Objects.html#CheckoutQuote"><code>CheckoutQuote</code></a> – Order quote (includes tax and shipping rates)</li>
+<li><a href="Objects.html#CheckoutOrder"><code>CheckoutOrder</code></a> – Unconfirmed order</li>
+<li><a href="Objects.html#CheckoutConfirmation"><code>CheckoutConfirmation</code></a> – Order confirmation</li>
+</ul>
+
+<h1 id="routes">Routes</h1>
+
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#POST /checkout">POST /checkout</a></li>
+<li><a href="#POST /checkout/rates">POST /checkout/rates</a></li>
+<li><a href="#POST /checkout/confirm">POST /checkout/confirm</a></li>
+<li><a href="#POST /checkout/donations">POST /checkout/donations</a></li>
+<li><a href="#POST /checkout/donations/confirm">POST /checkout/donations/confirm</a></li>
+</ul>
+
+<h2 id="postcheckoutahrefpostcheckoutidpostcheckoutclassdeeplinka">POST /checkout <a href="#POST /checkout" id="POST /checkout" class="deep-link">#</a></h2>
+
+<p>Controller. Initializes the checkout process. Creates the order. For use with orders containing physical items (regular items, auctions, and offers) only.<strong>Requires authentication at user or guest levels.</strong></p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>cart</code></p></dt><dd><p><code>json string</code> JSON-encoded cart string in the format of <code>{ "20": { "quantity: 1, "shipping_type": "xxx" }, ...}</code>, where <code>20</code> = product id and shipping type is, <code>"free"</code>, <code>“local”</code> or the ID number of the shipping option attached to the product. If selecting a product variant, include the corresponding <code>variants</code> key from the <a href="Objects.html#Product"><code>Product</code></a> with the cart item, e.g. <code>{ variant : "Color=Green+with+Sparkles&amp;Size=Small" }</code></p></dd><dt><p><code>return_url</code></p></dt><dd><p><code>string (1024)</code> Where to tell PayPal to redirect to after the buyer confirms the payment.</p></dd><dt><p><code>cancel_url</code></p></dt><dd><p><code>string (1024)</code> Where to tell PayPal to redirect to when the buyer cancels the payment process.</p></dd><dt><p><code>shipping_first_name</code></p></dt><dd><p><code>string (16)</code> The buyer’s shipping first name.</p></dd><dt><p><code>shipping_last_name</code></p></dt><dd><p><code>string (16)</code> The buyer’s shipping last name.</p></dd><dt><p><code>shipping_address_1</code></p></dt><dd><p><code>string (100)</code> The buyer’s shipping address line 1.</p></dd><dt><p><code>shipping_address_2</code></p></dt><dd><p><code>string (100)</code> Optional. The buyer’s shipping address line 2.</p></dd><dt><p><code>shipping_city</code></p></dt><dd><p><code>string (40)</code> The buyer’s shipping city.</p></dd><dt><p><code>shipping_state</code></p></dt><dd><p><code>string (2)</code> The buyer’s shipping state code. (e.g. WI)</p></dd><dt><p><code>shipping_zip</code></p></dt><dd><p><code>string (10)</code> The buyer’s shipping zip code.</p></dd><dt><p><code>shipping_country</code></p></dt><dd><p><code>string (2)</code> The buyer’s shipping country code. (e.g. US)</p></dd><dt><p><code>shipping_phone</code></p></dt><dd><p><code>string (20)</code> The buyer’s phone number.</p></dd><dt><p><code>subscribe_to</code></p></dt><dd><p><code>int csv</code>  Optional. CSV of store ID's in which to subscribe to. (e.g. For future use for mailing list, updates, etc)</p></dd><dt><p><code>meta</code></p></dt><dd><p><code>string[]</code>  Array of key/value properties to attach to the object. Metadata is per-API key.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#CheckoutOrder"><code>CheckoutOrder</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid cart.</code> Occurs when the cart that was given was invalid.</p></dd><dd><p><code>Invalid url.</code> Occurs when one of the return URL’s are invalid.</p></dd><dd><p><code>Invalid cart item: {id}</code> Occurs when there was a problem with a specific product in the cart.</p></dd><dd><p><code>Invalid cart total.</code> Occurs when the cart total is outside of the valid range of $1 and $10,000.</p></dd><dd><p><code>Invalid shipping address.</code> Occurs when one or more of the shipping fields were missing or invalid.</p></dd><dd><p><code>Invalid address - city, state, zip mismatch.</code> Occurs when PayPal failed to validate the given shipping address.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was not valid.</p></dd><dd><p><code>Quoted shipping address does not match given shipping address.</code> Occurs when the shipping address given differs from what was used to quote a shipping rate.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Login required.</code> Occurs when the user attempted to checkout without a valid account.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Cannot buy items own item: {id}</code> Occurs when the user attempted to checkout their own item.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Something went wrong.</code> Occurs when the was an unknown problem on the server.</p></dd><dd><p><code>Could not checkout at this time.</code> Occurs when something goes wrong when talking to PayPal’s API.</p></dd></dl>
+
+<h2 id="postcheckoutratesahrefpostcheckoutratesidpostcheckoutratesclassdeeplinka">POST /checkout/rates <a href="#POST /checkout/rates" id="POST /checkout/rates" class="deep-link">#</a></h2>
+
+<p>Controller. Generates a final quote for an order, including sales tax and dynamic shipping rates.<strong>Requires authentication at user or guest levels.</strong></p>
+
+<blockquote>
+  <p>Note: Quoting an order isn't necessarily required during the checkout process. If an item is taxable and the store
+  collects sales tax, or the item uses dynamic shipping to get the shipping rates at time of checkout, then this route required.</p>
+</blockquote>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<p>Takes the same parameters as <a href="Checkout.html#POST /checkout"><code>POST /checkout</code></a>.</p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Array of <a href="Objects.html#CheckoutQuote"><code>CheckoutQuote</code></a> objects.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid cart.</code> Occurs when the cart that was given was invalid.</p></dd><dd><p><code>Invalid url.</code> Occurs when one of the return URL’s are invalid.</p></dd><dd><p><code>Invalid cart item: {id}</code> Occurs when there was a problem with a specific product in the cart.</p></dd><dd><p><code>Invalid cart total.</code> Occurs when the cart total is outside of the valid range of $1 and $10,000.</p></dd><dd><p><code>Invalid shipping address.</code> Occurs when one or more of the shipping fields were missing or invalid.</p></dd><dd><p><code>Invalid address - city, state, zip mismatch.</code> Occurs when PayPal failed to validate the given shipping address.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was not valid.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Login required.</code> Occurs when the user attempted to checkout without a valid account.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Cannot buy items own item: {id}</code> Occurs when the user attempted to checkout their own item.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Something went wrong.</code> Occurs when the was an unknown problem on the server.</p></dd><dd><p><code>Could not checkout at this time.</code> Occurs when something goes wrong when talking to PayPal’s API.</p></dd><dt><p><strong>503 Service Unavailable</strong></p></dt><dd><p><code>Service unavailable.</code> Occurs when the shipping provider was unable to return shipping rates. Likely a temporary error.</p></dd></dl>
+
+<h2 id="postcheckoutconfirmahrefpostcheckoutconfirmidpostcheckoutconfirmclassdeeplinka">POST /checkout/confirm <a href="#POST /checkout/confirm" id="POST /checkout/confirm" class="deep-link">#</a></h2>
+
+<p>Controller. Submits the order created via <a href="Checkout.html#POST /checkout">POST /checkout</a> for processing.<strong>Requires authentication at user or guest levels.</strong></p>
+
+<p>When paying using PayPal, <code>payer_id</code> is required, otherwise when paying using a tokenized payment card via Balanced, <code>balanced_card_uri</code> is required.</p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>order_id</code></p></dt><dd><p><code>string</code> Required. Order unique ID. Alternatively, you may provide <code>order_token</code> instead of <code>order_id</code>. </p></dd><dt><p><code>order_token</code></p></dt><dd><p><code>string</code> PayPal transaction token.</p></dd><dt><p><code>payer_id</code></p></dt><dd><p><code>string</code> PayPal payer id code.</p></dd><dt><p><code>balanced_card_uri</code></p></dt><dd><p><code>string</code> Balanced tokenized card URI.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#CheckoutConfirmation"><code>CheckoutConfirmation</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid order.</code> Occurs when the order is invalid.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Login required.</code> Occurs when the user attempted to checkout without a valid account.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>You are not authorized to debit the given card URI.</code> Occurs when the given Balanced card URI that does not belong to the corresponding user’s account.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>One or more products have been changed since the order was created.</code> Occurs when a seller modified a product while it was in someone’s cart. Cannot complete the checkout process if the item was changed since it was added to the cart.</p></dd><dd><p><code>One or more products are no longer available.</code> Occurs when an item was sold or taken down while it was in someone’s cart. Cannot complete the checkout since the item is no longer available.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Could not checkout at this time.</code> Occurs when something goes wrong when communicating with PayPal/Balanced or there was a problem interacting with the backend.</p></dd><dd><p><code>Payment card could not be authorized.</code> Occurs when the payment card given could not be authorized by Balanced, usually due to the card issuer declining the transaction. For example, credit limit exceeded.</p></dd><dd><p><code>PayPal could not authorize the order due to error code: {id}</code> Occurs when PayPal could not authorize the transaction, usually due to insufficient funding or a problem with the buyer's funding source. <code>id</code> is the error number PayPal returned.</p></dd></dl>
+
+<h2 id="postcheckoutdonationsahrefpostcheckoutdonationsidpostcheckoutdonationsclassdeeplinka">POST /checkout/donations <a href="#POST /checkout/donations" id="POST /checkout/donations" class="deep-link">#</a></h2>
+
+<p>Controller. Initializes the checkout process for donation orders. Creates the order and initializes the transaction with PayPal. May only contain donation items. Backwards compatible with <a href="Checkout.html#POST /checkout">POST /checkout</a>.<strong>No authentication required.</strong></p>
+
+<p>The main differences between <a href="Checkout.html#POST /checkout">POST /checkout</a> are:
+* Only donation items are allowed.
+* No user token is required.
+* Only a limited set of buyer information is required: name, email, and zip-code.</p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>cart</code></p></dt><dd><p><code>json string</code> Required. JSON-encoded cart string in the format of <code>{ "20": { "quantity: 1, "shipping_type": "xxx" }, ...}</code>, where <code>20</code> = product id and shipping type is, <code>"free"</code>, <code>“local”</code> or the ID number of the shipping option attached to the product.</p></dd><dt><p><code>return_url</code></p></dt><dd><p><code>string (1024)</code> Required. Where to tell PayPal to redirect to after the buyer confirms the payment.</p></dd><dt><p><code>cancel_url</code></p></dt><dd><p><code>string (1024)</code> Required. Where to tell PayPal to redirect to when the buyer cancels the payment process.</p></dd><dt><p><code>email</code></p></dt><dd><p><code>string (255)</code> Required. The buyer’s email address.</p></dd><dt><p><code>shipping_first_name</code></p></dt><dd><p><code>string (16)</code> Required. The buyer’s shipping first name.</p></dd><dt><p><code>shipping_last_name</code></p></dt><dd><p><code>string (16)</code> Required. The buyer’s shipping last name.</p></dd><dt><p><code>shipping_zip</code></p></dt><dd><p><code>string (10)</code> Required. The buyer’s shipping zip code.</p></dd><dt><p><code>shipping_country</code></p></dt><dd><p><code>string (2)</code> Required. The buyer’s shipping country code. (e.g. US)</p></dd><dt><p><code>shipping_address_1</code></p></dt><dd><p><code>string (100)</code> Optional. The buyer’s shipping address line 1.</p></dd><dt><p><code>shipping_address_2</code></p></dt><dd><p><code>string (100)</code> Optional. The buyer’s shipping address line 2.</p></dd><dt><p><code>shipping_city</code></p></dt><dd><p><code>string (40)</code> Optional. The buyer’s shipping city.</p></dd><dt><p><code>shipping_state</code></p></dt><dd><p><code>string (2)</code> Optional. The buyer’s shipping state code. (e.g. WI)</p></dd><dt><p><code>shipping_phone</code></p></dt><dd><p><code>string (20)</code> Optional. The buyer’s phone number.</p></dd><dt><p><code>subscribe_to</code></p></dt><dd><p><code>int csv</code>  Optional. CSV of store ID's in which to subscribe to. (e.g. mailing list, updates, etc)</p></dd><dt><p><code>meta</code></p></dt><dd><p><code>string[]</code>  Array of key/value properties to attach to the object. Metadata is per-API key.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#CheckoutOrder"><code>CheckoutOrder</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid cart.</code> Occurs when the cart that was given was invalid.</p></dd><dd><p><code>Invalid url.</code> Occurs when one of the return URL’s are invalid.</p></dd><dd><p><code>Invalid cart item: {id}</code> Occurs when there was a problem with a specific product in the cart.</p></dd><dd><p><code>Invalid cart total.</code> Occurs when the cart total is outside of the valid range of $1 and $10,000.</p></dd><dd><p><code>Invalid shipping address.</code> Occurs when one or more of the shipping fields were missing or invalid.</p></dd><dd><p><code>Invalid address - city, state, zip mismatch.</code> Occurs when PayPal failed to validate the given shipping address.</p></dd><dd><p><code>Invalid field: {field}</code> Occurs when the given field was not valid.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Login required.</code> Occurs when the user attempted to checkout without a valid account.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>Cannot buy items own item: {id}</code> Occurs when the user attempted to checkout their own item.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Something went wrong.</code> Occurs when the was an unknown problem on the server.</p></dd><dd><p><code>Could not checkout at this time.</code> Occurs when something goes wrong when talking to PayPal’s API.</p></dd></dl>
+
+<h3 id="example">Example</h3>
+
+<pre><code>POST /checkout/donations?key=XXXXX&amp;signature=YYYYY HTTP/1.1
+Host: sandbox.api.okanjo.com
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Content-Length: 302
+
+cart=%7B%2299999%22%3A%7B%22quantity%22%3A10%2C%22shipping_type%22%3A%2299999%22%7D%7D&amp;shipping_first_name=John&amp;shipping_last_name=Smith&amp;email=john@example.com&amp;shipping_zip=53202&amp;shipping_country=US&amp;return_url=http%3A%2F%2Fokanjo.com%2F%3Freturn&amp;cancel_url=http%3A%2F%2Fokanjo.com%2F%3Fcancel&amp;subscribe_to=1,2,3
+
+
+HTTP 1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-cache`
+</code></pre>
+
+<pre class="brush:js">
+
+{
+    "token": "EC%2d6YD141039D5125406",
+    "paypal_url": "https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&#38;token=EC%2d6YD141039D5125406",
+    "cards": [],
+    "subscriptions": {
+        "1": {
+            "type": "success"
+        },
+        "2": {
+            "type": "success"
+        },
+        "3": {
+            "type": "success"
+        }
+    }
+}
+</pre>
+
+<h2 id="postcheckoutdonationsconfirmahrefpostcheckoutdonationsconfirmidpostcheckoutdonationsconfirmclassdeeplinka">POST /checkout/donations/confirm <a href="#POST /checkout/donations/confirm" id="POST /checkout/donations/confirm" class="deep-link">#</a></h2>
+
+<p>Submits the donation order created via <a href="Checkout.html#POST /checkout/donation">POST /checkout/donation</a> for processing.<strong>No authentication required.</strong></p>
+
+<p>When paying using PayPal, <code>payer_id</code> is required, otherwise when paying using a tokenized payment card via Balanced, <code>balanced_card_uri</code> is required.</p>
+
+<h3 id="entitynvpparameters">Entity NVP Parameters</h3>
+
+<dl class="inline-def"><dt><p><code>order_id</code></p></dt><dd><p><code>string</code> Required. Order unique ID. Alternatively, you may provide <code>order_token</code> instead of <code>order_id</code>. </p></dd><dt><p><code>order_token</code></p></dt><dd><p><code>string</code> PayPal transaction token.</p></dd><dt><p><code>payer_id</code></p></dt><dd><p><code>string</code> PayPal payer id code.</p></dd><dt><p><code>balanced_card_uri</code></p></dt><dd><p><code>string</code> Balanced tokenized card URI.</p></dd></dl>
+
+<h3 id="returns">Returns</h3>
+
+<p><a href="Objects.html#CheckoutConfirmation"><code>CheckoutConfirmation</code></a> object.</p>
+
+<h3 id="errors">Errors</h3>
+
+<dl><dt><p><strong>400 Bad Request</strong></p></dt><dd><p><code>Invalid order.</code> Occurs when the order is invalid.</p></dd><dt><p><strong>401 Unauthorized</strong></p></dt><dd><p><code>Login required.</code> Occurs when the user attempted to checkout without a valid account.</p></dd><dt><p><strong>403 Forbidden</strong></p></dt><dd><p><code>You are not authorized to debit the given card URI.</code> Occurs when the given Balanced card URI that does not belong to the corresponding user’s account.</p></dd><dt><p><strong>409 Conflict</strong></p></dt><dd><p><code>One or more products have been changed since the order was created.</code> Occurs when a seller modified a product while it was in someone’s cart. Cannot complete the checkout process if the item was changed since it was added to the cart.</p></dd><dd><p><code>One or more products are no longer available.</code> Occurs when an item was sold or taken down while it was in someone’s cart. Cannot complete the checkout since the item is no longer available.</p></dd><dt><p><strong>500 Internal Server Error</strong></p></dt><dd><p><code>Could not checkout at this time.</code> Occurs when something goes wrong when communicating with PayPal/Balanced or there was a problem interacting with the backend.</p></dd><dd><p><code>Payment card could not be authorized.</code> Occurs when the payment card given could not be authorized by Balanced, usually due to the card issuer declining the transaction. For example, credit limit exceeded.</p></dd><dd><p><code>PayPal could not authorize the order due to error code: {id}</code> Occurs when PayPal could not authorize the transaction, usually due to insufficient funding or a problem with the buyer's funding source. <code>id</code> is the error number PayPal returned.</p></dd></dl>
+
+<h3 id="example">Example</h3>
+
+<pre><code>POST /checkout/donations/confirm?key=XXXXX&amp;signature=YYYYY HTTP/1.1
+Host: sandbox.api.okanjo.com
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Content-Length: 137
+
+balanced_card_uri=%2Fv1%2Fmarketplaces%2FTEST-MP1wZryDQg45CPcCfJ0i0MPK%2Fcards%2FCC6beOE6cpL45DoMRNL1LIuW&amp;order_token=EC%2d6YD141039D5125406
+
+
+HTTP 1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-cache`
+</code></pre>
+
+<pre class="brush:js">
+
+{
+    "txnId": 44444,
+    "storeName": "Okanjo",
+    "total": 100,
+    "shipping": 0,
+    "city": "",
+    "state": "",
+    "country": "USA",
+    "items": [
+        {
+            "txnId": 99999,
+            "sku": 999,
+            "title": "Virtual Product Title",
+            "price": 10,
+            "qty": 10,
+            "sellerId": 12345
+        }
+    ]
+}
+</pre>
+                <hr />
+                <small>Documentation generated by <a target="_blank" href="https://github.com/kfitzgerald/mdoc">mdoc</a>.</small>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+        <script>
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-36849843-8', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>
