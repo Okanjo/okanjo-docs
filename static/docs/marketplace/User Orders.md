@@ -26,7 +26,7 @@ Collection. By default, it returns all orders, most recent first, belonging to t
 `fields`
 :   `string csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `items`, and embeds from order items: `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`.
+:   `string csv` When given, includes additional related data. Accepts: `items`, and embeds from order items: `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`, `holds`.
 
 
 
@@ -52,7 +52,7 @@ Resource. Returns a specific order given its unique identifier, belonging to the
 `fields`
 :   `string csv` When given, only returns the given fields.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `items`, and embeds from order items: `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`.
+:   `string csv` When given, includes additional related data. Accepts: `items`, and embeds from order items: `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`, `holds`.
 
 
 ### Returns

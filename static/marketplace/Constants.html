@@ -39,6 +39,8 @@
 <li><a href="#ConfirmationStatus">ConfirmationStatus</a></li>
 <li><a href="#ConfirmationType">ConfirmationType</a></li>
 <li><a href="#EventType">EventType</a></li>
+<li><a href="#HoldStatus">HoldStatus</a></li>
+<li><a href="#HoldType">HoldType</a></li>
 <li><a href="#LoginAction">LoginAction</a></li>
 <li><a href="#MediaImageConstants">MediaImageConstants</a></li>
 <li><a href="#MediaImageStatus">MediaImageStatus</a></li>
@@ -76,7 +78,7 @@
 
 <p>Address object types.</p>
 
-<dl class="inline-def"><dt><p><code>BILLING</code></p></dt><dd><p><code>billing</code> Used for billing purposes.</p></dd><dt><p><code>SHIPPING</code></p></dt><dd><p><code>shipping</code> Used for shipping purposes.</p></dd><dt><p><code>CAUSE</code></p></dt><dd><p><code>cause</code> Used for cause organizations.</p></dd><dt><p><code>PAYOUT</code></p></dt><dd><p><code>payout</code> Used for KYC and anti-fraud purposes.</p></dd><dt><p><code>STORE</code></p></dt><dd><p><code>store</code> Physical retail/store presence, can be displayed on store profiles.</p></dd><dt><p><code>NEXUS</code></p></dt><dd><p><code>nexus</code> Required for sales tax, specifies point of nexus.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>BILLING</code></p></dt><dd><p><code>billing</code> Used for billing purposes.</p></dd><dt><p><code>SHIPPING</code></p></dt><dd><p><code>shipping</code> Used for shipping purposes.</p></dd><dt><p><code>CAUSE</code></p></dt><dd><p><code>cause</code> Used for cause organizations.</p></dd><dt><p><code>CONTACT</code></p></dt><dd><p><code>contact</code> Basic contact information.</p></dd><dt><p><code>PAYOUT</code></p></dt><dd><p><code>payout</code> Used for KYC and anti-fraud purposes.</p></dd><dt><p><code>STORE</code></p></dt><dd><p><code>store</code> Physical retail/store presence, can be displayed on store profiles.</p></dd><dt><p><code>NEXUS</code></p></dt><dd><p><code>nexus</code> Required for sales tax, specifies point of nexus.</p></dd></dl>
 
 <h2 id="auctionwatchstatusahrefauctionwatchstatusidauctionwatchstatusclassdeeplinka">AuctionWatchStatus <a href="#AuctionWatchStatus" id="AuctionWatchStatus" class="deep-link">#</a></h2>
 
@@ -151,6 +153,14 @@
 <h3 id="ordersandorderitems">Orders and OrderItems</h3>
 
 <dl class="inline-def"><dt><p><code>order.confirmed</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is confirmed.</p></dd><dt><p><code>order.updated</code></p></dt><dd><p><a href="Objects.html#Order"><code>Order</code></a> - When an order is updated (e.g. Buyer's payment came through).</p></dd><dt><p><code>order_item.updated</code></p></dt><dd><p><a href="Objects.html#OrderItem"><code>Order Item</code></a> - When an item on an order is updated (e.g. Store marks item as shipped).</p></dd></dl>
+
+<h2 id="holdstatusahrefholdstatusidholdstatusclassdeeplinka">HoldStatus <a href="#HoldStatus" id="HoldStatus" class="deep-link">#</a></h2>
+
+<dl class="inline-def"><dt><p><code>RELEASED</code></p></dt><dd><p><code>0</code> Hold has been released and is no longer affecting the transaction.</p></dd><dt><p><code>ACTIVE</code></p></dt><dd><p><code>1</code> Hold is live and is actively preventing the transaction from advancing.</p></dd></dl>
+
+<h2 id="holdtypeahrefholdtypeidholdtypeclassdeeplinka">HoldType <a href="#HoldType" id="HoldType" class="deep-link">#</a></h2>
+
+<dl class="inline-def"><dt><p><code>PAYMENT</code></p></dt><dd><p><code>payment</code> - Waiting on payment to be received. </p></dd><dt><p><code>SHIPPING</code></p></dt><dd><p><code>shipping</code> – Waiting on the user or store to take action, such as marking an item as shipped or picked up. </p></dd><dt><p><code>REFUND</code></p></dt><dd><p><code>refund</code> - Waiting on a refund to finish processing.</p></dd><dt><p><code>DISPUTE</code></p></dt><dd><p><code>dispute</code> – Waiting on a dispute to be resolved.</p></dd><dt><p><code>OTHER</code></p></dt><dd><p><code>other</code> – Waiting on a specific condition. See the <code>description</code> field for more information.</p></dd><dt><p><code>PROCESSOR</code></p></dt><dd><p><code>processor</code> – Delay imposed by the payment processor to release the funds, lifted automatically on the <code>release_date</code>. </p></dd><dt><p><code>TRACKING</code></p></dt><dd><p><code>tracking</code> – Delay due to lack of tracking code, lifted automatically on the <code>release_date</code>. Additionally, the buyer may mark the item as received to release the hold early.</p></dd></dl>
 
 <h2 id="loginactionahrefloginactionidloginactionclassdeeplinka">LoginAction <a href="#LoginAction" id="LoginAction" class="deep-link">#</a></h2>
 

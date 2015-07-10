@@ -39,6 +39,7 @@
 <li><a href="#EventSubscription">EventSubscription</a></li>
 <li><a href="#Feedback">Feedback</a></li>
 <li><a href="#FeedbackEntity">FeedbackEntity</a></li>
+<li><a href="#Hold">Hold</a></li>
 <li><a href="#LoginContext">LoginContext</a></li>
 <li><a href="#Media">Media</a></li>
 <li><a href="#Media Embeds">Media Embeds</a></li>
@@ -174,6 +175,12 @@ Contains the information needed to provide an accurate order total summary with 
 <p>Embedded information about a user who participated in feedback giving or receiving. Only one of the following fields will return.</p>
 
 <dl class="inline-def"><dt><p><code>name</code></p></dt><dd><p><code>string</code>  Nullable. The name of the store to who received the feedback.</p></dd><dt><p><code>user_name</code></p></dt><dd><p><code>string</code>  Nullable. The username of the user to who left the feedback.</p></dd></dl>
+
+<h2 id="holdahrefholdidholdclassdeeplinka">Hold <a href="#Hold" id="Hold" class="deep-link">#</a></h2>
+
+<p>Represents a condition or process holding a transaction from advancing from pending to completed.</p>
+
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p>The unique ID of the hold.</p></dd><dt><p><code>type</code></p></dt><dd><p><a href="Constants.html#HoldType"><code>HoldType</code></a> The type of hold. </p></dd><dt><p><code>status</code></p></dt><dd><p><a href="Constants.html#HoldStatus"><code>HoldStatus</code></a> The current status of the hold.</p></dd><dt><p><code>created</code></p></dt><dd><p>When the hold was created.</p></dd><dt><p><code>updated</code></p></dt><dd><p>Nullable. When the hold was last updated.</p></dd><dt><p><code>release_date</code></p></dt><dd><p>Nullable. When the hold will be automatically released.</p></dd><dt><p><code>description</code></p></dt><dd><p>The reason for the hold.</p></dd><dt><p><code>transaction_id</code></p></dt><dd><p>The ID of the transaction affected.</p></dd></dl>
 
 <h2 id="logincontextahreflogincontextidlogincontextclassdeeplinka">LoginContext <a href="#LoginContext" id="LoginContext" class="deep-link">#</a></h2>
 
@@ -404,7 +411,7 @@ Contains the information needed to provide an accurate order total summary with 
 
 <p>A credit or debit on an Okanjo account. Represents the transfer of funds.</p>
 
-<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>string</code> The unique ID of the transaction.</p></dd><dt><p><code>account_id</code></p></dt><dd><p><code>string</code> The unique ID of the transacting account.</p></dd><dt><p><code>parent_transaction_id</code></p></dt><dd><p><code>string</code> The unique ID of the parent transaction.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>int enum</code> The type of transaction. See <a href="Constants.html#TransactionType"><code>TransactionType</code></a>.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int enum</code> The status of the transaction. See <a href="Constants.html#TransactionStatus"><code>TransactionStatus</code></a>.</p></dd><dt><p><code>created</code></p></dt><dd><p><code>date time</code> When the transaction occurred.</p></dd><dt><p><code>updated</code></p></dt><dd><p><code>date time</code> When the transaction was updated.</p></dd><dt><p><code>amount</code></p></dt><dd><p><code>decimal</code> The amount of USD affected.</p></dd><dt><p><code>description</code></p></dt><dd><p><code>string</code> The generic description of the transaction</p></dd><dt><p><code>associations</code></p></dt><dd><p><code>object</code> The related objects associated with the transaction.</p></dd></dl>
+<dl class="inline-def"><dt><p><code>id</code></p></dt><dd><p><code>string</code> The unique ID of the transaction.</p></dd><dt><p><code>account_id</code></p></dt><dd><p><code>string</code> The unique ID of the transacting account.</p></dd><dt><p><code>parent_transaction_id</code></p></dt><dd><p><code>string</code> The unique ID of the parent transaction.</p></dd><dt><p><code>type</code></p></dt><dd><p><code>int enum</code> The type of transaction. See <a href="Constants.html#TransactionType"><code>TransactionType</code></a>.</p></dd><dt><p><code>status</code></p></dt><dd><p><code>int enum</code> The status of the transaction. See <a href="Constants.html#TransactionStatus"><code>TransactionStatus</code></a>.</p></dd><dt><p><code>created</code></p></dt><dd><p><code>date time</code> When the transaction occurred.</p></dd><dt><p><code>updated</code></p></dt><dd><p><code>date time</code> When the transaction was updated.</p></dd><dt><p><code>amount</code></p></dt><dd><p><code>decimal</code> The amount of USD affected.</p></dd><dt><p><code>description</code></p></dt><dd><p><code>string</code> The generic description of the transaction</p></dd><dt><p><code>associations</code></p></dt><dd><p><code>object</code> The related objects associated with the transaction.</p></dd><dt><p><code>holds</code></p></dt><dd><p><a href="Objects.html#Hold"><code>Hold[]</code></a> Embeddable. Array of active holds affecting the transaction.</p></dd></dl>
 
 <h2 id="userahrefuseriduserclassdeeplinka">User <a href="#User" id="User" class="deep-link">#</a></h2>
 

@@ -43,7 +43,7 @@ Collection. By default, it returns all order items, most recent first, belonging
 `fields`
 :   `string csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `order`, `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`.
+:   `string csv` When given, includes additional related data. Accepts: `order`, `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`, `holds`.
 
 
 ### Returns

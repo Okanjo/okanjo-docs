@@ -370,6 +370,28 @@ Embedded information about a user who participated in feedback giving or receivi
 :   `string`  Nullable. The username of the user to who left the feedback.
 
 
+## Hold
+
+Represents a condition or process holding a transaction from advancing from pending to completed.
+
+`id`
+:   The unique ID of the hold.
+`type`
+:   [`HoldType`](Constants.html#HoldType) The type of hold. 
+`status`
+:   [`HoldStatus`](Constants.html#HoldStatus) The current status of the hold.
+`created`
+:   When the hold was created.
+`updated`
+:   Nullable. When the hold was last updated.
+`release_date`
+:   Nullable. When the hold will be automatically released.
+`description`
+:   The reason for the hold.
+`transaction_id`
+:   The ID of the transaction affected.
+
+
 ## LoginContext
 
 The basic data structure received when starting a session.
@@ -1087,6 +1109,8 @@ A credit or debit on an Okanjo account. Represents the transfer of funds.
 :   `string` The generic description of the transaction
 `associations`
 :   `object` The related objects associated with the transaction.
+`holds`
+:   [`Hold[]`](Objects.html#Hold) Embeddable. Array of active holds affecting the transaction.
 
 ## User
 

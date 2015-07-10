@@ -27,7 +27,7 @@ Collection. Returns transactions on the store's Okanjo account, ordered most rec
 `fields`
 :   `string csv` When given, only returns the given fields.
 `embed`
-:   `string csv` None available.
+:   `string csv` Accepts: `holds`.
 
 ### Returns
 
@@ -49,7 +49,7 @@ Resource. Returns a specific transaction on the store's Okanjo account given its
 `fields`
 :   `string csv` When given, only returns the given fields.
 `embed`
-:   `string csv` None available.
+:   `string csv` Accepts: `holds`.
 
 ### Returns
 
@@ -61,4 +61,51 @@ Resource. Returns a specific transaction on the store's Okanjo account given its
 :   `Transaction not found.` Occurs when the given transaction was not found.
 **500 Internal Server Error**
 :   `Failed to retrieve transaction.` Occurs when the request failed to be fulfilled.
+
+
+## GET /stores/{id}/transactions/{txn_id}/holds
+
+Collection. Returns the holds on the given transaction. **Requires user level authentication.**
+
+### Query Parameters
+
+*Fields & Includes*
+`fields`
+:   `string csv` When given, only returns the given fields.
+`embed`
+:   `string csv` None available.
+
+### Returns
+
+Array of [`Hold`](Objects.html#Hold) objects.
+
+### Errors
+
+**404 Not Found**
+:   `Holds not found.` Occurs when the given transaction was not found.
+**500 Internal Server Error**
+:   `Failed to retrieve holds.` Occurs when the request failed to be fulfilled.
+
+## GET /stores/{id}/transactions/{txn_id}/holds/{hold_id}
+
+Resource. Returns a specific hold on the given transaction. **Requires user level authentication.**
+
+### Query Parameters
+
+*Fields & Includes*
+`fields`
+:   `string csv` When given, only returns the given fields.
+`embed`
+:   `string csv` None available.
+
+### Returns
+
+[`Hold`](Objects.html#Hold) object.
+
+### Errors
+
+**404 Not Found**
+:   `Hold not found.` Occurs when the given hold or transaction was not found.
+**500 Internal Server Error**
+:   `Failed to retrieve hold.` Occurs when the request failed to be fulfilled.
 

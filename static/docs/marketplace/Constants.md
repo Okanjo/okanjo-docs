@@ -20,6 +20,8 @@ Address object types.
 :   `shipping` Used for shipping purposes.
 `CAUSE`
 :   `cause` Used for cause organizations.
+`CONTACT`
+:   `contact` Basic contact information.
 `PAYOUT`
 :   `payout` Used for KYC and anti-fraud purposes.
 `STORE`
@@ -154,6 +156,33 @@ Types of events that can occur.
 :   [`Order`](Objects.html#Order) - When an order is updated (e.g. Buyer's payment came through).
 `order_item.updated`
 :   [`Order Item`](Objects.html#OrderItem) - When an item on an order is updated (e.g. Store marks item as shipped).
+
+
+## HoldStatus
+
+`RELEASED`
+:   `0` Hold has been released and is no longer affecting the transaction.
+`ACTIVE`
+:   `1` Hold is live and is actively preventing the transaction from advancing.
+
+
+## HoldType
+
+`PAYMENT`
+:   `payment` - Waiting on payment to be received. 
+`SHIPPING`
+:   `shipping` – Waiting on the user or store to take action, such as marking an item as shipped or picked up. 
+`REFUND`
+:   `refund` - Waiting on a refund to finish processing.
+`DISPUTE`
+:   `dispute` – Waiting on a dispute to be resolved.
+`OTHER`
+:   `other` – Waiting on a specific condition. See the `description` field for more information.
+`PROCESSOR`
+:   `processor` – Delay imposed by the payment processor to release the funds, lifted automatically on the `release_date`. 
+`TRACKING`
+:   `tracking` – Delay due to lack of tracking code, lifted automatically on the `release_date`. Additionally, the buyer may mark the item as received to release the hold early.
+
 
 ## LoginAction
 

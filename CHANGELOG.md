@@ -3,6 +3,16 @@
 
 When stuff changes, it's described here.
 
+## 2015-07-10
+
+AddressType
+ * Added `contact` address type
+ 
+Holds
+ * Added holds routes to get the Holds that are preventing the transaction from advancing 
+ * Added `holds` embed for order items, sales, and transactions routes
+ * Added HoldType and HoldStatus constants
+
 ## 2015-06-25 - v2
  * Abstracting documentation to be able to support multiple products
  * Moving to single-page documentation approach

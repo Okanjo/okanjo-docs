@@ -37,7 +37,7 @@ Collection. By default, it returns all sold items, most recent first, sold by th
 `fields`
 :   `string csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `order`, `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`.
+:   `string csv` When given, includes additional related data. Accepts: `order`, `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`, `holds`.
 
 ### Returns
 
@@ -61,7 +61,7 @@ Resource. Returns a specific sold item given its unique identifier sold by the g
 `fields`
 :   `string csv` When given, only returns the given fields. Can also can specify fields on embedded objects.
 `embed`
-:   `string csv` When given, includes additional related data. Accepts: `order`, `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`.
+:   `string csv` When given, includes additional related data. Accepts: `order`, `media`, `store`, `buyer`, `cause`, `feedback`, `history`, `transactions`, `holds`.
 
 ### Returns
 
