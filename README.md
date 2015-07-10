@@ -2,7 +2,9 @@
 
 This project houses and builds the Okanjo platform documentation.
 
-> We've recently switched to a flatfdoc-based approach for new product documentation. We're in the process of updating the old documentation to this format. Please bare with us! 
+View the documentation at [developer.okanjo.com](http://developer.okanjo.com)
+
+> We've recently switched to a [flatdoc](https://github.com/rstacruz/flatdoc)-based approach for new product documentation. We're in the process of updating the old documentation to this format. Please bare with us! 
 
 The Marketplace documentation is stored as Markdown files, and is converted to fancy html documentation using a forked copy of mdoc,
 a Node.js-based Markdown documentation converter.
