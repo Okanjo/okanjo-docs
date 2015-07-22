@@ -3,6 +3,15 @@
 
 When stuff changes, it's described here.
 
+## 2015-07-22
+Holds
+ * Added disbursement hold type
+
+Okanjo-JS
+ * Updated quick start section to include ad example
+ * Fixed various code example inconsistencies
+ * Added badges for configuration parameters that have an underscore in them, needing a hyphen in the data attribute
+
 ## 2015-07-10
 
 AddressType

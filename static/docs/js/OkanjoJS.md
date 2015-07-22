@@ -25,6 +25,8 @@ a basic understanding of CSS element selectors.
 
 ## Quick Start
 
+### ProductMatch
+
 Here's a really simple, usable example to give you an basic idea on how to use the product widget and [ProductMatch](#product-widget-productmatch) to show relevant products to an article.
 When this block of HTML is loaded, three products related to the given URL will appear. It’s just that simple!
 
@@ -42,7 +44,7 @@ When this block of HTML is loaded, three products related to the given URL will 
     okanjo.key = 'PUT_YOUR_WIDGET_KEY_HERE';
 
     // Create a product widget on the elements with given class
-    var targets = okanjo.qwery('.okanjo-product'), i = 0, p = [];
+    var targets = okanjo.qwery('.product-widget-dropzone'), i = 0, p = [];
     for ( ; i < targets.length; i++) {
         p.push(new okanjo.Product(targets[i]));
     }
@@ -54,6 +56,38 @@ The product widget can be customized to suit virtually any scenario. See the [pr
 
 See the [examples section](#product-widget-examples-sense) to see what this looks like below.
 
+### Ad Widget
+
+Here's a usable example showing how you can display a simple creative image in the ad widget. 
+ 
+```html
+<div class="ad-widget-dropzone"
+    data-size="medium_rectangle" 
+    data-type="product" 
+    data-id="PR2cKR3AitaHebMAe6g"
+    style="outline:solid 1px #ccc;">
+    <img style="margin:0;height:100%;width:auto;cursor:pointer;" 
+         async="true" 
+         src="//developer.okanjo.com/img/example-creative.jpg"/>    
+</div>
+<script src="https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js" crossorigin="anonymous"></script>
+<script>
+
+    // You can set the global key on the okanjo namespace, or you can set it as an option on the widget constructor
+    okanjo.key = 'PUT_YOUR_WIDGET_KEY_HERE';
+
+    // Create an ad widget on the elements with given class
+    var targets = okanjo.qwery('.ad-widget-dropzone'), i = 0, a = [];
+    for ( ; i < targets.length; i++) {
+        a.push(new okanjo.Ad(targets[i]));
+    }
+
+</script>
+```
+
+The ad widget can accept virtually any creative. See the [ad widget section](#ad-widget) for more details.
+
+See the [examples section](#ad-widget-examples-creative) to see what this looks like below.
 
 ## Framework
 
@@ -392,10 +426,11 @@ The product widget supports a large amount of configuration parameters to help y
  
 The widget accepts the configuration parameters either in the constructor when instantiating a new widget or on the target element as data attributes. 
 Take a look at the following example. The target element with `id=dropzone` uses data attributes to set configuration parameters. 
-For parameters that contain an underscore (`_`), substitute a dash (`-`). Additionally, parameter that accept an array of values, you can provide a CSV instead.
+
+> Data attributes: For parameters that contain an underscore (`_`), substitute a dash (`-`). Additionally, parameter that accept an array of values, you can provide a CSV instead.
 
 ```html
-<div id="dropzone" data-mode="browse" data-take="3" data-q="blue shoes"></div>
+<div id="dropzone" data-mode="browse" data-take="3" data-q="blue shoes" data-min-price="10"></div>
 ```
 
 The following example shows the same configuration as the previous data attribute example, but instead sends the configuration as an object in the widget constructor.
@@ -404,7 +439,8 @@ The following example shows the same configuration as the previous data attribut
 var widget = new okanjo.Product(element, {
       mode: 'browse',
       take: 3,
-      q: 'blue shoes'
+      q: 'blue shoes',
+      min_price: 10
    };
 ```
 
@@ -422,7 +458,7 @@ skip ((optional, default is `0`))
 :   Exclude the given number of products from the result set. Used for pagination. 
 take ((optional, default is `5`))
 :   Return the given number of products from the result set. Used for pagination.
-disable_inline_buy ((optional, default is `false`))
+disable_inline_buy ((data-disable-inline-buy)) ((optional, default is `false`))
 :   When `true`, disables the native inline-buy experience and forces a pop-up or redirect.
 expandable ((optional, default is `true`))
 :   When `false`, the inline-buy experience will only be allowed to fit in the ad widget that contains the product widget. When `true`, the inline-buy experience may expand and overlap page content. This is mainly a pass-through parameter from the Ad widget configuration, and is a placeholder for future IAB-expandable functionality. 
@@ -447,21 +483,21 @@ id ((optional, default is `null`, required in `single` mode))
 :   The unique id of the product to retrieve. Generally only used in `single` mode.
 q ((optional, default is `null`))
 :   Limit products to match the given search string. E.g. `blue shoes`.
-marketplace_status ((optional, default is `live`))
+marketplace_status ((data-marketplace-status)) ((optional, default is `live`))
 :   Either `live` or `testing`, shows live or test products. 
-marketplace_id ((optional, default is `null`))
+marketplace_id ((data-marketplace-id)) ((optional, default is `null`))
 :   Limit products to the given marketplace id.
 pools ((optional, default is `['global']`))
 :   Limit products to the given array of product pool names. By default, will return products listed in the `global` pool. Accepts an array or CSV string.
-external_id ((optional, default is `null`))
+external_id ((data-external-id)) ((optional, default is `null`))
 :   Limit products that match the given vendor-specific id.
 sku ((optional, default is `null`))
 :   Limit products that match the given vendor-specific sku.
-sold_by ((optional, default is `null`))
+sold_by ((data-sold-by)) ((optional, default is `null`))
 :   Limit products that match the given store name.
-min_price ((optional, default is `null`))
+min_price ((data-min-price)) ((optional, default is `null`))
 :   Limit products to be at least the given amount.
-max_price ((optional, default is `null`))
+max_price ((data-max-price)) ((optional, default is `null`))
 :   Limit products to be no more than the given amount.
 condition ((optional, default is `null`))
 :   One of `new`, `used`, `refurbished`, or `unspecified`. Limit products to be of the given condition.
@@ -479,7 +515,7 @@ min_donation_percent ((optional, default is `0`))
 :   Require products to donate at least the given percent of the sale to a non-profit. Value must be a decimal between `0` and `1`. E.g. 50% = `0.5`.
 max_donation_percent ((optional, default is `1`))
 :   Require products to donate no more than the given percent of the sale to a non-profit. Value must be a decimal between `0` and `1`. E.g. 50% = `0.5`.
-donation_to ((optional, default is `null`))
+donation_to ((data-donation-to)) ((optional, default is `null`))
 :   Require the products to donate to the non-profit with the given name. 
 suboptimal ((optional, default is `false`))
 :   When `true`, allows products with substandard content, which could cause seemingly random product results in `sense` mode.
@@ -562,6 +598,10 @@ placed within the `div` ad unit element. The markup given will be shown instead 
 > Note: Links to off-site assets should be served via HTTPS. Failure to do so may result in the browser prohibiting unsecured assets when initialized on a page using the HTTPS protocol. 
 
 ## Configuration
+ 
+The ad widget accepts the configuration parameters either in the constructor when instantiating or on the target element as data attributes.
+ 
+> Data attributes: For parameters that contain an underscore (`_`), substitute a dash (`-`). Additionally, parameter that accept an array of values, you can provide a CSV instead.
 
 key ((optional, default is `null`))
 :   API widget key. If not set, then it is assumed that the key is set globally via `okanjo.key`.
@@ -575,7 +615,7 @@ type ((optional, default is `product`))
 :   Specifies type of ad to display. Currently, only `product` is supported, but serves as a placeholder for future ad types. 
 id ((optional, default is `null`))
 :   Depending on the ad `type`, this indicates what should be displayed in the ad. Currently, only a product id is supported in conjunction with the `product` type.  
-disable_inline_buy ((optional, default is `false`))
+disable_inline_buy ((data-disable-inline-buy)) ((optional, default is `false`))
 :   When `true`, disables the native inline-buy experience and forces a pop-up or redirect.
 
 > Any additional parameters are passed through to the underlying product widget.

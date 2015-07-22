@@ -170,6 +170,8 @@ Types of events that can occur.
 
 `PAYMENT`
 :   `payment` - Waiting on payment to be received. 
+`DISBURSEMENT`
+:   `disbursement` - Waiting on disbursement to be received. 
 `SHIPPING`
 :   `shipping` – Waiting on the user or store to take action, such as marking an item as shipped or picked up. 
 `REFUND`
