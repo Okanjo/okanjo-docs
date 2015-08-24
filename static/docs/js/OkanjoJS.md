@@ -35,7 +35,8 @@ When this block of HTML is loaded, three products related to the given URL will 
    data-mode="sense" 
    data-take="3" 
    data-url="http://host.madison.com/sports/columnists/tom_oates/tom-oates-rise-of-five-veterans-critical-for-upcoming-season/article_24ca1584-03b8-5962-87d1-aa78fabe25b1.html" 
-   data-selectors="h1,h3,div.entry-content,div.asset-description,div.asset-desc">
+   data-selectors="h1,h3,div.entry-content,div.asset-description,div.asset-desc"
+   data-pools="global">
 </div>
 <script src="https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js" crossorigin="anonymous"></script>
 <script>
@@ -430,7 +431,7 @@ Take a look at the following example. The target element with `id=dropzone` uses
 > Data attributes: For parameters that contain an underscore (`_`), substitute a dash (`-`). Additionally, parameter that accept an array of values, you can provide a CSV instead.
 
 ```html
-<div id="dropzone" data-mode="browse" data-take="3" data-q="blue shoes" data-min-price="10"></div>
+<div id="dropzone" data-mode="browse" data-take="3" data-q="skyline print" data-min-price="10"></div>
 ```
 
 The following example shows the same configuration as the previous data attribute example, but instead sends the configuration as an object in the widget constructor.
@@ -439,7 +440,7 @@ The following example shows the same configuration as the previous data attribut
 var widget = new okanjo.Product(element, {
       mode: 'browse',
       take: 3,
-      q: 'blue shoes',
+      q: 'skyline print',
       min_price: 10
    };
 ```
@@ -482,7 +483,7 @@ These options set the criteria of products that are to be returned.
 id ((optional, default is `null`, required in `single` mode))
 :   The unique id of the product to retrieve. Generally only used in `single` mode.
 q ((optional, default is `null`))
-:   Limit products to match the given search string. E.g. `blue shoes`.
+:   Limit products to match the given search string. E.g. `skyline print`.
 marketplace_status ((data-marketplace-status)) ((optional, default is `live`))
 :   Either `live` or `testing`, shows live or test products. 
 marketplace_id ((data-marketplace-id)) ((optional, default is `null`))
@@ -540,16 +541,16 @@ Shows a single product product. Useful for a specific reference or embedding dir
 
 ### Browse
 
-<p class="product-widget-dropzone" data-mode="browse" data-take="3" data-q="blue shoes"></p>
+<p class="product-widget-dropzone" data-mode="browse" data-take="3" data-q="skyline print"></p>
 
 ```html
 <p class="product-widget-dropzone" 
    data-mode="browse" 
    data-take="3" 
-   data-q="blue shoes">
+   data-q="skyline print">
 </p>
 ```
-Shows three products that match the search query `blue shoes`.
+Shows three products that match the search query `skyline print`.
 
 ### Sense
 
@@ -1087,6 +1088,7 @@ saveInCache (cacheKey, obj)
         };
         
         o.src = '//cdn.okanjo.com/js/latest/okanjo-bundle.min.js';
+        // o.src = '/okanjo-js/dist/okanjo-bundle.js'; // TESTING
         es.parentNode.insertBefore(o, es);
 
     }).call(window, function() {
