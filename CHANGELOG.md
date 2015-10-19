@@ -7,6 +7,23 @@ When stuff changes, it's described here.
  * Added ads api documentation
  * Added product api documentation
  * Added instagram_url and yelp_url attributes to the marketplace store object and PUT/POST routes
+ * Added quick start example for deploying programmatically through an Ad server
+ 
+## 2015-08-24
+
+Okanjo-JS
+ * Added pools to quick start for the product widget
+ * Swapped out product search queries to something better
+
+## 2015-07-22
+
+Holds
+ * Added disbursement hold type
+ 
+Okanjo-JS
+ * Updated quick start section to include ad example
+ * Fixed various code example inconsistencies
+ * Added badges for configuration parameters that have an underscore in them, needing a hyphen in the data attribute
 
 ## 2015-07-10
 
