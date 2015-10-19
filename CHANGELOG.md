@@ -3,6 +3,11 @@
 
 When stuff changes, it's described here.
 
+## 2015-10-19
+ * Added ads api documentation
+ * Added product api documentation
+ * Added instagram_url and yelp_url attributes to the marketplace store object and PUT/POST routes
+
 ## 2015-07-10
 
 AddressType

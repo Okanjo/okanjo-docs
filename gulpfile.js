@@ -67,6 +67,8 @@ var gulp = require('gulp'),
     nav = [
 
         { name: 'Marketplace API', href: 'mp' },
+        //{ name: 'Ads API', href: 'ads' },
+        { name: 'Product API', href: 'product-api' },
         { name: 'Okanjo-JS', href: 'okanjo-js' },
         { name: 'Node.js SDK', href: 'node-sdk' },
         { name: 'PHP SDK', href: 'php-sdk' },

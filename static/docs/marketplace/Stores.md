@@ -114,8 +114,12 @@ All of the following fields are optional. By default, the requesting user's info
 :   `string (255)` The URL of the store’s web presence. Protocol scheme must be included and be either HTTP or HTTPS. E.g. https://okanjo.com
 `facebook_url`
 :   `string (255)` The URL of the store’s Facebook presence. E.g. facebook.com/userorpagename
+`instagram_url`
+:   `string (30)` The name of the store’s Instagram presence. Accepts Instagram URLs or just the profile name; profile name has a max length 30 characters, and can only contain alphanumeric characters, periods, and hyphens E.g. instagram.com/handlename
 `twitter_url`
-:   `string (255)` The URL of the store’s twitter presence. E.g. twitter.com/handlename
+:   `string (255)` The URL of the store’s Twitter presence. E.g. twitter.com/handlename
+`yelp_url`
+:   `string (255)` The name of the store’s Yelp presence. E.g. yelp.com/biz/storename
 `shipping_carriers`
 :   `string csv` Limits dynamic shipping rates to the given carriers. e.g. ups,usps,fedex
 `meta`
@@ -163,8 +167,12 @@ Only send the fields that should be updated. Send them all if you’d really lik
 :   `string (255)` The URL of the store’s web presence. Protocol scheme must be included and be either HTTP or HTTPS. E.g. https://okanjo.com
 `facebook_url`
 :   `string (255)` The URL of the store’s Facebook presence. E.g. facebook.com/userorpagename
+`instagram_url`
+:   `string (30)` The name of the store’s Instagram presence. Accepts Instagram URLs or just the profile name; profile name has a max length 30 characters, and can only contain alphanumeric characters, periods, and hyphens E.g. instagram.com/handlename
 `twitter_url`
-:   `string (255)` The URL of the store’s twitter presence. E.g. twitter.com/handlename
+:   `string (255)` The URL of the store’s Twitter presence. E.g. twitter.com/handlename
+`yelp_url`
+:   `string (255)` The name of the store’s Yelp presence. E.g. storename
 `shipping_carriers`
 :   `string csv` Limits dynamic shipping rates to the given carriers. Send an empty string to reset. e.g. ups,usps,fedex
 `payout_preference`

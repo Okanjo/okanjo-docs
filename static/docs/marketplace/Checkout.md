@@ -74,8 +74,6 @@ Controller. Initializes the checkout process. Creates the order. For use with or
 :   `Quoted shipping address does not match given shipping address.` Occurs when the shipping address given differs from what was used to quote a shipping rate.
 **401 Unauthorized**
 :   `Login required.` Occurs when the user attempted to checkout without a valid account.
-**409 Conflict**
-:   `Cannot buy items own item: {id}` Occurs when the user attempted to checkout their own item.
 **500 Internal Server Error**
 :   `Something went wrong.` Occurs when the was an unknown problem on the server.
 :   `Could not checkout at this time.` Occurs when something goes wrong when talking to PayPal’s API.
