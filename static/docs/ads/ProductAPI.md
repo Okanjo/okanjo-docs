@@ -2,157 +2,164 @@
 
 # Introduction
 
-TODO
+The Okanjo Product API provides RESTful API routes to access products from the Okanjo Ads platform. The Product API serves as the
+point of integration with developer applications.
+
+All Product API routes can be accessed from the following API endpoint:
+ 
+> `https://ads-api.okanjo.com`
+
 
 # Authentication
 
-The scope of authentication required changes based on the resource you are accessing. Some resources require multiple Parameters, while some require just one.
+In order the use the Product API, you will need to obtain an Okanjo Ads API key. To obtain a new Okanjo API key, please
+contact Okanjo's customer support team.
 
-TODO
+To authenticate, include your API key as the `key` query parameter on requests.
+
 
 # Pagination
 
-skip ((optional))((default is `0`))
-:   ToDo
-take ((optional))((default is `25`))
-:   ToDo
+Collection routes accept pagination parameters to facilitate browse-like functionality. 
+
+skip ((optional, default is `0`))
+:   Skips the given number of resources.
+take ((optional, default is `25`))
+:   Returns the given number of resources. Equivalent to page size.
 
 
 ## Retrieve products
 
-Products are retrieved by using optional query parameters to filter by specific criteria. Each parameter will narrow the scope of products returned. By default, if no parameters are given, all products will be returned.
+Products are retrieved by using optional query parameters to filter by specific criteria. 
+Each parameter will narrow the scope of products returned. By default, if no parameters are given, all products will be returned.
 
 #### Route
 
->`GET /products`
+> `GET /products`
 
 #### Query Parameters
 
-
 q ((optional))
-:   TODO
-
+:   Query search string. E.g. `skyline print`
 marketplace_status ((optional, default is `live`))
-:   TODO
-
+:   Limits products to the given environment. Either `testing` or `live`.
 marketplace_id ((optional))
-:   Unique identifier of desired marketplace.
-
+:   Limits products to the given marketplace id string.
 external_id ((optional))
-:   An external id relating to the product on the vendors end.
-
+:   Returns products that have the given external id.
 sku ((optional))
-:   Sku number of the product.
-
+:   Returns products that have the given sku.
 sold_by ((optional))
-:   Company name selling the product.
-
+:   Returns products that have the given organization name.
 min_price ((optional))
-:   Minimum price.
-
+:   Returns products that cost at least the given decimal amount. 
 max_price ((optional))
-:   Maximum price
-
+:   Returns products that cost no more than the given decimal amount.
 condition ((optional))
-:   Condition of the product
-
+:   Returns products with the given condition. One of `new`, `used`, `refurbished` or `unspecified`.
 manufacturer ((optional))
-:   The manufacturer name of on the product.
-
+:   Returns products that have the given manufacturer name.
 upc ((optional))
-:   UPC code.
-
+:   Returns products that have the given UPC/EAN.
 isbn ((optional))
-:   ISBN number if applicable.
-
+:   Returns products that have the given ISBN.
 tags ((optional))
-:   TODO
-
+:   An array of tag names. Returned products must contain all given tags. E.g. `["Blue", "Shoes"]`
 category ((optional))
-:   Category the product belongs too.
-
+:   An array of hierarchical category names products must be in. E.g. `["Home", "Office", "Furniture"]` 
 donation_to ((optional))
-:   TODO
-
+:   Returns products that donate to the given organization name.
 min_donation_percent ((optional))
-:   Minimum donation percentage.
-
+:   Returns products that donate no less than the given percentage (a decimal between `0` and `1`)
 max_dontation_percent ((optional))
-:   Maximum donation percentage.
-
-suboptimal ((optional, default is `false`))((boolean))
-:   TODO
-
+:   Returns products that donate no more than the given percentage (a decimal between `0` and `1`)
+suboptimal ((optional, default is `false`))
+:   Include products that do not have sufficient content, such as images, titles, descriptions or keywords.
 pools ((optional, default is `global`))
-:   Pools that the product will be able to be found in.
+:   Limits products that are contained in the given array of pool names. Each pool given will increase the amount of potential products returned.
+  
+> Note: When specifying pools, if a custom pool name is given, `global` pool products will no longer return. To include products from both the global pool and a custom pool, include `global` in your pool set.  
 
+#### cURL Example
 
-#### cURL
+Example using the cURL on the command-line to retrieve products. 
 
-Filter through products using cURL.
+> Array values should be given like so: `tags[]=blue&tags[]=shoes`. Remember to encode the `[` and `]` characters with `%5B` and `%5D`, respectively.
 
 ```sh
 
 curl -X GET \
--H "Cache-Control: no-cache" \
-'http://ads-api.okanjo.com/products?key=YOUR_API_KEY&take=1&pools[]=PUBLISHER_POOL_HERE'
+  -H "Cache-Control: no-cache" \
+  'http://ads-api.okanjo.com/products?key=YOUR_API_KEY&take=1&pools[]=PUBLISHER_POOL_HERE'
 
 ```
 
-#### Okanjo Nodejs SDK
-Filter through products using the Node.js SDK.
+#### Node.js Example
+
+Here's an equivalent example using the [Okanjo Node.js SDK](/node-sdk).
 
 ```js
 
-// Okanjo namespace
 var okanjo = require('okanjo');
 
 // Create the client api instance
-var adsAPI = new okanjo.clients.AdsClient({
+var api = new okanjo.clients.AdsClient({
     key: 'YOUR_API_KEY'
 });
 
-//Pass in the id of the product you want to retrieve.
-adsAPI.searchProducts().where({pools:['PUBLISHER_POOL_HERE']}).take(1).execute( function (err, res) {
-  
-    //Check if there is an error object present.
-    if(err){
-        throw err;
-    }
-    
-    //this is where your product data resides.
-    var product = res.data;
-
-});
+// Search for products that match the given criteria
+api.searchProducts()
+    .where({ pools: ['PUBLISHER_POOL_HERE'] })
+    .take(1)
+    .execute(function (err, res) {
+        if (err) {
+            // If there was a communication error, err will be defined.
+            // E.g. internet connectivity issues
+            throw err;
+        } else if (res.error) {
+            // The API rejected the request. 
+            // Check res.error, res.message, and res.validation for more info.
+            throw new Error(res.message);
+        } else {
+            // Array of returned products 
+            var products = res.data;
+        }
+    });
 
 ```
 
-#### Okanjo PHP SDK
+#### PHP Example
 
-Filter through products using the PHP SDK.
+Here's an equivalent example using the [Okanjo PHP SDK](/php-sdk).
 
 ```php
 
-require_once 'vendor/autoload.php';
+// Create the client api instance
+$api = new Okanjo\Clients\Ads\Client([
+    'key' => 'YOUR_API_KEY'
+]);
 
-//This grants you access and creates an instance of the Ads API needed to access routes.
-$adsAPI = new Okanjo\Clients\Ads\Client(['key' => 'YOUR_API_KEY']);
+// Search for products that match the given criteria
+$res = $api->searchProducts()
+    ->where([ 'pools' => ['PUBLISHER_POOL_HERE'] ])
+    ->take(1)
+    ->execute();
 
-//$res will contain the response object filled with products that match your query
-$res = $adsAPI->searchProducts()->where(['pools' => ['PUBLISHER_POOL_HERE']])->take(1)->execute();
-
-//Check if there is an error object present.
-if($res->error){
-    throw new Exception($res->error);
+// If there was an error, the error property will be set
+if ($res->error) {
+    throw new Exception($res->message);
 }
 
-//set a variable to the data object which contains your product.
-$product = $res->data;
+// Array of returned products
+$products = $res->data;
+
 ```
 
 #### Example response
 
-This response can return multiple products matching your query. In this case "take" was set to 1, if you look at the object attribute called "numFound", it shows that a total of 3 could have been retrieved.
+Here's the response to the requests in the above examples. 
+
+> Note: when available, the `numFound` property will be included in the response to help facilitate pagination.
 
 ```js
 
@@ -194,8 +201,8 @@ This response can return multiple products matching your query. In this case "ta
       "isbn": "9781612063926",
       "meta": {
         "dte": "2015-03-24T00:11:22Z",
-        "num": 43,
-        "script": ""
+        "num": 42,
+        "str": ""
       },
       "created": "2015-10-01T16:08:00.621Z",
       "updated": "2015-10-02T15:45:06.59Z"
@@ -207,72 +214,85 @@ This response can return multiple products matching your query. In this case "ta
 ```
 
 
-
 ## Retrieve a product
 
-A valid product id is required in order to use this feature, once the product id is sent, the API will return a matching product object.
+A single product may be retrieved by its unique identifier. If the product does not exist, a `404` response code will be returned.
+
 
 #### Route
 
->`GET /products/{product_id}`
+> `GET /products/PRODUCT_ID`
 
-#### cURL
-Retrieve a product by id using cURL.
+#### cURL Example
+
+Example using the cURL on the command-line to retrieve a single product. 
+
 ```sh
 
 curl -X GET \
--H "Cache-Control: no-cache" \
-'https://ads-api.okanjo.com/products/PRODUCT_ID?key=YOUR_API_KEY'
+  -H "Cache-Control: no-cache" \
+  'https://ads-api.okanjo.com/products/PRODUCT_ID?key=YOUR_API_KEY'
 
 ```
-#### Okanjo Nodejs SDK
-Retrieve a product by id using the Node.js SDK.
+
+#### Node.js Example
+
+Here's an equivalent example using the [Okanjo Node.js SDK](/node-sdk).
+
 ```js
-// Okanjo namespace
+
 var okanjo = require('okanjo');
 
 // Create the client api instance
-var adsAPI = new okanjo.clients.AdsClient({
+var api = new okanjo.clients.AdsClient({
     key: 'YOUR_API_KEY'
 });
 
-//Pass in the id of the product you want to retrieve.
-adsAPI.getPublicProductById('PRODUCT_ID').execute( function (err, res) {
-  
-    //Check if there is an error object present.
-    if(err){
-        throw err;
-    }
+// Get a product by its id
+api.getPublicProductById('PRODUCT_ID')
+    .execute(function (err, res) {
+        if (err) {
+              // If there was a communication error, err will be defined.
+              // E.g. internet connectivity issues
+              throw err;
+          } else if (res.error) {
+              // The API rejected the request. 
+              // Check res.error, res.message, and res.validation for more info.
+              throw new Error(res.message);
+          } else {
+              // The returned product object 
+              var product = res.data;
+          }
+    });
     
-    //this is where your product data resides.
-    var product = res.data;
-
-});
 ```
-#### Okanjo PHP SDK
-Retrieve a product by id using the PHP SDK.
+
+#### PHP Example
+
+Here's an equivalent example using the [Okanjo PHP SDK](/php-sdk).
 
 ```php
 
-require_once 'vendor/autoload.php';
+// Create the client api instance
+$api = new Okanjo\Clients\Ads\Client([
+    'key' => 'YOUR_API_KEY'
+]);
 
-//This grants you access and creates an instance of the Ads API needed to access routes.
-$adsAPI = new Okanjo\Clients\Ads\Client(['key' => 'YOUR_API_KEY']);
+// Get a product by its id
+$res = $api->getPublicProductById('PRODUCT_ID')->execute();
 
-//$res will contain the response object based on the product id provided.
-$res = $adsAPI->getPublicProductById('PRODUCT_ID')->execute();
-
-//Check if there is an error object present.
-if($res->error){
-    throw new Exception($res->error);
+// If there was an error, the error property will be set
+if ($res->error) {
+    throw new Exception($res->message);
 }
 
-//set a variable to the data object which contains your product.
+// The returned product object 
 $product = $res->data;
+
 ```
 #### Example response
 
-The response contains an object containing all the product information of the product associated with the provided id.
+Here's the response to the requests in the above examples. 
 
 ```js
     
@@ -314,8 +334,8 @@ The response contains an object containing all the product information of the pr
     "isbn": "9766607063926",
     "meta": {
       "dte": "2015-03-24T00:11:22Z",
-      "num": 43,
-      "script": ""
+      "num": 42,
+      "str": ""
     },
     "created": "2015-10-01T20:16:14.305Z",
     "updated": "2015-10-02T15:45:07.241Z"
