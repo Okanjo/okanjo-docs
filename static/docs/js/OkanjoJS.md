@@ -86,9 +86,51 @@ Here's a usable example showing how you can display a simple creative image in t
 </script>
 ```
 
-The ad widget can accept virtually any creative. See the [ad widget section](#ad-widget) for more details.
 
-See the [examples section](#ad-widget-examples-creative) to see what this looks like below.
+### Ad Server
+
+Here's an example of how you can leverage ProductMatch through a programmatic ad server such as Google's DFP. This snippet will attempt to 
+bust out of the iFrame to provide expandable functionality if desired. If unable to do so, the ad units will fall back to non-expandable functionality.
+
+> Both the Ad and Product widgets can be used in any mode.  **Provide either the `ad` or `match` configuration section, but not both.**
+ 
+```html
+<div id="okanjo-dropzone">
+    <!-- Image only used in ad-creative mode --> 
+    <img style="margin:0;height:100%;width:auto;cursor:pointer;" 
+    async="true" 
+    src="//developer.okanjo.com/img/example-creative.jpg"/>
+</div>
+<script>
+
+    !function(a){var b=document,c=window,d=b.getElementById("okanjo-dropzone");try{if(c.top!==c.self)for(var e=c.top.document.getElementsByTagName("iframe"),f=0;f<e.length;f++){var g=e[f],h=g.contentDocument||e.contentWindow.document;if(h===document){d.removeAttribute("id"),g.parentNode.appendChild(d),g.style.display="none",b=c.top.document,c=c.top;break}}}catch(i){console.warn("[Okanjo]","Failed to bust out of the iframe to access native content. Falling back to non-expandable functionality!",i),a.ad&&(a.ad.expandable=!1),a.match&&(a.match.expandable=!1)}!function(b){var c=this,d=c.document,e=d.getElementsByTagName("body")[0],f=d.createElement("script"),g=!1;f.type="text/javascript",f.async=!0,f.setAttribute("crossorigin","anonymous"),f.onload=f.onreadystatechange=function(){g||this.readyState&&"complete"!=this.readyState&&"loaded"!=this.readyState||(g=!0,b.call(c))},f.src=a.src,e.parentNode.insertBefore(f,e)}.call(c,function(){var b=this;b.okanjo._widgets||(b.okanjo._widgets=[]),a.ad?b.okanjo._widgets.push(new b.okanjo.Ad(d,a.ad)):a.match?b.okanjo._widgets.push(new b.okanjo.Product(d,a.match)):console.warn("[Okanjo]","No ad or match configuration given, no widgets to load!")})}({
+        src: "//cdn.okanjo.com/js/latest/okanjo-bundle.min.js",
+        
+        // INCLUDE EITHER THE ad OR match SECTION, BUT NOT BOTH!
+        
+        ad: {
+            key: "PUT_YOUR_WIDGET_KEY_HERE",
+            id: 'PR2cKR3AitaHebMAe6g',
+            size: 'medium_rectangle',
+            type: 'product',
+            expandable: false
+        }
+        
+        match: {
+            key: "PUT_YOUR_WIDGET_KEY_HERE",
+            mode: 'browse',
+            take: 2,
+            q: 'brew city',
+            template_product_main: 'product.sidebar',
+            expandable: false
+        }
+    });
+
+</script>
+```
+
+See the [product widget configuration](#product-widget-configuration) or [ad widget configuration](#ad-widget-configuration) for more configuration options.
+
 
 ## Framework
 
