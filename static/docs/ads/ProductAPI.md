@@ -3,18 +3,19 @@
 The Okanjo Product API provides RESTful API routes to access products from the Okanjo Ads platform. The Product API serves as the
 point of integration with developer applications.
 
-All Product API routes can be accessed from the following API endpoint:
+All Product API routes can be accessed from the following Ads API endpoint:
  
 > `https://ads-api.okanjo.com`
 
 Responses are returned in JSON (`application/json; charset=utf-8`). 
 
-Okanjo's [PHP](/php-sdk) and [Node.js](/node-sdk) SDKs provide easy integration with the Product API. 
+
+> Keep it simple! Okanjo's [PHP](/php-sdk) and [Node.js](/node-sdk) SDKs provide easy integration with the Product API. 
 
 
 # Authentication
 
-In order the use the Product API, you will need to obtain an Okanjo Ads API key. To obtain a new Okanjo API key, please
+In order the use the Product API, you will need to obtain an Okanjo Ads API key. To obtain an API key, please
 contact Okanjo's customer support team.
 
 To authenticate, you can include your API key two ways. 
@@ -43,12 +44,11 @@ For example:
 
 > `GET /products?callback=myCallback`
 
-The response object will be passed in a
-single parameter to the callback function given.
-
 ```js
 /**/myCallback({"statusCode":200,"error":null,"data":[ ... ]});
 ```
+
+The response object will be passed as a parameter to the callback function given.
 
 
 # Product Listings
@@ -59,7 +59,7 @@ The product object represents an product listing available for sale. The listing
 not contain enough information to make a full transaction, rather contains sufficient information
 to represent the product.
 
-At a minimum, all products will have: `name`, `description`, `price`, `image_url` and `buy_url`. All other attributes are
+At a minimum, all products will have: `id`, `name`, `description`, `price`, `image_urls` and `buy_url`. All other attributes are
 optional.
 
 #### Attributes
@@ -160,13 +160,13 @@ isbn ((optional))
 tags ((optional))
 :   An array of tag names. Returned products must contain all given tags. E.g. `["Blue", "Shoes"]`
 category ((optional))
-:   An array of hierarchical category names products must be in. E.g. `["Home", "Office", "Furniture"]` 
+:   An array of hierarchical category names products must be in. E.g. `["Home", "Office", "Furniture"]`
 donation_to ((optional))
 :   Returns products that donate to the given organization name.
 min_donation_percent ((optional))
-:   Returns products that donate no less than the given percentage (a decimal between `0` and `1`)
+:   Returns products that donate no less than the given percentage (a decimal between `0` and `1`.)
 max_dontation_percent ((optional))
-:   Returns products that donate no more than the given percentage (a decimal between `0` and `1`)
+:   Returns products that donate no more than the given percentage (a decimal between `0` and `1`.)
 suboptimal ((optional, default is `false`))
 :   Include products that do not have sufficient content, such as images, titles, descriptions or keywords.
 pools ((optional, default is `global`))
@@ -217,6 +217,9 @@ api.searchProducts()
         } else {
             // Array of returned products 
             var products = res.data;
+            
+            // Total number of matching records found
+            var numFound = res.numFound;
         }
     });
 
@@ -248,6 +251,9 @@ try {
     
     // Array of returned products
     $products = $res->data;
+    
+    // Total number of matching records found
+    $numFound = $res->numFound;
 } catch (Exception $e) {
     // If there was a communication error, an exception will throw.
     // E.g. internet connectivity issues
