@@ -122,10 +122,13 @@ meta ((object))
 :   Vendor given key-value metadata properties. Accepts strings, [dates](https://en.wikipedia.org/wiki/ISO_8601), numbers, and booleans.
 
 
-## Retrieve products
+## List products
 
-Products are retrieved by using optional query parameters to filter by specific criteria. 
+Products are retrieved by using optional query parameters to filter with specific criteria. 
 Each parameter will narrow the scope of products returned. By default, if no parameters are given, all products will be returned.
+
+If no products are found that meet the given filter criteria, then the response will just be an empty array. 
+The total number of products that match the filter query will be returned in the response as `numFound`.  
 
 #### Route
 
@@ -134,7 +137,7 @@ Each parameter will narrow the scope of products returned. By default, if no par
 #### Query Parameters
 
 q ((optional))
-:   Query search string. E.g. `skyline print`
+:   Query search string. Returns products that are related to the given string. E.g. `skyline print`
 marketplace_status ((optional, default is `live`))
 :   Limits products to the given environment. Either `testing` or `live`.
 marketplace_id ((optional))
@@ -272,7 +275,7 @@ Here's the response to the requests in the above examples.
 {
   "statusCode": 200,
   "error": null,
-  "data": {
+  "data": [{
       "id": "PRODUCT_ID",
       "marketplace_id": "MARKETPLACE_ID",
       "marketplace_status": "live",
@@ -312,8 +315,7 @@ Here's the response to the requests in the above examples.
       },
       "created": "2015-10-01T16:08:00.621Z",
       "updated": "2015-10-02T15:45:06.59Z"
-  }
-  
+  }],
   "numFound": 3
 }
 
