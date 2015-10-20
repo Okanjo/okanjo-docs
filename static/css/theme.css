@@ -654,6 +654,7 @@ body.no-literate .content pre > code:hover::-webkit-scrollbar-thumb {
   body:not(.no-literate) .content > dl dd {
     margin: 0 0 0 35%;
     padding: 0 0 0 1em;
+    min-height: 5em;
   }
   body:not(.no-literate) .content .badge {
     display: block;

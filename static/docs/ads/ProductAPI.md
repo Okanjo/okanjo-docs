@@ -1,7 +1,5 @@
 # Product API
 
-# Introduction
-
 The Okanjo Product API provides RESTful API routes to access products from the Okanjo Ads platform. The Product API serves as the
 point of integration with developer applications.
 
@@ -9,13 +7,20 @@ All Product API routes can be accessed from the following API endpoint:
  
 > `https://ads-api.okanjo.com`
 
+Responses are returned in JSON (`application/json; charset=utf-8`). 
+
+Okanjo's [PHP](/php-sdk) and [Node.js](/node-sdk) SDKs provide easy integration with the Product API. 
+
 
 # Authentication
 
 In order the use the Product API, you will need to obtain an Okanjo Ads API key. To obtain a new Okanjo API key, please
 contact Okanjo's customer support team.
 
-To authenticate, include your API key as the `key` query parameter on requests.
+To authenticate, you can include your API key two ways. 
+
+1. In the query, as the `key` parameter.
+2. In the `Authorization` header, using basic HTTP authentication where the username is your API key and password is empty.
 
 
 # Pagination
@@ -26,6 +31,95 @@ skip ((optional, default is `0`))
 :   Skips the given number of resources.
 take ((optional, default is `25`))
 :   Returns the given number of resources. Equivalent to page size.
+
+
+# JSONP
+
+The Product API supports JSONP, useful for on-page website integrations. Provide a `callback` query parameter to
+have the response returned as a JavaScript (`text/javascript; charset=utf-8`). 
+
+
+For example:
+
+> `GET /products?callback=myCallback`
+
+The response object will be passed in a
+single parameter to the callback function given.
+
+```js
+/**/myCallback({"statusCode":200,"error":null,"data":[ ... ]});
+```
+
+
+# Product Listings
+
+## The Product object
+
+The product object represents an product listing available for sale. The listing itself does
+not contain enough information to make a full transaction, rather contains sufficient information
+to represent the product.
+
+At a minimum, all products will have: `name`, `description`, `price`, `image_url` and `buy_url`. All other attributes are
+optional.
+
+#### Attributes
+
+id ((string))
+:   Unique Identifier. Prefixed with `PR`.
+marketplace_id ((string))
+:   The unique identifier of the marketplace the product belongs to. Prefixed with `MP`.
+marketplace_status ((string))
+:   The environment status of the product's marketplace. Either `testing` or `live`.
+pools ((array of strings))
+:   The list of pool names in which the product was placed.
+status ((string))
+:   The status of the product. Either `inactive` or `live`.
+state ((string))
+:   The state of the product. One of `ok`, `needs_analysis`, or `needs_indexing`. The product will progressively change state when created or updated. 
+external_id ((string))
+:   Vendor given identifier field, useful for correlating the product listing with an external system for synchronization or other integrations.
+sku ((string))
+:   Vendor given stock keeping unit.
+name ((required))((string))
+:   The name of the product.
+description ((required))((string))
+:   The description of the product.
+image_urls ((required))((array of strings))
+:   The list of image URLs. The first image in the list will be used as the listing image.
+currency ((string))
+:   [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency designator. Default is `USD`.
+price ((required))((number))
+:   The base decimal cost to purchase the product, excluding shipping and up-charges.
+condition ((string))
+:   The condition of the product. One of `new`, `used`, `refurbished`, or `unspecified`.
+buy_url ((required))((string))
+:   The URL in which to the product can be purchased. 
+inline_buy_url ((string))
+:   The URL in which the ProductMatch will use to present a native-buy experience. 
+impression_url ((string))
+:   The vendor-given URL for an impression pixel, placed on ProductMatch listings.
+impressions ((number))
+:   The total number of impressions the product has received since creation.
+interactions ((number))
+:   The total number of interactions the product has received since creation.
+tags ((array of strings))
+:   The list of keywords or phrases attributions. 
+category ((array of strings))
+:   The hierarchical list of category names the product belongs under. For example, `Home > Office > Furniture` would be represented as `["Home", "Office", "Furniture"]`.
+manufacturer ((string))
+:   The name of the organization that makes the product.
+upc ((string))
+:   The UPC/EAN given to the product.
+isbn ((string))
+:   The ISBN given to the product.
+sold_by ((string))
+:   The name of the organization offering the product for sale.
+donation_percent ((number))
+:   The percentage of the earnings that will be donated to the `donation_to` organization. Represented as a decimal between `0` and `1`.
+donation_to ((string))
+:   The name of the organization benefiting from the sale of the product.
+meta ((object))
+:   Vendor given key-value metadata properties. Accepts strings, [dates](https://en.wikipedia.org/wiki/ISO_8601), numbers, and booleans.
 
 
 ## Retrieve products
@@ -119,7 +213,7 @@ api.searchProducts()
         } else if (res.error) {
             // The API rejected the request. 
             // Check res.error, res.message, and res.validation for more info.
-            throw new Error(res.message);
+            throw new Error(res.message || res.error);
         } else {
             // Array of returned products 
             var products = res.data;
@@ -139,20 +233,26 @@ $api = new Okanjo\Clients\Ads\Client([
     'key' => 'YOUR_API_KEY'
 ]);
 
-// Search for products that match the given criteria
-$res = $api->searchProducts()
-    ->where([ 'pools' => ['PUBLISHER_POOL_HERE'] ])
-    ->take(1)
-    ->execute();
-
-// If there was an error, the error property will be set
-if ($res->error) {
-    throw new Exception($res->message);
+try {
+    // Search for products that match the given criteria
+    $res = $api->searchProducts()
+        ->where([ 'pools' => ['PUBLISHER_POOL_HERE'] ])
+        ->take(1)
+        ->execute();
+    
+    // If the API rejected the request, the error property will be defined. 
+    if ($res->error) {
+        // Check res.error, res.message, and res.validation for more info.
+        throw new Exception($res->message ? $res->message : $res->error);
+    }
+    
+    // Array of returned products
+    $products = $res->data;
+} catch (Exception $e) {
+    // If there was a communication error, an exception will throw.
+    // E.g. internet connectivity issues
+    throw $e;
 }
-
-// Array of returned products
-$products = $res->data;
-
 ```
 
 #### Example response
@@ -218,7 +318,6 @@ Here's the response to the requests in the above examples.
 
 A single product may be retrieved by its unique identifier. If the product does not exist, a `404` response code will be returned.
 
-
 #### Route
 
 > `GET /products/PRODUCT_ID`
@@ -258,7 +357,7 @@ api.getPublicProductById('PRODUCT_ID')
           } else if (res.error) {
               // The API rejected the request. 
               // Check res.error, res.message, and res.validation for more info.
-              throw new Error(res.message);
+              throw new Error(res.message || res.error);
           } else {
               // The returned product object 
               var product = res.data;
@@ -278,18 +377,26 @@ $api = new Okanjo\Clients\Ads\Client([
     'key' => 'YOUR_API_KEY'
 ]);
 
-// Get a product by its id
-$res = $api->getPublicProductById('PRODUCT_ID')->execute();
-
-// If there was an error, the error property will be set
-if ($res->error) {
-    throw new Exception($res->message);
+try {
+    // Get a product by its id
+    $res = $api->getPublicProductById('PRODUCT_ID')->execute();
+    
+    // If the API rejected the request, the error property will be defined. 
+    if ($res->error) {
+        // Check res.error, res.message, and res.validation for more info.
+        throw new Exception($res->message ? $res->message : $res->error);
+    }
+    
+    // The returned product object 
+    $product = $res->data;
+} catch (Exception $e) {
+    // If there was a communication error, an exception will throw.
+    // E.g. internet connectivity issues
+    throw $e;
 }
 
-// The returned product object 
-$product = $res->data;
-
 ```
+
 #### Example response
 
 Here's the response to the requests in the above examples. 
@@ -343,4 +450,3 @@ Here's the response to the requests in the above examples.
 }
 
 ```
-
