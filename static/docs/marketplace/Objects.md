@@ -986,9 +986,13 @@ A storefront which offers items for sale on Okanjo.
 `website_url`
 :   `string (255)` Nullable. Store website URL.
 `facebook_url`
-:   `string (255)` Nullable. Store facebook URL.
+:   `string (255)` Nullable. Store Facebook URL.
+`instagram_url`
+:   `string(30)` Nullable. Store Instagram name.
 `twitter_url`
-:   `string (255)` Nullable. Store twitter URL.
+:   `string (255)` Nullable. Store Twitter URL.
+`yelp_url`
+:   `string (255)` Nullable. Store Yelp name.
 `avatar_media_id`
 :   `int` Nullable. The media image ID to display as the store logo/avatar.
 `banner_media_id`

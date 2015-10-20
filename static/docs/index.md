@@ -9,6 +9,10 @@ The Marketplace API is a RESTful JSON API that enables you to build and integrat
  * [Read the docs](/mp)
  * or [open view standalone](marketplace/)
  
+## Product API
+
+ * [Read the docs](/product-api)
+ 
 ## Ads API
 
 The Ads API is a RESTful JSON API that enables you to manage product listings and is the platform that powers the [Okanjo-JS](#Okanjo-JS) 
