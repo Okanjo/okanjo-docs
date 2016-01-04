@@ -62,6 +62,10 @@ to represent the product.
 At a minimum, all products will have: `id`, `name`, `description`, `price`, `image_urls` and `buy_url`. All other attributes are
 optional.
 
+
+> Only products with a status equal to `live` can be retrieved.
+
+
 #### Attributes
 
 id ((string))
@@ -73,7 +77,7 @@ marketplace_status ((string))
 pools ((array of strings))
 :   The list of pool names in which the product was placed.
 status ((string))
-:   The status of the product. Either `inactive` or `live`. Only products with a status equal to `live` can be retrieved.
+:   The status of the product. Either `inactive` or `live`.
 state ((string))
 :   The state of the product. One of `ok`, `needs_analysis`, or `needs_indexing`. The product will progressively change state when created or updated. 
 external_id ((string))
