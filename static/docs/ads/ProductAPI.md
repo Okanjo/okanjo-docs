@@ -62,7 +62,6 @@ to represent the product.
 At a minimum, all products will have: `id`, `name`, `description`, `price`, `image_urls` and `buy_url`. All other attributes are
 optional.
 
-
 #### Attributes
 
 id ((string))
