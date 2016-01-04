@@ -130,6 +130,8 @@ Each parameter will narrow the scope of products returned. By default, if no par
 If no products are found that meet the given filter criteria, then the response will just be an empty array. 
 The total number of products that match the filter query will be returned in the response as `numFound`.  
 
+> Only products with a status equal to `live` can be retrieved.
+
 #### Route
 
 > `GET /products`
