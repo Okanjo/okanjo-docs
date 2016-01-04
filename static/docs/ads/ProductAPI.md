@@ -73,7 +73,7 @@ marketplace_status ((string))
 pools ((array of strings))
 :   The list of pool names in which the product was placed.
 status ((string))
-:   The status of the product. Either `testing` or `live`.
+:   The status of the product. Either `inactive` or `live`. Only products with a status equal to `live` can be retrieved.
 state ((string))
 :   The state of the product. One of `ok`, `needs_analysis`, or `needs_indexing`. The product will progressively change state when created or updated. 
 external_id ((string))
