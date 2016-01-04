@@ -63,9 +63,6 @@ At a minimum, all products will have: `id`, `name`, `description`, `price`, `ima
 optional.
 
 
-> Only products with a status equal to `live` can be retrieved.
-
-
 #### Attributes
 
 id ((string))
@@ -130,6 +127,8 @@ meta ((object))
 
 Products are retrieved by using optional query parameters to filter by specific criteria. 
 Each parameter will narrow the scope of products returned. By default, if no parameters are given, all products will be returned.
+
+> Only products with a status equal to `live` can be retrieved.
 
 #### Route
 
