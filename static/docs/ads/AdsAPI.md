@@ -1012,6 +1012,9 @@ isbn ((string))
 sold_by ((string))
 :   TODO
 
+external_store_id ((string))
+:   TODO
+
 donation_percent ((number))
 :   TODO
 

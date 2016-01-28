@@ -113,6 +113,7 @@ bust out of the iFrame to provide expandable functionality if desired. If unable
             id: 'PR2cKR3AitaHebMAe6g',
             size: 'medium_rectangle',
             type: 'product',
+//            proxy_url: '%%CLICK_URL_UNESC%%', // (Google DFP macro)
             expandable: false
         }
         
@@ -122,6 +123,7 @@ bust out of the iFrame to provide expandable functionality if desired. If unable
             take: 2,
             q: 'brew city',
             template_product_main: 'product.sidebar',
+//            proxy_url: '%%CLICK_URL_UNESC%%', // (Google DFP macro)
             expandable: false
         }
     });
@@ -130,6 +132,36 @@ bust out of the iFrame to provide expandable functionality if desired. If unable
 ```
 
 See the [product widget configuration](#product-widget-configuration) or [ad widget configuration](#ad-widget-configuration) for more configuration options.
+
+#### Click Tracking
+
+When deploying a widget through ad servers such as Google DoubleClick for Publishers (DFP), you may wish to insert your own click tracking URL to 
+gauge performance through your own analytics provider.
+  
+> **Warning: Incorrectly configuring a custom tracking URL may break the widget and prevent users from reaching the buy experience.** Always be sure to test deployments before going live!
+
+To insert your tracking url, set the `proxy_url` option (or `data-proxy-url` if using data-attributes) to your URL. 
+
+> Do not escape or encode `proxy_url`. The widget will take care of encoding.
+
+For example, in Google DFP, you would set `proxy_url` to `'%%CLICK_URL_UNESC%%'`. The widget handles escaping when building
+the final click-through URL chain.
+
+The `proxy_url` must accept the escaped purchase url as the value of the last parameter. This is how the link is joined together:
+
+> `<okanjo_metrics_url><esc_proxy_url><esc_esc_buy_url>`
+
+```js
+Example: 
+var url = "http://ads-api.okanjo.com/metrics/...&u=" + // Okanjo metrics
+"https%3A%2F%2Fadclick.g.doubleclick.net...%26adurl%3D" + // 3rd Party metrics (escaped) 
+"https%253A%252F%252Fshop.okanjo.com..." // Buy url (double escaped)
+```
+
+The initial URL tracks the click with Okanjo. Next, when the `proxy_url` is given, the client will be redirected to the `proxy_url`. 
+The proxy is then responsible for redirecting the client to the final purchasing url. 
+
+See the [Common Parameters](#product-widget-configuration-common-parameters) section for more information on `proxy_url`.
 
 
 ## Framework
@@ -504,7 +536,9 @@ take ((optional, default is `5`))
 disable_inline_buy ((data-disable-inline-buy)) ((optional, default is `false`))
 :   When `true`, disables the native inline-buy experience and forces a pop-up or redirect.
 expandable ((optional, default is `true`))
-:   When `false`, the inline-buy experience will only be allowed to fit in the ad widget that contains the product widget. When `true`, the inline-buy experience may expand and overlap page content. This is mainly a pass-through parameter from the Ad widget configuration, and is a placeholder for future IAB-expandable functionality. 
+:   When `false`, the inline-buy experience will only be allowed to fit in the ad widget that contains the product widget. When `true`, the inline-buy experience may expand and overlap page content. This is mainly a pass-through parameter from the Ad widget configuration, and is a placeholder for future IAB-expandable functionality.
+proxy_url ((optional, default is `null`))
+:   Third-party click-tracking URL. When set, This URL will be inserted into the click-through process. URL is expected to accept the encoded `buy_url` on the end of the URL. See the [Ad Server](#introduction-quick-start-ad-server) section for more information.
 
 
 ### Sense Parameters
@@ -538,6 +572,8 @@ sku ((optional, default is `null`))
 :   Limit products that match the given vendor-specific sku.
 sold_by ((data-sold-by)) ((optional, default is `null`))
 :   Limit products that match the given store name.
+external_store_id ((optional, default is `null`))
+:   Limit products that have the given store identifier.
 min_price ((data-min-price)) ((optional, default is `null`))
 :   Limit products to be at least the given amount.
 max_price ((data-max-price)) ((optional, default is `null`))
@@ -660,6 +696,8 @@ id ((optional, default is `null`))
 :   Depending on the ad `type`, this indicates what should be displayed in the ad. Currently, only a product id is supported in conjunction with the `product` type.  
 disable_inline_buy ((data-disable-inline-buy)) ((optional, default is `false`))
 :   When `true`, disables the native inline-buy experience and forces a pop-up or redirect.
+proxy_url ((optional, default is `null`))
+:   Third-party click-tracking URL. When set, This URL will be inserted into the click-through process. URL is expected to accept the encoded `buy_url` on the end of the URL. See the [Ad Server](#introduction-quick-start-ad-server) section for more information.
 
 > Any additional parameters are passed through to the underlying product widget.
 
@@ -1088,8 +1126,6 @@ load ()
 :   Core widget load logic unique to a widget. Assumed to be overridden.
 trackLoad ()
 :   Tracks the widget load in the [metrics helper](https://github.com/Okanjo/okanjo-js/blob/master/src/metrics.js), e.g. Google Analytics.
-trackMoat ()
-:   Tracks the widget load with [Moat](http://www.moat.com/) analytics.
 autoCleanCache ()
 :   If `use_cache` is enabled, then the `cleanCache` function will be called on a delay to prevent loading holdups.
 getCurrentPageUrl () ((returns a `string`))

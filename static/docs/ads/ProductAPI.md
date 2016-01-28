@@ -77,7 +77,7 @@ status ((string))
 state ((string))
 :   The state of the product. One of `ok`, `needs_analysis`, or `needs_indexing`. The product will progressively change state when created or updated. 
 external_id ((string))
-:   Vendor given identifier field, useful for correlating the product listing with an external system for synchronization or other integrations.
+:   Vendor given identifier field, useful for correlating the product listing with an external system for synchronization or other integrations. For example, products originating from the Okanjo Marketplace will have `external_id` set to the numeric product id.
 sku ((string))
 :   Vendor given stock keeping unit.
 name ((required))((string))
@@ -114,13 +114,14 @@ isbn ((string))
 :   The ISBN given to the product.
 sold_by ((string))
 :   The name of the organization offering the product for sale.
+external_store_id ((string))
+:   Vendor given store identifier, useful for integrations that need to reference products from a given store. For example, products originating from the Okanjo Marketplace will have `external_store_id` set to the numeric store id.
 donation_percent ((number))
 :   The percentage of the earnings that will be donated to the `donation_to` organization. Represented as a decimal between `0` and `1`.
 donation_to ((string))
 :   The name of the organization benefiting from the sale of the product.
 meta ((object))
 :   Vendor given key-value metadata properties. Accepts strings, [dates](https://en.wikipedia.org/wiki/ISO_8601), numbers, and booleans.
-
 
 ## List products
 
@@ -150,6 +151,8 @@ sku ((optional))
 :   Returns products that have the given sku.
 sold_by ((optional))
 :   Returns products that have the given organization name.
+external_store_id ((optional))
+:   Returns products that have the given store identifier.
 min_price ((optional))
 :   Returns products that cost at least the given decimal amount. 
 max_price ((optional))

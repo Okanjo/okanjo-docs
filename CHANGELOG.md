@@ -3,6 +3,11 @@
 
 When stuff changes, it's described here.
 
+## 2016-01-28
+ * Added external_store_id to Product object
+ * Added proxy_url for thrid-party click tracking
+ * Deprecated Moat support
+
 ## 2015-10-19
  * Added ads api documentation
  * Added product api documentation
