@@ -7,6 +7,7 @@ When stuff changes, it's described here.
  * Added external_store_id to Product object
  * Added proxy_url for thrid-party click tracking
  * Deprecated Moat support
+ * Removed impressions and interactions from ads products
 
 ## 2015-10-19
  * Added ads api documentation
