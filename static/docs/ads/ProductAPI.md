@@ -98,10 +98,6 @@ inline_buy_url ((string))
 :   The URL in which the ProductMatch will use to present a native-buy experience. 
 impression_url ((string))
 :   The vendor-given URL for an impression pixel, placed on ProductMatch listings.
-impressions ((number))
-:   The total number of impressions the product has received since creation.
-interactions ((number))
-:   The total number of interactions the product has received since creation.
 tags ((array of strings))
 :   The list of keywords or phrases attributions. 
 category ((array of strings))
@@ -299,8 +295,6 @@ Here's the response to the requests in the above examples.
       "condition": "new",
       "buy_url": "http://www.anrdoezrs.net/click-7666355-10906445?url=http%3A%2F%2Fwww.overstock.com%2F5752153%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF",
       "impression_url": "http://www.awltovhc.com/image-7666355-10906445",
-      "impressions": 0,
-      "interactions": 0,
       "tags": [
         "Walking Dead",
         "Paperback"
@@ -438,8 +432,6 @@ Here's the response to the requests in the above examples.
     "condition": "new",
     "buy_url": "http://www.anrdoezrs.net/click-7666355-10906445?url=http%3A%2F%2Fwww.overstock.com%2F5752153%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF",
     "impression_url": "http://www.awltovhc.com/image-7666355-10906445",
-    "impressions": 0,
-    "interactions": 0,
     "tags": [
       "Walking Dead",
       "Paperback"

@@ -988,12 +988,6 @@ inline_buy_url ((string))
 impression_url ((string))
 :   TODO
 
-impressions ((number))
-:   TODO
-
-interactions ((number))
-:   TODO
-
 tags ((array))
 :   TODO
 
@@ -1085,8 +1079,6 @@ curl -X POST \
     "condition": "new",
     "buy_url": "http://www.anrdoezrs.net/click-7666355-10906445?url=http%3A%2F%2Fwww.overstock.com%2F5752153%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF",
     "impression_url": "http://www.awltovhc.com/image-7666355-10906445",
-    "impressions": 0,
-    "interactions": 0,
     "tags": [
       "Walking Dead",
       "Paperback"
@@ -1219,8 +1211,6 @@ curl -X GET \
     "condition": "new",
     "buy_url": "http://www.anrdoezrs.net/click-7666355-10906445?url=http%3A%2F%2Fwww.overstock.com%2F5752153%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF",
     "impression_url": "http://www.awltovhc.com/image-7666355-10906445",
-    "impressions": 0,
-    "interactions": 0,
     "tags": [
       "Walking Dead",
       "Paperback"
@@ -1306,8 +1296,6 @@ curl -X PUT \
     "condition": "new",
     "buy_url": "http://www.anrdoezrs.net/click-7666355-10906445?url=http%3A%2F%2Fwww.overstock.com%2F5752153%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF",
     "impression_url": "http://www.awltovhc.com/image-7666355-10906445",
-    "impressions": 0,
-    "interactions": 0,
     "tags": [
       "Walking Dead",
       "Hardcover"
@@ -1463,8 +1451,6 @@ curl -X GET \
       "condition": "new",
       "buy_url": "http://www.anrdoezrs.net/click-7666355-10906445?url=http%3A%2F%2Fwww.overstock.com%2F5752153%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF",
       "impression_url": "http://www.awltovhc.com/image-7666355-10906445",
-      "impressions": 0,
-      "interactions": 0,
       "tags": [
         "Walking Dead",
         "Paperback"
@@ -1638,8 +1624,6 @@ $product = $res->data;
       "condition": "new",
       "buy_url": "http://www.anrdoezrs.net/click-7666355-10906445?url=http%3A%2F%2Fwww.overstock.com%2F5752153%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF",
       "impression_url": "http://www.awltovhc.com/image-7666355-10906445",
-      "impressions": 0,
-      "interactions": 0,
       "tags": [
         "Walking Dead",
         "Paperback"
