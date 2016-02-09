@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2016-02-09
+ * Updated AdServer example payload with v2 in Okanjo-JS docs
+
 ## 2016-01-28
  * Added external_store_id to Product object
  * Added proxy_url for thrid-party click tracking

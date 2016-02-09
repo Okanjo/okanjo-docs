@@ -103,8 +103,9 @@ bust out of the iFrame to provide expandable functionality if desired. If unable
 </div>
 <script>
 
-    !function(a){var b=document,c=window,d=b.getElementById("okanjo-dropzone");try{if(c.top!==c.self)for(var e=c.top.document.getElementsByTagName("iframe"),f=0;f<e.length;f++){var g=e[f],h=g.contentDocument||e.contentWindow.document;if(h===document){d.removeAttribute("id"),g.parentNode.appendChild(d),g.style.display="none",b=c.top.document,c=c.top;break}}}catch(i){console.warn("[Okanjo]","Failed to bust out of the iframe to access native content. Falling back to non-expandable functionality!",i),a.ad&&(a.ad.expandable=!1),a.match&&(a.match.expandable=!1)}!function(b){var c=this,d=c.document,e=d.getElementsByTagName("body")[0],f=d.createElement("script"),g=!1;f.type="text/javascript",f.async=!0,f.setAttribute("crossorigin","anonymous"),f.onload=f.onreadystatechange=function(){g||this.readyState&&"complete"!=this.readyState&&"loaded"!=this.readyState||(g=!0,b.call(c))},f.src=a.src,e.parentNode.insertBefore(f,e)}.call(c,function(){var b=this;b.okanjo._widgets||(b.okanjo._widgets=[]),a.ad?b.okanjo._widgets.push(new b.okanjo.Ad(d,a.ad)):a.match?b.okanjo._widgets.push(new b.okanjo.Product(d,a.match)):console.warn("[Okanjo]","No ad or match configuration given, no widgets to load!")})}({
-        src: "//cdn.okanjo.com/js/latest/okanjo-bundle.min.js",
+    /*! Okanjo Ad Loader v2.0.0 - https://developer.okanjo.com/okanjo-js */
+    !function(a){var b=document,c=window,d=b.getElementById("okanjo-dropzone"),e=c.top===c.self,f=!1;try{if(!e)for(var i,j,g=c.top.document.getElementsByTagName("iframe"),h=0;h<g.length;h++){i=g[h];try{if(j=i.contentDocument||g.contentWindow.document,j===document){d.removeAttribute("id"),i.parentNode.appendChild(d),i.style.display="none",b=c.top.document,c=c.top,f=!0;break}}catch(k){}}}catch(k){console.warn("[Okanjo]","There was a problem jumping contexts!",k)}e||f||(console.warn("[Okanjo]","Could not locate our container iFrame on the top-level page! Forcing non-expandable functionality."),a.ad&&(a.ad.expandable=!1),a.match&&(a.match.expandable=!1)),function(b){var c=this,d=c.document,e=d.getElementsByTagName("body")[0],f=d.createElement("script"),g=!1;f.type="text/javascript",f.async=!0,f.setAttribute("crossorigin","anonymous"),f.onload=f.onreadystatechange=function(){g||this.readyState&&"complete"!=this.readyState&&"loaded"!=this.readyState||(g=!0,b.call(c))},f.src=a.src||"//cdn.okanjo.com/js/latest/okanjo-bundle.min.js",e.parentNode.insertBefore(f,e)}.call(c,function(){var b=this;b.okanjo._widgets||(b.okanjo._widgets=[]),a.ad?b.okanjo._widgets.push(new b.okanjo.Ad(d,a.ad)):a.match?b.okanjo._widgets.push(new b.okanjo.Product(d,a.match)):console.warn("[Okanjo]","No ad or product configuration given, so there are no widgets to load!")})
+    }({
         
         // INCLUDE EITHER THE ad OR match SECTION, BUT NOT BOTH!
         
@@ -130,6 +131,8 @@ bust out of the iFrame to provide expandable functionality if desired. If unable
 
 </script>
 ```
+
+You can find [the latest code](https://github.com/Okanjo/okanjo-js/blob/master/examples/dfp.min.html) or the [unminified code](https://github.com/Okanjo/okanjo-js/blob/master/examples/dfp.html) on GitHub. 
 
 See the [product widget configuration](#product-widget-configuration) or [ad widget configuration](#ad-widget-configuration) for more configuration options.
 
