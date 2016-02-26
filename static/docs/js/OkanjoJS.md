@@ -147,6 +147,12 @@ To insert your tracking url, set the `proxy_url` option (or `data-proxy-url` if 
 
 > Do not escape or encode `proxy_url`. The widget will take care of encoding.
 
+Common ad server macros:
+
+ * **Google DFP**: `%%CLICK_URL_UNESC%%`
+ * **Site Scout**: `{clickMacro}`
+ * **AppNexus**: `${CLICK_URL}`
+
 For example, in Google DFP, you would set `proxy_url` to `'%%CLICK_URL_UNESC%%'`. The widget handles escaping when building
 the final click-through URL chain.
 
