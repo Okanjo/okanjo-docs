@@ -18,10 +18,9 @@ with flexibility to meet almost every imaginable use-case.
 In order to use Okanjo-JS, you'll need a widget key. Please [contact Okanjo](http://okanjo.com/en/contact/) to get your key.
 
 #### CSS
-Having a basic understanding of [Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS) (CSS) will help you customize how widgets appear on your web page.
+Having a basic understanding of [Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS) (CSS) will help you customize how widgets appear on your web page. We offer a number of [template customization options](#template-parameters) that will allow you to adjust the visual appearance of the default template, but you can go above and beyond these defaults with your own custom CSS.
 
-Additionally, in order to display contextual product matches using ProductMatch, you will need to tell the product widget how to extract content from the page or given URL. You will need
-a basic understanding of CSS element selectors.
+Additionally, in order to display contextual product matches using ProductMatch, you will need to tell the product widget how to extract content from the page or given URL. You will need a basic understanding of CSS element selectors.
 
 ## Quick Start
 
