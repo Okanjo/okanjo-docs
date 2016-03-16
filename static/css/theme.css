@@ -552,7 +552,7 @@ body.no-literate .content pre > code:hover::-webkit-scrollbar-thumb {
     width: 100%;
     max-width: none;
     min-width: 550px;
-    background: white -webkit-linear-gradient(0deg, white 0, white 50%, #f0f0f0 50%);
+    background: white -webkit-linear-gradient(left, white 0, white 50%, #f0f0f0 50%);
     background: white linear-gradient(90deg, white 0, white 50%, #f0f0f0 50%);
   }
   body:not(.no-literate) .content > p,
@@ -859,7 +859,7 @@ a.big.button:hover:visited {
 }
 .menu ul.expandable {
   -webkit-transition: max-height 0.5s ease;
-          transition: max-height 0.5s ease;
+  transition: max-height 0.5s ease;
   max-height: 0;
   overflow: hidden;
 }
@@ -1013,20 +1013,10 @@ pre[class*="language-"] {
   word-spacing: normal;
   word-break: normal;
   line-height: 1.5;
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
   tab-size: 4;
   -webkit-hyphens: none;
-  -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-}
-pre[class*="language-"]::-moz-selection,
-pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection,
-code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #b3d4fc;
 }
 pre[class*="language-"]::selection,
 pre[class*="language-"] ::selection,
