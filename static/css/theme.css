@@ -213,6 +213,9 @@ a:hover {
 .content .badge.optional {
   color: #708090;
 }
+.content .badge.deprecated {
+  color: #ff7f50;
+}
 .content li > :first-child {
   padding-top: 0;
 }
