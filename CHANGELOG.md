@@ -3,6 +3,9 @@
 
 When stuff changes, it's described here.
 
+## 2016-03-22
+ * Added docs for new product block2 template
+
 ## 2016-02-09
  * Updated AdServer example payload with v2 in Okanjo-JS docs
 
