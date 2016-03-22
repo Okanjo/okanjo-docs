@@ -122,7 +122,8 @@ bust out of the iFrame to provide expandable functionality if desired. If unable
             mode: 'browse',
             take: 2,
             q: 'brew city',
-            template_product_main: 'product.sidebar',
+            template_product_main: 'product.block2',
+            template_layout: 'list',
 //            proxy_url: '%%CLICK_URL_UNESC%%', // (Google DFP macro)
             expandable: false
         }
@@ -611,12 +612,12 @@ suboptimal ((optional, default is `false`))
 
 These parameters set visual style and layout options. 
 
-template_product_main ((data-template-product-main)) ((optional, default is `product.block`))
-:   Specifies the main product template. Available templates: `product.block`, `product.sidebar`, `product.single`, and `product.block2` (experimental). This must be set to `product.block2` for the following parameters to have any effect.
+template_product_main ((data-template-product-main)) ((optional))
+:   Specifies the main product template. This must be set to `product.block2` for the following parameters to have any effect.
 size ((data-size)) ((optional, default is `null`))
 :   Optimizes product tiles for a particular ad size. Available sizes: `medium_rectangle` (2 products), `leaderboard` (3 products), `large_mobile_banner` (1 product), `half_page` (5 products).
 template_layout ((data-template-layout)) ((optional, default is `null`))
-:   Products displayed as a grid or `list`. Without size specified, defaults to grid view. Size leaderboard, large_mobile_banner, half_page sizes defaults to list, and ignores this parameter.
+:   Products displayed as a `grid` or `list`. Without size specified, defaults to `grid` view. Using size `leaderboard`, `large_mobile_banner`, and `half_page` will default to `list` and ignore this parameter.
 template_theme ((data-template-theme)) ((optional, default is `null`))
 :   Typographic theme, defaults to a sans-serif font stack. Otherwise, `newsprint` can be specified, which changes the seller and product title to a serif font stack.
 template_cta_style ((data-template-cta-style)) ((optional, default is `null`))
@@ -632,7 +633,7 @@ Here are a few live examples showing the three modes of operation.
 
 ### Single
 
-<p class="product-widget-dropzone" data-mode="single" data-id="PR2cdjTqsX8FbF9FtXb"></p>
+<p class="product-widget-dropzone" data-mode="single" data-id="PR2cKRdGXrUNgVefan8"></p>
 
 ```html
 <p class="product-widget-dropzone" 
@@ -672,6 +673,50 @@ Shows three products that match the search query `skyline print`.
 Shows three products that are related to the content specified in the `url` and `selectors` attributes.
 
 Article URL: [http://host.madison.com/sports/columnists/tom_oates/tom-oates-rise-of-five-veterans-critical-for-upcoming-season/article_24ca1584-03b8-5962-87d1-aa78fabe25b1.html](http://host.madison.com/sports/columnists/tom_oates/tom-oates-rise-of-five-veterans-critical-for-upcoming-season/article_24ca1584-03b8-5962-87d1-aa78fabe25b1.html)
+
+### Template Options
+
+#### Lits layout, Newsprint theme, custom CTA options
+<p class="product-widget-dropzone" 
+    data-mode="browse" 
+    data-take="3" 
+    data-q="skyline print"
+    data-template-product-main="product.block2"
+    data-template-layout="list"
+    data-template-theme="newsprint"
+    data-template-cta-style="button"
+    data-template-cta-text="Learn More"
+    data-template-cta-color="coral"></p>
+
+```html
+<p class="product-widget-dropzone" 
+     data-mode="browse" 
+     data-take="3" 
+     data-q="skyline print"
+     data-template-product-main="product.block2"
+     data-template-layout="list"
+     data-template-theme="newsprint"
+     data-template-cta-style="button"
+     data-template-cta-text="Learn More"
+     data-template-cta-color="coral"></p>
+```
+
+#### IAB Medium Rectangle
+<p class="product-widget-dropzone" 
+     data-mode="browse" 
+     data-take="2" 
+     data-q="skyline print"
+     data-template-product-main="product.block2"
+     data-size="medium_rectangle"></p>
+
+```html
+<p class="product-widget-dropzone" 
+     data-mode="browse" 
+     data-take="2" 
+     data-q="skyline print"
+     data-template-product-main="product.block2"
+     data-size="medium_rectangle"></p>
+```
 
 
 # Ad Widget
