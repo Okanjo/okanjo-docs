@@ -18,7 +18,7 @@ with flexibility to meet almost every imaginable use-case.
 In order to use Okanjo-JS, you'll need a widget key. Please [contact Okanjo](http://okanjo.com/en/contact/) to get your key.
 
 #### CSS
-Having a basic understanding of [Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS) (CSS) will help you customize how widgets appear on your web page. We offer a number of [template customization options](#template-parameters) that will allow you to adjust the visual appearance of the default template, but you can go above and beyond these defaults with your own custom CSS.
+Having a basic understanding of [Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS) (CSS) will help you customize how widgets appear on your web page. We offer a number of [template customization options](#product-widget-configuration-template-parameters) that will allow you to adjust the visual appearance of the default template, but you can go above and beyond these defaults with your own custom CSS.
 
 Additionally, in order to display contextual product matches using ProductMatch, you will need to tell the product widget how to extract content from the page or given URL. You will need a basic understanding of CSS element selectors.
 
@@ -26,7 +26,7 @@ Additionally, in order to display contextual product matches using ProductMatch,
 
 ### ProductMatch
 
-Here's a really simple, usable example to give you an basic idea on how to use the product widget and [ProductMatch](#product-widget-productmatch) to show relevant products to an article.
+Here's a really simple, usable example to give you an basic idea on how to use the product widget and [ProductMatch](#product-widget-configuration-template-parameters) to show relevant products to an article.
 When this block of HTML is loaded, three products related to the given URL will appear. It’s just that simple!
 
 ```html
@@ -620,7 +620,7 @@ template_layout ((data-template-layout)) ((optional, default is `null`))
 template_theme ((data-template-theme)) ((optional, default is `null`))
 :   Typographic theme, defaults to a sans-serif font stack. Otherwise, `newsprint` can be specified, which changes the seller and product title to a serif font stack.
 template_cta_style ((data-template-cta-style)) ((optional, default is `null`))
-:   The CTA button visual style. Can be `button` or `link`, links will take less space, and usually allow for longer product titles. Size leaderboard, large_mobile_banner override this parameter and are always set to `link`.
+:   The call to action (CTA) button visual style. Can be `button` or `link`, links will take less space, and usually allow for longer product titles. Size leaderboard, large_mobile_banner override this parameter and are always set to `link`.
 template_cta_text ((data-template-cta-text)) ((optional, default is `null`))
 :   The text within the CTA button, will be css-truncated if too long for given layout. Defaults to "Shop Now".
 template_cta_color ((data-template-cta-color)) ((optional, default is `null`))
