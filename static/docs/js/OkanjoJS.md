@@ -616,16 +616,16 @@ template_product_main ((data-template-product-main)) ((optional))
 :   Specifies the main product template. This must be set to `product.block2` for the following parameters to have any effect.
 size ((data-size)) ((optional, default is `null`))
 :   Optimizes product tiles for a particular ad size. Available sizes: `medium_rectangle` (2 products), `leaderboard` (3 products), `large_mobile_banner` (1 product), `half_page` (5 products).
-template_layout ((data-template-layout)) ((optional, default is `null`))
+template_layout ((data-template-layout)) ((optional, default is `grid`))
 :   Products displayed as a `grid` or `list`. Without size specified, defaults to `grid` view. Using size `leaderboard`, `large_mobile_banner`, and `half_page` will default to `list` and ignore this parameter.
-template_theme ((data-template-theme)) ((optional, default is `null`))
-:   Typographic theme, defaults to a sans-serif font stack. Otherwise, `newsprint` can be specified, which changes the seller and product title to a serif font stack.
-template_cta_style ((data-template-cta-style)) ((optional, default is `null`))
+template_theme ((data-template-theme)) ((optional, default is `modern`))
+:   Typographic theme, defaults to `modern`, a sans-serif font stack. Otherwise, `newsprint` can be specified, which changes the seller and product title to a serif font stack.
+template_cta_style ((data-template-cta-style)) ((optional, default is `link`))
 :   The call to action (CTA) button visual style. Can be `button` or `link`, links will take less space, and usually allow for longer product titles. Size leaderboard, large_mobile_banner override this parameter and are always set to `link`.
-template_cta_text ((data-template-cta-text)) ((optional, default is `null`))
+template_cta_text ((data-template-cta-text)) ((optional, default is `Shop Now`))
 :   The text within the CTA button, will be css-truncated if too long for given layout. Defaults to "Shop Now".
-template_cta_color ((data-template-cta-color)) ((optional, default is `null`))
-:   The color of text and border/background of the CTA button or link, default: `#0099ff`. Acceptable values are any css color code or color name. Text will be set against a white background so make sure to specify a color that is dark enough and reads well against white.
+template_cta_color ((data-template-cta-color)) ((optional, default is `#0099ff`))
+:   The color of text and border/background of the CTA button or link, default is `#0099ff`. Acceptable values are any css color code or color name. Text will be set against a white background so make sure to specify a color that is dark enough and reads well against white.
 
 ## Examples
 
