@@ -99,7 +99,7 @@ const nav = [
         title: 'Okanjo SmartServe SDK Documentation',
         description: 'Dynamically matches products with content using artificial intelligence, user profiles & context algorithms.',
         // file: 'docs/js/OkanjoJS.md',
-        file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app/README.md',
+        file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-js/README.md',
         github: 'okanjo/okanjo-docs',
         template: 'doc.njk'
     },
