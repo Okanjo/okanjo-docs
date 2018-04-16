@@ -116,6 +116,31 @@ a {
       }
     }
 
+    .child-properties {
+
+      border: solid 1px @line;
+      border-radius: 4px;
+      padding: 0 1em 1em 1em;
+
+      a.toggle {
+        display: block;
+        padding: .5em 0;
+        border-bottom: solid 1px @line;
+      }
+      
+      &.hidden {
+        padding-bottom: 0;
+
+        a.toggle {
+          border-bottom: 0;
+        }
+
+        dd, dt, div {
+          display: none;
+        }
+      }
+    }
+
   }
 
   .badge {
@@ -601,6 +626,18 @@ body.no-literate .content pre > code {
           padding: 0 0 0 1em;
           min-height: 5em;
         }
+
+        .child-properties {
+          margin-bottom: 1em;
+
+          a.toggle {
+            text-align: right;
+            min-width: 100px;
+            width: 35%;
+
+          }
+
+        }
       }
 
       .badge {
@@ -634,6 +671,11 @@ body.no-literate .content pre > code {
 
   line-height: 20px;
   position: relative;
+
+  &.children-header {
+    background-color: @subHeader;
+    border-bottom: solid 1px darken(@subHeader, 5%);
+  }
 
   .left {
     float: left;
@@ -685,9 +727,21 @@ body.no-literate .content pre > code {
     padding: 1em 0;
   }
 
-  li:hover,
-  li.active {
+  li:hover {
     background-color: lighten(@okanjo, 5%);
+  }
+
+  li.active {
+    background-color: darken(@okanjo, 10%);
+  }
+
+  &.children-header {
+    li:hover {
+      background-color: lighten(@subHeader, 5%);
+    }
+    li.active {
+      background-color: darken(@subHeader, 10%);
+    }
   }
 
   @media (min-width: 480px) {
@@ -721,7 +775,7 @@ body.no-literate .content pre > code {
     }
 
     li a {
-      padding: 1em 1.5em;
+      padding: 1em 1.25em;
       font-size: 1em;
     }
   }
@@ -1013,5 +1067,20 @@ code {
   min-height: 300px;
 }
 
+@media (min-width: 1180px) {
+
+  body:not(.no-literate) .content > .placement-example {
+    float: left;
+    clear: left;
+    width: 50%;
+    box-sizing: border-box;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+
+  body:not(.no-literate) .content > .okanjo-placement {
+
+  }
+}
 
 @import "prism.less";

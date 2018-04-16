@@ -1,0 +1,27 @@
+{% extends 'master.njk' %}
+
+{% block head %}
+{% endblock %}
+
+{% block header %}
+    <ul>
+    {% for doc in nav %}
+    <li><a href='{{ doc.href }}' class="{{ doc.name == name ? 'active' : '' }}">{{ doc.name }}</a></li>
+    {% endfor %}
+</ul>
+    <style>
+        .content-root {
+            padding: 0;
+            margin: 0;
+        }
+        iframe {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <iframe src="{{ url }}"></iframe>
+{% endblock %}

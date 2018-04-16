@@ -1,51 +1,64 @@
 # Okanjo Platform Documentation
 
-Here you will find information on integrating with various components in Okanjo's platform.
-  
-## Marketplace API
+Here you will find information on integrating with various components in Okanjo&#39;s platform.
 
-The Marketplace API is a RESTful JSON API that enables you to build and integrate with Okanjo Marketplace.
 
- * [Read the docs](/mp)
- * or [open view standalone](marketplace/)
- 
-## Product API
+## Okanjo API
 
-The Product API is a RESTful JSON API component of the the Ads API. The Product API serves as the point of integration with developer applications and widgets.
+Okanjo core platform API documentation.
 
- * [Read the docs](/product-api)
- 
-## Ads API
+* [Read the docs](api)
 
-The Ads API is a RESTful JSON API that enables you to manage product listings and is the platform that powers the [Okanjo-JS](#okanjo-platform-documentation-okanjo-js) 
- product and ad widgets. 
- 
- * ((Docs coming soon))
- 
-## Okanjo-JS
 
-Okanjo-JS is an extensible widget framework that enables you to engage in native commerce by embedding customizable product listings or ads on a web page.
 
- * [Read the docs](/okanjo-js)
- * [View GitHub Project](https://github.com/Okanjo/okanjo-js)
+
+## Farm API
+
+Affiliate product management AI platform.
+
+* [Read the docs](farm)
+
+
+
+
+## Distillery API
+
+Extracts disambiguated topics and things.
+
+* [Read the docs](distillery)
+
+
+
+
+## SmartServe SDK
+
+Dynamically matches products with content using artificial intelligence, user profiles &amp; context algorithms.
+
+* [Read the docs](okanjo-js)
+* [View GitHub Project](https://github.com/okanjo/okanjo-docs)
+
+
 
 ## Node.js SDK
 
-Use the Okanjo Node.js SDK to make integration easy in Node.js-based applications. Access both the marketplace and ads APIs with a simple fluent interface. 
+Integrate the Okanjo API into your application using Node.js.
 
- * [Read the docs](/node-sdk)
- * [View GitHub Project](https://github.com/Okanjo/okanjo-nodejs)
+* [Read the docs](node-sdk)
+* [View GitHub Project](https://github.com/okanjo/okanjo-nodejs)
 
-## PHP SDK
 
-Use the Okanjo PHP SDK to make integration easy with PHP-based websites and applications. Access both the marketplace and ads APIs with a simple fluent interface. 
 
- * [Read the docs](/php-sdk)
- * [View GitHub Project](https://github.com/Okanjo/okanjo-php)
+## App Framework
 
-## Ship-It
+Framework for bootstrapping complex, scalable Node.js applications quickly.
 
-Create your own custom real-time order shipping calculation service for use with your store or marketplace. 
+* [Read the docs](okanjo-app-framework)
 
- * [Read the docs](/shipit)
- * [View GitHub Project](https://github.com/Okanjo/okanjo-shipit)
+
+
+
+
+
+
+
+

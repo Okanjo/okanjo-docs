@@ -1,0 +1,47 @@
+{% extends 'master.njk' %}
+
+{% block head %}
+    <script src="js/docs-build.js"></script>
+    <script>
+        Flatdoc.run({
+
+        {% if page.file %}
+    fetcher: Flatdoc.file('{{ page.file }}')
+        {% elif page.github %}
+    fetcher: Flatdoc.github('{{ page.github }}')
+        {% endif %}
+
+        });
+    </script>
+{% endblock %}
+
+{% block header %}
+    <ul>
+        {% for doc in nav %}
+            {% if not doc.hideFromNav %}
+                <li class="{{ 'active' if (doc.href === page.href or doc.href === parent.href) else '' }}"><a href='{{ doc.href }}'>{{ doc.name }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block childrenHeader %}
+    {% if page.children or parent %}
+    <div class='header children-header'>
+    <ul>
+        {% for doc in (page.children if page.children else parent.children) %}
+            {% if not doc.hideFromNav %}
+                <li class="{{ 'active' if doc.href === page.href else '' }}"><a href='{{ doc.href }}'>{{ doc.name }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class='menubar'>
+        <div class='menu section' role='flatdoc-menu'></div>
+    </div>
+    <div role='flatdoc-content' class='content'></div>
+{% endblock %}

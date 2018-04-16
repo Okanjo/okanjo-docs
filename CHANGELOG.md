@@ -1,140 +1,18 @@
-
-# Okanjo API Docs Change Log
+# Okanjo Docs Site Change Log
 
 When stuff changes, it's described here.
 
-## 2016-03-22
- * Added docs for new product block2 template
-
-## 2016-02-09
- * Updated AdServer example payload with v2 in Okanjo-JS docs
-
-## 2016-01-28
- * Added external_store_id to Product object
- * Added proxy_url for thrid-party click tracking
- * Deprecated Moat support
- * Removed impressions and interactions from ads products
-
-## 2015-10-19
- * Added ads api documentation
- * Added product api documentation
- * Added instagram_url and yelp_url attributes to the marketplace store object and PUT/POST routes
- * Added quick start example for deploying programmatically through an Ad server
- 
-## 2015-08-24
-
-Okanjo-JS
- * Added pools to quick start for the product widget
- * Swapped out product search queries to something better
-
-## 2015-07-22
-
-Holds
- * Added disbursement hold type
- 
-Okanjo-JS
- * Updated quick start section to include ad example
- * Fixed various code example inconsistencies
- * Added badges for configuration parameters that have an underscore in them, needing a hyphen in the data attribute
-
-## 2015-07-10
-
-AddressType
- * Added `contact` address type
- 
-Holds
- * Added holds routes to get the Holds that are preventing the transaction from advancing 
- * Added `holds` embed for order items, sales, and transactions routes
- * Added HoldType and HoldStatus constants
-
-## 2015-06-25 - v2
- * Abstracting documentation to be able to support multiple products
- * Moving to single-page documentation approach
- * Fudged old marketplace documentation into an iframe for now
- * Lots of new documentation on Okanjo-JS
-
-## 2015-02-23
- * Added order_id to confirm checkout routes
- * Added missing fields to CheckoutConfirmation object
- * Added order_id to CheckoutOrder object
-
-## 2015-01-28
- * Added ProductSense basic documentation
-
-## 2015-01-07
- * Added note about tax exemption status
-
-## 2015-01-06
- * Added dynamic shipping docs
- * Updated sales tax docs
-
-## 2014-12-17
- * Added transaction types for sales tax
- * Added UserFlags for options on user objects
- * Updated Address object (removed auditing fields)
- * Added is_tax_exempt on Order objects
- * Added tax_price on order_item
- * Added store address CRUD routes
- * Updated user address CRUD route docs
- * Updated /media/generate response codes
-
-## 2014-11-14
- * Updated docs for category and taxonomy system changes
- * Added new checkout errors to confirmation routes
-
-## 2014-11-06
- * Added /events routes
-
-## 2014-10-22
- * Added POST /stores route to add a new store
- * Added DELETE /stores/{id} route to disable an existing store
-
-## 2014-09-09
- * Condensed error code output for POST and PUT /products
-
-## 2014-08-25
- * Adjusted minimum item and purchase limits to $0.01 and $0.50, respectively
-
-## 2014-08-07
- * Added order status for pending disputes
-
-## 2014-08-06
- * Added order status for pending refunds
-
-## 2014-07-29
- * Added documentation for meta property filtering on Product search
-
-## 2014-06-25
- * Added information about transactions on stores and users
- * Removed payouts since they've been deprecated
-
-## 2014-06-11
- * Added ability to link and save tests
-
-## 2014-05-13
- * Updated default endpoint to sandbox, etc.
-
-## 2014-05-07
- * Added meta properties to Users, Stores, Products, Orders, and Order Items
-
-## 2014-03-24
- * Added "PrivateMessageFailed" NotificationType to Constants
- * Added product Attributes and Variants
-
-## 2014-02-27
- * Removed emphasis in code block (doesn't render)
-
-## 2014-02-26
- * Finished documentation updates to match changes released from late 2013 through now
- * Added new fixed-listing media size
- * Made the sidebar a smidge bigger
-
-## 2014-02-25
- * Documentation updates to match changes released from late 2013 through now (still a work in progress)
- * Refactored objects to their own document
-
-## 2013-12-10
- * Added gh-pages branch
- * Initial documentation import (it's a mess, and in a transitional state at the moment)
- * Added test tool to demonstrate interaction with the API
- * Initial import / tentative API documentation
+## 2018-04-16
+Overhaul – Updated docs to reflect all the changes to the platform over the last few years
+ * Moved showdown and extensions to this repository instead of relying on our forked mdoc
+ * Updated definition list plugin to support nested objects
+ * Updated showdown's overly aggressive bold/italics patterns
+ * Updated styles to support sub headers and child properties
+ * Removed most markdown docs stored in this app. They belong to their respective projects
+ * Removed marketplace docs as that product has been deprecated
+ * Removed test-tool example, as it was a marketplace api tool
+ * Added lots of docs from various okanjo products and projects
+ * Swapped twig-js to our platform favorite: nunjucks
+ * Removed redundant page templates
+ * Rewrote build process to source from an array of objects instead of twig templates
+ * Updated dependencies

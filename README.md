@@ -1,13 +1,8 @@
 # Okanjo Platform Documentation
 
-This project houses and builds the Okanjo platform documentation.
+This builds the Okanjo platform documentation site.
 
 View the documentation at [developer.okanjo.com](http://developer.okanjo.com)
-
-> We've recently switched to a [flatdoc](https://github.com/rstacruz/flatdoc)-based approach for new product documentation. We're in the process of updating the old documentation to this format. Please bare with us! 
-
-The Marketplace documentation is stored as Markdown files, and is converted to fancy html documentation using a forked copy of mdoc,
-a Node.js-based Markdown documentation converter.
 
 # Contributing
 
@@ -19,22 +14,12 @@ fork away, submit an issue, and top it off with a pull request!
 To build the Okanjo docs, you'll need:
 
 * Node.js
-* mdoc (referenced as git submodule)
 
-After cloning this repository, in your favorite shell/terminal, get into the okanjo-docs project directory:
-```bash
-cd okanjo-docs
-```
+After cloning this repository, in your favorite shell/terminal, get into the okanjo-docs project directory.
 
-Then init the git submodules:
+Install the required dependencies using Yarn:
 ```bash
-git submodule init
-git submodule update
-```
-
-Install the required dependencies to get everything building:
-```bash
-npm install
+yarn
 ```
 
 # Build the Docs

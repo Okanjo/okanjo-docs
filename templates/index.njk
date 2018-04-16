@@ -1,0 +1,15 @@
+# {{ page.title }}
+
+{{ page.description }}
+
+{% for doc in (page.children if page.children else nav) %}
+{% if not doc.hideFromNav %}## {{ doc.name }}
+
+{{ doc.description }}
+
+* [Read the docs]({{ doc.href }})
+{% if doc.github %}* [View GitHub Project](https://github.com/{{ doc.github }}){% endif %}
+
+{% endif %}
+{% endfor %}
+

@@ -36,129 +36,325 @@
  */
 
 
-var gulp = require('gulp'),
-    path = require('path'),
-    less = require('gulp-less'),
-    uglify = require('gulp-uglify'),
-    concat = require('gulp-concat'),
-    rename = require('gulp-rename'),
-    sourcemaps = require('gulp-sourcemaps'),
-    twig = require('gulp-twig'),
-    run = require('gulp-run'),
-    LessPluginAutoPrefix = require('less-plugin-autoprefix'),
+const Gulp = require('gulp');
+const Async = require('async');
+const Path = require('path');
+const Less = require('gulp-less');
+const Uglify = require('gulp-uglify');
+const Concat = require('gulp-concat');
+const Rename = require('gulp-rename');
+const Sourcemaps = require('gulp-sourcemaps');
+const Twig = require('gulp-twig');
+const RenderNunjucks = require('gulp-nunjucks-render');
+const LessPluginAutoPrefix = require('less-plugin-autoprefix');
 
-    // Auto add vendor prefixes in CSS
-    autoprefix= new LessPluginAutoPrefix({ browsers: ["> 5%"] }),
+// Auto add vendor prefixes in CSS
+const autoprefix= new LessPluginAutoPrefix({ browsers: ["> 5%"] });
 
-    docsJsSources = [
+const docsJsSources = [
         'static/js/jquery.min.js',
         'static/js/legacy.js',
         'static/js/prism.js',
-        'mdoc/src/js/lib/showdown.js',
+        'lib/showdown.js',
         'static/js/flatdoc.js',
-        'mdoc/src/js/lib/extensions/github.js',
-        'mdoc/src/js/lib/extensions/table.js',
-        'mdoc/src/js/lib/extensions/definition.js',
-        'mdoc/src/js/lib/extensions/badges.js',
+        'lib/extensions/github.js',
+        'lib/extensions/table.js',
+        'lib/extensions/definition.js',
+        'lib/extensions/badges.js',
         'static/js/theme.js',
         'static/js/eventemitter2.js'
-    ],
+    ];
 
-    nav = [
+const nav = [
+    {
+        name: 'Okanjo API',
+        href: 'api',
+        title: 'Okanjo API Documentation',
+        description: 'Okanjo core platform API documentation.',
+        file: 'https://api2.okanjo.com/docs/markdown',
+        github: null,
+        template: 'doc.njk'
+    },
+    {
+        name: 'Farm API',
+        href: 'farm',
+        title: 'Okanjo Farm API Documentation',
+        description: 'Affiliate product management AI platform.',
+        file: 'https://farm.okanjo.com/docs/markdown',
+        github: null,
+        template: 'doc.njk'
+    },
+    {
+        name: 'Distillery API',
+        href: 'distillery',
+        title: 'Okanjo Distillery API Documentation',
+        description: 'Extracts disambiguated topics and things.',
+        file: 'https://distillery.okanjo.com/docs/markdown',
+        github: null,
+        template: 'doc.njk'
+    },
+    {
+        name: 'SmartServe SDK',
+        href: 'okanjo-js',
+        title: 'Okanjo SmartServe SDK Documentation',
+        description: 'Dynamically matches products with content using artificial intelligence, user profiles & context algorithms.',
+        // file: 'docs/js/OkanjoJS.md',
+        file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app/README.md',
+        github: 'okanjo/okanjo-docs',
+        template: 'doc.njk'
+    },
+    {
+        name: 'Node.js SDK',
+        href: 'node-sdk',
+        title: 'Okanjo Node.js SDK Documentation',
+        description: 'Integrate the Okanjo API into your application using Node.js.',
+        file: null,
+        github: 'okanjo/okanjo-nodejs',
+        template: 'doc.njk'
+    },
 
-        { name: 'Marketplace API', href: 'mp' },
-        //{ name: 'Ads API', href: 'ads' },
-        { name: 'Product API', href: 'product-api' },
-        { name: 'Okanjo-JS', href: 'okanjo-js' },
-        { name: 'Node.js SDK', href: 'node-sdk' },
-        { name: 'PHP SDK', href: 'php-sdk' },
-        { name: 'Ship-It', href: 'shipit' }
+    // Framework section
+    {
+        name: 'App Framework',
+        href: 'okanjo-app-framework',
+        title: 'Okanjo Application Framework',
+        description: `Framework for bootstrapping complex, scalable Node.js applications quickly.`,
+        file: 'docs/app-framework-overview.md',
+        github: null,
+        template: 'doc.njk',
+        hideFromNav: false,
 
-    ]
+        children: [
+            {
+                name: 'App',
+                href: 'okanjo-app',
+                title: 'Okanjo App',
+                description: 'Okanjo Application Framework for Node.js.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app/README.md',
+                github: 'okanjo/okanjo-app',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Broker',
+                href: 'okanjo-app-broker',
+                title: 'Okanjo Broker',
+                description: 'Service broker for managing cluster worker groups.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-broker/README.md',
+                github: 'okanjo/okanjo-broker',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Conductor',
+                href: 'okanjo-conductor',
+                title: 'Okanjo Conductor',
+                description: 'Module for handing batch jobs across multiple worker processes.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-conductor/README.md',
+                github: 'okanjo/okanjo-conductor',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Elastic',
+                href: 'okanjo-app-elastic',
+                title: 'Okanjo Elastic Service',
+                description: 'Service for interfacing with Elasticsearch.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-elastic/README.md',
+                github: 'okanjo/okanjo-app-elastic',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Mongo',
+                href: 'okanjo-app-mongo',
+                title: 'Okanjo Mongo Service',
+                description: 'Service for interfacing with MongoDB.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-mongo/README.md',
+                github: 'okanjo/okanjo-app-mongo',
+                template: 'doc.njk'
+            },
+            {
+                name: 'MySQL',
+                href: 'okanjo-app-mysql',
+                title: 'Okanjo MySQL Service',
+                description: 'Service for interfacing with MySQL.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-mysql/README.md',
+                github: 'okanjo/okanjo-app-mysql',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Queue',
+                href: 'okanjo-app-queue',
+                title: 'Okanjo Queue Service',
+                description: 'Service for interfacing with RabbitMQ.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-queue/README.md',
+                github: 'okanjo/okanjo-app-queue',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Redis',
+                href: 'okanjo-app-redis',
+                title: 'Okanjo Redis Service',
+                description: 'Service for interfacing with Redis.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-redis/README.md',
+                github: 'okanjo/okanjo-app-redis',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Server',
+                href: 'okanjo-app-server',
+                title: 'Okanjo Server',
+                description: 'Server framework using HAPI and friends.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-server/README.md',
+                github: 'okanjo/okanjo-app-server',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Server Session',
+                href: 'okanjo-app-server-session',
+                title: 'Okanjo Session Plugin',
+                description: 'Persistent server-side session state for OkanjoServer.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-server-session/README.md',
+                github: 'okanjo/okanjo-app-server-session',
+                template: 'doc.njk'
+            },
+            {
+                name: 'Server Docs',
+                href: 'okanjo-app-server-docs',
+                title: 'Okanjo Server Docs',
+                description: 'Generate API route docs.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-server-docs/README.md',
+                github: 'okanjo/okanjo-app-server-docs',
+                template: 'doc.njk'
+            },
+        ]
+    },
 
-;
+    // Special pages
 
-gulp.task('docs-js', function() {
+    {
+        name: 'Okanjo Platform Documentation',
+        href: 'index',
+        title: 'Okanjo Platform Documentation',
+        description: 'Here you will find information on integrating with various components in Okanjo\'s platform.',
+        file: 'docs/index.md',
+        github: null,
+        template: 'doc.njk',
+        hideFromNav: true
+    },
+    {
+        name: 'Page Not Found',
+        href: '404',
+        title: 'Page Not Found',
+        description: 'The page you were looking for is missing or invalid. Sorry!',
+        file: 'docs/404.md',
+        github: null,
+        template: 'doc.njk',
+        hideFromNav: true
+    },
+];
+
+Gulp.task('docs-js', function() {
     //noinspection JSUnusedGlobalSymbols
-    return gulp.src(docsJsSources)
-        .pipe(sourcemaps.init())
-        .pipe(concat('docs-build.js'))
-        .pipe(gulp.dest('static/js'))
-        .pipe(uglify({
-            preserveComments: 'some'
+    return Gulp.src(docsJsSources)
+        .pipe(Sourcemaps.init())
+        .pipe(Concat('docs-build.js'))
+        .pipe(Gulp.dest('static/js'))
+        .pipe(Uglify({
+            output: { comments: 'some' }
+        }).on('error', (...args) => {
+            console.log('Blew up!', args);
         }))
-        .pipe(rename('docs-build.min.js'))
-        .pipe(sourcemaps.write('../../static/js', { sourceRoot: './' }))
-        .pipe(gulp.dest('static/js'))
+        .pipe(Rename('docs-build.min.js'))
+        .pipe(Sourcemaps.write('../../static/js', { sourceRoot: './' }))
+        .pipe(Gulp.dest('static/js'))
 });
 
-gulp.task('docs-css', function() {
-    return gulp.src('static/css/theme.less')
-        .pipe(less({
+Gulp.task('docs-css', () => {
+    return Gulp.src('static/css/theme.less')
+        .pipe(Less({
             plugins: [autoprefix],
-            paths: [ path.join(__dirname, 'static', 'css' ) ]
+            paths: [ Path.join(__dirname, 'static', 'css' ) ]
         }))
         //.pipe(minifyCSS())
-        .pipe(gulp.dest('./static/css/'))
+        .pipe(Gulp.dest('./static/css/'))
 });
 
 
-//gulp.task('mp-merge', function() {
-//    //noinspection JSUnusedGlobalSymbols
-//    return gulp.src('static/docs/marketplace/*.md')
-//        .pipe(concat('combined.md'))
-//        .pipe(gulp.dest('static/docs/marketplace'))
-//});
+const renderPages = (pages, callback, parent) => {
+    Async.eachSeries(
+        pages,
+        (page, nextPage) => {
+            Gulp.src(`templates/${page.template}`)
+                .pipe(RenderNunjucks({
+                    path: 'templates',
+                    data: {page, nav, parent}
+                }))
+                .pipe(Rename(`${page.href}.html`))
+                .pipe(Gulp.dest('static'))
+                .on('end', () => {
 
-gulp.task('mp-docs', function() {
-    return run('node gen-docs.js')
-        .exec();
+                    // Check for children
+                    if (page.children) {
+                        renderPages(page.children, nextPage, page);
+                    } else {
+                        nextPage();
+                    }
+
+                })
+                .on('error', (err) => nextPage(err))
+            ;
+        },
+        callback
+    );
+};
+
+Gulp.task('website', ['index-page', 'modules-index-page'], function(done) {
+    renderPages(nav, done);
 });
 
-
-gulp.task('website', function() {
-
-    // Build a header list
-    //var nav = [];
-
-    //docs.forEach(function(doc, i) {
-    //    //nav.push({
-    //    //    href: doc.path,
-    //    //    name: docs.name
-    //    //})
-    //
-    //    // Add circular per doc
-    //    docs[i].docs = docs;
-    //});
-
-    return gulp.src('templates/pages/*.twig')
-        .pipe(twig({
-            data: {
-                nav: nav
-            },
-            errorLogToConsole: true
+Gulp.task('index-page', () => {
+    const page = nav.find((p) => p.href === 'index');
+    return Gulp.src('templates/index.njk')
+        // .pipe(Twig({
+        //     data: page,
+        //     errorLogToConsole: true
+        // }))
+        .pipe(RenderNunjucks({
+            path: 'templates',
+            data: {page, nav}
         }))
-        .pipe(rename({
-            extname: '.html'
+        .pipe(Rename('index.md'))
+        .pipe(Gulp.dest('static/docs'));
+});
+
+Gulp.task('modules-index-page', () => {
+    const page = nav.find((p) => p.href === 'okanjo-app-framework');
+    return Gulp.src('templates/index.njk')
+        // .pipe(Twig({
+        //     data: page,
+        //     errorLogToConsole: true
+        // }))
+        .pipe(RenderNunjucks({
+            path: 'templates',
+            data: {page, nav}
         }))
-        .pipe(gulp.dest('static'));
+        .pipe(Rename('app-framework-overview.md'))
+        .pipe(Gulp.dest('static/docs'));
 });
 
 
-gulp.task('watch-css', function() {
-    gulp.watch(['static/css/*.less'], ['docs-css']);
+Gulp.task('watch-css', function() {
+    Gulp.watch(['static/css/*.less'], ['docs-css']);
 });
 
-gulp.task('watch-js', function() {
-    gulp.watch(docsJsSources, ['docs-js']);
+Gulp.task('watch-js', function() {
+    Gulp.watch(docsJsSources, ['docs-js']);
 });
 
-gulp.task('watch-website', function() {
-    gulp.watch(['templates/**/*.twig'], ['website']);
+Gulp.task('watch-website', function() {
+    Gulp.watch(['templates/**/*.njk'], ['website']);
 });
 
-gulp.task('watch-mp-docs', function() {
-    gulp.watch(['static/docs/marketplace/*.md'], ['mp-docs']);
-});
+// gulp.task('watch-mp-docs', function() {
+//     gulp.watch(['static/docs/marketplace/*.md'], ['mp-docs']);
+// });
 
-gulp.task('default', ['docs-css', 'docs-js', 'website', 'mp-docs', 'watch-css', 'watch-js','watch-website','watch-mp-docs']);
+Gulp.task('default', ['docs-css', 'docs-js', 'website', 'watch-css', 'watch-js','watch-website']);

@@ -1,151 +1,117 @@
-# Okanjo-JS
+# SmartServe SDK
 
-Okanjo-JS is [Okanjo](http://okanjo.com)'s extensible widget framework that enables you to engage in native commerce by embedding customizable product listings or ads on a web page.
+The Okanjo SmartServe SDK is [Okanjo's](http://okanjo.com) extensible widget framework for displaying recommended content 
+units on a web page.
 
 # Introduction
 
-Okanjo’s Marketplace and Ad-Tech platforms transform content into commerce for publishers. These products enable 
-publishers and advertisers to sell anywhere on the web. Okanjo’s contextual targeting technology delivers relevant 
-shopping options to readers at the moment of interest and engagement. Then, transactions take place without ever 
-leaving the publisher’s site. 
+SmartServe matches products from our vast library of merchants to the most relevant content and readers across our 
+network. For publishers, this provides a better user experience, showing readers products that compliment their 
+interests. For brands, this drives organic product discovery and deeper engagement.
 
-Okanjo-JS is the code used to embed this technology in a website or application. The JavaScript framework combines simplicity
-with flexibility to meet almost every imaginable use-case.
+SmartServe can also recommend relevant content for readers from [Pressed](https://okanjo.com/pressed/), your website, 
+or other content exchanges.
+
+The SmartServe SDK is the JavaSCript code used to embed this technology in websites and applications. 
+The JavaScript framework combines simplicity with flexibility to meet almost every imaginable use-case.
+
+## Terminology
+
+In this documentation, we'll reuse a few common terms.
+
+SmartServe
+:   The technology that recommends products and content to readers.
+SmartServe SDK
+:   The JavaScript framework that is used to deliver recommended content on web pages.
+Placement / Widget / Unit
+:   An instance of placement created using the SmartServe SDK. All three usages mean the same thing. 
+Placement Key
+:   The unique placement key, required for a placement to operate.
+Resource
+:   A product or article displayed within a placement. Placements may display many resources at a time.
 
 ## Prerequisites
 
-#### Widget Key
-In order to use Okanjo-JS, you'll need a widget key. Please [contact Okanjo](http://okanjo.com/en/contact/) to get your key.
+#### Placement Keys
+In order to use the SmartServe SDK, you'll need at least one placement key. 
+Log in to the [Okanjo Dashboard](https://dashboard.okanjo.com) to manage placements. 
+
+If you do not yet have an Okanjo Account, please [contact Okanjo](https://okanjo.com/contact/) to get started.
 
 #### CSS
-Having a basic understanding of [Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS) (CSS) will help you customize how widgets appear on your web page. We offer a number of [template customization options](#product-widget-configuration-template-parameters) that will allow you to adjust the visual appearance of the default template, but you can go above and beyond these defaults with your own custom CSS.
-
-Additionally, in order to display contextual product matches using ProductMatch, you will need to tell the product widget how to extract content from the page or given URL. You will need a basic understanding of CSS element selectors.
+Having a basic understanding of [Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS) (CSS) will 
+help you customize how widgets appear on your web page. We offer a number of 
+[display configurations](#placements-configuration-display-parameters) which meets the needs of most customers, 
+but you can go above and beyond these defaults with your own custom CSS.
 
 ## Quick Start
 
-### ProductMatch
+### On Page
 
-Here's a really simple, usable example to give you an basic idea on how to use the product widget and [ProductMatch](#product-widget-configuration-template-parameters) to show relevant products to an article.
-When this block of HTML is loaded, three products related to the given URL will appear. It’s just that simple!
+Here's a basic example of how to create a placement directly on a page:
 
 ```html
-<div class="product-widget-dropzone" 
-   data-mode="sense" 
-   data-take="3" 
-   data-url="http://host.madison.com/sports/columnists/tom_oates/tom-oates-rise-of-five-veterans-critical-for-upcoming-season/article_24ca1584-03b8-5962-87d1-aa78fabe25b1.html" 
-   data-selectors="h1,h3,div.entry-content,div.asset-description,div.asset-desc"
-   data-pools="global">
-</div>
+<div class="okanjo-placement" data-key="PUT_YOUR_PLACEMENT_KEY_HERE"></div>
 <script src="https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js" crossorigin="anonymous"></script>
 <script>
-
-    // You can set the global key on the okanjo namespace, or you can set it as an option on the widget constructor
-    okanjo.key = 'PUT_YOUR_WIDGET_KEY_HERE';
-
-    // Create a product widget on the elements with given class
-    var targets = okanjo.qwery('.product-widget-dropzone'), i = 0, p = [];
-    for ( ; i < targets.length; i++) {
-        p.push(new okanjo.Product(targets[i]));
-    }
-
+    (function() { // Initialize Okanjo placements
+        window.__okanjoPlacements = window.__okanjoPlacements || []; 
+        var targets = okanjo.qwery('.okanjo-placement:not(.loaded)'), i = 0;
+        for ( ; i < targets.length; i++) {
+            targets[i].className += ' loaded';
+            window.__okanjoPlacements.push(new okanjo.Placement(targets[i]));
+        }        
+    })();
 </script>
 ```
 
-The product widget can be customized to suit virtually any scenario. See the [product widget section]() and [customization section]() for more details.
+> Note: the `script` tags should only be included **once** per page. 
 
-See the [examples section](#product-widget-examples-sense) to see what this looks like below.
-
-### Ad Widget
-
-Here's a usable example showing how you can display a simple creative image in the ad widget. 
- 
-```html
-<div class="ad-widget-dropzone"
-    data-size="medium_rectangle" 
-    data-type="product" 
-    data-id="PR2cKR3AitaHebMAe6g"
-    style="outline:solid 1px #ccc;">
-    <img style="margin:0;height:100%;width:auto;cursor:pointer;" 
-         async="true" 
-         src="//developer.okanjo.com/img/example-creative.jpg"/>    
-</div>
-<script src="https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js" crossorigin="anonymous"></script>
-<script>
-
-    // You can set the global key on the okanjo namespace, or you can set it as an option on the widget constructor
-    okanjo.key = 'PUT_YOUR_WIDGET_KEY_HERE';
-
-    // Create an ad widget on the elements with given class
-    var targets = okanjo.qwery('.ad-widget-dropzone'), i = 0, a = [];
-    for ( ; i < targets.length; i++) {
-        a.push(new okanjo.Ad(targets[i]));
-    }
-
-</script>
-```
+You can find [the latest code](https://github.com/Okanjo/okanjo-js/blob/master/examples/dfp.min.html) or the [unminified code](https://github.com/Okanjo/okanjo-js/blob/master/examples/simple.html) on GitHub. 
 
 
 ### Ad Server
 
-Here's an example of how you can leverage ProductMatch through a programmatic ad server such as Google's DFP. This snippet will attempt to 
-bust out of the iFrame to provide expandable functionality if desired. If unable to do so, the ad units will fall back to non-expandable functionality.
+You can also deploy SmartServe placements through ad servers, such as Google DFP.  
 
-> Both the Ad and Product widgets can be used in any mode.  **Provide either the `ad` or `match` configuration section, but not both.**
- 
 ```html
-<div id="okanjo-dropzone">
-    <!-- Image only used in ad-creative mode --> 
-    <img style="margin:0;height:100%;width:auto;cursor:pointer;" 
-    async="true" 
-    src="//developer.okanjo.com/img/example-creative.jpg"/>
+<!-- Define the container placement tag container -->
+<div id="okanjo-placement-container">
+    <div class="okanjo-placement" data-key="PUT_YOUR_WIDGET_KEY_HERE"></div>
 </div>
-<script>
 
-    /*! Okanjo Ad Loader v2.0.0 - https://developer.okanjo.com/okanjo-js */
-    !function(a){var b=document,c=window,d=b.getElementById("okanjo-dropzone"),e=c.top===c.self,f=!1;try{if(!e)for(var i,j,g=c.top.document.getElementsByTagName("iframe"),h=0;h<g.length;h++){i=g[h];try{if(j=i.contentDocument||g.contentWindow.document,j===document){d.removeAttribute("id"),i.parentNode.appendChild(d),i.style.display="none",b=c.top.document,c=c.top,f=!0;break}}catch(k){}}}catch(k){console.warn("[Okanjo]","There was a problem jumping contexts!",k)}e||f||(console.warn("[Okanjo]","Could not locate our container iFrame on the top-level page! Forcing non-expandable functionality."),a.ad&&(a.ad.expandable=!1),a.match&&(a.match.expandable=!1)),function(b){var c=this,d=c.document,e=d.getElementsByTagName("body")[0],f=d.createElement("script"),g=!1;f.type="text/javascript",f.async=!0,f.setAttribute("crossorigin","anonymous"),f.onload=f.onreadystatechange=function(){g||this.readyState&&"complete"!=this.readyState&&"loaded"!=this.readyState||(g=!0,b.call(c))},f.src=a.src||"//cdn.okanjo.com/js/latest/okanjo-bundle.min.js",e.parentNode.insertBefore(f,e)}.call(c,function(){var b=this;b.okanjo._widgets||(b.okanjo._widgets=[]),a.ad?b.okanjo._widgets.push(new b.okanjo.Ad(d,a.ad)):a.match?b.okanjo._widgets.push(new b.okanjo.Product(d,a.match)):console.warn("[Okanjo]","No ad or product configuration given, so there are no widgets to load!")})
+<!--
+This script will asynchronously load the Ad or Product widget as configured. It will automatically move the drop-zone
+outside of the iframe (when able to do so) to enable expandable functionality.
+-->
+<script>
+    /*! Okanjo Placement Loader v3.0.1 - https://developer.okanjo.com/okanjo-js */
+    !function(e){var t=document,n=window,a=t.getElementById("okanjo-placement-container"),o=n.top===n.self,c=!1;try{if(!o)for(var l,r,s=n.top.document.getElementsByTagName("iframe"),i=0;i<s.length;i++){l=s[i];try{if(r=l.contentDocument||s.contentWindow.document,r===document){a.removeAttribute("id"),l.parentNode.appendChild(a),l.style.display="none",t=n.top.document,n=n.top,c=!0;break}}catch(d){}}}catch(d){console.warn("[Okanjo]","Failed to locating parent frame.",d)}o||c||(console.warn("[Okanjo]","Forcing non-expandable functionality."),e.placement&&(e.placement.expandable=!1)),function(t){if(this.okanjo)t.call(this);else{var n=this,a=n.document,o=a.getElementsByTagName("body")[0],c=a.createElement("script"),l=!1;c.type="text/javascript",c.async=!0,c.setAttribute("crossorigin","anonymous"),c.onload=c.onreadystatechange=function(){l||this.readyState&&"complete"!==this.readyState&&"loaded"!==this.readyState||(l=!0,t.call(n))},c.src=e.src||"//cdn.okanjo.com/js/latest/okanjo-bundle.min.js",o.parentNode.insertBefore(c,o)}}.call(n,function(){var t=this,n=t.okanjo.qwery(".okanjo-placement:not(.loaded)",a),o=0;for(t.__okanjoPlacements=t.__okanjoPlacements||[];o<n.length;o++)n[o].className+=" loaded",t.__okanjoPlacements.push(new t.okanjo.Placement(n[o],e.placement))})
     }({
-        
-        // INCLUDE EITHER THE ad OR match SECTION, BUT NOT BOTH!
-        
-        ad: {
-            key: "PUT_YOUR_WIDGET_KEY_HERE",
-            id: 'PR2cKR3AitaHebMAe6g',
-            size: 'medium_rectangle',
-            type: 'product',
-//            proxy_url: '%%CLICK_URL_UNESC%%', // (Google DFP macro)
-            expandable: false
-        }
-        
-        match: {
-            key: "PUT_YOUR_WIDGET_KEY_HERE",
-            mode: 'browse',
-            take: 2,
-            q: 'brew city',
-            template_product_main: 'product.block2',
-            template_layout: 'list',
-//            proxy_url: '%%CLICK_URL_UNESC%%', // (Google DFP macro)
-            expandable: false
+        placement: {
+            // key: 'PUT_YOUR_PLACEMENT_KEY_HERE', // You could choose to set the placement key here instead of within the div tag 
+            // expandable: true,
+            proxy_url: '%%CLICK_URL_UNESC%%', // (Google DFP macro, change for your ad server)
         }
     });
-
 </script>
 ```
 
-You can find [the latest code](https://github.com/Okanjo/okanjo-js/blob/master/examples/dfp.min.html) or the [unminified code](https://github.com/Okanjo/okanjo-js/blob/master/examples/dfp.html) on GitHub. 
+You can find [the latest code](https://github.com/Okanjo/okanjo-js/blob/master/examples/dfp.min.html) 
+or the [unminified code](https://github.com/Okanjo/okanjo-js/blob/master/examples/dfp.html) on GitHub. 
 
-See the [product widget configuration](#product-widget-configuration) or [ad widget configuration](#ad-widget-configuration) for more configuration options.
 
 #### Click Tracking
 
-When deploying a widget through ad servers such as Google DoubleClick for Publishers (DFP), you may wish to insert your own click tracking URL to 
-gauge performance through your own analytics provider.
+When deploying placements using ad servers such as Google DoubleClick for Publishers (DFP), you may wish to insert 
+your own click tracking URL to gauge performance through your own analytics provider.
   
-> **Warning: Incorrectly configuring a custom tracking URL may break the widget and prevent users from reaching the buy experience.** Always be sure to test deployments before going live!
+> **Warning: Incorrectly configuring a custom tracking URL may break the placement and prevent readers from reaching the buy experience.** 
+> Always be sure to test deployments before going live!
 
-To insert your tracking url, set the `proxy_url` option (or `data-proxy-url` if using data-attributes) to your URL. 
+To insert your tracking url, set the `proxy_url` parameter (or `data-proxy-url` if using data-attributes) to your URL. 
 
-> Do not escape or encode `proxy_url`. The widget will take care of encoding.
+> Do not escape or encode `proxy_url`. The placement will take care of encoding.
 
 Common ad server macros:
 
@@ -153,65 +119,93 @@ Common ad server macros:
  * **Site Scout**: `{clickMacro}`
  * **AppNexus**: `${CLICK_URL}`
 
-For example, in Google DFP, you would set `proxy_url` to `'%%CLICK_URL_UNESC%%'`. The widget handles escaping when building
-the final click-through URL chain.
+For example, in Google DFP, you would set `proxy_url` to `'%%CLICK_URL_UNESC%%'`. The placement handles escaping when 
+building the final click-through URL chain.
 
-The `proxy_url` must accept the escaped purchase url as the value of the last parameter. This is how the link is joined together:
+The `proxy_url` must accept the escaped target url as the value of the last parameter. 
+For example, this is how a link could be joined together:
 
 > `<okanjo_metrics_url><esc_proxy_url><esc_esc_buy_url>`
 
 ```js
 Example: 
-var url = "http://ads-api.okanjo.com/metrics/...&u=" + // Okanjo metrics
+let url = "https://api.okanjo.com/metrics/...&u=" + // Okanjo metrics
 "https%3A%2F%2Fadclick.g.doubleclick.net...%26adurl%3D" + // 3rd Party metrics (escaped) 
-"https%253A%252F%252Fshop.okanjo.com..." // Buy url (double escaped)
+"https%253A%252F%252Fshop.okanjo.com..." // Target url (double escaped)
 ```
 
-The initial URL tracks the click with Okanjo. Next, when the `proxy_url` is given, the client will be redirected to the `proxy_url`. 
-The proxy is then responsible for redirecting the client to the final purchasing url. 
-
-See the [Common Parameters](#product-widget-configuration-common-parameters) section for more information on `proxy_url`.
+The initial URL tracks the click with Okanjo. Next, when the `proxy_url` is given, the client will be redirected to 
+the `proxy_url`. The proxy is then responsible for redirecting the client to the final target url. 
 
 
 ## Framework
 
-Here's a visual overview of the components that make up the Okanjo-JS widget framework.
+The SmartServe SDK composed of two main build files – one containing the core functionality (`okanjo.js`), and the other
+which controls the visual appearance of the widgets (`okanjo-templates.js`). Both scripts are combined to make
+`okanjo-bundle.js`. When used, you will need to include either `okanjo-bundle.js` (recommended)
+or both `okanjo.js` and `okanjo-templates.js` scripts separately. 
 
-<img src="img/Okanjo-JS%20Overview.png" alt="">
+Architecturally, the SmartServe SDK is designed to be lightweight, unobtrusive and customizable. By default, the 
+placements will include their own base stylesheets. Since placements are loaded the Document Object Model (DOM) 
+of the page they are embedded, they will inherit the page's applicable styles. This generally minimizes the amount of 
+customization needed by the publisher. In most cases, no customization is needed at all.
 
-Okanjo-JS is composed of two separate script builds, one containing the core logic and functionality (okanjo.js), and the other which
-controls the visual appearance, or templates, of the widgets (okanjo-templates.js). Both scripts are combined together to make up the 
-okanjo-bundle.js. When used on a page, you will need to include either `okanjo-bundle.js` or both 
-`okanjo.js` and `okanjo-templates.js` scripts separately.
+### Composition
 
-Architecturally, Okanjo-JS is designed to be lightweight, unobtrusive and customizable. By default, the widgets will include their
-own base stylesheets. Since widgets load directly on the Document Object Model (DOM) of the page they are embedded on (e.g. no iFrames) they will 
-inherit the page's applicable styles, generally making it easier to integrate and customize.
+Here is the composition of what each build file includes.
 
+ * **okanjo.js**
+   * **polyfills** – Smooths out compatibility across older and janky browsers
+     * Array functions (from, find, findIndex, includes)
+     * NodeList.forEach
+     * Object.Assign
+   * **vendor libs**
+     * **mustache.js** – Used to render widget templates
+   * **classes**
+     * **Okanjo** – Core okanjo namespace, utility functions, etc
+     * **Request** – Class for making API requests
+     * **Cookie** – Class for working with cookies
+     * **TemplateEngine** – Class for working with templates
+     * **Modal** – Class for displaying interstitial(s)
+     * **Metrics** – Class for working with metrics
+     * **AutoPageView** – Automatically reports a page view when loaded
+     * **EventEmitter** – Simplified EventEmitter base class
+     * **Widget** – Base class for building widgets upon (eg. Placement)
+     * **Placement** – The core Placement widget
+     * **Product** – Deprecated Product widget (just rewrites to Placement)
+     * **Ad** – Deprecated Ad widget (just rewrites to Placement)
+  
+ * **okanjo-templates.js**
+   * **okanjo.core** – Base styling and functionality
+     * **okanjo.modal** – Interstitial view
+     * **okanjo.error** – Error view
+   * **okanjo.block2** – Base template for `block2` template.
+     * **adx.block2** – Template for third-party display ads in placements
+     * **articles.block2** – Template for article content in placements
+     * **products.block2** – Template for product content in placements
 
 ## CDN
 
-For best results, we suggest using Okanjo's Content Distribution Network (CDN) to load Okanjo-JS.
+For best results, we suggest using Okanjo's Content Distribution Network (CDN) to load the SmartServe SDK.
 
-Okanjo's CDN offers both the latest and past Okanjo-JS versions. We recommend using the latest version, though should the 
-need arise, you may lock your application at a specific version of Okanjo-JS.
-
-```
-https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js
-https://cdn.okanjo.com/js/v0.2.11/okanjo-bundle.min.js
-```
-
-Additionally, non-minified versions of Okanjo-JS are hosted on the CDN to help facilitate debugging and 
-development. Simply remove replace the `.min.js` with `.js` to load the non-minified version.
-
-For most applications, the bundle script will be the only include required to load Okanjo-JS. The bundle includes both the core 
-and default template scripts.
+Okanjo's CDN offers both the latest and past SmartServe SDK versions. We recommend using the latest version, 
+though should the need arise, you may lock your application at a specific version of the SmartServe SDK.
 
 ```
 https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js
+https://cdn.okanjo.com/js/v1.5.4/okanjo-bundle.min.js
 ```
 
-You may also load the core and templates separately, in which case you would include both scripts.
+Additionally, non-minified versions of the SDK are hosted on the CDN for debugging and development. 
+Simply remove the `.min.js` with `.js` to load the non-minified version.
+
+For most applications, the bundle script is the only dependency required to load placements.
+
+```
+https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js
+```
+
+However, you may choose to load the core and templates separately, in which case you would include both scripts.
  
 ```
 https://cdn.okanjo.com/js/latest/okanjo.min.js
@@ -223,50 +217,56 @@ https://cdn.okanjo.com/js/latest/okanjo-templates.min.js
 
 ## Embedding
 
-Okanjo-JS can be embedded on a page in a ton of different ways. The more traditional method is to include the script
-synchrounously and instantiate widgets on DOM or page load. Alternatively, Okanjo-JS can be included asynchronously, allowing for custom
-loaders and integration in ad servers.
+The SmartServe SDK can be implemented many different ways. Most commonly, the script would be included synchronously, 
+then widgets instantiated. Alternatively, the SmartServe SDK can be included asynchronously, useful for custom loaders 
+and integration in ad servers.
 
 Using either method, the overall process goes like this:
 
-1. Load and execute the Okanjo-JS script(s)
-2. Create widget instances.
+1. Load and execute the SmartServe SDK script(s)
+2. Instantiate placements
 
-When the Okanjo-JS script(s) are executed (step 1), they will not automatically initialize widgets on the page. That must be done manually (step 2).
+When the SmartServe SDK scripts are executed (step 1), they will *not* initialize widgets on the page. 
+That must be done manually (step 2).
 
 ### Synchronously
 
-This is the most basic and simplest method for loading widgets on a page. The premise is that the Okanjo scripts are 
+This is the most basic and simplest method for loading placements on a page. The premise is that the Okanjo scripts are 
 embedded as a script tag, and the widget initialization is done later down on the page or on DOM ready / page load.
 
-This method is best for sites that wish to include Okanjo-JS on every page of the site, and have a generic load function
-to create widget instances on the page, if found. For example, find elements with a specific class name and create a widget instance. 
+This method is best for sites that wish to include the SmartServe SDK on every page of the site, and have a 
+generic load function to create widget instances on the page, if found. 
+For example, find elements with a specific class name and create a widget instance. 
 
-Take a look at the following example. The `div` with id `drop-zone` has a data attribute `data-take` with a value of `6` 
-which specifies that six products should be rendered. The `script` tag loads the latest widget bundle from the Okanjo CDN, 
-specifying the `crossorigin` attribute to ensure that 
+Take a look at the following example. 
+The `div` with class `okanjo-placement` has a data attribute `data-key` which defines the placement's unique key. 
+It also has a data attribute `data-take` with a value of `6` which specifies that six resources should be rendered. 
+The first `script` tag loads the latest widget bundle from the CDN, specifying the `crossorigin` attribute to ensure that 
 [Cross-Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), or CORS, does not pose a 
-problem when communicating with the Okanjo platform. The second `script` tag sets the given widget key globally and 
-creates a new instance of the [`Product`](#product-widget) widget.
+problem when communicating with the Okanjo platform. The second `script` tag locates all elements with the 
+`okanjo-placement` class and initializes the placement, if not already loaded.
 
 ```html
-<div id="drop-zone" data-take="6"></div>
+<div class="okanjo-placement" data-take="6" data-key="PUT_YOUR_PLACEMENT_KEY_HERE"></div>
 <script src="https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js" crossorigin="anonymous"></script>
 <script>
-
-    // You can set the global key on the okanjo namespace, or you can set it as an option on the widget constructor
-    okanjo.key = 'PUT_YOUR_WIDGET_KEY_HERE';
-    
-    // Load a product widget an element of your choice
-    var p = new okanjo.Product(document.getElementById('drop-zone'), { /* options, if any */ });
-    
+    (function() { // Initialize Okanjo placements
+        window.__okanjoPlacements = window.__okanjoPlacements || []; 
+        var targets = okanjo.qwery('.okanjo-placement:not(.loaded)'), i = 0;
+        for ( ; i < targets.length; i++) {
+            targets[i].className += ' loaded';
+            window.__okanjoPlacements.push(new okanjo.Placement(targets[i]));
+        }        
+    })();
 </script>
 ```
+
+> Note: the `script` tags should only be included **once** per page.
 
 If you would like to load the core and templates separately, simply include both scripts separately, like so.
 
 ```html
-<div id="drop-zone" data-take="6"></div>
+<div class="okanjo-placement" data-take="6" data-key="PUT_YOUR_PLACEMENT_KEY_HERE"></div>
 <script src="https://cdn.okanjo.com/js/latest/okanjo.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.okanjo.com/js/latest/okanjo-template.min.js" crossorigin="anonymous"></script>
 <script>
@@ -276,41 +276,22 @@ If you would like to load the core and templates separately, simply include both
 
 > Remember: When loading synchronously, do not include an `async` attribute on the script tags, or the widgets will fail to load.
 
+> Also, the `script` tags should only be included **once** per page.
 
-In most cases, you should use a class on a container element to indicate where you would like a product widget to load. 
-This provides the most versatility and simplicity when including on multiple pages or across a website. In the following example, 
-any element with class `okanjo-product` will receive a new product widget instance. Also, we use the included Qwery library
-to find DOM elements for cross-browser compatibility. Lastly, the global `window.p` will receive all the live instances of
-the product widgets.
-
-```html
-<div class="okanjo-product" data-max-price="5.00" data-take="2"></div>
-<script src="https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js" crossorigin="anonymous"></script>
-<script>
-
-    // You can set the global key on the okanjo namespace, or you can set it as an option on the widget constructor
-    okanjo.key = 'PUT_YOUR_WIDGET_KEY_HERE';
-    
-    // Create a product widget on the elements with given class
-    var targets = okanjo.qwery('.okanjo-product'), i = 0, p = [];
-    for ( ; i < targets.length; i++) {
-        p.push(new okanjo.Product(targets[i]));
-    }
-    
-</script>
-```
-
+You can find [the latest code](https://github.com/Okanjo/okanjo-js/blob/master/examples/simple.html) on GitHub.
 
 ### Asynchronously
 
-Loading the widget asynchronously enables you to embed a widget on a page after the page has already loaded or programmatically
-control the entire loading process.
+Loading the widget asynchronously enables you to embed a placement on a page after the page has already loaded or 
+programmatically control the entire loading process.
 
-The premise of asynchronous loading is the only one script tag is needed to load Okanjo-JS and create the widget instances.
+The premise of asynchronous loading is the only one script tag is needed to load the SmartServe SDK.
 
 > You'll need a basic understanding of JavaScript and the DOM to understand and customize these examples. 
  
-Take a look at the following example. At the top, there is a `div` container that will receive the product widget we will 
+Take a look at the following example. 
+
+At the top, there is a `div` container that will receive the product widget we will 
 dynamically create later in the script. This `div` could any any element on the page that you choose, but in this example, we
 gave it an `id` so we can easily find it. Then, in the body of the script there are two parts, first part of the `function`
 creates a new `script` element to load the Okanjo-JS bundle script asynchronously and attaches the script to the DOM. 
@@ -320,963 +301,578 @@ given configuration options and attached to the `div` container.
 
 
 ```html
-<div id="my-container"></div>
+<div
+    class="okanjo-placement"
+    data-key="PUT_YOUR_WIDGET_KEY_HERE">
+</div>
 <script>
 
+    /**
+     * Okanjo Async Loader v3.0.0
+     */
     (function(callback) {
-
-        // Create a new Okanjo-JS script tag and fire the callback when completed
-        var es = document.getElementsByTagName('script')[0],
-            o = document.createElement('script'),
-            loaded = false;
-
-        o.type = 'text/javascript';
-        o.async = true;
-        o.setAttribute('crossorigin', "anonymous");
-        o.onload = o.onreadystatechange = function() {
-            if (!loaded && (!this.readyState || this.readyState == 'complete' || this.readyState == 'loaded')) { 
-                loaded = true; 
-                callback && callback(); 
+        var doc = document,
+            head = doc.getElementsByTagName('head')[0],
+            scriptTag = doc.createElement('script'),
+            scriptLoaded = false;
+        scriptTag.type = 'text/javascript';
+        scriptTag.setAttribute('crossorigin', "anonymous");
+        scriptTag.async = true;
+        scriptTag.onload = scriptTag.onreadystatechange = function() {
+            if (!scriptLoaded &&
+                (!this.readyState || this.readyState === 'complete' || this.readyState === 'loaded')) {
+                scriptLoaded = true;
+                callback && callback();
             }
         };
-        
-        o.src = 'https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js';
-        es.parentNode.insertBefore(o, es);
-
+        scriptTag.src = 'https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js';
+        head.appendChild(scriptTag);
     }).call(window, function() {
-
-        // Set global widget key
-        okanjo.key = "PUT_YOUR_WIDGET_KEY_HERE";
-
-        // Create a new element to stick the widget in, and find the desired container
-        var element = document.createElement("div"),
-            container = document.getElementById('my-container');
-
-        // Stick our element on the given container
-        container.appendChild(element);
-
-        // Create a new instance of the product widget with the given configuration
-        window.myWidget = new okanjo.Product(element, { mode: 'browse', take: 6 });
-        
-        // ^ You can access the widget instance on the window or just throw it away
-
+        window.__okanjoPlacements = window.__okanjoPlacements || []; 
+        var targets = okanjo.qwery('.okanjo-placement:not(.loaded)'), i = 0;
+        for ( ; i < targets.length; i++) {
+            targets[i].className += ' loaded';
+            window.__okanjoPlacements.push(new okanjo.Placement(targets[i]));
+        }   
     });
 
 </script>
 ```
+
+> Note: the `script` tags should only be included **once** per page.
 
 If you would like to asynchronously load the core and templates separately, then take a look at the following example.
 Only the script loading section differs from the previous example. Here, we asynchronously load the `okanjo.js` script.
 When it completes, then we asynchronously load the `okanjo-templates.js` script. Once the template script is loaded, then
 the initialization callback is fired.
 
-```js
+```html
+<div
+    class="okanjo-placement"
+    data-key="PUT_YOUR_WIDGET_KEY_HERE">
+</div>
+<script>
 
-(function(callback) {
+    /**
+     * Okanjo Async Loader v3.0.0 – Dual Async
+     */
+    (function(callback) {
+        var doc = document,
+            head = doc.getElementsByTagName('head')[0],
+            scriptTag = doc.createElement('script'),
+            templateScriptTag = doc.createElement('script'),
+            scriptLoaded = false,
+            templateScriptLoaded = false;
+        scriptTag.type = templateScriptTag.type = 'text/javascript';
+        scriptTag.setAttribute('crossorigin', "anonymous");
+        templateScriptTag.setAttribute('crossorigin', "anonymous");
+        scriptTag.async = templateScriptTag.async = true;
+        scriptTag.onload = scriptTag.onreadystatechange = function() {
+            if (!scriptLoaded &&
+                (!this.readyState || this.readyState === 'complete' || this.readyState === 'loaded')) {
+                scriptLoaded = true;
+                
+                templateScriptTag.onload = templateScriptTag.onreadystatechange = function() {
+                    if (!templateScriptLoaded &&
+                        (!this.readyState || this.readyState === 'complete' || this.readyState === 'loaded')) {
+                        templateScriptLoaded = true;
 
-    // Create a new Okanjo-JS script tag and fire the callback when completed
-    var es = document.getElementsByTagName('script')[0],
-        o = document.createElement('script'),
-        t = document.createElement('script'),
-        oLoaded = false,
-        tLoaded = false;
+                        callback && callback();
+                    }
+                };
+                
+                scriptTag.src = 'https://cdn.okanjo.com/js/latest/okanjo-templates.min.js';
+                head.appendChild(scriptTag);
+            }
+        };
+        scriptTag.src = 'https://cdn.okanjo.com/js/latest/okanjo.min.js';
+        head.appendChild(scriptTag);
+    }).call(window, function() {
+        window.__okanjoPlacements = window.__okanjoPlacements || []; 
+        var targets = okanjo.qwery('.okanjo-placement:not(.loaded)'), i = 0;
+        for ( ; i < targets.length; i++) {
+            targets[i].className += ' loaded';
+            window.__okanjoPlacements.push(new okanjo.Placement(targets[i]));
+        }   
+    });
 
-    o.type = t.type = 'text/javascript'; 
-    o.async = t.async = true;
-    o.setAttribute('crossorigin', "anonymous");
-    t.setAttribute('crossorigin', "anonymous");
-    o.onload = o.onreadystatechange = function() {
-        if (!oLoaded && (!this.readyState || this.readyState == 'complete' || this.readyState == 'loaded')) { 
-            oLoaded = true; 
-            
-            t.onload = t.onreadystatechange = function() {
-                if (!tLoaded && (!this.readyState || this.readyState == 'complete' || this.readyState == 'loaded')) { 
-                    tLoaded = true;
-                    callback && callback();
-                }
-            };
-            
-            t.src = 'https://cdn.okanjo.com/js/latest/okanjo-templates.min.js';
-            es.parentNode.insertBefore(t, es);
-        }
-    };
-    
-    o.src = 'https://cdn.okanjo.com/js/latest/okanjo.min.js';
-    es.parentNode.insertBefore(o, es);
-
-}).call(window, function() {
-
-    // Set global widget key
-    okanjo.key = "PUT_YOUR_WIDGET_KEY_HERE";
-
-    // Create a new element to stick the widget in, and find the desired container
-    var element = document.createElement("div"),
-        container = document.getElementById('my-container');
-
-    // Stick our element on the given container
-    container.appendChild(element);
-
-    // Create a new instance of the product widget with the given configuration
-    window.myWidget = new okanjo.Product(element, { mode: 'browse', take: 6 });
-    
-    // ^ You can access the widget instance on the window or just throw it away
-
-});
-
+</script>
 ```
 
+> Note: the `script` tags should only be included **once** per page.
 
-# Product Widget    
+You can find [the latest code](https://github.com/Okanjo/okanjo-js/blob/master/examples/async.html) on GitHub.
 
-The product widget displays product tiles on a page. It can display products in several different modes:
- 
-Browse
-:   Products that match the given filter criteria will be returned. You can use browse mode to display as many products as you would like.
-Single
-:   Given a unique product identifier, only that product tile will be displayed. 
-Sense
-:   Products that match the context of the current page content, given URL or text will be returned. You may use the filter criteria to further refine the products returned. 
+# Placements    
+
+The placement widget renders products, articles or display ads on the page. By default, placements will contextually 
+match resources to the page content.
+
+## Context Modes
+
+There are two primary operation modes for placements.
+
+Contextual
+:   By default, placements will analyze the content of the page and return resources that are related in some way. Resources can be further limited using filters.  
+Non-Contextual
+:   Alternatively, the placement can be configured to retrieve resources that just meet the given filter criteria. This mode of operation has previously been called Browse mode.
+
+**To use contextual matching**, set the `url` property to `"referrer"` or the canonical url of the page in which to match. 
+By setting `url` to `"referrer"`, the current page url be used automatically.
+
+**To disable contextual matching**, set the `url` property to `null` or `""` (empty string).  
+
+## Native Content
+
+Placements support inline or on-page experiences for resources that have an `inline_buy_url` property set. Primarily, 
+this enables the native commerce purchase experience, allowing readers to transact directly through an interstitial. 
+The benefit is that readers can engage with resources without leaving the page. 
+
+In order to support this functionality, placements need to be initialized directly on the DOM of the web page. If the 
+placement is initialized within an iFrame, the frame must be "friendly" to the parent, such that the placement can "bust"
+out so that it may produce modals and other expandable functionality. 
+
+In cases where the placement is initialized in an non-friendly frame, such as through ad-servers, placements will be 
+flagged with a property `expandable` set to `false`, which will prevent the interstitial from leaving the bounds of the
+placement.
+
+In the event the publisher wishes to disable all native content experiences, setting `disable_inline_buy` to `true` will
+disable expandable and non-expandable functionality. 
+
+On mobile devices, modals with input fields are notoriously problematic. In these cases, we open a new window with the 
+expandable functionality to create a reliable user experience. To disable this, set `disable_popup` to `true`. 
+
+## Optimizing Results
+
+SmartServe will make every effort to fill placements with the desired number of resources.
+
+Sometimes, SmartServe will not be able to return enough resources to fill the placement. You can try to mitigate this 
+in several ways.
+
+### Page Content
+
+When using contextual matching, make sure the page has enough readable content. This is one of the main reasons for poor
+matching performance.  
+
+If you programmatically generate page content, Okanjo may not be able to observe it. In this case, you should set the
+`url` property to a canonical url that when retrieved, contains the readable content of the page.
+
+If SmartServe is still unable to read the content of the page, you can set the `url_selectors` property to a CSV of CSS
+selectors that will match elements that contain the content of the page. SmartServe will fall back to this property in 
+the event we cannot automatically find content on the page. We recommend *not* setting this property unless absolutely necessary.
+
+#### Content Access
+
+SmartServe will make HTTP requests to the url of the page. If SmartServe is unable to access the URL, we will be unable
+to make contextual matches.   
+
+SmartServe will identify itself using the `user-agent` header:
+
+```
+OkanjoBot/VERSION (+https://okanjo.com/smartserve/)
+```
+
+If your system implements robot or crawler prevention methods, please make sure to whitelist the SmartServe user agent.
+If needed, contact Okanjo support for information on whitelisting IP addresses. 
 
 
-## Native / Inline Buy 
+### Resource Content
 
-The product widget hosts the native inline-buy experience for products that support it by having the `inline_buy_url` property set. 
-By default, when a product supports an inline-buy experience, an interaction with the product will result in either a modal or expandable buy experience instead of a new window or page redirect.
+Another factor that can cause odd results, is the product and article content itself. Products or articles with weak 
+titles, descriptions, content, etc are inherently difficult to match. This may result in false positive or negatives.
 
-For some implementations, the operator may wish to drive traffic to the `buy_url` even if a product supports an inline buy experience. This can be achieved by setting the `disable_inline_buy` parameter to `true`. See the [configuration](#product-widget-configuration) section. 
+To mitigate this, you can use additional filter criteria to limit resources to those you trust or meet the general
+criteria you are going for.
 
-## ProductMatch
+### Troubleshooting
 
-Okanjo's ProductMatch technology can be used to show products that are related to the content on the current page, given URL or text.
+If you are experiencing problems, please [contact the Okanjo support team](https://okanjo.com/contact) for assistance.
 
-> To use ProductMatch, use the `sense` mode on the product widget.
+## Placement (A/B) Testing
 
-### Optimizing Results
+SmartServe supports multivariate testing using something we call Placement Tests. A placement may define one or more 
+tests that will modify the placement settings during execution. Each test will be executed in sequence when fulfilling 
+SmartServe requests. 
 
-Okanjo strives to ensure that the products returned are relevant to the content received. 
-To ensure the best results are returned, Okanjo must have the best page and product content in order to make accurate pairings.  
- 
-#### Page Content
+The default placement execution is called the default test, or "A" test. The default test can be disabled by setting 
+the `placement_tests_only` parameter on the placement to `true`.
 
-By default, the product widget does its best to find the content on the current page. However, every website and page can be vastly different,
-and as such as one-size-fits-all approach would be extremely difficult to achieve.
+Consider the following examples.
 
-For Okanjo to really understand the content on a page, we ask that you:
-
-##### Content Selectors
-Please examine your page structure and set the `selectors` parameter to suit your page, and include the article title, article copy, keywords, tags, and any other relevant data.
-This will ensure that Okanjo receives all the best information about the page.
-
-> If we cannot receive good page content, then we cannot provide accurate product matches. 
-
-#### Canonical URL
-If no `url` parameter is given the product widget will attempt to derive the current page URL. By default, the page's query string and hash components are ignored. 
-
-> Please make sure to specify the canonical URL to the page so that Okanjo can reliably crawl the page content.
- 
-This is especially important for sites that have multiple ways to view an article (such as an alternate mobile site), sites 
-that utilize a pay-wall, or heavily dynamic sites where content is loaded programmatically (e.g. hash-bang / ajax sites.)
-
-Additionally, sites that re-brand an article across many domains should specify a single unique canonical url across all of the domains.
+ * **Placement 1**
+   * Tests: *none*
    
-> We must be able to access the content given the page URL. If we cannot access the URL, we cannot provide products.
+The default placement settings (e.g. A) will execute 100% of the time.
+   
+ * **Placement 2**
+   * Tests:
+     * Test B
+     
+Both the default placement settings (e.g. A) and Test B will execute 50%.  
+     
+ * **Placement 3**
+   * Tests:
+     * Test B
+     * Test C
+     
+The default placement settings (e.g. A), Test B, and Test C will each execute 1/3rd of the time.
 
-If your system implements robot or crawler prevention methods, please make sure to whitelist our user agent.
+ * **Placement 4** (`placement_tests_only=true`)
+   * Tests: 
+     * Test B
+     * Test C
+     
+The default placement settings (e.g. A) is disabled, leaving Test B and Test C with an execution share of 50%.
 
-Okanjo's ProductMatch crawler identifies itself as `OkanjoProductSense/<version>`. If needed, please contact Okanjo support
-for information on whitelisting IP addresses, if needed. For example, our `User-Agent` header might like this.
+Placement testing can be a very useful tool for reporting and testing content optimizations.
 
-```
-OkanjoProductSense/0.1.0 (+https://okanjo.com/en/advertisers)
-```
+See the [Create Placement Test](https://developer.okanjo.com/api#placements-create-a-placement-test) api route for more information.
 
-#### Product Content
+### Test Conditions
 
-Another factor that can cause wild results is the product content itself. Products with weak titles, descriptions and other information 
-are inherently difficult to match to content. This may result in false positive or negative matches.
-  
-Okanjo attempts to weed-out products with weak content from ProductMatch results. You can opt-in to these results by setting `suboptimal` to `true`.
+SmartServe allows you to schedule your tests so that you can perfect deployments and optimizations. Placement tests 
+support two time-based conditions.
 
-You may also consider using additional filter criteria to show products that you trust or help massage the results.
+Runtime
+:   Defines the hours of the day the test can run. Useful for only running a test during certain parts of the day. Takes parameters `start_hour` and `end_hour` (0-23).
+Schedule
+:   Defines the starting and ending date and times the test will run. Takes parameters `start_date` and `end_date`, as ISO timestamps. If you wish to run the test until cancelled, set `end_date` to `null`. 
+
+See the [Create Placement Test](https://developer.okanjo.com/api#placements-create-a-placement-test) api route for more information.
 
 
-#### Troubleshooting
+## Backfill Resources
 
-If you are experiencing problems, please contact the Okanjo support team for assistance. 
+SmartServe has a contingency feature which allows you to customize how to fill empty placements. 
+
+Sometimes, a placement may not be able locate any matches to fill a placement. For example, if a placement requests
+products that are related to the page, perhaps the page content topics are very obscure or there are not enough 
+products that are related to those topics available. In this event, the SmartServe backfill process will execute, which
+attempts to fill the placement with other resources.
+
+> Note: The backfill process will only execute when no resources were returned from the initial workflow.
+
+Using the `backfill` settings on placements, you can control what content will appear when backfilling. The
+`backfill` settings container supports all of the standard `filters` and `display` settings of a placement. If there are
+no initial matched resources, SmartServe wil composite the backill settings and re-run the workflow. See the 
+[Compositing](#placements-configuration-compositing) section for more details on the compositing process.
+
+For example, with backfill, you could:
+
+ * Remove the contextual matching requirement to find any desirable product or article
+ * Display articles instead of products, or vice versa
+ * Display a Google DFP ad
+ 
+See the [Create Placement](https://developer.okanjo.com/api#placements-create-a-placement) api route for available 
+settings.
+
+> SmartServe does not currently support contingency features for shortfall events (when some but not all resource 
+> slots are full). If you are interested in this feature, please contact Okanjo support.
+
 
 ## Configuration
 
-The product widget supports a large amount of configuration parameters to help you get the products you want to show.
- 
-The widget accepts the configuration parameters either in the constructor when instantiating a new widget or on the target element as data attributes. 
-Take a look at the following example. The target element with `id=dropzone` uses data attributes to set configuration parameters. 
+SmartServe placements support a large number of configuration parameters to control how and what resources are displayed.
 
-> Data attributes: For parameters that contain an underscore (`_`), substitute a dash (`-`). Additionally, parameter that accept an array of values, you can provide a CSV instead.
+Placement configuration can be stored on the placement itself (preferred), directly on the web page, or both. 
+Additionally, a placement will inherit configuration parameters from its Okanjo Property and Organization.
+
+### Compositing
+
+When SmartServe executes, all settings are composited in the following order:
+
+1) Okanjo Platform Defaults
+:   By default, placements use contextual matching to return 5 product resources.
+2) Organization Defaults
+:   Organization level defaults. None set by default.
+3) Property Defaults
+:   Property level defaults. None set by default.
+4) Placement Settings
+:   This is where individual placements should be configured.
+5) Request Settings
+:   Settings provided by a web page will override all previously set parameters.
+6) Placement Test Settings
+:   If a placement test is executing, its settings will be applied at this stage.
+6a) Workflow Executes
+:   SmartServe runs using the composited settings thus far.
+7) Backfill Settings
+:   If there were not enough resources to fulfill the request, the backfill settings will apply to fill the remaining slots.
+7a) Backfill Workflow Executes
+:   SmartServe runs one final time, attempting to locate resources to fill the remaining slots.
+
+> Note: steps 7 and 7a only apply when not enough resources could be returned to meet the placement's demand.
+
+### Page-Side Configuration
+ 
+Placements can be configured through the `new Placement(element, options)` constructor or using data-attributes on the target
+HTML element. 
+
+> When using both constructor parameters and data-attributes, data-attributes will take priority.
+
+Placements accept all of the `filters` and `display` parameters that the 
+[SmartServe API route](https://developer.okanjo.com/api#ads-fill-placement) accepts.
+
+Since each filter and display option is unique, you can specify them directly in `options` or as data-attributes. You 
+can optionally choose to bucket them if you wish. Take for instance, the following example.
+
+Here, the instances `placement1`, `placement2`, and `placement3` are all equivilent and will produce the same result.
 
 ```html
-<div id="dropzone" data-mode="browse" data-take="3" data-q="skyline print" data-min-price="10"></div>
-```
+<div id="placement-1" data-key="PUT_KEY_HERE"></div>
+<div id="placement-2" data-key="PUT_KEY_HERE"></div>
+<div id="placement-3" data-key="PUT_KEY_HERE" data-take="2" data-size="medium_rectangle"></div>
+<script>
+let placement1 = new okanjo.Placement(document.getElementById('placement-1'), {
+    filters: {
+        take: 2
+    },
+    display: {
+        size: 'medium_rectangle'
+    }
+});
 
-The following example shows the same configuration as the previous data attribute example, but instead sends the configuration as an object in the widget constructor.
+let placement2 = new okanjo.Placement(document.getElementById('placement-2'), {
+    take: 2,
+    size: 'medium_rectangle'
+});
 
-```js
-var widget = new okanjo.Product(element, {
-      mode: 'browse',
-      take: 3,
-      q: 'skyline print',
-      min_price: 10
-   };
-```
+let placement3 = new okanjo.Placement(document.getElementById('placement-3'));
 
-> If both a data attribute and configuration parameter are given, the data attribute will take precedence.
+</script>
+``` 
 
-### Common Parameters
-
-These options are available in any product widget mode.
-
-mode ((optional, default is `browse`))
-:   How to obtain product listings. Use `browse` to return products that the given filter criteria, `single` to return a specific product given its `id`, or `sense` to return products related to the content on a web page.  
-key ((optional, default is `null`))
-:   API widget key. If not set, then it is assumed that the key is set globally via `okanjo.key`.
-skip ((optional, default is `0`))
-:   Exclude the given number of products from the result set. Used for pagination. 
-take ((optional, default is `5`))
-:   Return the given number of products from the result set. Used for pagination.
-disable_inline_buy ((data-disable-inline-buy)) ((optional, default is `false`))
-:   When `true`, disables the native inline-buy experience and forces a pop-up or redirect.
-expandable ((optional, default is `true`))
-:   When `false`, the inline-buy experience will only be allowed to fit in the ad widget that contains the product widget. When `true`, the inline-buy experience may expand and overlap page content. This is mainly a pass-through parameter from the Ad widget configuration, and is a placeholder for future IAB-expandable functionality.
-proxy_url ((optional, default is `null`))
-:   Third-party click-tracking URL. When set, This URL will be inserted into the click-through process. URL is expected to accept the encoded `buy_url` on the end of the URL. See the [Ad Server](#introduction-quick-start-ad-server) section for more information.
-
-
-### Sense Parameters
-
-These options are available when the product widget is set to `sense` mode.
-
-url ((optional, default is `null`))
-:   The URL that is analyzed to find contextual product matches. If not given, the current page URL is implied (unless `text` is set) and a warning will show in the console.
-selectors ((optional, default is `p, title, meta[name="description"], meta[name="keywords"]`))
-:   The CSS selector set of page elements to consider for contextual analysis. Using standard CSS selectors, you can specify multiple selectors, separated by commas. Used only with `url`.
-text ((optional, default is `null`))
-:   The arbitrary text to consider for contextual analysis, used instead of `url`.
+> Data attributes: For parameters that contain an underscore (`_`), substitute a dash (`-`). Additionally, parameters that accept an array of values, you can provide a CSV instead.
 
 ### Filter Parameters
 
-These options set the criteria of products that are to be returned.
+These parameters affect what resources can be included within a placement.
 
-id ((optional, default is `null`, required in `single` mode))
-:   The unique id of the product to retrieve. Generally only used in `single` mode.
-q ((optional, default is `null`))
-:   Limit products to match the given search string. E.g. `skyline print`.
-marketplace_status ((data-marketplace-status)) ((optional, default is `live`))
-:   Either `live` or `testing`, shows live or test products. 
-marketplace_id ((data-marketplace-id)) ((optional, default is `null`))
-:   Limit products to the given marketplace id.
-pools ((optional, default is `['global']`))
-:   Limit products to the given array of product pool names. By default, will return products listed in the `global` pool. Accepts an array or CSV string.
-external_id ((data-external-id)) ((optional, default is `null`))
-:   Limit products that match the given vendor-specific id.
-sku ((optional, default is `null`))
-:   Limit products that match the given vendor-specific sku.
-sold_by ((data-sold-by)) ((optional, default is `null`))
-:   Limit products that match the given store name.
-external_store_id ((optional, default is `null`))
-:   Limit products that have the given store identifier.
-min_price ((data-min-price)) ((optional, default is `null`))
-:   Limit products to be at least the given amount.
-max_price ((data-max-price)) ((optional, default is `null`))
-:   Limit products to be no more than the given amount.
-condition ((optional, default is `null`))
-:   One of `new`, `used`, `refurbished`, or `unspecified`. Limit products to be of the given condition.
-manufacturer ((optional, default is `null`))
-:   Limit products to the given manufacturer name.
-upc ((optional, default is `null`))
-:   Limit products that match the given UPC/EAN.
-isbn ((optional, default is `null`))
-:   Limit products that match the given ISBN.
-tags ((optional, default is `[]`))
-:   Limit products that include all of the given array of tag names. E.g. `['decor','stone']`. Accepts an array or CSV string.
-category ((optional, default is `[]`))
-:   Limit products of the given category path. The order of the categories matter. E.g. `['Home', 'Office', 'Furniture']`. Accepts an array or CSV string.
-min_donation_percent ((optional, default is `0`))
-:   Require products to donate at least the given percent of the sale to a non-profit. Value must be a decimal between `0` and `1`. E.g. 50% = `0.5`.
-max_donation_percent ((optional, default is `1`))
-:   Require products to donate no more than the given percent of the sale to a non-profit. Value must be a decimal between `0` and `1`. E.g. 50% = `0.5`.
-donation_to ((data-donation-to)) ((optional, default is `null`))
-:   Require the products to donate to the non-profit with the given name. 
-suboptimal ((optional, default is `false`))
-:   When `true`, allows products with substandard content, which could cause seemingly random product results in `sense` mode.
+For a complete list of options, see the [SmartServe API route](https://developer.okanjo.com/api#ads-fill-placement).
 
-### Template Parameters
+Here are a few of the most commonly used parameters:
 
-These parameters set visual style and layout options. 
+type ((optional)) ((string))
+:   Output result type. One of: `products`, `articles`, `adx`. 
+url ((optional, default is `referrer`)) ((string))
+:   Filter resources to be related to the given article URL. Can be set to `referrer` to represent the URL of the source placement.  
+take ((optional)) ((number))
+:   Returns this many resources. Used for pagination.     
+sort_by ((optional)) ((string))
+:   Result sorting mode. One of: `score`, `random`, `created`, `published`, `title`, `price`. 
+sort_direction ((optional)) ((string))
+:   Result sort direction. Either: `asc`, `desc`. 
 
-template_product_main ((data-template-product-main)) ((optional))
-:   Specifies the main product template. This must be set to `product.block2` for the following parameters to have any effect.
-size ((data-size)) ((optional, default is `null`))
-:   Optimizes product tiles for a particular ad size. Available sizes: `medium_rectangle` (2 products), `leaderboard` (3 products), `large_mobile_banner` (1 product), `half_page` (5 products).
-template_layout ((data-template-layout)) ((optional, default is `null`))
-:   Products displayed as a `grid` or `list`. Without size specified, defaults to `grid` view. Using size `leaderboard`, `large_mobile_banner`, and `half_page` will default to `list` and ignore this parameter.
-template_theme ((data-template-theme)) ((optional, default is `null`))
-:   Typographic theme, defaults to a sans-serif font stack. Otherwise, `newsprint` can be specified, which changes the seller and product title to a serif font stack.
-template_cta_style ((data-template-cta-style)) ((optional, default is `null`))
-:   The call to action (CTA) button visual style. Can be `button` or `link`, links will take less space, and usually allow for longer product titles. Size leaderboard, large_mobile_banner override this parameter and are always set to `link`.
-template_cta_text ((data-template-cta-text)) ((optional, default is `null`))
-:   The text within the CTA button, will be css-truncated if too long for given layout. Defaults to "Shop Now".
-template_cta_color ((data-template-cta-color)) ((optional, default is `null`))
+> Note: Some filter parameters only apply to product resources, some only apply to article resource, and some can be used with both.
+
+### Display Parameters
+
+These parameters affect the visual appearance of placements. 
+
+size ((optional)) ((string))
+:   Optimizes the placement for a particular ad size. Available sizes: `medium_rectangle` (2 resources), `leaderboard` (3 resources), `large_mobile_banner` (1 resource), `half_page` (5 resources).
+template_name ((optional)) ((string))
+:   Specifies the template to use. Unless you have made your own custom template set, this must be set to `block2`.
+template_layout ((optional)) ((string))
+:   Resources displayed as a `grid` or `list`. Without `size` specified, defaults to `grid` view. Using size `leaderboard`, `large_mobile_banner`, and `half_page` will default to `list` and ignore this parameter.
+template_theme ((optional)) ((string))
+:   Typographic theme, defaults to a sans-serif font stack. Otherwise, `newsprint` can be specified, which changes to a serif font stack.
+template_cta_style ((optional)) ((string))
+:   The call to action (CTA) button visual style. Can be `button` or `link`. Links will take less space, and usually allow for longer product titles. Size `leaderboard` and `large_mobile_banner` override this parameter and are always set to `link`.
+template_cta_text ((optional)) ((string))
+:   The text within the CTA button, will be css-truncated if too long for given layout. Defaults to `Shop Now` for products and `Read Now` for articles.
+template_cta_color ((optional)) ((string))
 :   The color of text and border/background of the CTA button or link, default: `#0099ff`. Acceptable values are any css color code or color name. Text will be set against a white background so make sure to specify a color that is dark enough and reads well against white.
+adx_unit_path
+:   Custom Google DFP ad unit path. Default's to DFP units managed by Okanjo. Change this to use your DFP units. Only applies when displaying third party display ads in the placement (`type: 'adx'`)
+
+### Other Parameters
+
+These parameters affect functionality of the widget.
+
+key ((required)) ((string))
+:   The unique placement key in which to load.
+no_init ((optional)) ((boolean))
+:   When `true`, the placement will not automatically. You will then need to trigger it manually. For example: `(new Placement(element, {no_init:true})).init()`
+proxy_url ((optional)) ((string))
+:   Ad server click-through tracking url. See [Click Tracking](#clicktracking) for usage details.
+expandable ((optional, default is `true`)) ((boolean))
+:   Whether interstitials are allowed to expand past the bounds of the placement.
+disable_inline_buy ((optional, default is `false`)) ((boolean))
+:   Whether interstitials are allowed to run. 
+disable_popup ((optional, default is `false`)) ((boolean))
+:   Whether mobile devices opens an interstitial in a new window for broader device support. 
+
 
 ## Examples
 
-Here are a few live examples showing the three modes of operation.
+Here are a few live basic examples
 
-### Single
+### Product Placements
 
-<p class="product-widget-dropzone" data-mode="single" data-id="PR2cKRdGXrUNgVefan8"></p>
+Here are a few examples of placements displaying products.
 
-```html
-<p class="product-widget-dropzone" 
-   data-mode="single" 
-   data-id="PR2cdjTqsX8FbF9FtXb">
-</p>
-```
+#### Medium Rectangle 
+Two products in a 300x250 ad size.
 
-Shows a single product product. Useful for a specific reference or embedding directly in an article.
-
-### Browse
-
-<p class="product-widget-dropzone" data-mode="browse" data-take="3" data-q="skyline print"></p>
-
-```html
-<p class="product-widget-dropzone" 
-   data-mode="browse" 
-   data-take="3" 
-   data-q="skyline print">
-</p>
-```
-Shows three products that match the search query `skyline print`.
-
-### Sense
-
-<p class="product-widget-dropzone" data-mode="sense" data-take="3" data-url="http://host.madison.com/sports/columnists/tom_oates/tom-oates-rise-of-five-veterans-critical-for-upcoming-season/article_24ca1584-03b8-5962-87d1-aa78fabe25b1.html" data-selectors="h1,h3,div.entry-content,div.asset-description,div.asset-desc"></p>
-
-```html
-<p class="product-widget-dropzone" 
-   data-mode="sense" 
-   data-take="3" 
-   data-url="http://host.madison.com/sports/columnists/tom_oates/tom-oates-rise-of-five-veterans-critical-for-upcoming-season/article_24ca1584-03b8-5962-87d1-aa78fabe25b1.html" 
-   data-selectors="h1,h3,div.entry-content,div.asset-description,div.asset-desc">
-</p>
-```
-
-Shows three products that are related to the content specified in the `url` and `selectors` attributes.
-
-Article URL: [http://host.madison.com/sports/columnists/tom_oates/tom-oates-rise-of-five-veterans-critical-for-upcoming-season/article_24ca1584-03b8-5962-87d1-aa78fabe25b1.html](http://host.madison.com/sports/columnists/tom_oates/tom-oates-rise-of-five-veterans-critical-for-upcoming-season/article_24ca1584-03b8-5962-87d1-aa78fabe25b1.html)
-
-### Template Options
-
-#### Lits layout, Newsprint theme, custom CTA options
-<p class="product-widget-dropzone" 
-    data-mode="browse" 
-    data-take="3" 
-    data-q="skyline print"
-    data-template-product-main="product.block2"
-    data-template-layout="list"
-    data-template-theme="newsprint"
-    data-template-cta-style="button"
-    data-template-cta-text="Learn More"
-    data-template-cta-color="coral"></p>
-
-```html
-<p class="product-widget-dropzone" 
-     data-mode="browse" 
-     data-take="3" 
-     data-q="skyline print"
-     data-template-product-main="product.block2"
-     data-template-layout="list"
-     data-template-theme="newsprint"
-     data-template-cta-style="button"
-     data-template-cta-text="Learn More"
-     data-template-cta-color="coral"></p>
-```
-
-#### IAB Medium Rectangle
-<p class="product-widget-dropzone" 
-     data-mode="browse" 
-     data-take="2" 
-     data-q="skyline print"
-     data-template-product-main="product.block2"
-     data-size="medium_rectangle"></p>
-
-```html
-<p class="product-widget-dropzone" 
-     data-mode="browse" 
-     data-take="2" 
-     data-q="skyline print"
-     data-template-product-main="product.block2"
-     data-size="medium_rectangle"></p>
-```
-
-
-# Ad Widget
-
-The ad widget enables product to be shown in an ad unit. It easily takes custom marketing creative, such as an image or video, 
-or shows a product widget tile if no creative is given.
-
-When a user interacts with the ad widget, the interaction is funneled to the embedded (or hidden) product widget. This 
-allows the inline-buy and expandable functionality to pass-through to the ad widget. 
-
-## Custom Creative
-
-By default, the ad widget will show a generic product tile via a product widget. You can provide custom markup if you would like
-to show custom marking creative.
-
-To use custom creative, just put your desired markup inside the target ad unit element. In the following example, an `img` tag is 
-placed within the `div` ad unit element. The markup given will be shown instead of the default product widget tile.  
-
-```html
-<div class="okanjo-ad-unit" 
-    data-content="creative" 
-    data-size="medium_rectangle" 
-    data-type="product" 
-    data-id="PRyourProductIdHere">
-    <img style="margin:0;height:100%;width:auto;cursor:pointer;" async="true" src="https://path/to/your/image/here"/>
-</div>
-```
-
-> Note: Links to off-site assets should be served via HTTPS. Failure to do so may result in the browser prohibiting unsecured assets when initialized on a page using the HTTPS protocol. 
-
-## Configuration
- 
-The ad widget accepts the configuration parameters either in the constructor when instantiating or on the target element as data attributes.
- 
-> Data attributes: For parameters that contain an underscore (`_`), substitute a dash (`-`). Additionally, parameter that accept an array of values, you can provide a CSV instead.
-
-key ((optional, default is `null`))
-:   API widget key. If not set, then it is assumed that the key is set globally via `okanjo.key`.
-content ((optional, default is `creative` if content is provided or `dynamic` if not))
-:   Either `creative` or `dynamic`. How the content of the ad should be displayed. In `creative` mode, the provided content is used as the display ad. In `dynamic` mode, the product widget is shown as the display ad.
-size ((optional, default is `medium_rectangle`))
-:   One of available [Ad Sizes](#ad-widget-configuration-ad-sizes). The IAB or standardized ad size the ad widget is intended to be displayed within. 
-expandable ((optional, default is `true`))
-:   When `false`, the inline-buy experience will restricted to fit in the ad widget space. When `true`, the inline-buy experience may expand and overlap page content. This is a placeholder for future IAB-expandable functionality.
-type ((optional, default is `product`))
-:   Specifies type of ad to display. Currently, only `product` is supported, but serves as a placeholder for future ad types. 
-id ((optional, default is `null`))
-:   Depending on the ad `type`, this indicates what should be displayed in the ad. Currently, only a product id is supported in conjunction with the `product` type.  
-disable_inline_buy ((data-disable-inline-buy)) ((optional, default is `false`))
-:   When `true`, disables the native inline-buy experience and forces a pop-up or redirect.
-proxy_url ((optional, default is `null`))
-:   Third-party click-tracking URL. When set, This URL will be inserted into the click-through process. URL is expected to accept the encoded `buy_url` on the end of the URL. See the [Ad Server](#introduction-quick-start-ad-server) section for more information.
-
-> Any additional parameters are passed through to the underlying product widget.
-
-### Ad Types
-
-In the future, Okanjo may implement more types of ads, such as the ability to showcase multiple products in rotation, paginate products or similar scenarios.  
-
-#### Product
-
-Currently, the only implemented ad type is `product`, which represents a single known product given its unique id. 
-
-> When `type` is set to `product`, the `id` parameter is required.
-
-### Ad Sizes
-
-The following are the default ad sizes available for use.
-
-#### IAB Sizes
-
-billboard
-:   970x250px, may also be known as: sidekick
-button_2
-:   120x60px
-half_page
-:   300x600px, may also be known as: filmstrip, sidekick
-leaderboard
-:   728x90px
-medium_rectangle
-:   300x250px, may also be known as: sidekick
-micro_bar
-:    88x31px
-portrait
-:   300x1050px
-rectangle
-:   180x150px
-super_leaderboard
-:   970x90px, may also be known as: pushdown, slider, large_leaderboard
-wide_skyscraper
-:   160x600px
-
-#### Google Sizes
-
-large_mobile_banner
-:   320x100px
-mobile_leaderboard
-:   320x50px
-small_square
-:   200x200px
-
-#### Retired & Deprecated Sizes
-
-button_1
-:   120x90px
-full_banner
-:   468x60px
-half_banner
-:   234x60px
-large_rectangle
-:   336x280px
-pop_under
-:   720x300px
-three_to_one_rectangle
-:   300x100px
-skyscraper
-:   120x600px
-square
-:   250x250px
-square_button
-:   125x125px
-vertical_banner
-:   120x240px
-vertical_rectangle
-:   240x400px
-
-## Examples
-
-Here are examples of using the ad widget in dynamic and creative modes. 
-
-### Dynamic
-
-```html
-<div class="ad-widget-dropzone"
-    data-size="medium_rectangle" 
-    data-type="product" 
-    data-id="PR2cKR3AitaHebMAe6g">
-</div>
-```
-
-<div class="padded" style="height: 300px;">
-    <div class="ad-widget-dropzone"
-        data-size="medium_rectangle" 
-        data-type="product" 
-        data-id="PR2cKR3AitaHebMAe6g">
-    </div>
+<div class="placement-example">
+    <div class="okanjo-placement" 
+        data-key="pmk_rHuDG33MlHEvwcCleJawMaf8urIfsB4"
+        data-take="2"
+        data-size="medium_rectangle"
+        style="min-height: 250px;"
+    ></div>
 </div>
 
-Shows a very basic usage, letting the product widget generate the ad tile.
+```html
+<div class="okanjo-placement" 
+    data-key="PUT_YOUR_KEY_HERE"
+    data-take="2"
+    data-size="medium_rectangle"
+></div>
+```
 
-### Creative
+#### Half Page 
+Five products in a 300x600 ad size.
+
+<div class="placement-example">
+    <div class="okanjo-placement" 
+        data-key="pmk_4cCfx1Hv8vro4FY0fg615DraQJlN6Awg"
+        data-take="5"
+        data-size="half_page"
+        style="min-height: 600px;"
+    ></div>
+</div>
 
 ```html
-<div class="ad-widget-dropzone"
-    data-size="medium_rectangle" 
-    data-type="product" 
-    data-id="PR2cKR3AitaHebMAe6g"
-    style="outline:solid 1px #ccc;">
-    <img style="margin:0;height:100%;width:auto;cursor:pointer;" async="true" src="img/example-creative.jpg"/>    
+<div class="okanjo-placement" 
+    data-key="PUT_YOUR_KEY_HERE"
+    data-take="5"
+    data-size="half_page"
+></div>
+```
+
+#### Responsive 
+Two products in a responsive ad size.
+
+<div class="placement-example">
+    <div class="okanjo-placement" 
+        data-key="pmk_rHuDG33MlHEvwcCleJawMaf8urIfsB4"
+        data-take="2"
+        data-size="auto"
+        style="min-height: 250px;"
+    ></div>
 </div>
+
+```html
+<div class="okanjo-placement" 
+    data-key="PUT_YOUR_KEY_HERE"
+    data-take="2"
+    data-size="auto"
+></div>
 ```
 
-<div class="padded" style="height: 300px;">
-    <div class="ad-widget-dropzone"
-        data-size="medium_rectangle" 
-        data-type="product" 
-        data-id="PR2cKR3AitaHebMAe6g"
-        style="outline:solid 1px #ccc;">
-        <img style="margin:0;height:100%;width:auto;cursor:pointer;" async="true" src="img/example-creative.jpg"/>    
-    </div>
+
+### Article Placements
+
+#### Leaderboard
+
+3 articles in a 728x90 ad size.
+
+<div class="placement-example" style="width: 728px;">
+    <div class="okanjo-placement" 
+        data-key="pmk_1W0fkWVTPLaCGIgRmoCkQ70lsEQFf8R8"
+        data-type="articles"
+        data-organization-id="org_2hBCLWEwXpfGNRqLc"
+        data-take="3"
+        data-size="leaderboard"
+        style="min-height: 90px;"
+    ></div>
 </div>
 
-Shows the same product as before, but shows an image in place of the default product widget tile. This example also shows 
-how very basic inline styles may be applied to customize your creative experience per-ad. 
-
-
-# Customization
-
-Okanjo-JS is designed with the intent to be easily customizable to suit the needs of each website and application.
-
-This section is intended for those interested in making changes to or customizing parts of Okanjo-JS.
-
-## Templates
-
-Each widget uses a set of templates to render content on the DOM. To do so, there are two types of templates employed, 
-CSS for defining widget styling and markup templates, for rendering blocks of content.
-  
-### Overview
-
-Template `.js` files may include both CSS and markup templates. [Check out the live templates on GitHub](https://github.com/Okanjo/okanjo-js/tree/master/templates).
-
-For example, examine the [`product.block.js`](https://github.com/Okanjo/okanjo-js/blob/master/templates/product.block.js) file. 
-
-First, the CSS template with name `product.block` is defined with the `okanjo.mvc.registerCss` function. When Okanjo-JS
-is built, the content of the file `build/templates/product.block.css` (the compiled stylesheet) will get inserted into the string literal.
-The option passed to the `registerCss` function, `{ id: 'okanjo-product-block' }`, sets the `id` of
-the `style` element to check for before inserting on the DOM.
-
-```js
-okanjo.mvc.registerCss("product.block", 
-    "@@include(jsStringEscape('product.block.css'))", 
-    { id: 'okanjo-product-block' }
-);
+```html
+<div class="okanjo-placement" 
+    data-type="articles"
+    data-key="PUT_YOUR_KEY_HERE"
+    data-take="3"
+    data-size="leaderboard"
+></div>
 ```
 
+#### Large Mobile Banner
 
-Then, the markup template with name `product.block` is defined with the `okanjo.mvc.registerTemplate` function. When Okanjo-JS
-is built, the content of the file `build/templates/product.block.mustache` (the Mustache template) will get inserted into the string literal.
-The second sets an optional callback that can be used to manipulate the view data prior to being rendered. 
-The last options parameter, is used to define the names of the required CSS templates needed for the markup. 
+One article in a 320x100 ad size.
 
-```js
-okanjo.mvc.registerTemplate("product.block", 
-    "@@include(jsStringEscape('product.block.mustache'))", 
-    function(data, options) {
-        // Ensure params
-        data = data || { products: [], config: {} };
-        options = okanjo.util.clone(options);
-    
-        // Copy, format and return the config and products
-        options.config = data.config;
-        options.products = okanjo.mvc.formats.product(data.products);
-        return options;
-    }, 
-    {
-        css: [ 'product.block', 'okanjo.modal' ]
-    }
-);
+<div class="placement-example">
+    <div class="okanjo-placement" 
+        data-key="pmk_mL6l8g0ZQgwjRVPVc9Ac2bUiqjsnE2d"
+        data-type="articles"
+        data-organization-id="org_2hBCLWEwXpfGNRqLc"
+        data-take="1"
+        data-size="large_mobile_banner"
+        style="min-height: 100px;"
+    ></div>
+</div>
+
+```html
+<div class="okanjo-placement" 
+    data-key="PUT_YOUR_KEY_HERE"
+    data-type="articles"
+    data-take="1"
+    data-size="large_mobile_banner"
+></div>
 ```
 
-### CSS
+#### Responsive
 
-A CSS template consists of a less-css file, and a `.js` template file that defines the css template. For example:
+Two articles in a responsive ad size.
 
- * [`product.block.less`](https://github.com/Okanjo/okanjo-js/blob/master/templates/product.block.less) – Less/CSS content
- * [`product.block.js`](https://github.com/Okanjo/okanjo-js/blob/master/templates/product.block.js) – CSS template registration
- 
-#### Less
+<div class="placement-example">
+    <div class="okanjo-placement" 
+        data-key="pmk_mL6l8g0ZQgwjRVPVc9Ac2bUiqjsnE2d"
+        data-organization-id="org_2hBCLWEwXpfGNRqLc"
+        data-type="articles"
+        data-take="2"
+        data-size="auto"
+        style="min-height: 250px;"
+    ></div>
+</div>
 
-Okanjo-JS uses Less to simplify maintenance of the Widget CSS. For more information on Less, see [lesscss.org](http://lesscss.org).
-
-When Okanjo-JS is built, the `.less` file is run through the Less compiler and the output is dropped into the `build/templates` directory.
-All the Less language features are available. Happy styling!
-
-#### Registration
- 
-In the `.js` file, the CSS template must be defined in order to be used. This is done by calling the `okanjo.mvc.registerCss` function. For example:
-                                                                                                                                                        
-```js
-okanjo.mvc.registerCss("product.block", 
-    "@@include(jsStringEscape('product.block.css'))", 
-    { id: 'okanjo-product-block' }
-);
+```html
+<div class="okanjo-placement" 
+    data-key="PUT_YOUR_KEY_HERE"
+    data-type="articles"
+    data-take="2"
+    data-size="auto"
+></div>
 ```
-
-> Note: When registering, if the `name` has already been defined, the last call to `registerCss` will define the template. This functionality can be used to override an already defined template, if desired.
- 
-##### `okanjo.mvc.registerCss(name, css, options)`
-
-name ((required))
-:   The unique name of the template. E.g. `product.block`
-css ((required))
-:   The raw CSS content. During the build process, the `@@include(...)` placeholders are replaced with the compiled CSS markup.  
-options ((optional, default is `{}`))
-:   Any additional configuration settings for the template.
-
-###### Options
-
-The following options are recognised by `okanjo.mvc.registerCss`.
-
-id
-:   Sets the DOM element `id` of the style element. When initializing, the DOM will be checked for the presence of the element with the given `id` before appending it. If not defined, the `id` will be in the format `okanjo-css-{name}`, by default. 
-
->   Because the `id` is checked prior to inserting the CSS element on the page, you have the ability to create your own style element with the `id` to prevent Okanjo-JS from injecting the default CSS element. 
-
-
-### Markup
-
-A markup template consists of a `.mustache` template file and a `.js` template file that defines the template. For example:
-
- * [`product.block.mustache`](https://github.com/Okanjo/okanjo-js/blob/master/templates/product.block.mustache) – Markup template
- * [`product.block.js`](https://github.com/Okanjo/okanjo-js/blob/master/templates/product.block.js) – Markup template registration
- 
-#### Mustache
-
-Okanjo-JS uses [Mustache](https://mustache.github.io/), a cross-language, logic-less template engine, to render widget markup. Since each widget uses 
-templates, you have the power to customize the templates, be it a minor tweak to a drastic makeover.
- 
-Mustache was chosen because of its power to weight ratio. Mustache offers a substantial feature set while remaining relatively lightweight (~10kB.)
-
-See the [Mustache docs](http://mustache.github.io/mustache.5.html) for more information on usage.
-
-#### Registration
-
-In the `.js` file, the markup template must be defined in order to be used. This is done by calling the `okanjo.mvc.registerTemplate` function. For example:
-                                                                                                                                                        
-```js
-okanjo.mvc.registerTemplate("product.block", 
-    "@@include(jsStringEscape('product.block.mustache'))", 
-    function(data, options) {
-        // Ensure params
-        data = data || { products: [], config: {} };
-        options = okanjo.util.clone(options);
-
-        // Copy, format and return the config and products
-        options.config = data.config;
-        options.products = okanjo.mvc.formats.product(data.products);
-        return options;
-    }, 
-    {
-        css: [ /*'okanjo.core',*/ 'product.block', 'okanjo.modal']
-    }
-);
-```
-
-> Note: When registering, if the `name` has already been defined, the last call to `registerCss` will define the template. This functionality can be used to override an already defined template, if desired.
- 
-##### `okanjo.mvc.registerTemplate(name, markup, viewClosure, options)`
-
-name ((required))
-:   The unique name of the template. E.g. `product.block`
-template ((required))
-:   The raw Mustache template markup or [DOM element](https://github.com/janl/mustache.js#include-templates) containing the markup.
-viewClosure ((optional, default is `null`))
-:   A function `function(data, options)` that can manipulate the view data before being rendered. The function must return the new view object.
-options ((optional, default is `{}`))
-:   Any additional configuration settings for the template.
-
-###### Options
-
-The following options are recognised by `okanjo.mvc.registerTemplate`.
-
-blockClasses ((optional, default is `''`))
-:   CSS classes to append to the `classDetects` view property, used on the container element in the widget templates.
-css ((optional, default is `[]`))
-:   Array of CSS template names that are required when this template is rendered. 
-
-
-## Building
-
-Building Okanjo-JS requires [Node.js](http://nodejs.org/), and optionally [Git](https://git-scm.com/). 
-
-To get started, download and extract the latest release or use Git to clone Okanjo-JS.
- 
- * [Download a release](https://github.com/Okanjo/okanjo-js/releases)
- * Clone via Git (Hint: You should fork Okanjo-JS on Github and push your changes there!)
-  
-> `git clone https://github.com/Okanjo/okanjo-js.git` 
- 
-Once downloaded, open a terminal in the `okanjo-js` directory and install the Node.js dependencies:
-
-> `npm install`
-
-After installing all of the required dependencies, you should be able to run the build process.
-
-> `gulp`
-
-This (builds Okanjo-JS and starts a file watcher. When a file is changed, the components affected will be automatically rebuilt. Use `Control+C` to exit.
-
-Okanjo-JS [Gulp.js, the streaming build system](http://gulpjs.com/) to build and assemble the distribution files. 
-With Gulp, tasks are defined to do a specific set of things against a set of files. Here's a list of available build tasks in `gulpfile.js`.
-  
-Execute like so: `gulp <task_name>`
-
-### Common Tasks
-
-full-build
-:   Builds both `okanjo.js`, `okanjo-templates.js` and the minified versions, from scratch.
-default
-:   Same as running `gulp` without a task. Does a `full-build` and watches for changes to the core and templates.
-
-### Template Tasks
-
-min-mustache-templates
-:   Minifies the markup in the Mustache files and drops the files in `build/templates`.
-min-css-templates
-:   Compiles the Less-CSS template files, minifies and drops the files in `build/templates`.
-join-templates
-:   Inserts the Mustache and CSS files into the `.js` templates that reference them, and drops the resulting template files in `build/templates`.
-templatesjs
-:   Wraps and minifies the `.js` templates in `build/templates` and drops the result into `dist/okanjo-templates.js` and `dist/okanjo-templates.min.js`.
-
-### Core Tasks
-
-deps
-:   Installs Bower dependencies.
-modal
-:   Wraps and builds the modal library to `build/modal.js`.
-vendor
-:   Wraps and builds the external dependencies to `build/vendor.js`.
-lint
-:   Performs code quality assessment and suggests corrections.
-min
-:   Builds the core `okanjo.js` and minifies the result to `okanjo.min.js`. Will push a system notification with file size.
-bundle
-:   Builds the bundle files `okanjo-bundle.js` and minifies the result to `okanjo-bundle.min.js`. Will push a system notification with file size.
-fix-maps
-:   Corrects the source map files to use relative paths.
-watch
-:   Watches for changes to the core files and triggers a rebuild if something applicable changes.
-watch-templates
-:   Watches for changes to the template files and triggers a rebuild if something applicable changes.
-
-### Deployment Tasks
-
-pre-deploy-bump
-:   Increments the Okanjo-JS version in `package.json` and `bower.json`.
-pre-deploy-release
-:   Bumps the release version, does a full build, commits the changes in Git, tags the release, and pushes everything back up to the remote git repository.
-deploy-s3-latest
-:   Pushes the `dist/*` files to the AWS S3 bucket's `/js/latest` directory.
-deploy-s3-latest-gz
-:   Pushes gzipped versions of the `dist/*` files to the AWS S3 bucket's `/js/latest` directory.
-deploy-s3-version
-:   Pushes the `dist/*` files to the respective AWS S3 bucket's `/js/<version>` directory.
-deploy-s3-version-gz
-:   Pushes gzipped versions of the `dist/*` files to the respective AWS S3 bucket's `/js/<version>` directory.
-deploy-s3
-:   Pushes the latest and versioned release, including gzipped files, to AWS S3. 
-
-
-## Deploying
-
-If you already have an Amazon AWS S3 bucket, you can easily push your own builds of Okanjo-JS right to your CDN.
-
-> In order to push to your AWS S3 bucket, you'll need to copy the file `aws-credentials.default.json` to `aws-credentials.json` and set your credentials and bucket name.
-
-1. Make any customizations you would like to Okanjo-JS
-2. Optionally, run `gulp pre-deploy-release` to bump the version number and commit the changes to the Git. If you're not working with Git, you can run `pre-deploy-bump` to just bump the version number.
-3. Run `gulp deploy-s3` to push everything to `/js` on in your CDN.
-
-## Base Widget
-
-All Okanjo widgets inherit from the [base widget](https://github.com/Okanjo/okanjo-js/blob/master/src/widget.js), allowing 
-for core functionality to be reused for current and future widgets. By itself, it contains no content functionality. 
-
-> The base widget is intended only to be extended. You should not create instances of the base widget. 
-
-When making customizations to widgets, understanding the properties and functions of the base widget will be very helpful. 
-If you're feeling ambitious, you can use the base widget to create your own widget.
-
-### Properties
-
-The following are common properties that can be configured on a widget. Widgets can use these properties, but depending on the widget, may not make use of them.
-
-config ((default is `{}`))
-:   The widget configuration object.
-configMap ((default is `{}`))
-:   A key-value object that maps configuration/data-attribute parameters to the the widget `config` object. The key name is the target `config` object key name, and the value is the name of the source parameter key(s), which can either be a string or an array of strings. 
-use_cache ((default is `false`))
-:   Specifies whether the widget should cache content where available.
-cache_key_prefix ((default is `ok_widget_`))
-:   The prefix prepended to a generated cache key.
-cache_ttl ((default is `60000`))
-:   The time to live (in milliseconds) for a cache key to live.
-cacheKeyAttributes ((default is `id`))
-:   The name of the `config` keys that should be used to generate the widget instance's cache key.
-element ((default is `null`))
-:   The DOM element the widget should be appended to.
-templates ((default is `{ error: 'okanjo.error' }`))
-:   The required templates for the widget. The key is the name the widget refers to the template as and the value is the name of the template. 
-css ((default is `{}`))
-:   The required CSS templates for the widget. The key is the name the widget refers to the CSS template as and the value is the name of the CSS template.
-
-### Functions
-
-Widget (element, config)
-:   _Constructor_. Takes the destination DOM element and widget configuration options as parameters.
-init ()
-:   Performs the main widget flow / initialization logic: `ensureTemplates()`, `parseConfiguration()`, `findWidgetKey()`, `load()`, `trackLoad()`, `autoCleanCache()`.
-findWidgetKey () ((returns `true` or `false`))
-:   Attempts to gracefully locate the widget key to use to communicate with the API. Will check the provided configuration parameters or the global `okanjo.key` and will return `true` if a key is located or `false` if not. 
-ensureTemplates ()
-:   Validates that all required CSS and templates have been loaded. If not, an `Error` will be thrown.
-parseConfiguration ()
-:   Applies the widget's `configMap` against the provided `config` and the `element`'s data attributes.
-load ()
-:   Core widget load logic unique to a widget. Assumed to be overridden.
-trackLoad ()
-:   Tracks the widget load in the [metrics helper](https://github.com/Okanjo/okanjo-js/blob/master/src/metrics.js), e.g. Google Analytics.
-autoCleanCache ()
-:   If `use_cache` is enabled, then the `cleanCache` function will be called on a delay to prevent loading holdups.
-getCurrentPageUrl () ((returns a `string`))
-:   Obtains a simplified version of the current page URL. By default, only the URL's protocol, domain, and path are used. __The query and hash are ignored__. 
-getCacheKey () ((returns a `string`))
-:   Generates the cache key (used for caching widget content) using the `cacheKeyAttributes` list to define what configuration parameters affect the cache key.
-cleanCache ()
-:   Purges expired cache keys.
-loadFromCache (cacheKey) ((returns an `object` or `null`))
-:   Loads an object stored in the cache given its cache key. If the key has expired, it will be purged instead of being returned. Returns `null` if not found or if the value could not be parsed. 
-saveInCache (cacheKey, obj)
-:   Saves an object in the cache using the given cache key. Saving items in the cache is done asynchronously to prevent possible holdups.
-
-
 
 <script>
-
-    var exampleProductWidgets = [], exampleAdWidgets = [], callbacks = [];
-
     /**
-     * Load the Okanjo bundle and fire off things that need to happen once that's done
+     * Okanjo Async Loader v3.0.0
      */
     (function(callback) {
-
-        // Create a new Okanjo-JS script tag and fire the callback when completed
-        var es = document.getElementsByTagName('script')[0],
-            o = document.createElement('script'),
-            loaded = false;
-
-        o.type = 'text/javascript';
-        o.async = true;
-        o.setAttribute('crossorigin', "anonymous");
-        o.onload = o.onreadystatechange = function() {
-            if (!loaded && (!this.readyState || this.readyState == 'complete' || this.readyState == 'loaded')) { 
-                loaded = true; 
-                callback && callback(); 
+        var doc = document,
+            head = doc.getElementsByTagName('head')[0],
+            scriptTag = doc.createElement('script'),
+            scriptLoaded = false;
+        scriptTag.type = 'text/javascript';
+        scriptTag.setAttribute('crossorigin', "anonymous");
+        scriptTag.async = true;
+        scriptTag.onload = scriptTag.onreadystatechange = function() {
+            if (!scriptLoaded &&
+                (!this.readyState || this.readyState === 'complete' || this.readyState === 'loaded')) {
+                scriptLoaded = true;
+                callback && callback();
             }
         };
-        
-        o.src = '//cdn.okanjo.com/js/latest/okanjo-bundle.min.js';
-        // o.src = '/okanjo-js/dist/okanjo-bundle.js'; // TESTING
-        es.parentNode.insertBefore(o, es);
-
+        scriptTag.src = 'https://cdn.okanjo.com/js/latest/okanjo-bundle.min.js';
+        head.appendChild(scriptTag);
     }).call(window, function() {
-
-        // Use the okanjo docs demo key
-        okanjo.key = "AKtwhbD7TcYFL0DMQs2TmnzaNtJeVE2IM";
-        
-        // Fire the callbacks!
-        for(var i = 0; i < callbacks.length; i++) {
-            callbacks[i]();
-        }
-
-    });
-    
-    // Product Widget Examples 
-    callbacks.push(function() {
-        // Create a product widget on the elements with given class
-        var targets = okanjo.qwery('.product-widget-dropzone'), i = 0, p = [];
+        window.__okanjoPlacements = window.__okanjoPlacements || []; 
+        var targets = okanjo.qwery('.okanjo-placement:not(.loaded)'), i = 0;
         for ( ; i < targets.length; i++) {
-            exampleProductWidgets.push(new okanjo.Product(targets[i]));
-        }
-        
-        try {
-            $(window).trigger('resize');
-        } catch(e) { }
+            targets[i].className += ' loaded';
+            window.__okanjoPlacements.push(new okanjo.Placement(targets[i]));
+        }   
     });
-        
-    // Ad Widget Examples 
-    callbacks.push(function() {
-        // Create a ad widget on the elements with given class
-        var targets = okanjo.qwery('.ad-widget-dropzone'), i = 0, p = [];
-        for ( ; i < targets.length; i++) {
-            exampleAdWidgets.push(new okanjo.Ad(targets[i]));
-        }
-        
-        try {
-            $(window).trigger('resize');
-        } catch(e) { }
-    });
-    
-    
 </script>
