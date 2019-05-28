@@ -85,6 +85,15 @@ const nav = [
         template: 'doc.njk'
     },
     {
+        name: 'Shortcodes API',
+        href: 'shortcodes',
+        title: 'Okanjo Shortcodes API Documentation',
+        description: 'Link shortening, tracking, and reporting service.',
+        file: 'https://shortcodes.okanjo.com/docs/markdown',
+        github: null,
+        template: 'doc.njk'
+    },
+    {
         name: 'Distillery API',
         href: 'distillery',
         title: 'Okanjo Distillery API Documentation',

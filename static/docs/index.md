@@ -21,6 +21,15 @@ Affiliate product management AI platform.
 
 
 
+## Shortcodes API
+
+Link shortening, tracking, and reporting service.
+
+* [Read the docs](shortcodes)
+
+
+
+
 ## Distillery API
 
 Extracts disambiguated topics and things.
