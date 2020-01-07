@@ -233,6 +233,15 @@ const nav = [
                 github: 'okanjo/okanjo-app-server-docs',
                 template: 'doc.njk'
             },
+            {
+                name: 'TD',
+                href: 'okanjo-app-td',
+                title: 'Okanjo TreasureData Connector',
+                description: 'Execute queries and access TD jobs.',
+                file: 'https://s3.amazonaws.com/okanjo-docs/okanjo-app-td/README.md',
+                github: 'okanjo/okanjo-app-td',
+                template: 'doc.njk'
+            },
         ]
     },
 

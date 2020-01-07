@@ -102,4 +102,13 @@ Generate API route docs.
 
 
 
+## TD
+
+Execute queries and access TD jobs.
+
+* [Read the docs](okanjo-app-td)
+* [View GitHub Project](https://github.com/okanjo/okanjo-app-td)
+
+
+
 
